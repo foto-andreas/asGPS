@@ -4,7 +4,6 @@
 
 # TEMPLATE: set to "lib" for the ASP plugin, set to "app" for a cunit test application
 TEMPLATE = lib
-# LIBS += -lQtGui -lQtCore -lQtNetwork -lQtWebKit
 
 QT += core
 QT += gui
@@ -18,7 +17,7 @@ VERSION = 1.0.0
 DEPENDPATH += .
 INCLUDEPATH += .
 INCLUDEPATH += ../Plugin ../common 
-include( ../common/mac.pri )
+include( mac.pri )
 
 DEFINES += TARGET_VERSION=\'\"$$VERSION\"\'
 
@@ -28,17 +27,6 @@ SOURCES += asGPSplugin.cpp gpsLocation.cpp Tests.cpp WebContents.cpp WebInfos.cp
 RESOURCES += asGPS.qrc
 OTHER_FILES += map.html asGPSmap.html
 FORMS += asGPS.ui
-
-CONFIG(debug,debug|release) {
-	message( debug )
-
-	UI_DIR		=	build/objects/debug/ui
-	MOC_DIR		=	build/objects/debug/moc
-	OBJECTS_DIR	=	build/objects/debug/obj
-	RCC_DIR	    =	build/objects/debug/rcc
-	UI_HEADERS_DIR = build/objects/debug/uih
-	UI_SOURCES_DIR = build/objects/debug/uisrc
-}
 
 CONFIG(release,debug|release) {
 	message( release )
@@ -59,29 +47,4 @@ unix {
    QMAKE_LIBS     += -L/usr/lib32
 }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
