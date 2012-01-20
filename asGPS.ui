@@ -557,6 +557,9 @@
      </property>
      <item>
       <widget class="QPushButton" name="asGPSLIM_button">
+       <property name="toolTip">
+        <string>&lt;html&gt;Locate in Map from this edit field or if it is empty from&lt;br&gt;the values in the IPTC tab. Updates the GPS tab and map.&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>LIM</string>
        </property>
@@ -567,6 +570,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="asGPSFNL_button">
+       <property name="toolTip">
+        <string>&lt;html&gt;Find nearest Location from the position values in the GPS tab. This updates the IPTC tab.&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>FNL</string>
        </property>

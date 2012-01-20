@@ -1,1 +1,9 @@
-zip -r  asGPS.afplugin
+#!/bin/bash
+rm -rf asGPS.afplugin &&
+  mkdir -p asGPS.afplugin/lib asGPS.afplugin/ui &&
+    cp asGPS.afpxml asGPS.afplugin/Info.afpxml &&
+    cp libasGPS.so asGPS.afplugin/lib &&
+    cp libasGPS.dylib asGPS.afplugin/lib &&
+    cp asGPS.dll asGPS.afplugin/lib/asGPS.dll &&
+    cp asGPS.ui asGPS.afplugin/ui &&
+      zip -r asGPS.afzplug asGPS.afplugin

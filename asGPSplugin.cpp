@@ -94,7 +94,7 @@ void asGPSplugin::webInfosReady() {
                                "It is version %2. You are running %3. "
                                "You can download it under the following url: <a href='%4'>%4</a>")
                         .arg(m_webInfos->name(), m_webInfos->version(), TARGET_VERSION, m_webInfos->link());
-        QMessageBox::information(0, m_webInfos->name(), text);
+        QMessageBox::information(NULL, m_webInfos->name(), text);
     }
 }
 
@@ -415,4 +415,9 @@ void asGPSplugin::handleCheckedChange(bool enabled) {
     } else {
         m_view->hide();
     }
+}
+
+void asGPSplugin::alert(QString text) {
+    qDebug() << "asGPS: alert: " + text;
+    QMessageBox::information(NULL,"asGPS - Information", text);
 }

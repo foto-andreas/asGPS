@@ -71,6 +71,7 @@ private slots:
 
 public slots:
 
+    void alert(QString text);
     void marker_click();
     void marker_moved(double lat, double lng);
     void set_country(QString short_name, QString long_name);

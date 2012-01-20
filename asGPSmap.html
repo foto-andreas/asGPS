@@ -97,7 +97,6 @@ src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></scrip
       if (status == google.maps.GeocoderStatus.OK) {
         var erg = results[0].formatted_address;
         api.set_location(erg);
-        alert(erg);
         results[0].address_components.foreach( function(k, v) {
             if (v.types == "country,political") {
                 api.set_country(v.short_name, v.long_name);
@@ -110,9 +109,8 @@ src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></scrip
             }
             erg += "\n" + v.types + v.short_name + "/" + v.long_name;
         });
-//        alert(erg);
       } else {
-        alert("Geocode was not successful for the following reason: " + status);
+        api.alert("Geocode was not successful for the following reason: " + status);
       }
     });
   }
@@ -125,7 +123,7 @@ src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></scrip
             centerAndMark(loc.lat(), loc.lng());
         }
       } else {
-        alert("Geocode was not successful for the following reason: " + status);
+        api.alert("Geocode was not successful for the following reason: " + status);
       }
     });
   }
