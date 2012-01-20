@@ -129,6 +129,8 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_view->adjustSize();
     m_edit = uiWidget->findChild<QLineEdit*>("asGPSText_edit");
     m_reset = uiWidget->findChild<QAbstractButton*>("asGPSReset_button");
+    m_tag = uiWidget->findChild<QAbstractButton*>("asGPSTag_button");
+
     m_lat = uiWidget->findChild<QLineEdit*>("latLineEdit");
     m_lon = uiWidget->findChild<QLineEdit*>("lonLineEdit");
     m_alt = uiWidget->findChild<QLineEdit*>("altLineEdit");
@@ -155,6 +157,18 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_locationCB = uiWidget->findChild<QCheckBox*>("locationCB");
     m_lim = uiWidget->findChild<QAbstractButton*>("asGPSLIM_button");
     m_fnl = uiWidget->findChild<QAbstractButton*>("asGPSFNL_button");
+    m_l_lat = uiWidget->findChild<QLabel*>("labLat");
+    m_l_lon = uiWidget->findChild<QLabel*>("labLng");
+    m_l_alt = uiWidget->findChild<QLabel*>("labAlt");
+    m_l_date = uiWidget->findChild<QLabel*>("labDate");
+    m_l_time = uiWidget->findChild<QLabel*>("labTime");
+    m_l_stats = uiWidget->findChild<QLabel*>("labStat");
+    m_l_sats = uiWidget->findChild<QLabel*>("labSat");
+    m_l_countryCode = uiWidget->findChild<QLabel*>("labCountryCode");
+    m_l_country = uiWidget->findChild<QLabel*>("labCountry");
+    m_l_state = uiWidget->findChild<QLabel*>("labState");
+    m_l_city = uiWidget->findChild<QLabel*>("labCity");
+    m_l_location = uiWidget->findChild<QLabel*>("labLoc");
 
     m_coordsCB = uiWidget->findChild<QCheckBox*>("coordsCB");
     m_iptcCB = uiWidget->findChild<QCheckBox*>("iptcCB");
@@ -162,6 +176,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect(m_reset, SIGNAL( clicked() ), SLOT ( reset() ));
     connect(m_lim, SIGNAL( clicked() ), SLOT ( geocode() ));
     connect(m_fnl, SIGNAL( clicked() ), SLOT ( reversegeocode() ));
+    connect(m_tag, SIGNAL ( clicked() ), SLOT ( tagImage() ));
 
     connect(m_enable, SIGNAL( toggled(bool) ), SLOT (handleCheckedChange(bool) ));
 
@@ -233,13 +248,23 @@ void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  co
 
 }
 
-void asGPSplugin::setStringField(PluginOptionList *options, QLineEdit *field, QCheckBox *cb, int optionID) {
-    if ((cb == NULL) || (cb->checkState() == Qt::Checked) || ((cb->checkState() == Qt::PartiallyChecked) && (field->text() == ""))) {
-        bool ok;
-        QString s(options->getString(optionID,0,ok));
-//    qDebug() << "asGPS: opt=" << optionID << " bool=" << ok;
-        if (ok) field->setText(s);
+void asGPSplugin::setStringField(PluginOptionList *options, QLineEdit *field, int optionID) {
+    bool ok;
+    QString s(options->getString(optionID,0,ok));
+    if (ok) field->setText(s);
+}
+
+void asGPSplugin::tag(PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, int optionID) {
+    if ((cb == NULL) || (cb->checkState() == Qt::Checked) || ((cb->checkState() == Qt::PartiallyChecked) && (lab->text() == ""))) {
+        options->setString(optionID, 0, field->text());
     }
+}
+
+void asGPSplugin::setStringField(PluginOptionList *options, QLabel *field, int optionID) {
+    bool ok;
+    QString s(options->getString(optionID,0,ok));
+    if (ok)
+        field->setText(s);
 }
 
 void asGPSplugin::resetIPTC() {
@@ -289,21 +314,58 @@ void asGPSplugin::handleCoordsCB(int) {
 }
 
 void asGPSplugin::updateUi(PluginOptionList *options) {
-      setStringField(options, m_lat, m_latCB, ID_GPSLatitude);
-      setStringField(options, m_lon, m_lonCB, ID_GPSLongitude);
-      setStringField(options, m_alt, m_altCB, ID_GPSAltitude);
-      setStringField(options, m_date, m_dateCB, ID_GPSDateStamp);
-      setStringField(options, m_time, m_timeCB, ID_GPSTimeStamp);
-      setStringField(options, m_stats, m_statsCB, ID_GPSStatus);
-      setStringField(options, m_sats, m_satsCB, ID_GPSSatellites);
-      setStringField(options, m_countryCode, m_countryCodeCB, ID_CountryCode);
-      setStringField(options, m_country, m_countryCB, ID_Country);
-      setStringField(options, m_state, m_stateCB, ID_State);
-      setStringField(options, m_city, m_cityCB, ID_City);
-      setStringField(options, m_location, m_locationCB, ID_Location);
-      setStringField(options, m_edit, NULL, ID_Location);
+      setStringField(options, m_lat, ID_GPSLatitude);
+      setStringField(options, m_lon, ID_GPSLongitude);
+      setStringField(options, m_alt, ID_GPSAltitude);
+      setStringField(options, m_date, ID_GPSDateStamp);
+      setStringField(options, m_time, ID_GPSTimeStamp);
+      setStringField(options, m_stats, ID_GPSStatus);
+      setStringField(options, m_sats, ID_GPSSatellites);
+      setStringField(options, m_countryCode, ID_CountryCode);
+      setStringField(options, m_country, ID_Country);
+      setStringField(options, m_state, ID_State);
+      setStringField(options, m_city, ID_City);
+      setStringField(options, m_location, ID_Location);
+      setStringField(options, m_edit, ID_Location);
+      setStringField(options, m_l_lat, ID_GPSLatitude);
+      setStringField(options, m_l_lon, ID_GPSLongitude);
+      setStringField(options, m_l_alt, ID_GPSAltitude);
+      setStringField(options, m_l_date, ID_GPSDateStamp);
+      setStringField(options, m_l_time, ID_GPSTimeStamp);
+      setStringField(options, m_l_stats, ID_GPSStatus);
+      setStringField(options, m_l_sats, ID_GPSSatellites);
+      setStringField(options, m_l_countryCode, ID_CountryCode);
+      setStringField(options, m_l_country, ID_Country);
+      setStringField(options, m_l_state, ID_State);
+      setStringField(options, m_l_city, ID_City);
+      setStringField(options, m_l_location, ID_Location);
       updateMap();
-  }
+}
+
+void asGPSplugin::tagImage() {
+    qDebug() << "asGPS: tag Image GPS";
+    PluginOptionList* options = m_pHub->beginSettingsChange("GPS");
+    if (options) {
+        tag(options, m_lat, m_latCB, m_l_lat, ID_GPSLatitude);
+        tag(options, m_lon, m_lonCB, m_l_lon, ID_GPSLongitude);
+        tag(options, m_alt, m_altCB, m_l_alt, ID_GPSAltitude);
+        tag(options, m_date, m_dateCB, m_l_date, ID_GPSDateStamp);
+        tag(options, m_time, m_timeCB, m_l_time, ID_GPSTimeStamp);
+        tag(options, m_stats, m_statsCB, m_l_stats, ID_GPSStatus);
+        tag(options, m_sats, m_satsCB, m_l_sats, ID_GPSSatellites);
+    }
+    m_pHub->endSettingChange();
+    qDebug() << "asGPS: tag Image IPTC";
+    options = m_pHub->beginSettingsChange("IPTC");
+        if (options) {
+        tag(options, m_countryCode, m_countryCodeCB, m_l_countryCode, ID_CountryCode);
+        tag(options, m_country, m_countryCB, m_l_country, ID_Country);
+        tag(options, m_state, m_stateCB, m_l_state, ID_State);
+        tag(options, m_city, m_cityCB, m_l_city, ID_City);
+        tag(options, m_location, m_locationCB, m_l_location, ID_Location);
+    }
+    m_pHub->endSettingChange();
+}
 
 void asGPSplugin::updateMap() {
       if (m_enable->isChecked()) {

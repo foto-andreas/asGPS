@@ -6,6 +6,7 @@
 #include <QAbstractButton>
 #include <QWebView>
 #include <QCheckBox>
+#include <QLabel>
 
 #include "B5Plugin.h"
 #include "PluginRevisions.h"
@@ -64,6 +65,7 @@ private slots:
     void resetGPS();
     void resetIPTC();
     void reset();
+    void tagImage();
     void geocode();
     void reversegeocode();
     void setOptionIDs();
@@ -85,7 +87,9 @@ private:
 
     void updateUi( PluginOptionList *options );
     void updateMap();
-    void setStringField( PluginOptionList *options, QLineEdit *field, QCheckBox * cb, int optionID);
+    void setStringField( PluginOptionList *options, QLineEdit *field, int optionID);
+    void setStringField( PluginOptionList *options, QLabel *field, int optionID);
+    void tag( PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, int optionID);
 
 private:
 
@@ -144,6 +148,19 @@ private:
     QCheckBox   *m_stateCB;
     QCheckBox   *m_cityCB;
     QCheckBox   *m_locationCB;
+
+    QLabel   *m_l_lat;
+    QLabel   *m_l_lon;
+    QLabel   *m_l_alt;
+    QLabel   *m_l_date;
+    QLabel   *m_l_time;
+    QLabel   *m_l_stats;
+    QLabel   *m_l_sats;
+    QLabel   *m_l_countryCode;
+    QLabel   *m_l_country;
+    QLabel   *m_l_state;
+    QLabel   *m_l_city;
+    QLabel   *m_l_location;
 
     WebInfos* m_webInfos;
 
