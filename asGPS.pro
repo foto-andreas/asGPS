@@ -16,8 +16,8 @@ VERSION = 1.0.0
 
 DEPENDPATH += .
 INCLUDEPATH += .
-INCLUDEPATH += ../Plugin ../common 
-include( mac.pri )
+INCLUDEPATH += ../Plugin
+include( ../common/mac.pri )
 
 DEFINES += TARGET_VERSION=\'\"$$VERSION\"\'
 
