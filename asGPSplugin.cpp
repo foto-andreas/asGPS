@@ -6,6 +6,8 @@
 #include "PluginOptionList.h"
 #include "PluginData.h"
 
+#include "PaypalButton.h"
+
 #include <QCoreApplication>
 #include <QDebug>
 #include <QObject>
@@ -131,6 +133,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_edit = uiWidget->findChild<QLineEdit*>("asGPSText_edit");
     m_reset = uiWidget->findChild<QAbstractButton*>("asGPSReset_button");
     m_tag = uiWidget->findChild<QAbstractButton*>("asGPSTag_button");
+    m_info = uiWidget->findChild<QAbstractButton*>("asGPSAbout_button");
 
     m_lat = uiWidget->findChild<QLineEdit*>("latLineEdit");
     m_lon = uiWidget->findChild<QLineEdit*>("lonLineEdit");
@@ -178,8 +181,8 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect(m_lim, SIGNAL( clicked() ), SLOT ( geocode() ));
     connect(m_fnl, SIGNAL( clicked() ), SLOT ( reversegeocode() ));
     connect(m_tag, SIGNAL ( clicked() ), SLOT ( tagImage() ));
-
     connect(m_enable, SIGNAL( toggled(bool) ), SLOT (handleCheckedChange(bool) ));
+    connect(m_info, SIGNAL(clicked()), SLOT(displayHelp() ));
 
     connect(m_coordsCB, SIGNAL( stateChanged(int) ), SLOT( handleCoordsCB(int) ));
     connect(m_iptcCB, SIGNAL( stateChanged(int) ), SLOT( handleIptcCB(int) ));
@@ -494,4 +497,8 @@ void asGPSplugin::openExternalBrowser(QUrl url) {
     wv->show();
 // open in external application
 //    QDesktopServices::openUrl(url);
+}
+
+void asGPSplugin::displayHelp() {
+    QDesktopServices::openUrl(QUrl("qrc:///html/asGPSinfo_DE.html"));
 }

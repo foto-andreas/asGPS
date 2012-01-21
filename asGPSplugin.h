@@ -84,6 +84,8 @@ public slots:
 
     void webInfosReady();
 
+    void displayHelp();
+
 private:
 
     void updateUi( PluginOptionList *options );

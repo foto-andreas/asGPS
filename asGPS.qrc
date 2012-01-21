@@ -1,6 +1,11 @@
 <RCC>
     <qresource prefix="/html">
         <file>asGPSmap.html</file>
+        <file>asGPSinfo_DE.html</file>
     </qresource>
     <qresource prefix="/img"/>
+    <qresource prefix="/text">
+        <file>LICENSE.txt</file>
+        <file>README.txt</file>
+    </qresource>
 </RCC>
