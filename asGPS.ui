@@ -31,6 +31,9 @@
   <property name="windowTitle">
    <string>asGPS</string>
   </property>
+  <property name="locale">
+   <locale language="English" country="UnitedStates"/>
+  </property>
   <property name="BIBBLE_PLUGIN_NAME" stdset="0">
    <string>asGPS</string>
   </property>
@@ -56,6 +59,9 @@
          <width>0</width>
          <height>20</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;Check here to enable the Google Map view.&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>Enable Map View</string>
@@ -95,6 +101,9 @@
          <height>20</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;Tag the image according the values in the edit fields of the GPS and IPTC tab. Red checked fields are never written. Yellow fields are written if the original value is empty. Green checked fields are written always.&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Tag Image</string>
        </property>
@@ -120,6 +129,9 @@
          <height>20</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;Clear all edit fields.&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Reset</string>
        </property>
@@ -139,6 +151,9 @@
          <height>20</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;Click to see further informations on this plugin and license infos&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string> ? </string>
        </property>
@@ -154,8 +169,39 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;Tabs to display the Google Map, GPS coordinates and IPTC tags.&lt;/html&gt;</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"> QCheckBox {
+     spacing: 5px;
+ }
+
+ QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }
+
+ QCheckBox::indicator:unchecked {
+     image: &quot;&quot;;
+     background-color: rgb(255, 0, 0);
+ }
+
+
+ QCheckBox::indicator:checked {
+     image: &quot;&quot;;
+     background-color: rgb(0, 255, 0);
+ }
+
+ QCheckBox::indicator:indeterminate {
+     image: &quot;&quot;;
+	 background-color: rgb(255, 255, 0);
+ }
+
+</string>
+     </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="asGPSMapTab">
       <property name="sizePolicy">
@@ -240,7 +286,11 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="latLineEdit"/>
+        <widget class="QLineEdit" name="latLineEdit">
+         <property name="toolTip">
+          <string>&lt;html&gt;Enter a latitude value in the form ddd,mm.mmmmmX. With d for degrees mm.mmmmm as minutes in decimal and X standing for N or S.&lt;/html&gt;</string>
+         </property>
+        </widget>
        </item>
        <item row="3" column="0">
         <widget class="QLabel" name="lonLabel">
@@ -257,7 +307,11 @@
         </widget>
        </item>
        <item row="5" column="1">
-        <widget class="QLineEdit" name="altLineEdit"/>
+        <widget class="QLineEdit" name="altLineEdit">
+         <property name="toolTip">
+          <string>&lt;html&gt;Altitude value in the form NNNNN/DD, e.g. 123/10 for 12.3m&lt;/html&gt;</string>
+         </property>
+        </widget>
        </item>
        <item row="7" column="0">
         <widget class="QLabel" name="dateLabel">
@@ -287,7 +341,11 @@
         </widget>
        </item>
        <item row="11" column="1">
-        <widget class="QLineEdit" name="statsLineEdit"/>
+        <widget class="QLineEdit" name="statsLineEdit">
+         <property name="toolTip">
+          <string>&lt;html&gt;GPS status of the tool. Normal value is 'A' for valid GPS data.&lt;/html&gt;</string>
+         </property>
+        </widget>
        </item>
        <item row="13" column="0">
         <widget class="QLabel" name="satellitesLabel">
@@ -297,7 +355,11 @@
         </widget>
        </item>
        <item row="13" column="1">
-        <widget class="QLineEdit" name="satellitesLineEdit"/>
+        <widget class="QLineEdit" name="satellitesLineEdit">
+         <property name="toolTip">
+          <string>&lt;html&gt;Number of satellites used in the GPS unit.&lt;/html&gt;</string>
+         </property>
+        </widget>
        </item>
        <item row="15" column="1">
         <spacer name="verticalSpacer_2">
@@ -314,6 +376,9 @@
        </item>
        <item row="1" column="2">
         <widget class="QCheckBox" name="latCB">
+         <property name="toolTip">
+          <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -324,6 +389,9 @@
        </item>
        <item row="3" column="2">
         <widget class="QCheckBox" name="lonCB">
+         <property name="toolTip">
+          <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -334,6 +402,9 @@
        </item>
        <item row="5" column="2">
         <widget class="QCheckBox" name="altCB">
+         <property name="toolTip">
+          <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -344,6 +415,9 @@
        </item>
        <item row="7" column="2">
         <widget class="QCheckBox" name="dateCB">
+         <property name="toolTip">
+          <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -354,6 +428,9 @@
        </item>
        <item row="9" column="2">
         <widget class="QCheckBox" name="timeCB">
+         <property name="toolTip">
+          <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -364,6 +441,9 @@
        </item>
        <item row="11" column="2">
         <widget class="QCheckBox" name="statusCB">
+         <property name="toolTip">
+          <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -374,6 +454,12 @@
        </item>
        <item row="13" column="2">
         <widget class="QCheckBox" name="satCB">
+         <property name="toolTip">
+          <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -383,10 +469,17 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QLineEdit" name="lonLineEdit"/>
+        <widget class="QLineEdit" name="lonLineEdit">
+         <property name="toolTip">
+          <string>&lt;html&gt;Enter a longitude value in the form ddd,mm.mmmmmX. With d for degrees mm.mmmmm as minutes in decimal and X standing for E or W.&lt;/html&gt;</string>
+         </property>
+        </widget>
        </item>
        <item row="0" column="2">
         <widget class="QCheckBox" name="coordsCB">
+         <property name="toolTip">
+          <string>&lt;html&gt;Checker for all subsequent check boxes.&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -402,6 +495,9 @@
            <pointsize>7</pointsize>
           </font>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;current EXIF data value&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -409,7 +505,7 @@
           <number>0</number>
          </property>
          <property name="indent">
-          <number>4</number>
+          <number>2</number>
          </property>
         </widget>
        </item>
@@ -420,6 +516,9 @@
            <pointsize>7</pointsize>
           </font>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;current EXIF data value&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -427,7 +526,7 @@
           <number>0</number>
          </property>
          <property name="indent">
-          <number>4</number>
+          <number>2</number>
          </property>
         </widget>
        </item>
@@ -438,6 +537,9 @@
            <pointsize>7</pointsize>
           </font>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;current EXIF data value&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -445,7 +547,7 @@
           <number>0</number>
          </property>
          <property name="indent">
-          <number>4</number>
+          <number>2</number>
          </property>
         </widget>
        </item>
@@ -456,6 +558,9 @@
            <pointsize>7</pointsize>
           </font>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;current EXIF data value&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -463,7 +568,7 @@
           <number>0</number>
          </property>
          <property name="indent">
-          <number>4</number>
+          <number>2</number>
          </property>
         </widget>
        </item>
@@ -474,6 +579,9 @@
            <pointsize>7</pointsize>
           </font>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;current EXIF data value&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -481,7 +589,7 @@
           <number>0</number>
          </property>
          <property name="indent">
-          <number>4</number>
+          <number>2</number>
          </property>
         </widget>
        </item>
@@ -492,6 +600,9 @@
            <pointsize>7</pointsize>
           </font>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;current EXIF data value&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -499,7 +610,7 @@
           <number>0</number>
          </property>
          <property name="indent">
-          <number>4</number>
+          <number>2</number>
          </property>
         </widget>
        </item>
@@ -510,6 +621,9 @@
            <pointsize>7</pointsize>
           </font>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;current EXIF data value&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -517,6 +631,19 @@
           <number>0</number>
          </property>
          <property name="indent">
+          <number>2</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>switch all</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="margin">
           <number>4</number>
          </property>
         </widget>
@@ -604,6 +731,9 @@
        </item>
        <item row="2" column="2">
         <widget class="QCheckBox" name="countryCodeCB">
+         <property name="toolTip">
+          <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -614,6 +744,9 @@
        </item>
        <item row="4" column="2">
         <widget class="QCheckBox" name="countryCB">
+         <property name="toolTip">
+          <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -624,6 +757,9 @@
        </item>
        <item row="6" column="2">
         <widget class="QCheckBox" name="stateCB">
+         <property name="toolTip">
+          <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -634,6 +770,9 @@
        </item>
        <item row="8" column="2">
         <widget class="QCheckBox" name="cityCB">
+         <property name="toolTip">
+          <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -654,6 +793,9 @@
        </item>
        <item row="10" column="2">
         <widget class="QCheckBox" name="locationCB">
+         <property name="toolTip">
+          <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -664,6 +806,12 @@
        </item>
        <item row="1" column="2">
         <widget class="QCheckBox" name="iptcCB">
+         <property name="toolTip">
+          <string>&lt;html&gt;Checker for all subsequent check boxes.&lt;/html&gt;</string>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -679,11 +827,14 @@
            <pointsize>7</pointsize>
           </font>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;current IPTC data value&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
          <property name="indent">
-          <number>4</number>
+          <number>2</number>
          </property>
         </widget>
        </item>
@@ -694,11 +845,14 @@
            <pointsize>7</pointsize>
           </font>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;current IPTC data value&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
          <property name="indent">
-          <number>4</number>
+          <number>2</number>
          </property>
         </widget>
        </item>
@@ -709,11 +863,14 @@
            <pointsize>7</pointsize>
           </font>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;current IPTC data value&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
          <property name="indent">
-          <number>4</number>
+          <number>2</number>
          </property>
         </widget>
        </item>
@@ -724,11 +881,14 @@
            <pointsize>7</pointsize>
           </font>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;current IPTC data value&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
          <property name="indent">
-          <number>4</number>
+          <number>2</number>
          </property>
         </widget>
        </item>
@@ -739,10 +899,29 @@
            <pointsize>7</pointsize>
           </font>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;current IPTC data value&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
          <property name="indent">
+          <number>2</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="label_2">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>switch all</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="margin">
           <number>4</number>
          </property>
         </widget>
@@ -767,7 +946,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="asGPSText_edit"/>
+      <widget class="QLineEdit" name="asGPSText_edit">
+       <property name="toolTip">
+        <string>&lt;html&gt;Insert search String for Google Maps here. If this field is empty, it will be composed from IPTC tags when you press LIM&lt;/html&gt;</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="asGPSFNL_button">
