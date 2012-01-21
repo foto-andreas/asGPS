@@ -20,6 +20,7 @@
 #include <QUrl>
 #include <QMessageBox>
 #include <QRegExp>
+#include <QDesktopServices>
 
 
 #include "gpsLocation.h"
@@ -183,6 +184,8 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect(m_coordsCB, SIGNAL( stateChanged(int) ), SLOT( handleCoordsCB(int) ));
     connect(m_iptcCB, SIGNAL( stateChanged(int) ), SLOT( handleIptcCB(int) ));
 
+    m_view->hide();
+
     connect( m_view,
                   SIGNAL( loadFinished ( bool ) ),
              this,
@@ -194,8 +197,13 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
                   SLOT( handleLoadStarted () ));
 
     m_view->setPage(new MyWebPage());
-    m_view->hide();
     m_view->setUrl(QUrl("qrc:///html/asGPSmap.html"));
+    m_view->page()->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
+    connect( m_view->page(),
+             SIGNAL( linkClicked(QUrl) ),
+                this,
+             SLOT( openExternalBrowser(QUrl) ));
+
 
     m_iptcCB->setCheckState(Qt::PartiallyChecked);
     m_coordsCB->setCheckState(Qt::PartiallyChecked);
@@ -209,6 +217,8 @@ void asGPSplugin::populateJavaScriptWindowObject() {
 
 void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 {
+    Q_UNUSED(options);
+
     qDebug() << "asGPSplugin::handleHotnessChanged";
 
     //  reset the controls
@@ -354,6 +364,9 @@ void asGPSplugin::tagImage() {
 void asGPSplugin::updateMap() {
       if (m_enable->isChecked()) {
           qDebug() << "asGPS: updateMap with map checked";
+
+          if (m_view->layout() != NULL) m_view->layout()->activate();
+
           gpsLocation gpsl(m_lat->text(), m_lon->text());
 
           m_view->page()->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
@@ -455,7 +468,9 @@ void asGPSplugin::handleCheckedChange(bool enabled) {
     qDebug() << "asGPS: enabled change enabled =" << enabled;
     if (enabled) {
         m_view->show();
-        if (m_view->layout() != NULL) m_view->layout()->activate();
+        updateMap();
+        m_view->hide();
+        m_view->show();
         updateMap();
     } else {
         m_view->hide();
@@ -465,4 +480,18 @@ void asGPSplugin::handleCheckedChange(bool enabled) {
 void asGPSplugin::alert(QString text) {
     qDebug() << "asGPS: alert: " + text;
     QMessageBox::information(NULL,"asGPS - Information", text);
+}
+
+void asGPSplugin::openExternalBrowser(QUrl url) {
+// open inside new Window
+    qDebug() << "asGPS: openExternalBrowser" << url;
+    QWebView *wv = new QWebView();
+    QWebSettings::setIconDatabasePath ("/tmp");
+    wv->setPage(new MyWebPage());
+    wv->setUrl(url);
+    wv->setWindowTitle("AfterShot Pro - asGPS browser window");
+    wv->setWindowIcon(wv->icon());
+    wv->show();
+// open in external application
+//    QDesktopServices::openUrl(url);
 }
