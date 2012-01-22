@@ -345,6 +345,7 @@ void asGPSplugin::updateUi(PluginOptionList *options) {
 void asGPSplugin::tagImage() {
     qDebug() << "asGPS: tag Image GPS & IPTC";
     PluginOptionList* options = m_pHub->beginSettingsChange("GPS & IPTC");
+    qDebug() << options;
     if (options) {
         tag(options, m_lat, m_latCB, m_l_lat, ID_GPSLatitude);
         tag(options, m_lon, m_lonCB, m_l_lon, ID_GPSLongitude);
@@ -358,8 +359,8 @@ void asGPSplugin::tagImage() {
         tag(options, m_state, m_stateCB, m_l_state, ID_State);
         tag(options, m_city, m_cityCB, m_l_city, ID_City);
         tag(options, m_location, m_locationCB, m_l_location, ID_Location);
+        m_pHub->endSettingChange();
     }
-    m_pHub->endSettingChange();
 }
 
 void asGPSplugin::updateMap() {
