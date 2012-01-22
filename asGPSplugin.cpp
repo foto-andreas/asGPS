@@ -6,8 +6,6 @@
 #include "PluginOptionList.h"
 #include "PluginData.h"
 
-#include "PaypalButton.h"
-
 #include <QCoreApplication>
 #include <QDebug>
 #include <QObject>
@@ -182,6 +180,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect(m_fnl, SIGNAL( clicked() ), SLOT ( reversegeocode() ));
     connect(m_tag, SIGNAL ( clicked() ), SLOT ( tagImage() ));
     connect(m_enable, SIGNAL( toggled(bool) ), SLOT (handleCheckedChange(bool) ));
+
     connect(m_info, SIGNAL(clicked()), SLOT(displayHelp() ));
 
     connect(m_coordsCB, SIGNAL( stateChanged(int) ), SLOT( handleCoordsCB(int) ));
@@ -205,8 +204,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect( m_view->page(),
              SIGNAL( linkClicked(QUrl) ),
                 this,
-             SLOT( openExternalBrowser(QUrl) ));
-
+             SLOT( openInternalBrowser(QUrl) ));
 
     m_iptcCB->setCheckState(Qt::PartiallyChecked);
     m_coordsCB->setCheckState(Qt::PartiallyChecked);
@@ -485,9 +483,9 @@ void asGPSplugin::alert(QString text) {
     QMessageBox::information(NULL,"asGPS - Information", text);
 }
 
-void asGPSplugin::openExternalBrowser(QUrl url) {
+void asGPSplugin::openInternalBrowser(QUrl url) {
 // open inside new Window
-    qDebug() << "asGPS: openExternalBrowser" << url;
+    qDebug() << "asGPS: openInternalBrowser" << url;
     QWebView *wv = new QWebView();
     QWebSettings::setIconDatabasePath ("/tmp");
     wv->setPage(new MyWebPage());
@@ -495,10 +493,25 @@ void asGPSplugin::openExternalBrowser(QUrl url) {
     wv->setWindowTitle("AfterShot Pro - asGPS browser window");
     wv->setWindowIcon(wv->icon());
     wv->show();
-// open in external application
-//    QDesktopServices::openUrl(url);
+}
+
+void asGPSplugin::openExternalBrowser(QUrl url) {
+// open inside new Window
+    qDebug() << "asGPS: openExternalBrowser" << url;
+    QDesktopServices::openUrl(url);
 }
 
 void asGPSplugin::displayHelp() {
-    QDesktopServices::openUrl(QUrl("qrc:///html/asGPSinfo_DE.html"));
+    QWebView *view = new QWebView;
+    view->setPage(new MyWebPage());
+    view->setUrl(QUrl("qrc:///html/asGPSinfo_EN.html"));
+    view->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
+    connect( view->page(),
+             SIGNAL( linkClicked(QUrl) ),
+                this,
+             SLOT( openExternalBrowser(QUrl) ));
+    QWebSettings::setIconDatabasePath ("/tmp");
+    view->setWindowTitle("AfterShot Pro - asGPS browser window");
+    view->setWindowIcon(view->icon());
+    view->show();
 }

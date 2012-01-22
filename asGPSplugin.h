@@ -74,6 +74,7 @@ private slots:
 public slots:
 
     void openExternalBrowser(QUrl url);
+    void openInternalBrowser(QUrl url);
     void alert(QString text);
     void marker_click();
     void marker_moved(double lat, double lng);

@@ -1,0 +1,24 @@
+h1,h2,h3,h4,p,ul,ol,li,div,td,th,address,blockquote,nobr,b,i,body {
+    font-family:gill-sans,arial,helvetica,sans-serif;
+}
+
+a {
+    color:#C0C0FF;
+}
+
+body {
+    background:#303030;
+    color:#A0A0A0;
+}
+
+h1 {
+    text-align:center;
+}
+
+#RT {
+    text-align:right;
+}
+
+hr {
+    color:#101010;
+}

@@ -22,13 +22,17 @@ include( ../common/mac.pri )
 DEFINES += TARGET_VERSION=\'\"$$VERSION\"\'
 
 # Input
-HEADERS += asGPSplugin.h gpsLocation.h Tests.h  WebContents.h WebInfos.h \
-    PaypalButton.h
-SOURCES += asGPSplugin.cpp gpsLocation.cpp Tests.cpp WebContents.cpp WebInfos.cpp \
-    PaypalButton.cpp
+HEADERS += asGPSplugin.h gpsLocation.h Tests.h  WebContents.h WebInfos.h
+
+SOURCES += asGPSplugin.cpp gpsLocation.cpp Tests.cpp WebContents.cpp WebInfos.cpp
+
 RESOURCES += asGPS.qrc
-OTHER_FILES += map.html asGPSmap.html \
-    asGPSinfo_DE.html
+
+OTHER_FILES += asGPSmap.html \
+    asGPSinfo_DE.html \
+    asGPSinfo_EN.html \
+    style.css
+
 FORMS += asGPS.ui
 
 CONFIG(release,debug|release) {
@@ -50,6 +54,14 @@ unix {
    QMAKE_LIBS     += -L/usr/lib32
 }
 }
+
+
+
+
+
+
+
+
 
 
 
