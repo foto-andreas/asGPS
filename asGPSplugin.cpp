@@ -423,7 +423,7 @@ void asGPSplugin::setOptionIDs() {
 void asGPSplugin::marker_click()
 {
     qDebug() << "asGPS: marker clicked";
-};
+}
 
 void asGPSplugin::marker_moved(double lat, double lng)
 {
@@ -433,7 +433,7 @@ void asGPSplugin::marker_moved(double lat, double lng)
     m_lat->setText(qsl.at(0));
     m_lon->setText(qsl.at(1));
     m_stats->setText("A");
-};
+}
 
 void asGPSplugin::set_country(QString short_name, QString long_name) {
     qDebug() << "asGPS: set_country" << long_name << short_name;
@@ -484,19 +484,16 @@ void asGPSplugin::alert(QString text) {
 }
 
 void asGPSplugin::openInternalBrowser(QUrl url) {
-// open inside new Window
     qDebug() << "asGPS: openInternalBrowser" << url;
-    QWebView *wv = new QWebView();
-    QWebSettings::setIconDatabasePath ("/tmp");
-    wv->setPage(new MyWebPage());
-    wv->setUrl(url);
-    wv->setWindowTitle("AfterShot Pro - asGPS browser window");
-    wv->setWindowIcon(wv->icon());
-    wv->show();
+    QWebView *view = new QWebView();
+    view->setPage(new MyWebPage());
+    view->setUrl(url);
+    view->setWindowTitle("AfterShot Pro - asGPS browser window");
+    view->setWindowIcon(view->icon());
+    view->show();
 }
 
 void asGPSplugin::openExternalBrowser(QUrl url) {
-// open inside new Window
     qDebug() << "asGPS: openExternalBrowser" << url;
     QDesktopServices::openUrl(url);
 }
@@ -510,7 +507,6 @@ void asGPSplugin::displayHelp() {
              SIGNAL( linkClicked(QUrl) ),
                 this,
              SLOT( openExternalBrowser(QUrl) ));
-    QWebSettings::setIconDatabasePath ("/tmp");
     view->setWindowTitle("AfterShot Pro - asGPS browser window");
     view->setWindowIcon(view->icon());
     view->show();

@@ -207,7 +207,7 @@
 </string>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="asGPSMapTab">
       <property name="sizePolicy">
@@ -505,7 +505,7 @@
           <string>&lt;html&gt;current EXIF data value&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="margin">
           <number>0</number>
@@ -526,7 +526,7 @@
           <string>&lt;html&gt;current EXIF data value&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="margin">
           <number>0</number>
@@ -547,7 +547,7 @@
           <string>&lt;html&gt;current EXIF data value&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="margin">
           <number>0</number>
@@ -568,7 +568,7 @@
           <string>&lt;html&gt;current EXIF data value&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="margin">
           <number>0</number>
@@ -589,7 +589,7 @@
           <string>&lt;html&gt;current EXIF data value&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="margin">
           <number>0</number>
@@ -610,7 +610,7 @@
           <string>&lt;html&gt;current EXIF data value&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="margin">
           <number>0</number>
@@ -631,7 +631,7 @@
           <string>&lt;html&gt;current EXIF data value&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="margin">
           <number>0</number>
@@ -837,7 +837,7 @@
           <string>&lt;html&gt;current IPTC data value&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="indent">
           <number>2</number>
@@ -855,7 +855,7 @@
           <string>&lt;html&gt;current IPTC data value&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="indent">
           <number>2</number>
@@ -873,7 +873,7 @@
           <string>&lt;html&gt;current IPTC data value&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="indent">
           <number>2</number>
@@ -891,7 +891,7 @@
           <string>&lt;html&gt;current IPTC data value&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="indent">
           <number>2</number>
@@ -909,7 +909,7 @@
           <string>&lt;html&gt;current IPTC data value&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="indent">
           <number>2</number>
