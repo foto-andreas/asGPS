@@ -200,6 +200,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 
     m_view->setPage(new MyWebPage());
     m_view->setUrl(QUrl(tr("qrc:///html/asGPSmap_EN.html")));
+    qDebug() << "asGPS map url =" << m_view->url();
     m_view->page()->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
     connect( m_view->page(),
              SIGNAL( linkClicked(QUrl) ),

@@ -34,7 +34,14 @@ OTHER_FILES += \
     style.css \
     asGPS.js \
     asGPSmap_EN.html \
-    asGPSmap_DE.html
+    asGPSmap_DE.html \
+    asGPSmap_JA.htm \
+    asGPSmap_NL.htm \
+    asGPSmap_IT.htm \
+    asGPSmap_NL.html \
+    asGPSmap_JA.html \
+    asGPSmap_IT.html \
+    asGPSmap_FR.html
 
 FORMS += asGPS.ui
 
@@ -58,6 +65,9 @@ unix {
    QMAKE_POST_LINK=./afz
 }
 }
+
+
+
 
 
 
