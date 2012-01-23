@@ -199,7 +199,11 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
                   SLOT( handleLoadStarted () ));
 
     m_view->setPage(new MyWebPage());
+<<<<<<< HEAD
     m_view->setUrl(QUrl("qrc:///html/asGPSmap.html"));
+=======
+    m_view->setUrl(QUrl(tr("qrc:///html/asGPSmap_EN.html")));
+>>>>>>> b18b165... Karte in Englisch und Deutsch
     m_view->page()->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
     connect( m_view->page(),
              SIGNAL( linkClicked(QUrl) ),

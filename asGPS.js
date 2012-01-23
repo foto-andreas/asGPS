@@ -1,23 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Google Maps JavaScript API v3 Example: Event Simple</title>
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-<meta charset="UTF-8">
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
-<style type="text/css">
-html { height: 100% }
-body { height: 100%; margin: 0; padding: 0 }
-#map_canvas { height: 100%; width: 100% }
-</style>
-
-<!--
-<script type='text/javascript'
-src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></script>
--->
-
-<script type="text/javascript">
-
   Array.prototype.foreach = function( callback ) {
     for( var k=0; k<this .length; k++ ) {
       callback( k, this[ k ] );
@@ -129,13 +109,3 @@ src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></scrip
   }
 
   google.maps.event.addDomListener(window, 'load', initialize);
-
-</script>
-</head>
-
-
-<body>
-<div id="map_canvas" style="width:100%; height:100%"></div>
-</body>
-
-</html>

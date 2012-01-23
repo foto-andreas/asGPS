@@ -28,10 +28,13 @@ SOURCES += asGPSplugin.cpp gpsLocation.cpp Tests.cpp WebContents.cpp WebInfos.cp
 
 RESOURCES += asGPS.qrc
 
-OTHER_FILES += asGPSmap.html \
+OTHER_FILES += \
     asGPSinfo_DE.html \
     asGPSinfo_EN.html \
-    style.css
+    style.css \
+    asGPS.js \
+    asGPSmap_EN.html \
+    asGPSmap_DE.html
 
 FORMS += asGPS.ui
 
@@ -54,6 +57,10 @@ unix {
    QMAKE_LIBS     += -L/usr/lib32
 }
 }
+
+
+
+
 
 
 

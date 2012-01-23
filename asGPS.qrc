@@ -1,8 +1,10 @@
 <RCC>
     <qresource prefix="/html">
-        <file>asGPSmap.html</file>
         <file>asGPSinfo_DE.html</file>
         <file>asGPSinfo_EN.html</file>
+        <file>asGPS.js</file>
+        <file>asGPSmap_DE.html</file>
+        <file>asGPSmap_EN.html</file>
     </qresource>
     <qresource prefix="/img">
         <file>DE_btn_donateCC_LG.gif</file>
