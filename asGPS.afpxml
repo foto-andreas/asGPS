@@ -20,6 +20,10 @@
         <StringList name="localeFiles">
             <li>locale/asGPSplugin_en.qm</li>
             <li>locale/asGPSplugin_de.qm</li>
+            <li>locale/asGPSplugin_fr.qm</li>
+            <li>locale/asGPSplugin_nl.qm</li>
+            <li>locale/asGPSplugin_it.qm</li>
+            <li>locale/asGPSplugin_ja.qm</li>
         </StringList>
     </PluginFileData>
 </PropertyScribe>
