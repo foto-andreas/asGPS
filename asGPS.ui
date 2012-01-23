@@ -176,7 +176,7 @@
       </sizepolicy>
      </property>
      <property name="toolTip">
-      <string>&lt;html&gt;Tabs to display the Google Map, GPS coordinates and IPTC tags.&lt;/html&gt;</string>
+      <string/>
      </property>
      <property name="styleSheet">
       <string notr="true"> QCheckBox {
@@ -207,7 +207,7 @@
 </string>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="asGPSMapTab">
       <property name="sizePolicy">
@@ -248,6 +248,9 @@
            <width>16777215</width>
            <height>16777215</height>
           </size>
+         </property>
+         <property name="toolTip">
+          <string> </string>
          </property>
          <property name="url">
           <url>

@@ -91,9 +91,9 @@ bool asGPSplugin::finish()
 void asGPSplugin::webInfosReady() {
     qDebug() << "asGPS: web infos ready:" << m_webInfos->identifier() << m_webInfos->version();
     if (m_webInfos->isWebNewer()) {
-        QString text = QString("There is a newer version of %1 available. "
+        QString text = QString(tr("There is a newer version of %1 available. "
                                "It is version %2. You are running %3. "
-                               "You can download it under the following url: <a href='%4'>%4</a>")
+                               "You can download it under the following url: <a href='%4'>%4</a>"))
                         .arg(m_webInfos->name(), m_webInfos->version(), TARGET_VERSION, m_webInfos->link());
         QMessageBox::information(NULL, m_webInfos->name(), text);
     }
@@ -199,11 +199,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
                   SLOT( handleLoadStarted () ));
 
     m_view->setPage(new MyWebPage());
-<<<<<<< HEAD
-    m_view->setUrl(QUrl("qrc:///html/asGPSmap.html"));
-=======
     m_view->setUrl(QUrl(tr("qrc:///html/asGPSmap_EN.html")));
->>>>>>> b18b165... Karte in Englisch und Deutsch
     m_view->page()->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
     connect( m_view->page(),
              SIGNAL( linkClicked(QUrl) ),
@@ -296,7 +292,7 @@ void asGPSplugin::reset() {
 
 void asGPSplugin::handleIptcCB(int) {
     Qt::CheckState state = m_iptcCB->checkState();
-    qDebug() << "asGPS: hanleIptcCB" << state;
+    qDebug() << "asGPS: handleIptcCB" << state;
     m_countryCodeCB->setCheckState(state);
     m_countryCB->setCheckState(state);
     m_stateCB->setCheckState(state);
@@ -306,7 +302,7 @@ void asGPSplugin::handleIptcCB(int) {
 
 void asGPSplugin::handleCoordsCB(int) {
     Qt::CheckState state = m_coordsCB->checkState();
-    qDebug() << "asGPS: hanleCoordsCB" <<state;
+    qDebug() << "asGPS: handleCoordsCB" <<state;
     m_latCB->setCheckState(state);
     m_lonCB->setCheckState(state);
     m_altCB->setCheckState(state);
@@ -493,7 +489,7 @@ void asGPSplugin::openInternalBrowser(QUrl url) {
     QWebView *view = new QWebView();
     view->setPage(new MyWebPage());
     view->setUrl(url);
-    view->setWindowTitle("AfterShot Pro - asGPS browser window");
+    view->setWindowTitle(tr("AfterShot Pro - asGPS browser window"));
     view->setWindowIcon(view->icon());
     view->show();
 }
@@ -506,13 +502,13 @@ void asGPSplugin::openExternalBrowser(QUrl url) {
 void asGPSplugin::displayHelp() {
     QWebView *view = new QWebView;
     view->setPage(new MyWebPage());
-    view->setUrl(QUrl("qrc:///html/asGPSinfo_EN.html"));
+    view->setUrl(QUrl(tr("qrc:///html/asGPSinfo_EN.html")));
     view->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
     connect( view->page(),
              SIGNAL( linkClicked(QUrl) ),
                 this,
              SLOT( openExternalBrowser(QUrl) ));
-    view->setWindowTitle("AfterShot Pro - asGPS browser window");
+    view->setWindowTitle(tr("AfterShot Pro - asGPS browser window"));
     view->setWindowIcon(view->icon());
     view->show();
 }
