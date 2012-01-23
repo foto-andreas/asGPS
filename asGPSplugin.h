@@ -29,7 +29,6 @@
 
 class asGPSplugin : public QObject, public B5Plugin
 {
-
     Q_OBJECT
 
 public:
@@ -131,14 +130,14 @@ private:
     QLineEdit   *m_city;
     QLineEdit   *m_location;
 
-    QAbstractButton *m_reset;
-    QAbstractButton *m_info;
-    QAbstractButton *m_tag;
-    QAbstractButton *m_lim; // locate in map
-    QAbstractButton *m_fnl; // find nearest location
+    QAbstractButton     *m_reset;
+    QAbstractButton     *m_info;
+    QAbstractButton     *m_tag;
+    QAbstractButton     *m_lim; // locate in map
+    QAbstractButton     *m_fnl; // find nearest location
 
-    QCheckBox *m_coordsCB;
-    QCheckBox *m_iptcCB;
+    QCheckBox   *m_coordsCB;
+    QCheckBox   *m_iptcCB;
 
     QCheckBox   *m_latCB;
     QCheckBox   *m_lonCB;
@@ -153,21 +152,19 @@ private:
     QCheckBox   *m_cityCB;
     QCheckBox   *m_locationCB;
 
-    QLabel   *m_l_lat;
-    QLabel   *m_l_lon;
-    QLabel   *m_l_alt;
-    QLabel   *m_l_date;
-    QLabel   *m_l_time;
-    QLabel   *m_l_stats;
-    QLabel   *m_l_sats;
-    QLabel   *m_l_countryCode;
-    QLabel   *m_l_country;
-    QLabel   *m_l_state;
-    QLabel   *m_l_city;
-    QLabel   *m_l_location;
+    QLabel      *m_l_lat;
+    QLabel      *m_l_lon;
+    QLabel      *m_l_alt;
+    QLabel      *m_l_date;
+    QLabel      *m_l_time;
+    QLabel      *m_l_stats;
+    QLabel      *m_l_sats;
+    QLabel      *m_l_countryCode;
+    QLabel      *m_l_country;
+    QLabel      *m_l_state;
+    QLabel      *m_l_city;
+    QLabel      *m_l_location;
 
-    WebInfos* m_webInfos;
-
-    PluginDependency* m_pd;
+    WebInfos    *m_webInfos;
 
 };

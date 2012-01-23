@@ -13,13 +13,13 @@ QT += network
 
 TARGET = asGPS
 VERSION = 1.0.0
+DEFINES += TARGET_VERSION=\\\"$$VERSION\\\"
 
 DEPENDPATH += .
 INCLUDEPATH += .
 INCLUDEPATH += ../Plugin
-include( ../common/mac.pri )
 
-DEFINES += TARGET_VERSION=\'\"$$VERSION\"\'
+include( ../common/mac.pri )
 
 # Input
 HEADERS += asGPSplugin.h gpsLocation.h Tests.h  WebContents.h WebInfos.h
