@@ -46,9 +46,14 @@
   *
   * \section other Other Information
   *
-  * @bug       check situations with zero coordinates
-  * @bug       resolve a bug in ASP which need the HELPER setting. 
-  *            See \c hotnessChanged().
+  * @bug    check situations with zero coordinates
+  * @bug    resolve a bug in ASP which need the HELPER setting.
+  *         See \c hotnessChanged().
+  *
+  * @todo   more comments
+  * @todo   check date and time formats in the edit fields when editing
+  * @todo   check for reload exif - wanted?
+  *
   */
  
 #include <QString>
@@ -90,7 +95,7 @@ class asGPSplugin : public QObject, public B5Plugin
 
 public:
 
-    /** Constructor.
+    /** Constructor for the asGPS plugin.
       * Initializes some values.
       */
     asGPSplugin() : m_pHub( NULL ), m_pluginId( -1 ), m_groupId( -1 ) { ; }
@@ -168,35 +173,90 @@ public:
 
 private slots:
 
+    /** Slot which handles the change of the hotness (selected main image) in ASP.
+      * When the user changes the hotness image in ASP, this slot is called.
+      * @param options are the currently active options/settings of the image.
+      */
     void handleHotnessChanged( const PluginImageSettings &options );
+
     void handleSettingsChanged( const PluginImageSettings &options, const PluginImageSettings &changed, int layer );
+
     virtual void handleLoadFinished ( bool ok);
+
     virtual void handleLoadStarted ();
+
     virtual void handlePositionFound(double lat, double lng);
+
     virtual void handleCheckedChange(bool enabled);
 
     virtual void handleCoordsCB(int);
+
     virtual void handleIptcCB(int);
 
     void resetGPS();
+
     void resetIPTC();
+
     void reset();
+
     void tagImage();
+
     void geocode();
+
     void reversegeocode();
+
     void setOptionIDs();
+
     void populateJavaScriptWindowObject();
 
 public slots:
 
+    /** Slot for connecting an external browser application.
+      * This slot is used to open the given url in an external browser window.
+      * We must use this for SSL-connections, because we do not want to
+      * distribute the openssl packages with the plugin, only to allow browsing
+      * the paypal site.
+      * @param url is the url, which should be opened.
+      */
     void openExternalBrowser(QUrl url);
+
+    /** Slot for connecting an internal browser window.
+      * This slot is used for normal sites like the links in the Google Map
+      * which can be opened in a \c QWebView.
+      * @param url is the url, which should be opened.
+      */
     void openInternalBrowser(QUrl url);
+
+    /** An alert dialog.
+      * This method is used to open a message box dialog with correct style. It
+      * is mainly used from the JavaScript part in the Maps API. The \c alert() of
+      * JavaScript looks very ugly.
+      * @param text is the text to display in the info message dialog.
+      */
     void alert(QString text);
+
+    /** A marker was clicked.
+      * This is the reaction of a click on a marker in the map. The map was centered
+      * in the current implementation (JavaScript). In this C++ part it does nothing.
+      */
     void marker_click();
+
+    /** A marker was moved (dragged) in the map.
+      * This changes the GPS coordinates, so we have to be informed from JavaScript
+      * on the new coordinates. We format the latitude and longitude, put them into
+      * the edit fields in the GPS tab and set the status to "A", meaning that we have
+      * correct GPS values.
+      * @param lat latitude in degrees as a double value
+      * @param lng longitude in degrees as a double value
+      */
     void marker_moved(double lat, double lng);
+
     void set_country(QString short_name, QString long_name);
+
     void set_state(QString short_name, QString long_name);
+
     void set_city(QString short_name, QString long_name);
+
     void set_location(QString long_name);
 
     void webInfosReady();
@@ -254,35 +314,35 @@ private:
     QAbstractButton *m_lim;     /**< button for "locate in map" */
     QAbstractButton *m_fnl;     /**< button for "find nearest location" */
 
-    QCheckBox *m_coordsCB;      /**< global checkbox for GPS coordinates */
-    QCheckBox *m_iptcCB;        /**< global checkbox for IPTC coordinates */
+    QCheckBox   *m_coordsCB;        /**< global checkbox for GPS coordinates */
+    QCheckBox   *m_iptcCB;          /**< global checkbox for IPTC coordinates */
 
-    QCheckBox   *m_latCB;
-    QCheckBox   *m_lonCB;
-    QCheckBox   *m_altCB;
-    QCheckBox   *m_dateCB;
-    QCheckBox   *m_timeCB;
-    QCheckBox   *m_statusCB;
-    QCheckBox   *m_satsCB;
-    QCheckBox   *m_countryCodeCB;
-    QCheckBox   *m_countryCB;
-    QCheckBox   *m_stateCB;
-    QCheckBox   *m_cityCB;
-    QCheckBox   *m_locationCB;
+    QCheckBox   *m_latCB;           /**< checkbox for the latitude edit field */
+    QCheckBox   *m_lonCB;           /**< checkbox for the longitude edit field */
+    QCheckBox   *m_altCB;           /**< checkbox for the altitude edit field */
+    QCheckBox   *m_dateCB;          /**< checkbox for the date edit field */
+    QCheckBox   *m_timeCB;          /**< checkbox for the time edit field */
+    QCheckBox   *m_statusCB;        /**< checkbox for the status edit field */
+    QCheckBox   *m_satsCB;          /**< checkbox for the satellites edit field */
+    QCheckBox   *m_countryCodeCB;   /**< checkbox for the country code edit field */
+    QCheckBox   *m_countryCB;       /**< checkbox for the country edit field */
+    QCheckBox   *m_stateCB;         /**< checkbox for the state edit field */
+    QCheckBox   *m_cityCB;          /**< checkbox for the city edit field */
+    QCheckBox   *m_locationCB;      /**< checkbox for the location edit field */
 
-    QLabel      *m_l_lat;
-    QLabel      *m_l_lon;
-    QLabel      *m_l_alt;
-    QLabel      *m_l_date;
-    QLabel      *m_l_time;
-    QLabel      *m_l_status;
-    QLabel      *m_l_sats;
-    QLabel      *m_l_countryCode;
-    QLabel      *m_l_country;
-    QLabel      *m_l_state;
-    QLabel      *m_l_city;
-    QLabel      *m_l_location;
+    QLabel      *m_l_lat;           /**< info text for current GPS latitude value in image settings */
+    QLabel      *m_l_lon;           /**< info text for current GPS longitude value in image settings */
+    QLabel      *m_l_alt;           /**< info text for current GPS altitude value in image settings */
+    QLabel      *m_l_date;          /**< info text for current GPS date value in image settings */
+    QLabel      *m_l_time;          /**< info text for current GPS time value in image settings */
+    QLabel      *m_l_status;        /**< info text for current GPS status value in image settings */
+    QLabel      *m_l_sats;          /**< info text for current GPS satellites value in image settings */
+    QLabel      *m_l_countryCode;   /**< info text for current IPTC country code value in image settings */
+    QLabel      *m_l_country;       /**< info text for current IPTC country value in image settings */
+    QLabel      *m_l_state;         /**< info text for current IPTC state value in image settings */
+    QLabel      *m_l_city;          /**< info text for current IPTC city value in image settings */
+    QLabel      *m_l_location;      /**< info text for current IPTC location value in image settings */
 
-    WebInfos    *m_webInfos;
+    WebInfos    *m_webInfos;        /**< instance for gettings version infos from the web */
 
 };

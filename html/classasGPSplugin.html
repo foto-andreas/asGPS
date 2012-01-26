@@ -79,10 +79,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="pub-slots"></a>
 Public Slots</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a08b95d1d5ad5ec8dd3ba16ad7f27c0d1">openExternalBrowser</a> (QUrl url)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot for connecting an external browser application.  <a href="#a08b95d1d5ad5ec8dd3ba16ad7f27c0d1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a61ace1debc79a45cb8c781a4591c7153">openInternalBrowser</a> (QUrl url)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot for connecting an internal browser window.  <a href="#a61ace1debc79a45cb8c781a4591c7153"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a337b8eb291610346d20c28650888c1f8">alert</a> (QString text)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">An alert dialog.  <a href="#a337b8eb291610346d20c28650888c1f8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a69efb1129e3032ef6ce062a7fe1fa257">marker_click</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A marker was clicked.  <a href="#a69efb1129e3032ef6ce062a7fe1fa257"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a697fc62480d4f941bd38bdda5bd3c94a">marker_moved</a> (double lat, double lng)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A marker was moved (dragged) in the map.  <a href="#a697fc62480d4f941bd38bdda5bd3c94a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ab170f9662b5dbfaad56a640a3ce35ae5">set_country</a> (QString short_name, QString long_name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a4054b209ac88c67115da2a69b9446ad1">set_state</a> (QString short_name, QString long_name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ae29f7a49374a33528dd5def158b5b20d">set_city</a> (QString short_name, QString long_name)</td></tr>
@@ -92,7 +97,7 @@ Public Slots</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ac8e68c199593845de3d3244a4944cf40">asGPSplugin</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ac8e68c199593845de3d3244a4944cf40"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the asGPS plugin.  <a href="#ac8e68c199593845de3d3244a4944cf40"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#abe74ab8c5928e2aedc3b33c92d0664b7">priority</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Gives the priority of our plugin.  <a href="#abe74ab8c5928e2aedc3b33c92d0664b7"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a233bc76956f667c6bc9bd8006984c96a">name</a> ()</td></tr>
@@ -122,6 +127,7 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pri-slots"></a>
 Private Slots</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#adcf3edfa0fe0f86dcf51629a12171674">handleHotnessChanged</a> (const PluginImageSettings &amp;options)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot which handles the change of the hotness (selected main image) in ASP.  <a href="#adcf3edfa0fe0f86dcf51629a12171674"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ab9720afdaae8186714f87a48df214c46">handleSettingsChanged</a> (const PluginImageSettings &amp;options, const PluginImageSettings &amp;changed, int layer)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a73954b7636ad2bce406fa338c6136846">handleLoadFinished</a> (bool ok)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ac5652378fd5ca3611d95bcef411a831b">handleLoadStarted</a> ()</td></tr>
@@ -221,30 +227,55 @@ Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QCheckBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ab7c996ae6b3a8e4236cb604450637f94">m_iptcCB</a></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">global checkbox for IPTC coordinates  <a href="#ab7c996ae6b3a8e4236cb604450637f94"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QCheckBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#aeebd0d380b730f32bc965f2eef57324e">m_latCB</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">checkbox for the latitude edit field  <a href="#aeebd0d380b730f32bc965f2eef57324e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QCheckBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a4012197e9e127709850501dcbbff148c">m_lonCB</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">checkbox for the longitude edit field  <a href="#a4012197e9e127709850501dcbbff148c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QCheckBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a3e38ae2fbd6cabf1f00307abbfb706c7">m_altCB</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">checkbox for the altitude edit field  <a href="#a3e38ae2fbd6cabf1f00307abbfb706c7"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QCheckBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a3f1783a47c7aabb6474eb65b1088d87c">m_dateCB</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">checkbox for the date edit field  <a href="#a3f1783a47c7aabb6474eb65b1088d87c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QCheckBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ad0d3375db4e3b3004912e367e3f7deff">m_timeCB</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">checkbox for the time edit field  <a href="#ad0d3375db4e3b3004912e367e3f7deff"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QCheckBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ab89c32ccce93be7339a413bd0e8c5c29">m_statusCB</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">checkbox for the status edit field  <a href="#ab89c32ccce93be7339a413bd0e8c5c29"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QCheckBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a121fd598223f458b7e1c94e683bf25b2">m_satsCB</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">checkbox for the satellites edit field  <a href="#a121fd598223f458b7e1c94e683bf25b2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QCheckBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a0615e2c2c1f73ffde87fe10fd09a4aa4">m_countryCodeCB</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">checkbox for the country code edit field  <a href="#a0615e2c2c1f73ffde87fe10fd09a4aa4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QCheckBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ac93a22f1fe510a98b8543d932afcce45">m_countryCB</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">checkbox for the country edit field  <a href="#ac93a22f1fe510a98b8543d932afcce45"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QCheckBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#aa074e0eb4763de0acfe09267e0f3e2ea">m_stateCB</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">checkbox for the state edit field  <a href="#aa074e0eb4763de0acfe09267e0f3e2ea"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QCheckBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a39da47916cc7dd1894678f97a9dbb073">m_cityCB</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">checkbox for the city edit field  <a href="#a39da47916cc7dd1894678f97a9dbb073"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QCheckBox *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ae7d589d51bedb49aa2c1d5f94e131234">m_locationCB</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">checkbox for the location edit field  <a href="#ae7d589d51bedb49aa2c1d5f94e131234"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QLabel *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#aaea2fa4791cf320f55e3e2e016232541">m_l_lat</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">info text for current GPS latitude value in image settings  <a href="#aaea2fa4791cf320f55e3e2e016232541"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QLabel *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a8770957a1453be48d93dedaea1de6b4a">m_l_lon</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">info text for current GPS longitude value in image settings  <a href="#a8770957a1453be48d93dedaea1de6b4a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QLabel *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#aee814ef2f9a8f3ca54c4656f2862cd73">m_l_alt</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">info text for current GPS altitude value in image settings  <a href="#aee814ef2f9a8f3ca54c4656f2862cd73"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QLabel *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ae0f4eb4fb72766d62c6aa784431b2f97">m_l_date</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">info text for current GPS date value in image settings  <a href="#ae0f4eb4fb72766d62c6aa784431b2f97"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QLabel *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#af333d59df6dc5d7f4436662aa82c1843">m_l_time</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">info text for current GPS time value in image settings  <a href="#af333d59df6dc5d7f4436662aa82c1843"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QLabel *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a6a135ebb0539af36684c8ff523049b23">m_l_status</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">info text for current GPS status value in image settings  <a href="#a6a135ebb0539af36684c8ff523049b23"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QLabel *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a682011164ed85f43b2c82e8b7308a737">m_l_sats</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">info text for current GPS satellites value in image settings  <a href="#a682011164ed85f43b2c82e8b7308a737"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QLabel *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a42269c93bd97cd5767a92d52ff15d648">m_l_countryCode</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">info text for current IPTC country code value in image settings  <a href="#a42269c93bd97cd5767a92d52ff15d648"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QLabel *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a16137a6f5a51e2b09923374a051200a6">m_l_country</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">info text for current IPTC country value in image settings  <a href="#a16137a6f5a51e2b09923374a051200a6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QLabel *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a08fe9672c1d7d240339814f685729d6b">m_l_state</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">info text for current IPTC state value in image settings  <a href="#a08fe9672c1d7d240339814f685729d6b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QLabel *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ad5d2d7d41569d7102e9cf272465bdac3">m_l_city</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">info text for current IPTC city value in image settings  <a href="#ad5d2d7d41569d7102e9cf272465bdac3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QLabel *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a706cb1f7347cf4334de007432639098a">m_l_location</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">info text for current IPTC location value in image settings  <a href="#a706cb1f7347cf4334de007432639098a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classWebInfos.html">WebInfos</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a587aaa49c0a201bf5140f5af9d0904d9">m_webInfos</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">instance for gettings version infos from the web  <a href="#a587aaa49c0a201bf5140f5af9d0904d9"></a><br/></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>asGPS - Geotagging in AfterShotPro. </p>
@@ -265,7 +296,7 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Constructor. </p>
+<p>Constructor for the asGPS plugin. </p>
 <p>Initializes some values. </p>
 
 </div>
@@ -285,6 +316,15 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>An alert dialog. </p>
+<p>This method is used to open a message box dialog with correct style. It is mainly used from the JavaScript part in the Maps API. The <code><a class="el" href="classasGPSplugin.html#a337b8eb291610346d20c28650888c1f8" title="An alert dialog.">alert()</a></code> of JavaScript looks very ugly. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>is the text to display in the info message dialog. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -448,6 +488,15 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Slot which handles the change of the hotness (selected main image) in ASP. </p>
+<p>When the user changes the hotness image in ASP, this slot is called. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">options</td><td>are the currently active options/settings of the image. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -618,6 +667,9 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>A marker was clicked. </p>
+<p>This is the reaction of a click on a marker in the map. The map was centered in the current implementation (JavaScript). In this C++ part it does nothing. </p>
+
 </div>
 </div>
 <a class="anchor" id="a697fc62480d4f941bd38bdda5bd3c94a"></a><!-- doxytag: member="asGPSplugin::marker_moved" ref="a697fc62480d4f941bd38bdda5bd3c94a" args="(double lat, double lng)" -->
@@ -644,6 +696,16 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>A marker was moved (dragged) in the map. </p>
+<p>This changes the GPS coordinates, so we have to be informed from JavaScript on the new coordinates. We format the latitude and longitude, put them into the edit fields in the GPS tab and set the status to "A", meaning that we have correct GPS values. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lat</td><td>latitude in degrees as a double value </td></tr>
+    <tr><td class="paramname">lng</td><td>longitude in degrees as a double value </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -681,6 +743,15 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Slot for connecting an external browser application. </p>
+<p>This slot is used to open the given url in an external browser window. We must use this for SSL-connections, because we do not want to distribute the openssl packages with the plugin, only to allow browsing the paypal site. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">url</td><td>is the url, which should be opened. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="a61ace1debc79a45cb8c781a4591c7153"></a><!-- doxytag: member="asGPSplugin::openInternalBrowser" ref="a61ace1debc79a45cb8c781a4591c7153" args="(QUrl url)" -->
@@ -697,6 +768,15 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Slot for connecting an internal browser window. </p>
+<p>This slot is used for normal sites like the links in the Google Map which can be opened in a <code>QWebView</code>. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">url</td><td>is the url, which should be opened. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1412,6 +1492,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>checkbox for the altitude edit field </p>
+
 </div>
 </div>
 <a class="anchor" id="a741e252d8a54a3976eef918c9936c60c"></a><!-- doxytag: member="asGPSplugin::m_city" ref="a741e252d8a54a3976eef918c9936c60c" args="" -->
@@ -1439,6 +1521,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>checkbox for the city edit field </p>
 
 </div>
 </div>
@@ -1483,6 +1567,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>checkbox for the country edit field </p>
+
 </div>
 </div>
 <a class="anchor" id="a2f532f3f3d25472676b4543d74a882a5"></a><!-- doxytag: member="asGPSplugin::m_countryCode" ref="a2f532f3f3d25472676b4543d74a882a5" args="" -->
@@ -1511,6 +1597,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>checkbox for the country code edit field </p>
+
 </div>
 </div>
 <a class="anchor" id="a2b457eab8a2bb9effe539c28b1aa0b15"></a><!-- doxytag: member="asGPSplugin::m_date" ref="a2b457eab8a2bb9effe539c28b1aa0b15" args="" -->
@@ -1538,6 +1626,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>checkbox for the date edit field </p>
 
 </div>
 </div>
@@ -1642,6 +1732,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>info text for current GPS altitude value in image settings </p>
+
 </div>
 </div>
 <a class="anchor" id="ad5d2d7d41569d7102e9cf272465bdac3"></a><!-- doxytag: member="asGPSplugin::m_l_city" ref="ad5d2d7d41569d7102e9cf272465bdac3" args="" -->
@@ -1654,6 +1746,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>info text for current IPTC city value in image settings </p>
 
 </div>
 </div>
@@ -1668,6 +1762,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>info text for current IPTC country value in image settings </p>
+
 </div>
 </div>
 <a class="anchor" id="a42269c93bd97cd5767a92d52ff15d648"></a><!-- doxytag: member="asGPSplugin::m_l_countryCode" ref="a42269c93bd97cd5767a92d52ff15d648" args="" -->
@@ -1680,6 +1776,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>info text for current IPTC country code value in image settings </p>
 
 </div>
 </div>
@@ -1694,6 +1792,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>info text for current GPS date value in image settings </p>
+
 </div>
 </div>
 <a class="anchor" id="aaea2fa4791cf320f55e3e2e016232541"></a><!-- doxytag: member="asGPSplugin::m_l_lat" ref="aaea2fa4791cf320f55e3e2e016232541" args="" -->
@@ -1706,6 +1806,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>info text for current GPS latitude value in image settings </p>
 
 </div>
 </div>
@@ -1720,6 +1822,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>info text for current IPTC location value in image settings </p>
+
 </div>
 </div>
 <a class="anchor" id="a8770957a1453be48d93dedaea1de6b4a"></a><!-- doxytag: member="asGPSplugin::m_l_lon" ref="a8770957a1453be48d93dedaea1de6b4a" args="" -->
@@ -1732,6 +1836,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>info text for current GPS longitude value in image settings </p>
 
 </div>
 </div>
@@ -1746,6 +1852,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>info text for current GPS satellites value in image settings </p>
+
 </div>
 </div>
 <a class="anchor" id="a08fe9672c1d7d240339814f685729d6b"></a><!-- doxytag: member="asGPSplugin::m_l_state" ref="a08fe9672c1d7d240339814f685729d6b" args="" -->
@@ -1758,6 +1866,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>info text for current IPTC state value in image settings </p>
 
 </div>
 </div>
@@ -1772,6 +1882,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>info text for current GPS status value in image settings </p>
+
 </div>
 </div>
 <a class="anchor" id="af333d59df6dc5d7f4436662aa82c1843"></a><!-- doxytag: member="asGPSplugin::m_l_time" ref="af333d59df6dc5d7f4436662aa82c1843" args="" -->
@@ -1784,6 +1896,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>info text for current GPS time value in image settings </p>
 
 </div>
 </div>
@@ -1812,6 +1926,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>checkbox for the latitude edit field </p>
 
 </div>
 </div>
@@ -1856,6 +1972,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>checkbox for the location edit field </p>
+
 </div>
 </div>
 <a class="anchor" id="a12d61af628a41cc70e3776c9fb07d340"></a><!-- doxytag: member="asGPSplugin::m_lon" ref="a12d61af628a41cc70e3776c9fb07d340" args="" -->
@@ -1883,6 +2001,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>checkbox for the longitude edit field </p>
 
 </div>
 </div>
@@ -1957,6 +2077,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>checkbox for the satellites edit field </p>
+
 </div>
 </div>
 <a class="anchor" id="ae2c88a49c29b75d3ab3ce19466a27e4f"></a><!-- doxytag: member="asGPSplugin::m_state" ref="ae2c88a49c29b75d3ab3ce19466a27e4f" args="" -->
@@ -1985,6 +2107,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>checkbox for the state edit field </p>
+
 </div>
 </div>
 <a class="anchor" id="a3c2d1a56c689d68923fb7300d1b4895f"></a><!-- doxytag: member="asGPSplugin::m_status" ref="a3c2d1a56c689d68923fb7300d1b4895f" args="" -->
@@ -2012,6 +2136,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>checkbox for the status edit field </p>
 
 </div>
 </div>
@@ -2056,6 +2182,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>checkbox for the time edit field </p>
+
 </div>
 </div>
 <a class="anchor" id="a03e225119a0ee7a9e73322ed6fa1851e"></a><!-- doxytag: member="asGPSplugin::m_view" ref="a03e225119a0ee7a9e73322ed6fa1851e" args="" -->
@@ -2084,6 +2212,8 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>instance for gettings version infos from the web </p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
@@ -2105,7 +2235,7 @@ Private Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Jan 26 2012 01:23:24 by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Thu Jan 26 2012 23:41:48 by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>
