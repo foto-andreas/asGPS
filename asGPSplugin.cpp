@@ -42,7 +42,7 @@ bool asGPSplugin::init(PluginHub *hub, int id, int groupId, const QString &)
 {
     qDebug() << "asGPSplugin::init";
     m_pHub = hub;
-    m_id = id;
+    m_pluginId = id;
     m_groupId = groupId;
     return true;
 }
@@ -136,7 +136,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_alt = uiWidget->findChild<QLineEdit*>("altLineEdit");
     m_date = uiWidget->findChild<QLineEdit*>("dateLineEdit");
     m_time = uiWidget->findChild<QLineEdit*>("timeLineEdit");
-    m_stats = uiWidget->findChild<QLineEdit*>("statsLineEdit");
+    m_status = uiWidget->findChild<QLineEdit*>("statusLineEdit");
     m_sats = uiWidget->findChild<QLineEdit*>("satellitesLineEdit");
     m_countryCode = uiWidget->findChild<QLineEdit*>("countryCodeLineEdit");
     m_country = uiWidget->findChild<QLineEdit*>("countryLineEdit");
@@ -148,7 +148,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_altCB = uiWidget->findChild<QCheckBox*>("altCB");
     m_dateCB = uiWidget->findChild<QCheckBox*>("dateCB");
     m_timeCB = uiWidget->findChild<QCheckBox*>("timeCB");
-    m_statsCB = uiWidget->findChild<QCheckBox*>("statusCB");
+    m_statusCB = uiWidget->findChild<QCheckBox*>("statusCB");
     m_satsCB = uiWidget->findChild<QCheckBox*>("satCB");
     m_countryCodeCB = uiWidget->findChild<QCheckBox*>("countryCodeCB");
     m_countryCB = uiWidget->findChild<QCheckBox*>("countryCB");
@@ -162,7 +162,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_l_alt = uiWidget->findChild<QLabel*>("labAlt");
     m_l_date = uiWidget->findChild<QLabel*>("labDate");
     m_l_time = uiWidget->findChild<QLabel*>("labTime");
-    m_l_stats = uiWidget->findChild<QLabel*>("labStat");
+    m_l_status = uiWidget->findChild<QLabel*>("labStat");
     m_l_sats = uiWidget->findChild<QLabel*>("labSat");
     m_l_countryCode = uiWidget->findChild<QLabel*>("labCountryCode");
     m_l_country = uiWidget->findChild<QLabel*>("labCountry");
@@ -283,7 +283,7 @@ void asGPSplugin::resetGPS() {
     m_alt->setText("");
     m_date->setText("");
     m_time->setText("");
-    m_stats->setText("");
+    m_status->setText("");
     m_sats->setText("");
 }
 
@@ -311,7 +311,7 @@ void asGPSplugin::handleCoordsCB(int) {
     m_altCB->setCheckState(state);
     m_dateCB->setCheckState(state);
     m_timeCB->setCheckState(state);
-    m_statsCB->setCheckState(state);
+    m_statusCB->setCheckState(state);
     m_satsCB->setCheckState(state);
 }
 
@@ -322,7 +322,7 @@ void asGPSplugin::updateUi(PluginOptionList *options) {
     setStringField(options, m_alt, ID_GPSAltitude);
     setStringField(options, m_date, ID_GPSDateStamp);
     setStringField(options, m_time, ID_GPSTimeStamp);
-    setStringField(options, m_stats, ID_GPSStatus);
+    setStringField(options, m_status, ID_GPSStatus);
     setStringField(options, m_sats, ID_GPSSatellites);
     setStringField(options, m_countryCode, ID_CountryCode);
     setStringField(options, m_country, ID_Country);
@@ -335,7 +335,7 @@ void asGPSplugin::updateUi(PluginOptionList *options) {
     setStringField(options, m_l_alt, ID_GPSAltitude);
     setStringField(options, m_l_date, ID_GPSDateStamp);
     setStringField(options, m_l_time, ID_GPSTimeStamp);
-    setStringField(options, m_l_stats, ID_GPSStatus);
+    setStringField(options, m_l_status, ID_GPSStatus);
     setStringField(options, m_l_sats, ID_GPSSatellites);
     setStringField(options, m_l_countryCode, ID_CountryCode);
     setStringField(options, m_l_country, ID_Country);
@@ -355,7 +355,7 @@ void asGPSplugin::tagImage() {
         tag(options, m_alt, m_altCB, m_l_alt, ID_GPSAltitude);
         tag(options, m_date, m_dateCB, m_l_date, ID_GPSDateStamp);
         tag(options, m_time, m_timeCB, m_l_time, ID_GPSTimeStamp);
-        tag(options, m_stats, m_statsCB, m_l_stats, ID_GPSStatus);
+        tag(options, m_status, m_statusCB, m_l_status, ID_GPSStatus);
         tag(options, m_sats, m_satsCB, m_l_sats, ID_GPSSatellites);
         tag(options, m_countryCode, m_countryCodeCB, m_l_countryCode, ID_CountryCode);
         tag(options, m_country, m_countryCB, m_l_country, ID_Country);
@@ -439,7 +439,7 @@ void asGPSplugin::marker_moved(double lat, double lng)
     QStringList qsl = gpsl.formatAsOption(3);
     m_lat->setText(qsl.at(0));
     m_lon->setText(qsl.at(1));
-    m_stats->setText("A");
+    m_status->setText("A");
 }
 
 void asGPSplugin::set_country(QString short_name, QString long_name) {

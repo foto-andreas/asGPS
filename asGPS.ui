@@ -343,14 +343,14 @@
         <widget class="QLineEdit" name="timeLineEdit"/>
        </item>
        <item row="11" column="0">
-        <widget class="QLabel" name="statsLabel">
+        <widget class="QLabel" name="statusLabel">
          <property name="text">
           <string>Status</string>
          </property>
         </widget>
        </item>
        <item row="11" column="1">
-        <widget class="QLineEdit" name="statsLineEdit">
+        <widget class="QLineEdit" name="statusLineEdit">
          <property name="toolTip">
           <string>&lt;html&gt;GPS status of the tool. Normal value is 'A' for valid GPS data.&lt;/html&gt;</string>
          </property>
