@@ -17,9 +17,11 @@ DEFINES += TARGET_VERSION=\\\"$$VERSION\\\"
 
 DEPENDPATH += .
 INCLUDEPATH += .
-INCLUDEPATH += ../Plugin
+INCLUDEPATH += ../Plugin ../SDK/Plugin ../SDK
 
-include( ../common/mac.pri )
+mac {
+    include( ../common/mac.pri )
+}
 
 # Input
 HEADERS += asGPSplugin.h gpsLocation.h Tests.h  WebContents.h WebInfos.h
