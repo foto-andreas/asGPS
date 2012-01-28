@@ -216,7 +216,9 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 }
 
 void asGPSplugin::populateJavaScriptWindowObject() {
-    m_view->page()->mainFrame()->addToJavaScriptWindowObject(QString("api"), this);
+    if (m_view) {
+        m_view->page()->mainFrame()->addToJavaScriptWindowObject(QString("api"), this);
+    }
 }
 
 void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
@@ -230,6 +232,7 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 
     m_pHub->beginSettingsChange("HELPER");
     m_pHub->endSettingChange();
+// correct would be in a correct ASP
 //    bool ok;
 //    optionsNew->setString(ID_Location, 0, options->getString(ID_Location, 0, ok));
 //    if (options.options(0) != NULL) {
@@ -293,7 +296,8 @@ void asGPSplugin::reset() {
     resetGPS();
 }
 
-void asGPSplugin::handleIptcCB(int) {
+void asGPSplugin::handleIptcCB(int unused) {
+    Q_UNUSED(unused);
     Qt::CheckState state = m_iptcCB->checkState();
     qDebug() << "asGPS: handleIptcCB" << state;
     m_countryCodeCB->setCheckState(state);
@@ -303,7 +307,8 @@ void asGPSplugin::handleIptcCB(int) {
     m_locationCB->setCheckState(state);
 }
 
-void asGPSplugin::handleCoordsCB(int) {
+void asGPSplugin::handleCoordsCB(int unused) {
+    Q_UNUSED(unused);
     Qt::CheckState state = m_coordsCB->checkState();
     qDebug() << "asGPS: handleCoordsCB" <<state;
     m_latCB->setCheckState(state);
@@ -394,8 +399,9 @@ void asGPSplugin::geocode() {
         if (m_city->text().length()>0)tmp.append(m_city->text());
         m_edit->setText(tmp);
     }
-    if (m_view)
+    if (m_view) {
         m_view->page()->mainFrame()->evaluateJavaScript("codeCoordinatesFrom('" + m_edit->text() + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
+    }
 }
 
 void asGPSplugin::reversegeocode() {
@@ -403,12 +409,9 @@ void asGPSplugin::reversegeocode() {
     gpsLocation gpsl(m_lat->text(), m_lon->text());
     resetIPTC();
     QStringList qsl = gpsl.formatAsGoogle(5);
-    if (m_view)
+    if (m_view) {
         m_view->page()->mainFrame()->evaluateJavaScript("codeAddressFrom('" + qsl.at(0) + "," + qsl.at(1) + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
-}
-
-void asGPSplugin::handlePositionFound(double lat, double lng) {
-    qDebug() << "asGPS: position = " << lat << "/" << lng;
+    }
 }
 
 void asGPSplugin::setOptionIDs() {
@@ -464,8 +467,9 @@ void asGPSplugin::set_location(QString long_name) {
 }
 
 void asGPSplugin::handleLoadFinished ( bool ok) {
-    if (m_view)
+    if (m_view) {
         m_view->adjustSize();
+    }
     qDebug() << "asGPS: load finished" << ok;
 }
 

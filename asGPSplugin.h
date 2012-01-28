@@ -179,26 +179,55 @@ private slots:
       */
     void handleHotnessChanged( const PluginImageSettings &options );
 
+    /** Slot which handles the change of settings in ASP.
+      * When the user has changed some settings, this slot is called.
+      * @param options are the currently active options/settings of the image.
+      * @param changed are the just changed options
+      * @param layer is the currently active layer
+      */
     void handleSettingsChanged( const PluginImageSettings &options, const PluginImageSettings &changed, int layer );
 
-    virtual void handleLoadFinished ( bool ok);
-
+    /** Slot which is called when the map loading begins.
+      * This slot is called from the JavaScript part.
+      */
     virtual void handleLoadStarted ();
 
-    virtual void handlePositionFound(double lat, double lng);
+    /** Slot which is called when the map is loaded.
+      * This slot is called from the JavaScript part.
+      * @param ok true, if the html page war loaded correctly.
+      */
+    virtual void handleLoadFinished ( bool ok);
 
+    /** Slot which is called when enable check box is changed.
+      * Called on user click.
+      * @param enabled true, if the plugin was enabled by the user.
+      */
     virtual void handleCheckedChange(bool enabled);
 
-    virtual void handleCoordsCB(int);
+    /** Slot for the top tristate checkbox in the coords tab.
+      * This slot is called, when the user changes the top checkbox in the coordinates tab.
+      * It enables the dependent checkboxes in this tab.
+      * @param unused The tristate value of the box.
+      */
+    virtual void handleCoordsCB(int unused);
 
-    virtual void handleIptcCB(int);
+    /** Slot for the top tristate checkbox in the IPTC tab.
+      * This slot is called, when the user changes the top checkbox in the IPTC tab.
+      * It enables the dependent checkboxes in this tab.
+      * @param unused The tristate value of the box.
+      */
+    virtual void handleIptcCB(int unused);
 
-    void resetGPS();
-
-    void resetIPTC();
-
+    /** Reset all asGPS fields.
+      * This slot is called when the user clicks on reset.
+      */
     void reset();
 
+    /** Tag the image.
+      * When the user clicks on the tag button, this slot is called. It tags the image
+      * with the values from the edit fields. It obeys the settings in the tristate
+      * check boxes.
+      */
     void tagImage();
 
     void geocode();
@@ -270,6 +299,16 @@ private:
     void setStringField( PluginOptionList *options, QLineEdit *field, int optionID);
     void setStringField( PluginOptionList *options, QLabel *field, int optionID);
     void tag( PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, int optionID);
+
+    /** Reset the GPS tab to default (empty) values.
+      * This method resets the edit fields in the GPS tab of the plugin.
+      */
+    void resetGPS();
+
+    /** Reset the IPTC tab to default (empty) values.
+      * This method resets the edit fields in the IPTC tab of the plugin.
+      */
+    void resetIPTC();
 
 private:
 
