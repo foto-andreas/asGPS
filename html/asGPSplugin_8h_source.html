@@ -62,196 +62,200 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <a href="asGPSplugin_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#pragma once</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span>
-<a name="l00059"></a>00059 <span class="preprocessor">#include &lt;QString&gt;</span>
-<a name="l00060"></a>00060 <span class="preprocessor">#include &lt;QWidget&gt;</span>
-<a name="l00061"></a>00061 <span class="preprocessor">#include &lt;QLineEdit&gt;</span>
-<a name="l00062"></a>00062 <span class="preprocessor">#include &lt;QAbstractButton&gt;</span>
-<a name="l00063"></a>00063 <span class="preprocessor">#include &lt;QWebView&gt;</span>
-<a name="l00064"></a>00064 <span class="preprocessor">#include &lt;QCheckBox&gt;</span>
-<a name="l00065"></a>00065 <span class="preprocessor">#include &lt;QLabel&gt;</span>
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067 <span class="preprocessor">#include &quot;B5Plugin.h&quot;</span>
-<a name="l00068"></a>00068 <span class="preprocessor">#include &quot;PluginRevisions.h&quot;</span>
-<a name="l00069"></a>00069 <span class="preprocessor">#include &quot;PluginData.h&quot;</span>
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071 <span class="preprocessor">#include &quot;<a class="code" href="WebInfos_8h.html">WebInfos.h</a>&quot;</span>
+<a name="l00061"></a>00061 <span class="preprocessor">#include &lt;QString&gt;</span>
+<a name="l00062"></a>00062 <span class="preprocessor">#include &lt;QWidget&gt;</span>
+<a name="l00063"></a>00063 <span class="preprocessor">#include &lt;QLineEdit&gt;</span>
+<a name="l00064"></a>00064 <span class="preprocessor">#include &lt;QAbstractButton&gt;</span>
+<a name="l00065"></a>00065 <span class="preprocessor">#include &lt;QWebView&gt;</span>
+<a name="l00066"></a>00066 <span class="preprocessor">#include &lt;QCheckBox&gt;</span>
+<a name="l00067"></a>00067 <span class="preprocessor">#include &lt;QLabel&gt;</span>
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069 <span class="preprocessor">#include &quot;B5Plugin.h&quot;</span>
+<a name="l00070"></a>00070 <span class="preprocessor">#include &quot;PluginRevisions.h&quot;</span>
+<a name="l00071"></a>00071 <span class="preprocessor">#include &quot;PluginData.h&quot;</span>
 <a name="l00072"></a>00072 
-<a name="l00073"></a>00073 <span class="preprocessor">#define ON_GPSLatitude &quot;GPSLatitude&quot;</span>
-<a name="l00074"></a>00074 <span class="preprocessor"></span><span class="preprocessor">#define ON_GPSLongitude &quot;GPSLongitude&quot;</span>
-<a name="l00075"></a>00075 <span class="preprocessor"></span><span class="preprocessor">#define ON_GPSAltitude &quot;GPSAltitude&quot;</span>
-<a name="l00076"></a>00076 <span class="preprocessor"></span><span class="preprocessor">#define ON_GPSDateStamp &quot;GPSDateStamp&quot;</span>
-<a name="l00077"></a>00077 <span class="preprocessor"></span><span class="preprocessor">#define ON_GPSTimeStamp &quot;GPSTimeStamp&quot;</span>
-<a name="l00078"></a>00078 <span class="preprocessor"></span><span class="preprocessor">#define ON_GPSStatus &quot;GPSStatus&quot;</span>
-<a name="l00079"></a>00079 <span class="preprocessor"></span><span class="preprocessor">#define ON_GPSSatellites &quot;GPSSatellites&quot;</span>
-<a name="l00080"></a>00080 <span class="preprocessor"></span><span class="preprocessor">#define ON_Location &quot;Location&quot;</span>
-<a name="l00081"></a>00081 <span class="preprocessor"></span><span class="preprocessor">#define ON_CountryCode &quot;CountryCode&quot;</span>
-<a name="l00082"></a>00082 <span class="preprocessor"></span><span class="preprocessor">#define ON_Country &quot;Country&quot;</span>
-<a name="l00083"></a>00083 <span class="preprocessor"></span><span class="preprocessor">#define ON_State &quot;State&quot;</span>
-<a name="l00084"></a>00084 <span class="preprocessor"></span><span class="preprocessor">#define ON_City &quot;City&quot;</span>
-<a name="l00085"></a>00085 <span class="preprocessor"></span>
-<a name="l00092"></a><a class="code" href="classasGPSplugin.html">00092</a> <span class="keyword">class </span><a class="code" href="classasGPSplugin.html" title="asGPS - Geotagging in AfterShotPro.">asGPSplugin</a> : <span class="keyword">public</span> QObject, <span class="keyword">public</span> B5Plugin
-<a name="l00093"></a>00093 {
-<a name="l00094"></a>00094     Q_OBJECT
-<a name="l00095"></a>00095 
-<a name="l00096"></a>00096 <span class="keyword">public</span>:
+<a name="l00073"></a>00073 <span class="preprocessor">#include &quot;<a class="code" href="WebInfos_8h.html">WebInfos.h</a>&quot;</span>
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075 <span class="preprocessor">#define ON_GPSLatitude &quot;GPSLatitude&quot;</span>
+<a name="l00076"></a>00076 <span class="preprocessor"></span><span class="preprocessor">#define ON_GPSLongitude &quot;GPSLongitude&quot;</span>
+<a name="l00077"></a>00077 <span class="preprocessor"></span><span class="preprocessor">#define ON_GPSAltitude &quot;GPSAltitude&quot;</span>
+<a name="l00078"></a>00078 <span class="preprocessor"></span><span class="preprocessor">#define ON_GPSDateStamp &quot;GPSDateStamp&quot;</span>
+<a name="l00079"></a>00079 <span class="preprocessor"></span><span class="preprocessor">#define ON_GPSTimeStamp &quot;GPSTimeStamp&quot;</span>
+<a name="l00080"></a>00080 <span class="preprocessor"></span><span class="preprocessor">#define ON_GPSStatus &quot;GPSStatus&quot;</span>
+<a name="l00081"></a>00081 <span class="preprocessor"></span><span class="preprocessor">#define ON_GPSSatellites &quot;GPSSatellites&quot;</span>
+<a name="l00082"></a>00082 <span class="preprocessor"></span><span class="preprocessor">#define ON_Location &quot;Location&quot;</span>
+<a name="l00083"></a>00083 <span class="preprocessor"></span><span class="preprocessor">#define ON_CountryCode &quot;CountryCode&quot;</span>
+<a name="l00084"></a>00084 <span class="preprocessor"></span><span class="preprocessor">#define ON_Country &quot;Country&quot;</span>
+<a name="l00085"></a>00085 <span class="preprocessor"></span><span class="preprocessor">#define ON_State &quot;State&quot;</span>
+<a name="l00086"></a>00086 <span class="preprocessor"></span><span class="preprocessor">#define ON_City &quot;City&quot;</span>
+<a name="l00087"></a>00087 <span class="preprocessor"></span>
+<a name="l00094"></a><a class="code" href="classasGPSplugin.html">00094</a> <span class="keyword">class </span><a class="code" href="classasGPSplugin.html" title="asGPS - Geotagging in AfterShotPro.">asGPSplugin</a> : <span class="keyword">public</span> QObject, <span class="keyword">public</span> B5Plugin
+<a name="l00095"></a>00095 {
+<a name="l00096"></a>00096     Q_OBJECT
 <a name="l00097"></a>00097 
-<a name="l00101"></a><a class="code" href="classasGPSplugin.html#ac8e68c199593845de3d3244a4944cf40">00101</a>     <a class="code" href="classasGPSplugin.html#ac8e68c199593845de3d3244a4944cf40" title="Constructor for the asGPS plugin.">asGPSplugin</a>() : <a class="code" href="classasGPSplugin.html#a858f74274b6afddd63ecdbef3b686a7b" title="out plugin hub, which is our connection to ASP">m_pHub</a>( NULL ), <a class="code" href="classasGPSplugin.html#a5e4e565406214472a2a6754ec5045a3b" title="this is our current plugin identifier, set by ASP">m_pluginId</a>( -1 ), <a class="code" href="classasGPSplugin.html#a449517f2c87bbcf87d7dbe30b6eeeed6" title="this is our current plugin group identifier, set by ASP">m_groupId</a>( -1 ) { ; }
-<a name="l00102"></a>00102 
-<a name="l00106"></a><a class="code" href="classasGPSplugin.html#abe74ab8c5928e2aedc3b33c92d0664b7">00106</a>     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#abe74ab8c5928e2aedc3b33c92d0664b7" title="Gives the priority of our plugin.">priority</a>() { <span class="keywordflow">return</span> 100; }
-<a name="l00107"></a>00107 
-<a name="l00111"></a><a class="code" href="classasGPSplugin.html#a233bc76956f667c6bc9bd8006984c96a">00111</a>     <span class="keyword">virtual</span> QString <a class="code" href="classasGPSplugin.html#a233bc76956f667c6bc9bd8006984c96a" title="Gives the name of our plugin.">name</a>() { <span class="keywordflow">return</span> QString(<span class="stringliteral">&quot;asGPS&quot;</span>); }
-<a name="l00112"></a>00112 
-<a name="l00116"></a><a class="code" href="classasGPSplugin.html#a3ac72a12c74cef7dc83e2fd350d3a3e5">00116</a>     <span class="keyword">virtual</span> QString <a class="code" href="classasGPSplugin.html#a3ac72a12c74cef7dc83e2fd350d3a3e5" title="Gives the group name of our plugin.">group</a>() { <span class="keywordflow">return</span> QString(<span class="stringliteral">&quot;asGPSplug&quot;</span>); }
-<a name="l00117"></a>00117 
-<a name="l00122"></a>00122     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classasGPSplugin.html#a988cc67877809ea74a9adc05a4e64559" title="Initialize our asGPS plugin.">init</a>(PluginHub *hub, <span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#aa404615e7cd7ee1635baf9de4283ce94" title="Group ID.">groupId</a>, <span class="keyword">const</span> QString &amp;bundlePath);
-<a name="l00123"></a>00123 
-<a name="l00127"></a>00127     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classasGPSplugin.html#a689090e8ea4cbf358c74165d57c3efc1" title="Register filters for ASP.">registerFilters</a>();
-<a name="l00128"></a>00128 
-<a name="l00132"></a>00132     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classasGPSplugin.html#ad11da5e0b2d5848f4dd61e383b169816" title="Register options for ASP.">registerOptions</a>();
-<a name="l00133"></a>00133 
-<a name="l00138"></a>00138     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classasGPSplugin.html#a67b69d231bdbab48c3703700d4068492" title="Setup finished.">finish</a>();
-<a name="l00139"></a>00139 
-<a name="l00144"></a>00144     <span class="keyword">virtual</span> PluginDependency *<a class="code" href="classasGPSplugin.html#a168f9750541aa56d9bbb26fe3ff83cf2" title="Create a plugin dependency.">createDependency</a>(<span class="keyword">const</span> QString &amp;<a class="code" href="classasGPSplugin.html#a233bc76956f667c6bc9bd8006984c96a" title="Gives the name of our plugin.">name</a>);
-<a name="l00145"></a>00145 
-<a name="l00149"></a>00149     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="classasGPSplugin.html#af4d45b9ab8061dd1be8ae29e3efdca83" title="Gives a list of tool files.">toolFiles</a>();
-<a name="l00150"></a>00150 
-<a name="l00154"></a>00154     <span class="keyword">virtual</span> QList&lt;QWidget*&gt; <a class="code" href="classasGPSplugin.html#af3cb30684a245aad20b39fe1bcc799c4" title="Gives a list of widgets.">toolWidgets</a>();
-<a name="l00155"></a>00155 
-<a name="l00160"></a>00160     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a7d19ce2fd92e559a62d81369e479db88" title="After tool widget created.">toolWidgetCreated</a>(QWidget *uiWidget);
-<a name="l00161"></a>00161 
-<a name="l00166"></a><a class="code" href="classasGPSplugin.html#aa404615e7cd7ee1635baf9de4283ce94">00166</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#aa404615e7cd7ee1635baf9de4283ce94" title="Group ID.">groupId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classasGPSplugin.html#a449517f2c87bbcf87d7dbe30b6eeeed6" title="this is our current plugin group identifier, set by ASP">m_groupId</a>; }
-<a name="l00167"></a>00167 
-<a name="l00172"></a><a class="code" href="classasGPSplugin.html#a3dd421286a01ad38d0936163fa26b394">00172</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a3dd421286a01ad38d0936163fa26b394" title="Plugin ID.">pluginId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classasGPSplugin.html#a5e4e565406214472a2a6754ec5045a3b" title="this is our current plugin identifier, set by ASP">m_pluginId</a>; }
-<a name="l00173"></a>00173 
-<a name="l00174"></a>00174 <span class="keyword">private</span> slots:
+<a name="l00098"></a>00098 <span class="keyword">public</span>:
+<a name="l00099"></a>00099 
+<a name="l00103"></a><a class="code" href="classasGPSplugin.html#ac8e68c199593845de3d3244a4944cf40">00103</a>     <a class="code" href="classasGPSplugin.html#ac8e68c199593845de3d3244a4944cf40" title="Constructor for the asGPS plugin.">asGPSplugin</a>() : <a class="code" href="classasGPSplugin.html#a858f74274b6afddd63ecdbef3b686a7b" title="out plugin hub, which is our connection to ASP">m_pHub</a>( NULL ), <a class="code" href="classasGPSplugin.html#a5e4e565406214472a2a6754ec5045a3b" title="this is our current plugin identifier, set by ASP">m_pluginId</a>( -1 ), <a class="code" href="classasGPSplugin.html#a449517f2c87bbcf87d7dbe30b6eeeed6" title="this is our current plugin group identifier, set by ASP">m_groupId</a>( -1 ) { ; }
+<a name="l00104"></a>00104 
+<a name="l00108"></a><a class="code" href="classasGPSplugin.html#abe74ab8c5928e2aedc3b33c92d0664b7">00108</a>     <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#abe74ab8c5928e2aedc3b33c92d0664b7" title="Gives the priority of our plugin.">priority</a>() { <span class="keywordflow">return</span> 100; }
+<a name="l00109"></a>00109 
+<a name="l00113"></a><a class="code" href="classasGPSplugin.html#a233bc76956f667c6bc9bd8006984c96a">00113</a>     <span class="keyword">virtual</span> QString <a class="code" href="classasGPSplugin.html#a233bc76956f667c6bc9bd8006984c96a" title="Gives the name of our plugin.">name</a>() { <span class="keywordflow">return</span> QString(<span class="stringliteral">&quot;asGPS&quot;</span>); }
+<a name="l00114"></a>00114 
+<a name="l00118"></a><a class="code" href="classasGPSplugin.html#a3ac72a12c74cef7dc83e2fd350d3a3e5">00118</a>     <span class="keyword">virtual</span> QString <a class="code" href="classasGPSplugin.html#a3ac72a12c74cef7dc83e2fd350d3a3e5" title="Gives the group name of our plugin.">group</a>() { <span class="keywordflow">return</span> QString(<span class="stringliteral">&quot;asGPSplug&quot;</span>); }
+<a name="l00119"></a>00119 
+<a name="l00124"></a>00124     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classasGPSplugin.html#a988cc67877809ea74a9adc05a4e64559" title="Initialize our asGPS plugin.">init</a>(PluginHub *hub, <span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#aa404615e7cd7ee1635baf9de4283ce94" title="Group ID.">groupId</a>, <span class="keyword">const</span> QString &amp;bundlePath);
+<a name="l00125"></a>00125 
+<a name="l00129"></a>00129     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classasGPSplugin.html#a689090e8ea4cbf358c74165d57c3efc1" title="Register filters for ASP.">registerFilters</a>();
+<a name="l00130"></a>00130 
+<a name="l00134"></a>00134     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classasGPSplugin.html#ad11da5e0b2d5848f4dd61e383b169816" title="Register options for ASP.">registerOptions</a>();
+<a name="l00135"></a>00135 
+<a name="l00140"></a>00140     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classasGPSplugin.html#a67b69d231bdbab48c3703700d4068492" title="Setup finished.">finish</a>();
+<a name="l00141"></a>00141 
+<a name="l00146"></a>00146     <span class="keyword">virtual</span> PluginDependency *<a class="code" href="classasGPSplugin.html#a168f9750541aa56d9bbb26fe3ff83cf2" title="Create a plugin dependency.">createDependency</a>(<span class="keyword">const</span> QString &amp;<a class="code" href="classasGPSplugin.html#a233bc76956f667c6bc9bd8006984c96a" title="Gives the name of our plugin.">name</a>);
+<a name="l00147"></a>00147 
+<a name="l00151"></a>00151     <span class="keyword">virtual</span> QList&lt;QString&gt; <a class="code" href="classasGPSplugin.html#af4d45b9ab8061dd1be8ae29e3efdca83" title="Gives a list of tool files.">toolFiles</a>();
+<a name="l00152"></a>00152 
+<a name="l00156"></a>00156     <span class="keyword">virtual</span> QList&lt;QWidget*&gt; <a class="code" href="classasGPSplugin.html#af3cb30684a245aad20b39fe1bcc799c4" title="Gives a list of widgets.">toolWidgets</a>();
+<a name="l00157"></a>00157 
+<a name="l00162"></a>00162     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a7d19ce2fd92e559a62d81369e479db88" title="After tool widget created.">toolWidgetCreated</a>(QWidget *uiWidget);
+<a name="l00163"></a>00163 
+<a name="l00168"></a><a class="code" href="classasGPSplugin.html#aa404615e7cd7ee1635baf9de4283ce94">00168</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#aa404615e7cd7ee1635baf9de4283ce94" title="Group ID.">groupId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classasGPSplugin.html#a449517f2c87bbcf87d7dbe30b6eeeed6" title="this is our current plugin group identifier, set by ASP">m_groupId</a>; }
+<a name="l00169"></a>00169 
+<a name="l00174"></a><a class="code" href="classasGPSplugin.html#a3dd421286a01ad38d0936163fa26b394">00174</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a3dd421286a01ad38d0936163fa26b394" title="Plugin ID.">pluginId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classasGPSplugin.html#a5e4e565406214472a2a6754ec5045a3b" title="this is our current plugin identifier, set by ASP">m_pluginId</a>; }
 <a name="l00175"></a>00175 
-<a name="l00180"></a>00180     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#adcf3edfa0fe0f86dcf51629a12171674" title="Slot which handles the change of the hotness (selected main image) in ASP.">handleHotnessChanged</a>( <span class="keyword">const</span> PluginImageSettings &amp;options );
-<a name="l00181"></a>00181 
-<a name="l00188"></a>00188     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#ab9720afdaae8186714f87a48df214c46" title="Slot which handles the change of settings in ASP.">handleSettingsChanged</a>( <span class="keyword">const</span> PluginImageSettings &amp;options, <span class="keyword">const</span> PluginImageSettings &amp;changed, <span class="keywordtype">int</span> layer );
-<a name="l00189"></a>00189 
-<a name="l00193"></a>00193     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#ac5652378fd5ca3611d95bcef411a831b" title="Slot which is called when the map loading begins.">handleLoadStarted</a> ();
-<a name="l00194"></a>00194 
-<a name="l00199"></a>00199     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a73954b7636ad2bce406fa338c6136846" title="Slot which is called when the map is loaded.">handleLoadFinished</a> ( <span class="keywordtype">bool</span> ok);
-<a name="l00200"></a>00200 
-<a name="l00205"></a>00205     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a9e68dc10e83bddb856d95f101b277033" title="Slot which is called when enable check box is changed.">handleCheckedChange</a>(<span class="keywordtype">bool</span> enabled);
-<a name="l00206"></a>00206 
-<a name="l00212"></a>00212     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a7cbb5321167cd5159a40efa537e7814c" title="Slot for the top tristate checkbox in the coords tab.">handleCoordsCB</a>(<span class="keywordtype">int</span>);
-<a name="l00213"></a>00213 
-<a name="l00219"></a>00219     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#aaf208a554e7b26e630dae36671c334bb" title="Slot for the top tristate checkbox in the IPTC tab.">handleIptcCB</a>(<span class="keywordtype">int</span>);
-<a name="l00220"></a>00220 
-<a name="l00224"></a>00224     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a859a4d8f2d26e40bcc6b376e6af2eb1a" title="Reset all asGPS fields.">reset</a>();
-<a name="l00225"></a>00225 
-<a name="l00231"></a>00231     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#ab9fb5d1a51540838a240cde89b09237f" title="Tag the image.">tagImage</a>();
-<a name="l00232"></a>00232 
-<a name="l00233"></a>00233     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a774a23eb2b59c1d6a04686d8a924494d">geocode</a>();
+<a name="l00176"></a>00176 <span class="keyword">private</span> slots:
+<a name="l00177"></a>00177 
+<a name="l00182"></a>00182     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#adcf3edfa0fe0f86dcf51629a12171674" title="Slot which handles the change of the hotness (selected main image) in ASP.">handleHotnessChanged</a>( <span class="keyword">const</span> PluginImageSettings &amp;options );
+<a name="l00183"></a>00183 
+<a name="l00190"></a>00190     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#ab9720afdaae8186714f87a48df214c46" title="Slot which handles the change of settings in ASP.">handleSettingsChanged</a>( <span class="keyword">const</span> PluginImageSettings &amp;options, <span class="keyword">const</span> PluginImageSettings &amp;changed, <span class="keywordtype">int</span> layer );
+<a name="l00191"></a>00191 
+<a name="l00195"></a>00195     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#ac5652378fd5ca3611d95bcef411a831b" title="Slot which is called when the map loading begins.">handleLoadStarted</a> ();
+<a name="l00196"></a>00196 
+<a name="l00201"></a>00201     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a73954b7636ad2bce406fa338c6136846" title="Slot which is called when the map is loaded.">handleLoadFinished</a> ( <span class="keywordtype">bool</span> ok);
+<a name="l00202"></a>00202 
+<a name="l00207"></a>00207     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a9e68dc10e83bddb856d95f101b277033" title="Slot which is called when enable check box is changed.">handleCheckedChange</a>(<span class="keywordtype">bool</span> enabled);
+<a name="l00208"></a>00208 
+<a name="l00214"></a>00214     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a9619d61f2373b9d8d3c691ea5b119885" title="Slot for the top tristate checkbox in the coords tab.">handleCoordsCB</a>(<span class="keywordtype">int</span> unused);
+<a name="l00215"></a>00215 
+<a name="l00221"></a>00221     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#aa93ee8dc2068db49746ca498b9e59d1c" title="Slot for the top tristate checkbox in the IPTC tab.">handleIptcCB</a>(<span class="keywordtype">int</span> unused);
+<a name="l00222"></a>00222 
+<a name="l00226"></a>00226     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a859a4d8f2d26e40bcc6b376e6af2eb1a" title="Reset all asGPS fields.">reset</a>();
+<a name="l00227"></a>00227 
+<a name="l00233"></a>00233     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#ab9fb5d1a51540838a240cde89b09237f" title="Tag the image.">tagImage</a>();
 <a name="l00234"></a>00234 
-<a name="l00235"></a>00235     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#ab7086fb6f1c64ed46946c034d8b50393">reversegeocode</a>();
-<a name="l00236"></a>00236 
-<a name="l00237"></a>00237     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a92eb770da06e9a2071dc642b49f965a8">setOptionIDs</a>();
-<a name="l00238"></a>00238 
-<a name="l00239"></a>00239     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#aaabf2c8e00b6032bb7a39092f17adf1e">populateJavaScriptWindowObject</a>();
-<a name="l00240"></a>00240 
-<a name="l00241"></a>00241 <span class="keyword">public</span> slots:
-<a name="l00242"></a>00242 
-<a name="l00250"></a>00250     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a08b95d1d5ad5ec8dd3ba16ad7f27c0d1" title="Slot for connecting an external browser application.">openExternalBrowser</a>(QUrl url);
-<a name="l00251"></a>00251 
-<a name="l00257"></a>00257     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a61ace1debc79a45cb8c781a4591c7153" title="Slot for connecting an internal browser window.">openInternalBrowser</a>(QUrl url);
-<a name="l00258"></a>00258 
-<a name="l00265"></a>00265     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a337b8eb291610346d20c28650888c1f8" title="An alert dialog.">alert</a>(QString text);
-<a name="l00266"></a>00266 
-<a name="l00271"></a>00271     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a69efb1129e3032ef6ce062a7fe1fa257" title="A marker was clicked.">marker_click</a>();
-<a name="l00272"></a>00272 
-<a name="l00281"></a>00281     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a697fc62480d4f941bd38bdda5bd3c94a" title="A marker was moved (dragged) in the map.">marker_moved</a>(<span class="keywordtype">double</span> lat, <span class="keywordtype">double</span> lng);
-<a name="l00282"></a>00282 
-<a name="l00283"></a>00283     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#ab170f9662b5dbfaad56a640a3ce35ae5">set_country</a>(QString short_name, QString long_name);
-<a name="l00284"></a>00284 
-<a name="l00285"></a>00285     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a4054b209ac88c67115da2a69b9446ad1">set_state</a>(QString short_name, QString long_name);
-<a name="l00286"></a>00286 
-<a name="l00287"></a>00287     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#ae29f7a49374a33528dd5def158b5b20d">set_city</a>(QString short_name, QString long_name);
-<a name="l00288"></a>00288 
-<a name="l00289"></a>00289     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#ac751d846f79dd015030c9a98faab6200">set_location</a>(QString long_name);
-<a name="l00290"></a>00290 
-<a name="l00291"></a>00291     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a0adde34abf4f0583e7f10156044d1c84">webInfosReady</a>();
-<a name="l00292"></a>00292 
-<a name="l00293"></a>00293     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a3fe85c9ad0e43db96da25bf1e618602e">displayHelp</a>();
-<a name="l00294"></a>00294 
-<a name="l00295"></a>00295 <span class="keyword">private</span>:
-<a name="l00296"></a>00296 
-<a name="l00297"></a>00297     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a06e2b28982541247a08e2b98c44de291">updateUi</a>( PluginOptionList *options );
-<a name="l00298"></a>00298     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a88f47b8f75866fe2a1c0478f20210ec9">updateMap</a>();
-<a name="l00299"></a>00299     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a83075b50e38458f68f624f2188d488a8">setStringField</a>( PluginOptionList *options, QLineEdit *field, <span class="keywordtype">int</span> optionID);
-<a name="l00300"></a>00300     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a83075b50e38458f68f624f2188d488a8">setStringField</a>( PluginOptionList *options, QLabel *field, <span class="keywordtype">int</span> optionID);
-<a name="l00301"></a>00301     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#adfcd4d04ce36749bea4df7cfb57a44ef">tag</a>( PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, <span class="keywordtype">int</span> optionID);
-<a name="l00302"></a>00302 
-<a name="l00306"></a>00306     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a3a0cba8fc803f773e67719a6e9a394b4" title="Reset the GPS tab to default (empty) values.">resetGPS</a>();
-<a name="l00307"></a>00307 
-<a name="l00311"></a>00311     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a9985b48b07725fe85b65637446c5d3f8" title="Reset the IPTC tab to default (empty) values.">resetIPTC</a>();
-<a name="l00312"></a>00312 
-<a name="l00313"></a>00313 <span class="keyword">private</span>:
-<a name="l00314"></a>00314 
-<a name="l00315"></a><a class="code" href="classasGPSplugin.html#a858f74274b6afddd63ecdbef3b686a7b">00315</a>     PluginHub   *<a class="code" href="classasGPSplugin.html#a858f74274b6afddd63ecdbef3b686a7b" title="out plugin hub, which is our connection to ASP">m_pHub</a>;        
-<a name="l00317"></a><a class="code" href="classasGPSplugin.html#a5e4e565406214472a2a6754ec5045a3b">00317</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a5e4e565406214472a2a6754ec5045a3b" title="this is our current plugin identifier, set by ASP">m_pluginId</a>;             
-<a name="l00318"></a><a class="code" href="classasGPSplugin.html#a449517f2c87bbcf87d7dbe30b6eeeed6">00318</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a449517f2c87bbcf87d7dbe30b6eeeed6" title="this is our current plugin group identifier, set by ASP">m_groupId</a>;              
-<a name="l00320"></a><a class="code" href="classasGPSplugin.html#acfc40398dadab8780d566cb81fe806b0">00320</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#acfc40398dadab8780d566cb81fe806b0" title="this will hold the id of the EXIF:GPS latitude">ID_GPSLatitude</a>;         
-<a name="l00321"></a><a class="code" href="classasGPSplugin.html#a6e681ee09f71cd107c07fb10e1172383">00321</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a6e681ee09f71cd107c07fb10e1172383" title="this will hold the id of the EXIF:GPS longitude">ID_GPSLongitude</a>;        
-<a name="l00322"></a><a class="code" href="classasGPSplugin.html#ae461e445302f39501c57995423266c41">00322</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#ae461e445302f39501c57995423266c41" title="this will hold the id of the EXIF:GPS altitude">ID_GPSAltitude</a>;         
-<a name="l00323"></a><a class="code" href="classasGPSplugin.html#aca00da7ae4588b612cb9c0def5adb097">00323</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#aca00da7ae4588b612cb9c0def5adb097" title="this will hold the id of the EXIF:GPS date">ID_GPSDateStamp</a>;        
-<a name="l00324"></a><a class="code" href="classasGPSplugin.html#ae09a9f19ee77c038709286ba687fbf76">00324</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#ae09a9f19ee77c038709286ba687fbf76" title="this will hold the id of the EXIF:GPS time">ID_GPSTimeStamp</a>;        
-<a name="l00325"></a><a class="code" href="classasGPSplugin.html#a5d3bd5c58592429b3296dc9d952a1e1b">00325</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a5d3bd5c58592429b3296dc9d952a1e1b" title="this will hold the id of the EXIF:GPS status">ID_GPSStatus</a>;           
-<a name="l00326"></a><a class="code" href="classasGPSplugin.html#aadbf7dffa0c046b13d76c51f72b979b3">00326</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#aadbf7dffa0c046b13d76c51f72b979b3" title="this will hold the id of the EXIF:GPS number of satellites">ID_GPSSatellites</a>;       
-<a name="l00327"></a><a class="code" href="classasGPSplugin.html#a9f0c04264eb0279419dba8986ce4999a">00327</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a9f0c04264eb0279419dba8986ce4999a" title="this will hold the id of the IPTC location">ID_Location</a>;            
-<a name="l00328"></a><a class="code" href="classasGPSplugin.html#a3ce44cadb0dc12e3e801017ccd6e4a41">00328</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a3ce44cadb0dc12e3e801017ccd6e4a41" title="this will hold the id of the IPTC country code">ID_CountryCode</a>;         
-<a name="l00329"></a><a class="code" href="classasGPSplugin.html#aebbec2f09d70fc8a01b72ded7d656a91">00329</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#aebbec2f09d70fc8a01b72ded7d656a91" title="this will hold the id of the IPTC country">ID_Country</a>;             
-<a name="l00330"></a><a class="code" href="classasGPSplugin.html#a4487e13bd2b39ddfa40cbc20f4b7e06d">00330</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a4487e13bd2b39ddfa40cbc20f4b7e06d" title="this will hold the id of the IPTC state">ID_State</a>;               
-<a name="l00331"></a><a class="code" href="classasGPSplugin.html#aa6451aa8f7a7bb0f3eed454aa43f3e74">00331</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#aa6451aa8f7a7bb0f3eed454aa43f3e74" title="this will hold the id of the IPTC city">ID_City</a>;                
-<a name="l00333"></a><a class="code" href="classasGPSplugin.html#a03e225119a0ee7a9e73322ed6fa1851e">00333</a>     QWebView    *<a class="code" href="classasGPSplugin.html#a03e225119a0ee7a9e73322ed6fa1851e" title="the web view for the Google map">m_view</a>;        
-<a name="l00334"></a><a class="code" href="classasGPSplugin.html#aa06d2fa3835fa9a9bb5ef9adfbcc5259">00334</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#aa06d2fa3835fa9a9bb5ef9adfbcc5259" title="this is the enable map check box">m_enable</a>;      
-<a name="l00335"></a><a class="code" href="classasGPSplugin.html#a985c81582883ee9457f802e85c6ecbd8">00335</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a985c81582883ee9457f802e85c6ecbd8" title="this is the main edit field for location input">m_edit</a>;        
-<a name="l00337"></a><a class="code" href="classasGPSplugin.html#a5a376d259969572a6201764c2e20c9a2">00337</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a5a376d259969572a6201764c2e20c9a2" title="the edit field for the latitude">m_lat</a>;         
-<a name="l00338"></a><a class="code" href="classasGPSplugin.html#a12d61af628a41cc70e3776c9fb07d340">00338</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a12d61af628a41cc70e3776c9fb07d340" title="the edit field for the longitude">m_lon</a>;         
-<a name="l00339"></a><a class="code" href="classasGPSplugin.html#a592a4c68e263f22f6b1a3a21f69e5a1b">00339</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a592a4c68e263f22f6b1a3a21f69e5a1b" title="the edit field for the altitude">m_alt</a>;         
-<a name="l00340"></a><a class="code" href="classasGPSplugin.html#a2b457eab8a2bb9effe539c28b1aa0b15">00340</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a2b457eab8a2bb9effe539c28b1aa0b15" title="the edit field for the date">m_date</a>;        
-<a name="l00341"></a><a class="code" href="classasGPSplugin.html#a8a5040a472c69fb6c7aadde0e9cd5329">00341</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a8a5040a472c69fb6c7aadde0e9cd5329" title="the edit field for the time">m_time</a>;        
-<a name="l00342"></a><a class="code" href="classasGPSplugin.html#a3c2d1a56c689d68923fb7300d1b4895f">00342</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a3c2d1a56c689d68923fb7300d1b4895f" title="the edit field for the status">m_status</a>;      
-<a name="l00343"></a><a class="code" href="classasGPSplugin.html#a5af5d023daece143ecb995d796a08c37">00343</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a5af5d023daece143ecb995d796a08c37" title="the edit field for the number of sats">m_sats</a>;        
-<a name="l00344"></a><a class="code" href="classasGPSplugin.html#a2f532f3f3d25472676b4543d74a882a5">00344</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a2f532f3f3d25472676b4543d74a882a5" title="the edit field for the country code">m_countryCode</a>; 
-<a name="l00345"></a><a class="code" href="classasGPSplugin.html#a13e1f97750e386f912cb21c5eb0085ca">00345</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a13e1f97750e386f912cb21c5eb0085ca" title="the edit field for the country">m_country</a>;     
-<a name="l00346"></a><a class="code" href="classasGPSplugin.html#ae2c88a49c29b75d3ab3ce19466a27e4f">00346</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#ae2c88a49c29b75d3ab3ce19466a27e4f" title="the edit field for the state">m_state</a>;       
-<a name="l00347"></a><a class="code" href="classasGPSplugin.html#a741e252d8a54a3976eef918c9936c60c">00347</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a741e252d8a54a3976eef918c9936c60c" title="the edit field for the city">m_city</a>;        
-<a name="l00348"></a><a class="code" href="classasGPSplugin.html#a4d7be32f9a61dc931bcca3ee694f2417">00348</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a4d7be32f9a61dc931bcca3ee694f2417" title="the edit field for the location">m_location</a>;    
-<a name="l00350"></a><a class="code" href="classasGPSplugin.html#ae48b3bf55371ec91b31ebffb1447eea6">00350</a>     QAbstractButton *<a class="code" href="classasGPSplugin.html#ae48b3bf55371ec91b31ebffb1447eea6" title="button for reset">m_reset</a>;   
-<a name="l00351"></a><a class="code" href="classasGPSplugin.html#a04cd114494c28af154623863a85fe6d7">00351</a>     QAbstractButton *<a class="code" href="classasGPSplugin.html#a04cd114494c28af154623863a85fe6d7" title="button to open the info window">m_info</a>;    
-<a name="l00352"></a><a class="code" href="classasGPSplugin.html#aca4b310f37e557ac818a10957364857d">00352</a>     QAbstractButton *<a class="code" href="classasGPSplugin.html#aca4b310f37e557ac818a10957364857d" title="button to tag the image">m_tag</a>;     
-<a name="l00353"></a><a class="code" href="classasGPSplugin.html#a6e81040aaadf9da5b3fbde2962247290">00353</a>     QAbstractButton *<a class="code" href="classasGPSplugin.html#a6e81040aaadf9da5b3fbde2962247290" title="button for &quot;locate in map&quot;">m_lim</a>;     
-<a name="l00354"></a><a class="code" href="classasGPSplugin.html#a0257b8fce1a2f8939ec97bd9335d7a83">00354</a>     QAbstractButton *<a class="code" href="classasGPSplugin.html#a0257b8fce1a2f8939ec97bd9335d7a83" title="button for &quot;find nearest location&quot;">m_fnl</a>;     
-<a name="l00356"></a><a class="code" href="classasGPSplugin.html#ae1aac46eff0a301b55cabc888032d7a5">00356</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#ae1aac46eff0a301b55cabc888032d7a5" title="global checkbox for GPS coordinates">m_coordsCB</a>;        
-<a name="l00357"></a><a class="code" href="classasGPSplugin.html#ab7c996ae6b3a8e4236cb604450637f94">00357</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#ab7c996ae6b3a8e4236cb604450637f94" title="global checkbox for IPTC coordinates">m_iptcCB</a>;          
-<a name="l00359"></a><a class="code" href="classasGPSplugin.html#aeebd0d380b730f32bc965f2eef57324e">00359</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#aeebd0d380b730f32bc965f2eef57324e" title="checkbox for the latitude edit field">m_latCB</a>;           
-<a name="l00360"></a><a class="code" href="classasGPSplugin.html#a4012197e9e127709850501dcbbff148c">00360</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#a4012197e9e127709850501dcbbff148c" title="checkbox for the longitude edit field">m_lonCB</a>;           
-<a name="l00361"></a><a class="code" href="classasGPSplugin.html#a3e38ae2fbd6cabf1f00307abbfb706c7">00361</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#a3e38ae2fbd6cabf1f00307abbfb706c7" title="checkbox for the altitude edit field">m_altCB</a>;           
-<a name="l00362"></a><a class="code" href="classasGPSplugin.html#a3f1783a47c7aabb6474eb65b1088d87c">00362</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#a3f1783a47c7aabb6474eb65b1088d87c" title="checkbox for the date edit field">m_dateCB</a>;          
-<a name="l00363"></a><a class="code" href="classasGPSplugin.html#ad0d3375db4e3b3004912e367e3f7deff">00363</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#ad0d3375db4e3b3004912e367e3f7deff" title="checkbox for the time edit field">m_timeCB</a>;          
-<a name="l00364"></a><a class="code" href="classasGPSplugin.html#ab89c32ccce93be7339a413bd0e8c5c29">00364</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#ab89c32ccce93be7339a413bd0e8c5c29" title="checkbox for the status edit field">m_statusCB</a>;        
-<a name="l00365"></a><a class="code" href="classasGPSplugin.html#a121fd598223f458b7e1c94e683bf25b2">00365</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#a121fd598223f458b7e1c94e683bf25b2" title="checkbox for the satellites edit field">m_satsCB</a>;          
-<a name="l00366"></a><a class="code" href="classasGPSplugin.html#a0615e2c2c1f73ffde87fe10fd09a4aa4">00366</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#a0615e2c2c1f73ffde87fe10fd09a4aa4" title="checkbox for the country code edit field">m_countryCodeCB</a>;   
-<a name="l00367"></a><a class="code" href="classasGPSplugin.html#ac93a22f1fe510a98b8543d932afcce45">00367</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#ac93a22f1fe510a98b8543d932afcce45" title="checkbox for the country edit field">m_countryCB</a>;       
-<a name="l00368"></a><a class="code" href="classasGPSplugin.html#aa074e0eb4763de0acfe09267e0f3e2ea">00368</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#aa074e0eb4763de0acfe09267e0f3e2ea" title="checkbox for the state edit field">m_stateCB</a>;         
-<a name="l00369"></a><a class="code" href="classasGPSplugin.html#a39da47916cc7dd1894678f97a9dbb073">00369</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#a39da47916cc7dd1894678f97a9dbb073" title="checkbox for the city edit field">m_cityCB</a>;          
-<a name="l00370"></a><a class="code" href="classasGPSplugin.html#ae7d589d51bedb49aa2c1d5f94e131234">00370</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#ae7d589d51bedb49aa2c1d5f94e131234" title="checkbox for the location edit field">m_locationCB</a>;      
-<a name="l00372"></a><a class="code" href="classasGPSplugin.html#aaea2fa4791cf320f55e3e2e016232541">00372</a>     QLabel      *<a class="code" href="classasGPSplugin.html#aaea2fa4791cf320f55e3e2e016232541" title="info text for current GPS latitude value in image settings">m_l_lat</a>;           
-<a name="l00373"></a><a class="code" href="classasGPSplugin.html#a8770957a1453be48d93dedaea1de6b4a">00373</a>     QLabel      *<a class="code" href="classasGPSplugin.html#a8770957a1453be48d93dedaea1de6b4a" title="info text for current GPS longitude value in image settings">m_l_lon</a>;           
-<a name="l00374"></a><a class="code" href="classasGPSplugin.html#aee814ef2f9a8f3ca54c4656f2862cd73">00374</a>     QLabel      *<a class="code" href="classasGPSplugin.html#aee814ef2f9a8f3ca54c4656f2862cd73" title="info text for current GPS altitude value in image settings">m_l_alt</a>;           
-<a name="l00375"></a><a class="code" href="classasGPSplugin.html#ae0f4eb4fb72766d62c6aa784431b2f97">00375</a>     QLabel      *<a class="code" href="classasGPSplugin.html#ae0f4eb4fb72766d62c6aa784431b2f97" title="info text for current GPS date value in image settings">m_l_date</a>;          
-<a name="l00376"></a><a class="code" href="classasGPSplugin.html#af333d59df6dc5d7f4436662aa82c1843">00376</a>     QLabel      *<a class="code" href="classasGPSplugin.html#af333d59df6dc5d7f4436662aa82c1843" title="info text for current GPS time value in image settings">m_l_time</a>;          
-<a name="l00377"></a><a class="code" href="classasGPSplugin.html#a6a135ebb0539af36684c8ff523049b23">00377</a>     QLabel      *<a class="code" href="classasGPSplugin.html#a6a135ebb0539af36684c8ff523049b23" title="info text for current GPS status value in image settings">m_l_status</a>;        
-<a name="l00378"></a><a class="code" href="classasGPSplugin.html#a682011164ed85f43b2c82e8b7308a737">00378</a>     QLabel      *<a class="code" href="classasGPSplugin.html#a682011164ed85f43b2c82e8b7308a737" title="info text for current GPS satellites value in image settings">m_l_sats</a>;          
-<a name="l00379"></a><a class="code" href="classasGPSplugin.html#a42269c93bd97cd5767a92d52ff15d648">00379</a>     QLabel      *<a class="code" href="classasGPSplugin.html#a42269c93bd97cd5767a92d52ff15d648" title="info text for current IPTC country code value in image settings">m_l_countryCode</a>;   
-<a name="l00380"></a><a class="code" href="classasGPSplugin.html#a16137a6f5a51e2b09923374a051200a6">00380</a>     QLabel      *<a class="code" href="classasGPSplugin.html#a16137a6f5a51e2b09923374a051200a6" title="info text for current IPTC country value in image settings">m_l_country</a>;       
-<a name="l00381"></a><a class="code" href="classasGPSplugin.html#a08fe9672c1d7d240339814f685729d6b">00381</a>     QLabel      *<a class="code" href="classasGPSplugin.html#a08fe9672c1d7d240339814f685729d6b" title="info text for current IPTC state value in image settings">m_l_state</a>;         
-<a name="l00382"></a><a class="code" href="classasGPSplugin.html#ad5d2d7d41569d7102e9cf272465bdac3">00382</a>     QLabel      *<a class="code" href="classasGPSplugin.html#ad5d2d7d41569d7102e9cf272465bdac3" title="info text for current IPTC city value in image settings">m_l_city</a>;          
-<a name="l00383"></a><a class="code" href="classasGPSplugin.html#a706cb1f7347cf4334de007432639098a">00383</a>     QLabel      *<a class="code" href="classasGPSplugin.html#a706cb1f7347cf4334de007432639098a" title="info text for current IPTC location value in image settings">m_l_location</a>;      
-<a name="l00385"></a><a class="code" href="classasGPSplugin.html#a587aaa49c0a201bf5140f5af9d0904d9">00385</a>     <a class="code" href="classWebInfos.html">WebInfos</a>    *<a class="code" href="classasGPSplugin.html#a587aaa49c0a201bf5140f5af9d0904d9" title="instance for gettings version infos from the web">m_webInfos</a>;        
-<a name="l00387"></a>00387 };
+<a name="l00240"></a>00240     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a774a23eb2b59c1d6a04686d8a924494d" title="Geotag with Google Maps.">geocode</a>();
+<a name="l00241"></a>00241 
+<a name="l00246"></a>00246     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#ab7086fb6f1c64ed46946c034d8b50393" title="Reverse geotag with Google Maps.">reversegeocode</a>();
+<a name="l00247"></a>00247 
+<a name="l00252"></a>00252     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a92eb770da06e9a2071dc642b49f965a8" title="Find option IDs.">setOptionIDs</a>();
+<a name="l00253"></a>00253 
+<a name="l00258"></a>00258     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#aaabf2c8e00b6032bb7a39092f17adf1e" title="Connection to JavaScript.">populateJavaScriptWindowObject</a>();
+<a name="l00259"></a>00259 
+<a name="l00260"></a>00260 <span class="keyword">public</span> slots:
+<a name="l00261"></a>00261 
+<a name="l00269"></a>00269     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a08b95d1d5ad5ec8dd3ba16ad7f27c0d1" title="Slot for connecting an external browser application.">openExternalBrowser</a>(QUrl url);
+<a name="l00270"></a>00270 
+<a name="l00276"></a>00276     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a61ace1debc79a45cb8c781a4591c7153" title="Slot for connecting an internal browser window.">openInternalBrowser</a>(QUrl url);
+<a name="l00277"></a>00277 
+<a name="l00284"></a>00284     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a337b8eb291610346d20c28650888c1f8" title="An alert dialog.">alert</a>(QString text);
+<a name="l00285"></a>00285 
+<a name="l00290"></a>00290     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a69efb1129e3032ef6ce062a7fe1fa257" title="A marker was clicked.">marker_click</a>();
+<a name="l00291"></a>00291 
+<a name="l00300"></a>00300     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a697fc62480d4f941bd38bdda5bd3c94a" title="A marker was moved (dragged) in the map.">marker_moved</a>(<span class="keywordtype">double</span> lat, <span class="keywordtype">double</span> lng);
+<a name="l00301"></a>00301 
+<a name="l00307"></a>00307     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#ab170f9662b5dbfaad56a640a3ce35ae5" title="Slot for the JavaScript part to set the country code and country.">set_country</a>(QString short_name, QString long_name);
+<a name="l00308"></a>00308 
+<a name="l00314"></a>00314     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a4054b209ac88c67115da2a69b9446ad1" title="Slot for the JavaScript part to set the state.">set_state</a>(QString short_name, QString long_name);
+<a name="l00315"></a>00315 
+<a name="l00321"></a>00321     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#ae29f7a49374a33528dd5def158b5b20d" title="Slot for the JavaScript part to set the city.">set_city</a>(QString short_name, QString long_name);
+<a name="l00322"></a>00322 
+<a name="l00327"></a>00327     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#ac751d846f79dd015030c9a98faab6200" title="Slot for the JavaScript part to set the location.">set_location</a>(QString long_name);
+<a name="l00328"></a>00328 
+<a name="l00332"></a>00332     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a0adde34abf4f0583e7f10156044d1c84" title="Web infos are ready to use.">webInfosReady</a>();
+<a name="l00333"></a>00333 
+<a name="l00337"></a>00337     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a3fe85c9ad0e43db96da25bf1e618602e" title="Display the help window.">displayHelp</a>();
+<a name="l00338"></a>00338 
+<a name="l00339"></a>00339 <span class="keyword">private</span>:
+<a name="l00340"></a>00340 
+<a name="l00346"></a>00346     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a06e2b28982541247a08e2b98c44de291" title="Update the user interface.">updateUi</a>( PluginOptionList *options );
+<a name="l00347"></a>00347 
+<a name="l00352"></a>00352     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a88f47b8f75866fe2a1c0478f20210ec9" title="Update the Google Map.">updateMap</a>();
+<a name="l00353"></a>00353 
+<a name="l00360"></a>00360     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a83075b50e38458f68f624f2188d488a8" title="Sets the field value with the correct values.">setStringField</a>( PluginOptionList *options, QLineEdit *field, <span class="keywordtype">int</span> optionID);
+<a name="l00361"></a>00361 
+<a name="l00369"></a>00369     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a83075b50e38458f68f624f2188d488a8" title="Sets the field value with the correct values.">setStringField</a>( PluginOptionList *options, QLabel *field, <span class="keywordtype">int</span> optionID);
+<a name="l00370"></a>00370 
+<a name="l00380"></a>00380     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#adfcd4d04ce36749bea4df7cfb57a44ef" title="Tags the image with one settings value.">tag</a>( PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, <span class="keywordtype">int</span> optionID);
+<a name="l00381"></a>00381 
+<a name="l00385"></a>00385     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a3a0cba8fc803f773e67719a6e9a394b4" title="Reset the GPS tab to default (empty) values.">resetGPS</a>();
+<a name="l00386"></a>00386 
+<a name="l00390"></a>00390     <span class="keywordtype">void</span> <a class="code" href="classasGPSplugin.html#a9985b48b07725fe85b65637446c5d3f8" title="Reset the IPTC tab to default (empty) values.">resetIPTC</a>();
+<a name="l00391"></a>00391 
+<a name="l00392"></a>00392 <span class="keyword">private</span>:
+<a name="l00393"></a>00393 
+<a name="l00394"></a><a class="code" href="classasGPSplugin.html#a858f74274b6afddd63ecdbef3b686a7b">00394</a>     PluginHub   *<a class="code" href="classasGPSplugin.html#a858f74274b6afddd63ecdbef3b686a7b" title="out plugin hub, which is our connection to ASP">m_pHub</a>;            
+<a name="l00396"></a><a class="code" href="classasGPSplugin.html#a5e4e565406214472a2a6754ec5045a3b">00396</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a5e4e565406214472a2a6754ec5045a3b" title="this is our current plugin identifier, set by ASP">m_pluginId</a>;                 
+<a name="l00397"></a><a class="code" href="classasGPSplugin.html#a449517f2c87bbcf87d7dbe30b6eeeed6">00397</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a449517f2c87bbcf87d7dbe30b6eeeed6" title="this is our current plugin group identifier, set by ASP">m_groupId</a>;                  
+<a name="l00399"></a><a class="code" href="classasGPSplugin.html#acfc40398dadab8780d566cb81fe806b0">00399</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#acfc40398dadab8780d566cb81fe806b0" title="this will hold the id of the EXIF:GPS latitude">ID_GPSLatitude</a>;             
+<a name="l00400"></a><a class="code" href="classasGPSplugin.html#a6e681ee09f71cd107c07fb10e1172383">00400</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a6e681ee09f71cd107c07fb10e1172383" title="this will hold the id of the EXIF:GPS longitude">ID_GPSLongitude</a>;            
+<a name="l00401"></a><a class="code" href="classasGPSplugin.html#ae461e445302f39501c57995423266c41">00401</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#ae461e445302f39501c57995423266c41" title="this will hold the id of the EXIF:GPS altitude">ID_GPSAltitude</a>;             
+<a name="l00402"></a><a class="code" href="classasGPSplugin.html#aca00da7ae4588b612cb9c0def5adb097">00402</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#aca00da7ae4588b612cb9c0def5adb097" title="this will hold the id of the EXIF:GPS date">ID_GPSDateStamp</a>;            
+<a name="l00403"></a><a class="code" href="classasGPSplugin.html#ae09a9f19ee77c038709286ba687fbf76">00403</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#ae09a9f19ee77c038709286ba687fbf76" title="this will hold the id of the EXIF:GPS time">ID_GPSTimeStamp</a>;            
+<a name="l00404"></a><a class="code" href="classasGPSplugin.html#a5d3bd5c58592429b3296dc9d952a1e1b">00404</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a5d3bd5c58592429b3296dc9d952a1e1b" title="this will hold the id of the EXIF:GPS status">ID_GPSStatus</a>;               
+<a name="l00405"></a><a class="code" href="classasGPSplugin.html#aadbf7dffa0c046b13d76c51f72b979b3">00405</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#aadbf7dffa0c046b13d76c51f72b979b3" title="this will hold the id of the EXIF:GPS number of satellites">ID_GPSSatellites</a>;           
+<a name="l00406"></a><a class="code" href="classasGPSplugin.html#a9f0c04264eb0279419dba8986ce4999a">00406</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a9f0c04264eb0279419dba8986ce4999a" title="this will hold the id of the IPTC location">ID_Location</a>;                
+<a name="l00407"></a><a class="code" href="classasGPSplugin.html#a3ce44cadb0dc12e3e801017ccd6e4a41">00407</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a3ce44cadb0dc12e3e801017ccd6e4a41" title="this will hold the id of the IPTC country code">ID_CountryCode</a>;             
+<a name="l00408"></a><a class="code" href="classasGPSplugin.html#aebbec2f09d70fc8a01b72ded7d656a91">00408</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#aebbec2f09d70fc8a01b72ded7d656a91" title="this will hold the id of the IPTC country">ID_Country</a>;                 
+<a name="l00409"></a><a class="code" href="classasGPSplugin.html#a4487e13bd2b39ddfa40cbc20f4b7e06d">00409</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#a4487e13bd2b39ddfa40cbc20f4b7e06d" title="this will hold the id of the IPTC state">ID_State</a>;                   
+<a name="l00410"></a><a class="code" href="classasGPSplugin.html#aa6451aa8f7a7bb0f3eed454aa43f3e74">00410</a>     <span class="keywordtype">int</span> <a class="code" href="classasGPSplugin.html#aa6451aa8f7a7bb0f3eed454aa43f3e74" title="this will hold the id of the IPTC city">ID_City</a>;                    
+<a name="l00412"></a><a class="code" href="classasGPSplugin.html#a03e225119a0ee7a9e73322ed6fa1851e">00412</a>     QWebView    *<a class="code" href="classasGPSplugin.html#a03e225119a0ee7a9e73322ed6fa1851e" title="the web view for the Google map">m_view</a>;            
+<a name="l00413"></a><a class="code" href="classasGPSplugin.html#aa06d2fa3835fa9a9bb5ef9adfbcc5259">00413</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#aa06d2fa3835fa9a9bb5ef9adfbcc5259" title="this is the enable map check box">m_enable</a>;          
+<a name="l00414"></a><a class="code" href="classasGPSplugin.html#a985c81582883ee9457f802e85c6ecbd8">00414</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a985c81582883ee9457f802e85c6ecbd8" title="this is the main edit field for location input">m_edit</a>;            
+<a name="l00416"></a><a class="code" href="classasGPSplugin.html#a5a376d259969572a6201764c2e20c9a2">00416</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a5a376d259969572a6201764c2e20c9a2" title="the edit field for the latitude">m_lat</a>;             
+<a name="l00417"></a><a class="code" href="classasGPSplugin.html#a12d61af628a41cc70e3776c9fb07d340">00417</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a12d61af628a41cc70e3776c9fb07d340" title="the edit field for the longitude">m_lon</a>;             
+<a name="l00418"></a><a class="code" href="classasGPSplugin.html#a592a4c68e263f22f6b1a3a21f69e5a1b">00418</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a592a4c68e263f22f6b1a3a21f69e5a1b" title="the edit field for the altitude">m_alt</a>;             
+<a name="l00419"></a><a class="code" href="classasGPSplugin.html#a2b457eab8a2bb9effe539c28b1aa0b15">00419</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a2b457eab8a2bb9effe539c28b1aa0b15" title="the edit field for the date">m_date</a>;            
+<a name="l00420"></a><a class="code" href="classasGPSplugin.html#a8a5040a472c69fb6c7aadde0e9cd5329">00420</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a8a5040a472c69fb6c7aadde0e9cd5329" title="the edit field for the time">m_time</a>;            
+<a name="l00421"></a><a class="code" href="classasGPSplugin.html#a3c2d1a56c689d68923fb7300d1b4895f">00421</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a3c2d1a56c689d68923fb7300d1b4895f" title="the edit field for the status">m_status</a>;          
+<a name="l00422"></a><a class="code" href="classasGPSplugin.html#a5af5d023daece143ecb995d796a08c37">00422</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a5af5d023daece143ecb995d796a08c37" title="the edit field for the number of sats">m_sats</a>;            
+<a name="l00423"></a><a class="code" href="classasGPSplugin.html#a2f532f3f3d25472676b4543d74a882a5">00423</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a2f532f3f3d25472676b4543d74a882a5" title="the edit field for the country code">m_countryCode</a>;     
+<a name="l00424"></a><a class="code" href="classasGPSplugin.html#a13e1f97750e386f912cb21c5eb0085ca">00424</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a13e1f97750e386f912cb21c5eb0085ca" title="the edit field for the country">m_country</a>;         
+<a name="l00425"></a><a class="code" href="classasGPSplugin.html#ae2c88a49c29b75d3ab3ce19466a27e4f">00425</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#ae2c88a49c29b75d3ab3ce19466a27e4f" title="the edit field for the state">m_state</a>;           
+<a name="l00426"></a><a class="code" href="classasGPSplugin.html#a741e252d8a54a3976eef918c9936c60c">00426</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a741e252d8a54a3976eef918c9936c60c" title="the edit field for the city">m_city</a>;            
+<a name="l00427"></a><a class="code" href="classasGPSplugin.html#a4d7be32f9a61dc931bcca3ee694f2417">00427</a>     QLineEdit   *<a class="code" href="classasGPSplugin.html#a4d7be32f9a61dc931bcca3ee694f2417" title="the edit field for the location">m_location</a>;        
+<a name="l00429"></a><a class="code" href="classasGPSplugin.html#ae48b3bf55371ec91b31ebffb1447eea6">00429</a>     QAbstractButton *<a class="code" href="classasGPSplugin.html#ae48b3bf55371ec91b31ebffb1447eea6" title="button for reset">m_reset</a>;       
+<a name="l00430"></a><a class="code" href="classasGPSplugin.html#a04cd114494c28af154623863a85fe6d7">00430</a>     QAbstractButton *<a class="code" href="classasGPSplugin.html#a04cd114494c28af154623863a85fe6d7" title="button to open the info window">m_info</a>;        
+<a name="l00431"></a><a class="code" href="classasGPSplugin.html#aca4b310f37e557ac818a10957364857d">00431</a>     QAbstractButton *<a class="code" href="classasGPSplugin.html#aca4b310f37e557ac818a10957364857d" title="button to tag the image">m_tag</a>;         
+<a name="l00432"></a><a class="code" href="classasGPSplugin.html#a6e81040aaadf9da5b3fbde2962247290">00432</a>     QAbstractButton *<a class="code" href="classasGPSplugin.html#a6e81040aaadf9da5b3fbde2962247290" title="button for &quot;locate in map&quot;">m_lim</a>;         
+<a name="l00433"></a><a class="code" href="classasGPSplugin.html#a0257b8fce1a2f8939ec97bd9335d7a83">00433</a>     QAbstractButton *<a class="code" href="classasGPSplugin.html#a0257b8fce1a2f8939ec97bd9335d7a83" title="button for &quot;find nearest location&quot;">m_fnl</a>;         
+<a name="l00435"></a><a class="code" href="classasGPSplugin.html#ae1aac46eff0a301b55cabc888032d7a5">00435</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#ae1aac46eff0a301b55cabc888032d7a5" title="global checkbox for GPS coordinates">m_coordsCB</a>;        
+<a name="l00436"></a><a class="code" href="classasGPSplugin.html#ab7c996ae6b3a8e4236cb604450637f94">00436</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#ab7c996ae6b3a8e4236cb604450637f94" title="global checkbox for IPTC coordinates">m_iptcCB</a>;          
+<a name="l00438"></a><a class="code" href="classasGPSplugin.html#aeebd0d380b730f32bc965f2eef57324e">00438</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#aeebd0d380b730f32bc965f2eef57324e" title="checkbox for the latitude edit field">m_latCB</a>;           
+<a name="l00439"></a><a class="code" href="classasGPSplugin.html#a4012197e9e127709850501dcbbff148c">00439</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#a4012197e9e127709850501dcbbff148c" title="checkbox for the longitude edit field">m_lonCB</a>;           
+<a name="l00440"></a><a class="code" href="classasGPSplugin.html#a3e38ae2fbd6cabf1f00307abbfb706c7">00440</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#a3e38ae2fbd6cabf1f00307abbfb706c7" title="checkbox for the altitude edit field">m_altCB</a>;           
+<a name="l00441"></a><a class="code" href="classasGPSplugin.html#a3f1783a47c7aabb6474eb65b1088d87c">00441</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#a3f1783a47c7aabb6474eb65b1088d87c" title="checkbox for the date edit field">m_dateCB</a>;          
+<a name="l00442"></a><a class="code" href="classasGPSplugin.html#ad0d3375db4e3b3004912e367e3f7deff">00442</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#ad0d3375db4e3b3004912e367e3f7deff" title="checkbox for the time edit field">m_timeCB</a>;          
+<a name="l00443"></a><a class="code" href="classasGPSplugin.html#ab89c32ccce93be7339a413bd0e8c5c29">00443</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#ab89c32ccce93be7339a413bd0e8c5c29" title="checkbox for the status edit field">m_statusCB</a>;        
+<a name="l00444"></a><a class="code" href="classasGPSplugin.html#a121fd598223f458b7e1c94e683bf25b2">00444</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#a121fd598223f458b7e1c94e683bf25b2" title="checkbox for the satellites edit field">m_satsCB</a>;          
+<a name="l00445"></a><a class="code" href="classasGPSplugin.html#a0615e2c2c1f73ffde87fe10fd09a4aa4">00445</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#a0615e2c2c1f73ffde87fe10fd09a4aa4" title="checkbox for the country code edit field">m_countryCodeCB</a>;   
+<a name="l00446"></a><a class="code" href="classasGPSplugin.html#ac93a22f1fe510a98b8543d932afcce45">00446</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#ac93a22f1fe510a98b8543d932afcce45" title="checkbox for the country edit field">m_countryCB</a>;       
+<a name="l00447"></a><a class="code" href="classasGPSplugin.html#aa074e0eb4763de0acfe09267e0f3e2ea">00447</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#aa074e0eb4763de0acfe09267e0f3e2ea" title="checkbox for the state edit field">m_stateCB</a>;         
+<a name="l00448"></a><a class="code" href="classasGPSplugin.html#a39da47916cc7dd1894678f97a9dbb073">00448</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#a39da47916cc7dd1894678f97a9dbb073" title="checkbox for the city edit field">m_cityCB</a>;          
+<a name="l00449"></a><a class="code" href="classasGPSplugin.html#ae7d589d51bedb49aa2c1d5f94e131234">00449</a>     QCheckBox   *<a class="code" href="classasGPSplugin.html#ae7d589d51bedb49aa2c1d5f94e131234" title="checkbox for the location edit field">m_locationCB</a>;      
+<a name="l00451"></a><a class="code" href="classasGPSplugin.html#aaea2fa4791cf320f55e3e2e016232541">00451</a>     QLabel      *<a class="code" href="classasGPSplugin.html#aaea2fa4791cf320f55e3e2e016232541" title="info text for current GPS latitude value in image settings">m_l_lat</a>;           
+<a name="l00452"></a><a class="code" href="classasGPSplugin.html#a8770957a1453be48d93dedaea1de6b4a">00452</a>     QLabel      *<a class="code" href="classasGPSplugin.html#a8770957a1453be48d93dedaea1de6b4a" title="info text for current GPS longitude value in image settings">m_l_lon</a>;           
+<a name="l00453"></a><a class="code" href="classasGPSplugin.html#aee814ef2f9a8f3ca54c4656f2862cd73">00453</a>     QLabel      *<a class="code" href="classasGPSplugin.html#aee814ef2f9a8f3ca54c4656f2862cd73" title="info text for current GPS altitude value in image settings">m_l_alt</a>;           
+<a name="l00454"></a><a class="code" href="classasGPSplugin.html#ae0f4eb4fb72766d62c6aa784431b2f97">00454</a>     QLabel      *<a class="code" href="classasGPSplugin.html#ae0f4eb4fb72766d62c6aa784431b2f97" title="info text for current GPS date value in image settings">m_l_date</a>;          
+<a name="l00455"></a><a class="code" href="classasGPSplugin.html#af333d59df6dc5d7f4436662aa82c1843">00455</a>     QLabel      *<a class="code" href="classasGPSplugin.html#af333d59df6dc5d7f4436662aa82c1843" title="info text for current GPS time value in image settings">m_l_time</a>;          
+<a name="l00456"></a><a class="code" href="classasGPSplugin.html#a6a135ebb0539af36684c8ff523049b23">00456</a>     QLabel      *<a class="code" href="classasGPSplugin.html#a6a135ebb0539af36684c8ff523049b23" title="info text for current GPS status value in image settings">m_l_status</a>;        
+<a name="l00457"></a><a class="code" href="classasGPSplugin.html#a682011164ed85f43b2c82e8b7308a737">00457</a>     QLabel      *<a class="code" href="classasGPSplugin.html#a682011164ed85f43b2c82e8b7308a737" title="info text for current GPS satellites value in image settings">m_l_sats</a>;          
+<a name="l00458"></a><a class="code" href="classasGPSplugin.html#a42269c93bd97cd5767a92d52ff15d648">00458</a>     QLabel      *<a class="code" href="classasGPSplugin.html#a42269c93bd97cd5767a92d52ff15d648" title="info text for current IPTC country code value in image settings">m_l_countryCode</a>;   
+<a name="l00459"></a><a class="code" href="classasGPSplugin.html#a16137a6f5a51e2b09923374a051200a6">00459</a>     QLabel      *<a class="code" href="classasGPSplugin.html#a16137a6f5a51e2b09923374a051200a6" title="info text for current IPTC country value in image settings">m_l_country</a>;       
+<a name="l00460"></a><a class="code" href="classasGPSplugin.html#a08fe9672c1d7d240339814f685729d6b">00460</a>     QLabel      *<a class="code" href="classasGPSplugin.html#a08fe9672c1d7d240339814f685729d6b" title="info text for current IPTC state value in image settings">m_l_state</a>;         
+<a name="l00461"></a><a class="code" href="classasGPSplugin.html#ad5d2d7d41569d7102e9cf272465bdac3">00461</a>     QLabel      *<a class="code" href="classasGPSplugin.html#ad5d2d7d41569d7102e9cf272465bdac3" title="info text for current IPTC city value in image settings">m_l_city</a>;          
+<a name="l00462"></a><a class="code" href="classasGPSplugin.html#a706cb1f7347cf4334de007432639098a">00462</a>     QLabel      *<a class="code" href="classasGPSplugin.html#a706cb1f7347cf4334de007432639098a" title="info text for current IPTC location value in image settings">m_l_location</a>;      
+<a name="l00464"></a><a class="code" href="classasGPSplugin.html#a587aaa49c0a201bf5140f5af9d0904d9">00464</a>     <a class="code" href="classWebInfos.html">WebInfos</a>    *<a class="code" href="classasGPSplugin.html#a587aaa49c0a201bf5140f5af9d0904d9" title="instance for gettings version infos from the web">m_webInfos</a>;        
+<a name="l00466"></a>00466 };
 </pre></div></div>
 </div>
 <!-- window showing the filter options -->
@@ -268,7 +272,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Jan 27 2012 22:54:16 by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Jan 28 2012 22:50:45 by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

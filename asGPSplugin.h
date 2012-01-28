@@ -49,10 +49,12 @@
   * @bug    check situations with zero coordinates
   * @bug    resolve a bug in ASP which need the HELPER setting.
   *         See \c hotnessChanged().
+  * @bug    Reset when iamge has tags should reset to these tag.
   *
   * @todo   more comments
   * @todo   check date and time formats in the edit fields when editing
   * @todo   check for reload exif - wanted?
+  * @todo   add a clear button
   *
   */
  
@@ -230,12 +232,29 @@ private slots:
       */
     void tagImage();
 
+    /** Geotag with Google Maps.
+      * This method uses the current value in the global location edit field and
+      * calls the Google Maps API to find the location in the map. It sets the edit
+      * fields in the GPS tab with the values from Google.
+      */
     void geocode();
 
+    /** Reverse geotag with Google Maps.
+      * This method uses the current value in the GPS tab and calls the Google Maps API
+      * to find the nearest location. It sets the corresponding values in the IPTC tab.
+      */
     void reversegeocode();
 
+    /** Find option IDs.
+      * This helper function is used to find the IDs of all used options to speed up
+      * the plugin.
+      */
     void setOptionIDs();
 
+    /** Connection to JavaScript.
+      * This method connects us with the JavaScript part. It adds a JavaScript object \c api, which
+      * links to the asGPSplugin class and can be used from JS to call C++ funtions.
+      */
     void populateJavaScriptWindowObject();
 
 public slots:
@@ -280,24 +299,84 @@ public slots:
       */
     void marker_moved(double lat, double lng);
 
+    /** Slot for the JavaScript part to set the country code and country.
+      * The Google Maps API provides us with these values.
+      * @param short_name is used to set the country code in the IPTC tab.
+      * @param long_name is used to set the country name in the IPTC tab.
+      */
     void set_country(QString short_name, QString long_name);
 
+    /** Slot for the JavaScript part to set the state.
+      * The Google Maps API provides us with these values.
+      * @param short_name is unused.
+      * @param long_name is used to set the state value in the IPTC tab.
+      */
     void set_state(QString short_name, QString long_name);
 
+    /** Slot for the JavaScript part to set the city.
+      * The Google Maps API provides us with these values.
+      * @param short_name is unused.
+      * @param long_name is used to set the city value in the IPTC tab.
+      */
     void set_city(QString short_name, QString long_name);
 
+    /** Slot for the JavaScript part to set the location.
+      * The Google Maps API provides us with these values.
+      * @param long_name is used to set the location in the IPTC tab.
+      */
     void set_location(QString long_name);
 
+    /** Web infos are ready to use.
+      * The web page we asked for the update infos is loaded, values can be obtained.
+      */
     void webInfosReady();
 
+    /** Display the help window.
+      * This method displays the window with help info and licenses.
+      */
     void displayHelp();
 
 private:
 
+    /** Update the user interface.
+      * This method updates all fields in the user interface with the current values.
+      * Also the map is updated, if it is enabled.
+      * @param options the values which should be set in the ui fields.
+      */
     void updateUi( PluginOptionList *options );
+
+    /** Update the Google Map.
+      * This method updates the Google Map. It locates the map to the correct
+      * position according to the GPS location.
+      */
     void updateMap();
+
+    /** Sets the field value with the correct values.
+      * We set the infos in the user interface. This variant is used to set the edit fields.
+      * @param options the plugin option values.
+      * @param field the field to set.
+      * @param  optionID the optionID of the option that should be used.
+      */
     void setStringField( PluginOptionList *options, QLineEdit *field, int optionID);
+
+    /** Sets the field value with the correct values.
+      * We set the infos in the user interface. This variant is used to set the label fields,
+      * which display the current GPS/IPTC tags of the image.
+      * @param options the plugin option values.
+      * @param field the label to set.
+      * @param  optionID the optionID of the option that should be used.
+      */
     void setStringField( PluginOptionList *options, QLabel *field, int optionID);
+
+    /** Tags the image with one settings value.
+      * According to the corresponding tristate box of the edit field the value in the edit field is read and
+      * used to set the IPTC/GPS option of the hotness image.
+      * @param options the current option list.
+      * @param field the field in the user interface which holds the value.
+      * @param cb the checkbox in the user interface which gives infos whether the option should be set.
+      * @param lab the corresponding label with the IPTC/GPS setting of the image.
+      * @param  optionID the optionID of the option that should be used.
+      */
     void tag( PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, int optionID);
 
     /** Reset the GPS tab to default (empty) values.
@@ -312,46 +391,46 @@ private:
 
 private:
 
-    PluginHub   *m_pHub;        /**< out plugin hub, which is our connection to ASP */
+    PluginHub   *m_pHub;            /**< out plugin hub, which is our connection to ASP */
 
-    int m_pluginId;             /**< this is our current plugin identifier, set by ASP */
-    int m_groupId;              /**< this is our current plugin group identifier, set by ASP */
+    int m_pluginId;                 /**< this is our current plugin identifier, set by ASP */
+    int m_groupId;                  /**< this is our current plugin group identifier, set by ASP */
 
-    int ID_GPSLatitude;         /**< this will hold the id of the EXIF:GPS latitude */
-    int ID_GPSLongitude;        /**< this will hold the id of the EXIF:GPS longitude */
-    int ID_GPSAltitude;         /**< this will hold the id of the EXIF:GPS altitude */
-    int ID_GPSDateStamp;        /**< this will hold the id of the EXIF:GPS date */
-    int ID_GPSTimeStamp;        /**< this will hold the id of the EXIF:GPS time */
-    int ID_GPSStatus;           /**< this will hold the id of the EXIF:GPS status */
-    int ID_GPSSatellites;       /**< this will hold the id of the EXIF:GPS number of satellites */
-    int ID_Location;            /**< this will hold the id of the IPTC location */
-    int ID_CountryCode;         /**< this will hold the id of the IPTC country code */
-    int ID_Country;             /**< this will hold the id of the IPTC country */
-    int ID_State;               /**< this will hold the id of the IPTC state */
-    int ID_City;                /**< this will hold the id of the IPTC city */
+    int ID_GPSLatitude;             /**< this will hold the id of the EXIF:GPS latitude */
+    int ID_GPSLongitude;            /**< this will hold the id of the EXIF:GPS longitude */
+    int ID_GPSAltitude;             /**< this will hold the id of the EXIF:GPS altitude */
+    int ID_GPSDateStamp;            /**< this will hold the id of the EXIF:GPS date */
+    int ID_GPSTimeStamp;            /**< this will hold the id of the EXIF:GPS time */
+    int ID_GPSStatus;               /**< this will hold the id of the EXIF:GPS status */
+    int ID_GPSSatellites;           /**< this will hold the id of the EXIF:GPS number of satellites */
+    int ID_Location;                /**< this will hold the id of the IPTC location */
+    int ID_CountryCode;             /**< this will hold the id of the IPTC country code */
+    int ID_Country;                 /**< this will hold the id of the IPTC country */
+    int ID_State;                   /**< this will hold the id of the IPTC state */
+    int ID_City;                    /**< this will hold the id of the IPTC city */
 
-    QWebView    *m_view;        /**< the web view for the Google map */
-    QCheckBox   *m_enable;      /**< this is the enable map check box */
-    QLineEdit   *m_edit;        /**< this is the main edit field for location input */
+    QWebView    *m_view;            /**< the web view for the Google map */
+    QCheckBox   *m_enable;          /**< this is the enable map check box */
+    QLineEdit   *m_edit;            /**< this is the main edit field for location input */
 
-    QLineEdit   *m_lat;         /**< the edit field for the latitude */
-    QLineEdit   *m_lon;         /**< the edit field for the longitude */
-    QLineEdit   *m_alt;         /**< the edit field for the altitude */
-    QLineEdit   *m_date;        /**< the edit field for the date */
-    QLineEdit   *m_time;        /**< the edit field for the time */
-    QLineEdit   *m_status;      /**< the edit field for the status */
-    QLineEdit   *m_sats;        /**< the edit field for the number of sats */
-    QLineEdit   *m_countryCode; /**< the edit field for the country code */
-    QLineEdit   *m_country;     /**< the edit field for the country */
-    QLineEdit   *m_state;       /**< the edit field for the state */
-    QLineEdit   *m_city;        /**< the edit field for the city */
-    QLineEdit   *m_location;    /**< the edit field for the location */
+    QLineEdit   *m_lat;             /**< the edit field for the latitude */
+    QLineEdit   *m_lon;             /**< the edit field for the longitude */
+    QLineEdit   *m_alt;             /**< the edit field for the altitude */
+    QLineEdit   *m_date;            /**< the edit field for the date */
+    QLineEdit   *m_time;            /**< the edit field for the time */
+    QLineEdit   *m_status;          /**< the edit field for the status */
+    QLineEdit   *m_sats;            /**< the edit field for the number of sats */
+    QLineEdit   *m_countryCode;     /**< the edit field for the country code */
+    QLineEdit   *m_country;         /**< the edit field for the country */
+    QLineEdit   *m_state;           /**< the edit field for the state */
+    QLineEdit   *m_city;            /**< the edit field for the city */
+    QLineEdit   *m_location;        /**< the edit field for the location */
 
-    QAbstractButton *m_reset;   /**< button for reset */
-    QAbstractButton *m_info;    /**< button to open the info window */
-    QAbstractButton *m_tag;     /**< button to tag the image */
-    QAbstractButton *m_lim;     /**< button for "locate in map" */
-    QAbstractButton *m_fnl;     /**< button for "find nearest location" */
+    QAbstractButton *m_reset;       /**< button for reset */
+    QAbstractButton *m_info;        /**< button to open the info window */
+    QAbstractButton *m_tag;         /**< button to tag the image */
+    QAbstractButton *m_lim;         /**< button for "locate in map" */
+    QAbstractButton *m_fnl;         /**< button for "find nearest location" */
 
     QCheckBox   *m_coordsCB;        /**< global checkbox for GPS coordinates */
     QCheckBox   *m_iptcCB;          /**< global checkbox for IPTC coordinates */

@@ -89,11 +89,17 @@ Public Slots</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a697fc62480d4f941bd38bdda5bd3c94a">marker_moved</a> (double lat, double lng)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">A marker was moved (dragged) in the map.  <a href="#a697fc62480d4f941bd38bdda5bd3c94a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ab170f9662b5dbfaad56a640a3ce35ae5">set_country</a> (QString short_name, QString long_name)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot for the JavaScript part to set the country code and country.  <a href="#ab170f9662b5dbfaad56a640a3ce35ae5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a4054b209ac88c67115da2a69b9446ad1">set_state</a> (QString short_name, QString long_name)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot for the JavaScript part to set the state.  <a href="#a4054b209ac88c67115da2a69b9446ad1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ae29f7a49374a33528dd5def158b5b20d">set_city</a> (QString short_name, QString long_name)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot for the JavaScript part to set the city.  <a href="#ae29f7a49374a33528dd5def158b5b20d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ac751d846f79dd015030c9a98faab6200">set_location</a> (QString long_name)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot for the JavaScript part to set the location.  <a href="#ac751d846f79dd015030c9a98faab6200"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a0adde34abf4f0583e7f10156044d1c84">webInfosReady</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Web infos are ready to use.  <a href="#a0adde34abf4f0583e7f10156044d1c84"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a3fe85c9ad0e43db96da25bf1e618602e">displayHelp</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the help window.  <a href="#a3fe85c9ad0e43db96da25bf1e618602e"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ac8e68c199593845de3d3244a4944cf40">asGPSplugin</a> ()</td></tr>
@@ -136,25 +142,34 @@ Private Slots</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot which is called when the map is loaded.  <a href="#a73954b7636ad2bce406fa338c6136846"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a9e68dc10e83bddb856d95f101b277033">handleCheckedChange</a> (bool enabled)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot which is called when enable check box is changed.  <a href="#a9e68dc10e83bddb856d95f101b277033"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a7cbb5321167cd5159a40efa537e7814c">handleCoordsCB</a> (int)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot for the top tristate checkbox in the coords tab.  <a href="#a7cbb5321167cd5159a40efa537e7814c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#aaf208a554e7b26e630dae36671c334bb">handleIptcCB</a> (int)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot for the top tristate checkbox in the IPTC tab.  <a href="#aaf208a554e7b26e630dae36671c334bb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a9619d61f2373b9d8d3c691ea5b119885">handleCoordsCB</a> (int unused)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot for the top tristate checkbox in the coords tab.  <a href="#a9619d61f2373b9d8d3c691ea5b119885"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#aa93ee8dc2068db49746ca498b9e59d1c">handleIptcCB</a> (int unused)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot for the top tristate checkbox in the IPTC tab.  <a href="#aa93ee8dc2068db49746ca498b9e59d1c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a859a4d8f2d26e40bcc6b376e6af2eb1a">reset</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset all asGPS fields.  <a href="#a859a4d8f2d26e40bcc6b376e6af2eb1a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ab9fb5d1a51540838a240cde89b09237f">tagImage</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Tag the image.  <a href="#ab9fb5d1a51540838a240cde89b09237f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a774a23eb2b59c1d6a04686d8a924494d">geocode</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Geotag with Google Maps.  <a href="#a774a23eb2b59c1d6a04686d8a924494d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#ab7086fb6f1c64ed46946c034d8b50393">reversegeocode</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse geotag with Google Maps.  <a href="#ab7086fb6f1c64ed46946c034d8b50393"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a92eb770da06e9a2071dc642b49f965a8">setOptionIDs</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Find option IDs.  <a href="#a92eb770da06e9a2071dc642b49f965a8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#aaabf2c8e00b6032bb7a39092f17adf1e">populateJavaScriptWindowObject</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Connection to JavaScript.  <a href="#aaabf2c8e00b6032bb7a39092f17adf1e"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a06e2b28982541247a08e2b98c44de291">updateUi</a> (PluginOptionList *options)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the user interface.  <a href="#a06e2b28982541247a08e2b98c44de291"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a88f47b8f75866fe2a1c0478f20210ec9">updateMap</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the Google Map.  <a href="#a88f47b8f75866fe2a1c0478f20210ec9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a83075b50e38458f68f624f2188d488a8">setStringField</a> (PluginOptionList *options, QLineEdit *field, int optionID)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the field value with the correct values.  <a href="#a83075b50e38458f68f624f2188d488a8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a2f64a2b688c25e6b02ad1afa96a1c58c">setStringField</a> (PluginOptionList *options, QLabel *field, int optionID)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the field value with the correct values.  <a href="#a2f64a2b688c25e6b02ad1afa96a1c58c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#adfcd4d04ce36749bea4df7cfb57a44ef">tag</a> (PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, int optionID)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Tags the image with one settings value.  <a href="#adfcd4d04ce36749bea4df7cfb57a44ef"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a3a0cba8fc803f773e67719a6e9a394b4">resetGPS</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the GPS tab to default (empty) values.  <a href="#a3a0cba8fc803f773e67719a6e9a394b4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classasGPSplugin.html#a9985b48b07725fe85b65637446c5d3f8">resetIPTC</a> ()</td></tr>
@@ -372,6 +387,9 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Display the help window. </p>
+<p>This method displays the window with help info and licenses. </p>
+
 </div>
 </div>
 <a class="anchor" id="a67b69d231bdbab48c3703700d4068492"></a><!-- doxytag: member="asGPSplugin::finish" ref="a67b69d231bdbab48c3703700d4068492" args="()" -->
@@ -407,6 +425,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Geotag with Google Maps. </p>
+<p>This method uses the current value in the global location edit field and calls the Google Maps API to find the location in the map. It sets the edit fields in the GPS tab with the values from Google. </p>
 
 </div>
 </div>
@@ -475,7 +496,7 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7cbb5321167cd5159a40efa537e7814c"></a><!-- doxytag: member="asGPSplugin::handleCoordsCB" ref="a7cbb5321167cd5159a40efa537e7814c" args="(int)" -->
+<a class="anchor" id="a9619d61f2373b9d8d3c691ea5b119885"></a><!-- doxytag: member="asGPSplugin::handleCoordsCB" ref="a9619d61f2373b9d8d3c691ea5b119885" args="(int unused)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -483,7 +504,7 @@ Private Attributes</h2></td></tr>
           <td class="memname">void asGPSplugin::handleCoordsCB </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><em>unused</em></td><td>)</td>
           <td><code> [private, virtual, slot]</code></td>
         </tr>
       </table>
@@ -494,7 +515,7 @@ Private Attributes</h2></td></tr>
 <p>This slot is called, when the user changes the top checkbox in the coordinates tab. It enables the dependent checkboxes in this tab. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">The</td><td>tristate value of the box. </td></tr>
+    <tr><td class="paramname">unused</td><td>The tristate value of the box. </td></tr>
   </table>
   </dd>
 </dl>
@@ -527,7 +548,7 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aaf208a554e7b26e630dae36671c334bb"></a><!-- doxytag: member="asGPSplugin::handleIptcCB" ref="aaf208a554e7b26e630dae36671c334bb" args="(int)" -->
+<a class="anchor" id="aa93ee8dc2068db49746ca498b9e59d1c"></a><!-- doxytag: member="asGPSplugin::handleIptcCB" ref="aa93ee8dc2068db49746ca498b9e59d1c" args="(int unused)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -535,7 +556,7 @@ Private Attributes</h2></td></tr>
           <td class="memname">void asGPSplugin::handleIptcCB </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><em>unused</em></td><td>)</td>
           <td><code> [private, virtual, slot]</code></td>
         </tr>
       </table>
@@ -546,7 +567,7 @@ Private Attributes</h2></td></tr>
 <p>This slot is called, when the user changes the top checkbox in the IPTC tab. It enables the dependent checkboxes in this tab. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">The</td><td>tristate value of the box. </td></tr>
+    <tr><td class="paramname">unused</td><td>The tristate value of the box. </td></tr>
   </table>
   </dd>
 </dl>
@@ -846,6 +867,9 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Connection to JavaScript. </p>
+<p>This method connects us with the JavaScript part. It adds a JavaScript object <code>api</code>, which links to the <a class="el" href="classasGPSplugin.html" title="asGPS - Geotagging in AfterShotPro.">asGPSplugin</a> class and can be used from JS to call C++ funtions. </p>
+
 </div>
 </div>
 <a class="anchor" id="abe74ab8c5928e2aedc3b33c92d0664b7"></a><!-- doxytag: member="asGPSplugin::priority" ref="abe74ab8c5928e2aedc3b33c92d0664b7" args="()" -->
@@ -976,6 +1000,9 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Reverse geotag with Google Maps. </p>
+<p>This method uses the current value in the GPS tab and calls the Google Maps API to find the nearest location. It sets the corresponding values in the IPTC tab. </p>
+
 </div>
 </div>
 <a class="anchor" id="ae29f7a49374a33528dd5def158b5b20d"></a><!-- doxytag: member="asGPSplugin::set_city" ref="ae29f7a49374a33528dd5def158b5b20d" args="(QString short_name, QString long_name)" -->
@@ -1002,6 +1029,16 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Slot for the JavaScript part to set the city. </p>
+<p>The Google Maps API provides us with these values. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">short_name</td><td>is unused. </td></tr>
+    <tr><td class="paramname">long_name</td><td>is used to set the city value in the IPTC tab. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1030,6 +1067,16 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Slot for the JavaScript part to set the country code and country. </p>
+<p>The Google Maps API provides us with these values. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">short_name</td><td>is used to set the country code in the IPTC tab. </td></tr>
+    <tr><td class="paramname">long_name</td><td>is used to set the country name in the IPTC tab. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="ac751d846f79dd015030c9a98faab6200"></a><!-- doxytag: member="asGPSplugin::set_location" ref="ac751d846f79dd015030c9a98faab6200" args="(QString long_name)" -->
@@ -1046,6 +1093,15 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Slot for the JavaScript part to set the location. </p>
+<p>The Google Maps API provides us with these values. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">long_name</td><td>is used to set the location in the IPTC tab. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1074,6 +1130,16 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Slot for the JavaScript part to set the state. </p>
+<p>The Google Maps API provides us with these values. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">short_name</td><td>is unused. </td></tr>
+    <tr><td class="paramname">long_name</td><td>is used to set the state value in the IPTC tab. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="a92eb770da06e9a2071dc642b49f965a8"></a><!-- doxytag: member="asGPSplugin::setOptionIDs" ref="a92eb770da06e9a2071dc642b49f965a8" args="()" -->
@@ -1089,6 +1155,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Find option IDs. </p>
+<p>This helper function is used to find the IDs of all used options to speed up the plugin. </p>
 
 </div>
 </div>
@@ -1123,6 +1192,17 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Sets the field value with the correct values. </p>
+<p>We set the infos in the user interface. This variant is used to set the label fields, which display the current GPS/IPTC tags of the image. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">options</td><td>the plugin option values. </td></tr>
+    <tr><td class="paramname">field</td><td>the label to set. </td></tr>
+    <tr><td class="paramname">optionID</td><td>the optionID of the option that should be used. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="a83075b50e38458f68f624f2188d488a8"></a><!-- doxytag: member="asGPSplugin::setStringField" ref="a83075b50e38458f68f624f2188d488a8" args="(PluginOptionList *options, QLineEdit *field, int optionID)" -->
@@ -1155,6 +1235,17 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Sets the field value with the correct values. </p>
+<p>We set the infos in the user interface. This variant is used to set the edit fields. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">options</td><td>the plugin option values. </td></tr>
+    <tr><td class="paramname">field</td><td>the field to set. </td></tr>
+    <tr><td class="paramname">optionID</td><td>the optionID of the option that should be used. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1200,6 +1291,19 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Tags the image with one settings value. </p>
+<p>According to the corresponding tristate box of the edit field the value in the edit field is read and used to set the IPTC/GPS option of the hotness image. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">options</td><td>the current option list. </td></tr>
+    <tr><td class="paramname">field</td><td>the field in the user interface which holds the value. </td></tr>
+    <tr><td class="paramname">cb</td><td>the checkbox in the user interface which gives infos whether the option should be set. </td></tr>
+    <tr><td class="paramname">lab</td><td>the corresponding label with the IPTC/GPS setting of the image. </td></tr>
+    <tr><td class="paramname">optionID</td><td>the optionID of the option that should be used. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1294,6 +1398,9 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Update the Google Map. </p>
+<p>This method updates the Google Map. It locates the map to the correct position according to the GPS location. </p>
+
 </div>
 </div>
 <a class="anchor" id="a06e2b28982541247a08e2b98c44de291"></a><!-- doxytag: member="asGPSplugin::updateUi" ref="a06e2b28982541247a08e2b98c44de291" args="(PluginOptionList *options)" -->
@@ -1311,6 +1418,15 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Update the user interface. </p>
+<p>This method updates all fields in the user interface with the current values. Also the map is updated, if it is enabled. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">options</td><td>the values which should be set in the ui fields. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="a0adde34abf4f0583e7f10156044d1c84"></a><!-- doxytag: member="asGPSplugin::webInfosReady" ref="a0adde34abf4f0583e7f10156044d1c84" args="()" -->
@@ -1326,6 +1442,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Web infos are ready to use. </p>
+<p>The web page we asked for the update infos is loaded, values can be obtained. </p>
 
 </div>
 </div>
@@ -2279,7 +2398,7 @@ Private Attributes</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Jan 27 2012 22:54:16 by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Jan 28 2012 22:50:45 by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>
