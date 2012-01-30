@@ -28,8 +28,14 @@
 
 extern "C" BIBBLE_API BaseB5Plugin *b5plugin() { return new asGPSplugin; }
 
+/**
+  * @brief     Patched WebPage class
+  * @details   This class provides a patched version of QWebPage.
+  * @author    Andeas Schrell
+  */
 class MyWebPage : public QWebPage
 {
+    /** We are a Chrome. So we can do moves and clicks of markers. */
     virtual QString userAgentForUrl(const QUrl& url) const {
         Q_UNUSED(url);
         return "Chrome/1.0";

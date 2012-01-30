@@ -86,7 +86,7 @@
 #define ON_City "City"
 
 /**
-  * @brief     asGPS - Geotagging in AfterShotPro.
+  * @brief     Geotagging in AfterShotPro. The plugin class.
   * @details   This class provides a geotagging plugin for the RAW converter Corel AfterShot Pro.
   * @author    Andeas Schrell
   */
