@@ -1,10 +1,14 @@
 #!/bin/bash
+
+VERSION="$1"
+
 rm -rf asGPS.afplugin &&
   mkdir -p asGPS.afplugin/lib asGPS.afplugin/ui asGPS.afplugin/locale &&
     cp asGPS.afpxml asGPS.afplugin/Info.afpxml &&
+    sed -i s/1\.0\.0/$VERSION/ asGPS.afplugin/Info.afpxml &&
     cp libasGPS.so asGPS.afplugin/lib &&
     cp libasGPS.dylib asGPS.afplugin/lib &&
     cp asGPS.dll asGPS.afplugin/lib/asGPS.dll &&
     cp asGPS.ui asGPS.afplugin/ui &&
     cp locale/*.qm asGPS.afplugin/locale &&
-      zip -r asGPS.afzplug asGPS.afplugin
+      zip -r asGPS-$VERSION.afzplug asGPS.afplugin

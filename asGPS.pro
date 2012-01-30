@@ -65,7 +65,7 @@ unix {
    QMAKE_CXXFLAGS += -m32 -mfpmath=sse -msse2 
    QMAKE_LFLAGS   += -m32 -mfpmath=sse -msse2
    QMAKE_LIBS     += -L/usr/lib32
-   QMAKE_POST_LINK += "./afz"
+   QMAKE_POST_LINK += "./afz $$VERSION"
    QMAKE_POST_LINK += "; doxygen"
 }
 }
