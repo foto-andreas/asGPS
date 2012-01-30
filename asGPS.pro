@@ -13,7 +13,7 @@ QT += network
 
 TARGET = asGPS
 VERSION = 1.0.0
-DEFINES += TARGET_VERSION=\\\"$$VERSION\\\"
+DEFINES += TARGET_VERSION=$$VERSION
 
 DEPENDPATH += .
 INCLUDEPATH += .
@@ -24,7 +24,8 @@ mac {
 }
 
 # Input
-HEADERS += asGPSplugin.h gpsLocation.h Tests.h  WebContents.h WebInfos.h
+HEADERS += asGPSplugin.h gpsLocation.h Tests.h  WebContents.h WebInfos.h \
+    TargetVersion.h
 
 SOURCES += asGPSplugin.cpp gpsLocation.cpp Tests.cpp WebContents.cpp WebInfos.cpp
 
@@ -68,6 +69,7 @@ unix {
    QMAKE_POST_LINK += "; doxygen"
 }
 }
+
 
 
 

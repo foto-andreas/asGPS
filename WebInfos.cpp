@@ -37,7 +37,7 @@ void WebInfos::infosArrived(QString str) {
 
 bool WebInfos::isWebNewer() {
     QStringList web= m_version.split(".");
-    QStringList me = QString(TARGET_VERSION).split(".");
+    QStringList me = QString(TARGET_VERSION_STRING).split(".");
     bool ok = true;
     int webMa = web.at(0).toInt(&ok);
     if (!ok) return false;

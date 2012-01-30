@@ -22,8 +22,8 @@
 #include <QDesktopServices>
 
 
+#include "TargetVersion.h"
 #include "gpsLocation.h"
-
 #include "WebInfos.h"
 
 extern "C" BIBBLE_API BaseB5Plugin *b5plugin() { return new asGPSplugin; }
@@ -96,7 +96,7 @@ void asGPSplugin::webInfosReady() {
         QString text = QString(tr("There is a newer version of %1 available. "
                                "It is version %2. You are running %3. "
                                "You can download it under the following url: <a href='%4'>%4</a>"))
-                        .arg(m_webInfos->name(), m_webInfos->version(), TARGET_VERSION, m_webInfos->link());
+                        .arg(m_webInfos->name(), m_webInfos->version(), TARGET_VERSION_STRING, m_webInfos->link());
         QMessageBox::information(NULL, m_webInfos->name(), text);
     }
 }
@@ -124,7 +124,7 @@ QList<QWidget*> asGPSplugin::toolWidgets()
 void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 {
     qDebug() << "asGPSplugin::toolWidgetCreated";
-    uiWidget->setWindowTitle(uiWidget->windowTitle() + " (" + TARGET_VERSION + ")");
+    uiWidget->setWindowTitle(uiWidget->windowTitle() + " (" + TARGET_VERSION_STRING + ")");
     m_enable = uiWidget->findChild<QCheckBox*>("asGPSEnabled_checker");
     m_enable->setChecked(false); // map ausgeschaltet beim Start von ASP
     m_view = uiWidget->findChild<QWebView*>("asGPSWebView");

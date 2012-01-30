@@ -3,6 +3,8 @@
 #include <QString>
 #include <QStringList>
 
+#include "TargetVersion.h"
+
 #include "WebContents.h"
 
 /**

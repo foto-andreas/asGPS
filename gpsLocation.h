@@ -3,6 +3,8 @@
 #include <QString>
 #include <QStringList>
 
+#include "TargetVersion.h"
+
 /**
   * @brief     Geographic calculations and formatting.
   * @details   This class provides formatting and calculations for GPS coordinates.

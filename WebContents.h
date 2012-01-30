@@ -4,6 +4,8 @@
 #include <QString>
 #include <QtNetwork/QNetworkAccessManager>
 
+#include "TargetVersion.h"
+
 /**
   * @brief     Get infos from web sites.
   * @details   This class gets infos from web sites like a version number or download
