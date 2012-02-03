@@ -20,7 +20,8 @@ INCLUDEPATH += .
 INCLUDEPATH += ../Plugin ../SDK/Plugin ../SDK
 
 mac {
-    include( ../common/mac.pri )
+    include( mac.pri )
+    include( Release.xcconfig )
 }
 
 # Input
