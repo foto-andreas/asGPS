@@ -389,6 +389,11 @@ private:
       */
     void resetIPTC();
 
+    /** WebView not loadable.
+      * Display an error that QWebView can not be used.
+      */
+    void webViewError();
+
 private:
 
     PluginHub   *m_pHub;            /**< out plugin hub, which is our connection to ASP */

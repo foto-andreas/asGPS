@@ -27,8 +27,11 @@ gpsLocation::gpsLocation(QString lats, QString lngs) {
     if (latl.size() == 2 && lngl.size() == 2) {
         this->lat = latSign * ( latl.at(0).toDouble() + latl.at(1).toDouble()/60.0 );
         this->lng = lngSign * ( lngl.at(0).toDouble() + lngl.at(1).toDouble()/60.0 );
-        qDebug() << "asGPS: lat =" << this->lat << "/" << "lng =" << this->lng;
+    } else {
+        this->lat = 0;
+        this->lng = 0;
     }
+    qDebug() << "asGPS: lat =" << this->lat << "/" << "lng =" << this->lng;
 }
 
 bool gpsLocation::operator==(const gpsLocation& r) const {

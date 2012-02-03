@@ -221,7 +221,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     updateMap();
 }
 
-void webViewError() {
+void asGPSplugin::webViewError() {
     QMessageBox::information(NULL, tr("Error creating QWebView"), tr("It was not possible to create a QWebView widget."));
 }
 
@@ -445,10 +445,7 @@ void asGPSplugin::marker_click()
     qDebug() << "asGPS: marker clicked";
 }
 
-void asGPSplugin::marker_moved(double lat, double lng)80649.703: R= 255 B= 27 G= 0
-    80662.104: R= 255 B= 14 G= 0
-    80666.54: R= 229 B= 75 G= 0
-    80669.422: R= 255 B= 12 G= 0
+void asGPSplugin::marker_moved(double lat, double lng)
 {
     qDebug() << "asGPS: marker moved:" <<lat << lng;
     gpsLocation gpsl(lat,lng);
