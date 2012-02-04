@@ -3,7 +3,7 @@
 VERSION="$1"
 
 rm -rf asGPS.afplugin &&
-  mkdir -p asGPS.afplugin/lib asGPS.afplugin/ui asGPS.afplugin/locale &&
+  mkdir -p asGPS.afplugin/lib asGPS.afplugin/ui asGPS.afplugin/locale asGPS.afplugin/resources &&
     cp asGPS.afpxml asGPS.afplugin/Info.afpxml &&
     sed -i s/1\.0\.0/$VERSION/ asGPS.afplugin/Info.afpxml &&
     cp libasGPS.so asGPS.afplugin/lib &&
@@ -11,4 +11,5 @@ rm -rf asGPS.afplugin &&
     cp asGPS.dll asGPS.afplugin/lib/asGPS.dll &&
     cp asGPS.ui asGPS.afplugin/ui &&
     cp locale/*.qm asGPS.afplugin/locale &&
+    cp "asGPS GPS & IPTC tagging.xmp" "asGPS IPTC tagging.xmp" asGPS.afplugin/resources &&
       zip -r asGPS-$VERSION.afzplug asGPS.afplugin
