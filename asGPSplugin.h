@@ -3,7 +3,7 @@
 /** \mainpage asGPS - A geotagging plugin for AfterShot Pro
   *
   * @author    Andeas Schrell
-  * @version   1.0.1
+  * @version   1.0.2-b1
   * @date      2011-02-05
   * @warning   Works only when QtWebKit-Libs are delivered with ASP
   *
