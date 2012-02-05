@@ -89,6 +89,7 @@
             }
             erg += "\n" + v.types + v.short_name + "/" + v.long_name;
         });
+        api.autoTag();
       } else {
         api.alert("Geocode was not successful for the following reason: " + status);
       }
@@ -102,6 +103,7 @@
         if (withMap) {
             centerAndMark(loc.lat(), loc.lng());
         }
+        api.autoTag();
       } else {
         api.alert("Geocode was not successful for the following reason: " + status);
       }

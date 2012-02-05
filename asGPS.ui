@@ -60,6 +60,9 @@
          <height>20</height>
         </size>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="toolTip">
         <string>&lt;html&gt;Check here to enable the Google Map view.&lt;/html&gt;</string>
        </property>
@@ -101,8 +104,18 @@
          <height>20</height>
         </size>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="toolTip">
         <string>&lt;html&gt;Tag the image according the values in the edit fields of the GPS and IPTC tab. Red checked fields are never written. Yellow fields are written if the original value is empty. Green checked fields are written always.&lt;/html&gt;</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"> QPushButton::checked {
+     image: &quot;&quot;;
+     background-color: rgb(0, 255, 0);
+ }
+</string>
        </property>
        <property name="text">
         <string>Tag Image</string>
@@ -116,6 +129,12 @@
          <width>60</width>
          <height>20</height>
         </size>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;Reload all edit fields from GPS and IPTC tags&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>Reload</string>
@@ -141,6 +160,9 @@
          <width>60</width>
          <height>20</height>
         </size>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="toolTip">
         <string>&lt;html&gt;Clear all edit fields.&lt;/html&gt;</string>
@@ -169,6 +191,9 @@
          <width>30</width>
          <height>20</height>
         </size>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="toolTip">
         <string>&lt;html&gt;Click to see further informations on this plugin and license infos&lt;/html&gt;</string>
@@ -398,6 +423,9 @@
        </item>
        <item row="1" column="2">
         <widget class="QCheckBox" name="latCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
          </property>
@@ -411,6 +439,9 @@
        </item>
        <item row="3" column="2">
         <widget class="QCheckBox" name="lonCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
          </property>
@@ -424,6 +455,9 @@
        </item>
        <item row="5" column="2">
         <widget class="QCheckBox" name="altCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
          </property>
@@ -437,6 +471,9 @@
        </item>
        <item row="7" column="2">
         <widget class="QCheckBox" name="dateCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
          </property>
@@ -450,6 +487,9 @@
        </item>
        <item row="9" column="2">
         <widget class="QCheckBox" name="timeCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
          </property>
@@ -463,6 +503,9 @@
        </item>
        <item row="11" column="2">
         <widget class="QCheckBox" name="statusCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
          </property>
@@ -476,6 +519,9 @@
        </item>
        <item row="13" column="2">
         <widget class="QCheckBox" name="satCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
          </property>
@@ -499,6 +545,9 @@
        </item>
        <item row="0" column="2">
         <widget class="QCheckBox" name="coordsCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;Checker for all subsequent check boxes.&lt;/html&gt;</string>
          </property>
@@ -753,6 +802,9 @@
        </item>
        <item row="2" column="2">
         <widget class="QCheckBox" name="countryCodeCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
          </property>
@@ -766,6 +818,9 @@
        </item>
        <item row="4" column="2">
         <widget class="QCheckBox" name="countryCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
          </property>
@@ -779,6 +834,9 @@
        </item>
        <item row="6" column="2">
         <widget class="QCheckBox" name="stateCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
          </property>
@@ -792,6 +850,9 @@
        </item>
        <item row="8" column="2">
         <widget class="QCheckBox" name="cityCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
          </property>
@@ -815,6 +876,9 @@
        </item>
        <item row="10" column="2">
         <widget class="QCheckBox" name="locationCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</string>
          </property>
@@ -828,6 +892,9 @@
        </item>
        <item row="1" column="2">
         <widget class="QCheckBox" name="iptcCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;Checker for all subsequent check boxes.&lt;/html&gt;</string>
          </property>
@@ -962,8 +1029,18 @@
      </property>
      <item>
       <widget class="QPushButton" name="asGPSLIM_button">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="toolTip">
         <string>&lt;html&gt;Locate in Map from this edit field or if it is empty from&lt;br&gt;the values in the IPTC tab. Updates the GPS tab and map.&lt;/html&gt;</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"> QPushButton::checked {
+     image: &quot;&quot;;
+     background-color: rgb(0, 255, 0);
+ }
+</string>
        </property>
        <property name="text">
         <string>LIM</string>
@@ -985,8 +1062,18 @@
      </item>
      <item>
       <widget class="QPushButton" name="asGPSFNL_button">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="toolTip">
         <string>&lt;html&gt;Find nearest Location from the position values in the GPS tab. This updates the IPTC tab.&lt;/html&gt;</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"> QPushButton::checked {
+     image: &quot;&quot;;
+     background-color: rgb(0, 255, 0);
+ }
+</string>
        </property>
        <property name="text">
         <string>FNL</string>
@@ -1016,6 +1103,44 @@
    </slots>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>asGPSTabWidget</tabstop>
+  <tabstop>asGPSEnabled_checker</tabstop>
+  <tabstop>asGPSTag_button</tabstop>
+  <tabstop>asGPSReload_button</tabstop>
+  <tabstop>asGPSReset_button</tabstop>
+  <tabstop>asGPSAbout_button</tabstop>
+  <tabstop>asGPSWebView</tabstop>
+  <tabstop>latLineEdit</tabstop>
+  <tabstop>lonLineEdit</tabstop>
+  <tabstop>altLineEdit</tabstop>
+  <tabstop>dateLineEdit</tabstop>
+  <tabstop>timeLineEdit</tabstop>
+  <tabstop>statusLineEdit</tabstop>
+  <tabstop>satellitesLineEdit</tabstop>
+  <tabstop>coordsCB</tabstop>
+  <tabstop>latCB</tabstop>
+  <tabstop>lonCB</tabstop>
+  <tabstop>altCB</tabstop>
+  <tabstop>dateCB</tabstop>
+  <tabstop>timeCB</tabstop>
+  <tabstop>statusCB</tabstop>
+  <tabstop>satCB</tabstop>
+  <tabstop>countryCodeLineEdit</tabstop>
+  <tabstop>countryLineEdit</tabstop>
+  <tabstop>stateLineEdit</tabstop>
+  <tabstop>cityLineEdit</tabstop>
+  <tabstop>locationLineEdit</tabstop>
+  <tabstop>iptcCB</tabstop>
+  <tabstop>countryCodeCB</tabstop>
+  <tabstop>countryCB</tabstop>
+  <tabstop>stateCB</tabstop>
+  <tabstop>cityCB</tabstop>
+  <tabstop>locationCB</tabstop>
+  <tabstop>asGPSLIM_button</tabstop>
+  <tabstop>asGPSText_edit</tabstop>
+  <tabstop>asGPSFNL_button</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

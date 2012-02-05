@@ -20,7 +20,7 @@
 #include <QMessageBox>
 #include <QRegExp>
 #include <QDesktopServices>
-
+#include <QApplication>
 
 #include "TargetVersion.h"
 #include "gpsLocation.h"
@@ -127,6 +127,9 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     uiWidget->setWindowTitle(uiWidget->windowTitle() + " (" + TARGET_VERSION_STRING + ")");
     m_enable = uiWidget->findChild<QCheckBox*>("asGPSEnabled_checker");
     m_enable->setChecked(false); // map ausgeschaltet beim Start von ASP
+    m_autotag = false;
+    m_autolim = false;
+    m_autofnl = false;
     m_view = uiWidget->findChild<QWebView*>("asGPSWebView");
     if (m_view) {
         m_view->setGeometry(QRect(0,0,250,250));
@@ -136,6 +139,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_reset = uiWidget->findChild<QAbstractButton*>("asGPSReset_button");
     m_reload = uiWidget->findChild<QAbstractButton*>("asGPSReload_button");
     m_tag = uiWidget->findChild<QAbstractButton*>("asGPSTag_button");
+    m_default_button_style = m_tag->styleSheet();
     m_info = uiWidget->findChild<QAbstractButton*>("asGPSAbout_button");
 
     m_lat = uiWidget->findChild<QLineEdit*>("latLineEdit");
@@ -242,14 +246,17 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
     //  reset the controls
     reset();
 
-    m_pHub->beginSettingsChange("asGPS hotness helper");
-    m_pHub->endSettingChange();
+// work around
+//    m_pHub->beginSettingsChange("asGPS hotness helper");
+//    m_pHub->endSettingChange();
 // correct would be in a correct ASP
 //    bool ok;
 //    optionsNew->setString(ID_Location, 0, options->getString(ID_Location, 0, ok));
-//    if (options.options(0) != NULL) {
-//        updateUi(options.options(0));
-//    }
+    if (options.options(0) != NULL) {
+        updateUi(options.options(0));
+        if (m_autolim) geocode();
+        if (m_autofnl) reversegeocode();
+    }
 
 }
 
@@ -369,23 +376,35 @@ void asGPSplugin::updateUi(PluginOptionList *options) {
 }
 
 void asGPSplugin::tagImage() {
-    qDebug() << "asGPS: tag Image GPS & IPTC";
-    PluginOptionList* options = m_pHub->beginSettingsChange("GPS & IPTC");
-    qDebug() << options;
-    if (options) {
-        tag(options, m_lat, m_latCB, m_l_lat, ID_GPSLatitude);
-        tag(options, m_lon, m_lonCB, m_l_lon, ID_GPSLongitude);
-        tag(options, m_alt, m_altCB, m_l_alt, ID_GPSAltitude);
-        tag(options, m_date, m_dateCB, m_l_date, ID_GPSDateStamp);
-        tag(options, m_time, m_timeCB, m_l_time, ID_GPSTimeStamp);
-        tag(options, m_status, m_statusCB, m_l_status, ID_GPSStatus);
-        tag(options, m_sats, m_satsCB, m_l_sats, ID_GPSSatellites);
-        tag(options, m_countryCode, m_countryCodeCB, m_l_countryCode, ID_CountryCode);
-        tag(options, m_country, m_countryCB, m_l_country, ID_Country);
-        tag(options, m_state, m_stateCB, m_l_state, ID_State);
-        tag(options, m_city, m_cityCB, m_l_city, ID_City);
-        tag(options, m_location, m_locationCB, m_l_location, ID_Location);
-        m_pHub->endSettingChange();
+    Qt::KeyboardModifiers keyMod = QApplication::keyboardModifiers ();
+    bool isCTRL = keyMod.testFlag(Qt::ControlModifier);
+    if (isCTRL) {
+        m_autotag = !m_autotag;
+        if (m_autotag) {
+            m_tag->setStyleSheet("QPushButton {background-color: rgb(0, 100, 0); }");
+        } else {
+            m_tag->setStyleSheet(m_default_button_style);
+        }
+        qDebug() << "asGPS: changed tag state" << (m_autotag);
+    } else {
+        qDebug() << "asGPS: tag Image GPS & IPTC";
+        PluginOptionList* options = m_pHub->beginSettingsChange("GPS & IPTC");
+        qDebug() << options;
+        if (options) {
+            tag(options, m_lat, m_latCB, m_l_lat, ID_GPSLatitude);
+            tag(options, m_lon, m_lonCB, m_l_lon, ID_GPSLongitude);
+            tag(options, m_alt, m_altCB, m_l_alt, ID_GPSAltitude);
+            tag(options, m_date, m_dateCB, m_l_date, ID_GPSDateStamp);
+            tag(options, m_time, m_timeCB, m_l_time, ID_GPSTimeStamp);
+            tag(options, m_status, m_statusCB, m_l_status, ID_GPSStatus);
+            tag(options, m_sats, m_satsCB, m_l_sats, ID_GPSSatellites);
+            tag(options, m_countryCode, m_countryCodeCB, m_l_countryCode, ID_CountryCode);
+            tag(options, m_country, m_countryCB, m_l_country, ID_Country);
+            tag(options, m_state, m_stateCB, m_l_state, ID_State);
+            tag(options, m_city, m_cityCB, m_l_city, ID_City);
+            tag(options, m_location, m_locationCB, m_l_location, ID_Location);
+            m_pHub->endSettingChange();
+        }
     }
 }
 
@@ -408,27 +427,55 @@ void asGPSplugin::updateMap() {
 }
 
 void asGPSplugin::geocode() {
-    qDebug() << "asGPS: geocode" << m_edit->text();
-    resetGPS();
-    if (m_edit->text().length()==0) {
-        QString tmp("");
-        if (m_countryCode->text().length()>0) tmp.append(m_countryCode->text() + ", ");
-        if (m_country->text().length()>0)tmp.append(m_country->text() + ", ");
-        if (m_city->text().length()>0)tmp.append(m_city->text());
-        m_edit->setText(tmp);
-    }
-    if (m_view) {
-        m_view->page()->mainFrame()->evaluateJavaScript("codeCoordinatesFrom('" + m_edit->text() + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
+    Qt::KeyboardModifiers keyMod = QApplication::keyboardModifiers ();
+    bool isCTRL = keyMod.testFlag(Qt::ControlModifier);
+    if (isCTRL) {
+        m_autolim = !m_autolim;
+        if (m_autolim) {
+//            m_fnl->setStyleSheet(m_default_button_style);
+//            m_autofnl = false;
+            m_lim->setStyleSheet("QPushButton {background-color: rgb(0, 100, 0); }");
+        } else {
+            m_lim->setStyleSheet(m_default_button_style);
+        }
+        qDebug() << "asGPS: changed lim state" << (m_autolim);
+    } else {
+        qDebug() << "asGPS: geocode" << m_edit->text();
+        resetGPS();
+        if (m_edit->text().length()==0) {
+            QString tmp("");
+            if (m_countryCode->text().length()>0) tmp.append(m_countryCode->text() + ", ");
+            if (m_country->text().length()>0)tmp.append(m_country->text() + ", ");
+            if (m_city->text().length()>0)tmp.append(m_city->text());
+            m_edit->setText(tmp);
+        }
+        if (m_view) {
+            m_view->page()->mainFrame()->evaluateJavaScript("codeCoordinatesFrom('" + m_edit->text() + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
+        }
     }
 }
 
 void asGPSplugin::reversegeocode() {
-    qDebug() << "asGPS: reversegeocode" << m_lat->text() + "," + m_lon->text();
-    gpsLocation gpsl(m_lat->text(), m_lon->text());
-    resetIPTC();
-    QStringList qsl = gpsl.formatAsGoogle(5);
-    if (m_view) {
-        m_view->page()->mainFrame()->evaluateJavaScript("codeAddressFrom('" + qsl.at(0) + "," + qsl.at(1) + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
+    Qt::KeyboardModifiers keyMod = QApplication::keyboardModifiers ();
+    bool isCTRL = keyMod.testFlag(Qt::ControlModifier);
+    if (isCTRL) {
+        m_autofnl = !m_autofnl;
+        if (m_autofnl) {
+//            m_lim->setStyleSheet(m_default_button_style);
+//            m_autolim = false;
+            m_fnl->setStyleSheet("QPushButton {background-color: rgb(0, 100, 0); }");
+        } else {
+            m_fnl->setStyleSheet(m_default_button_style);
+        }
+        qDebug() << "asGPS: changed fnl state" << (m_autofnl);
+    } else {
+        qDebug() << "asGPS: reversegeocode" << m_lat->text() + "," + m_lon->text();
+        gpsLocation gpsl(m_lat->text(), m_lon->text());
+        resetIPTC();
+        QStringList qsl = gpsl.formatAsGoogle(5);
+        if (m_view) {
+            m_view->page()->mainFrame()->evaluateJavaScript("codeAddressFrom('" + qsl.at(0) + "," + qsl.at(1) + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
+        }
     }
 }
 
@@ -482,6 +529,13 @@ void asGPSplugin::set_state(QString short_name, QString long_name) {
 void asGPSplugin::set_location(QString long_name) {
     qDebug() << "asGPS: set_location" << long_name;
     m_location->setText(long_name);
+}
+
+void asGPSplugin::autoTag() {
+    if (m_autotag) {
+        qDebug() << "asGPS: autotag";
+        tagImage();
+    }
 }
 
 void asGPSplugin::handleLoadFinished ( bool ok) {

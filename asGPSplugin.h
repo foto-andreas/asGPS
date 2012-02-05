@@ -50,9 +50,11 @@
   * @bug    resolve a bug in ASP which need the HELPER setting.
   *         See \c hotnessChanged().
   *
-  * @todo   more comments in the cpp files
+  * @todo   user documentation
+  * @todo   optional autoLIM, autoFNL and autoTAG on hotnessChanged()
   * @todo   check date and time formats in the edit fields when editing
-  * @todo   check reload exif - it resets asGPS coordinates - is that wanted?
+  * @todo   more comments in the cpp files
+  * @todo   import GPS coordinates from geotracking files
   *
   */
  
@@ -340,6 +342,11 @@ public slots:
       */
     void displayHelp();
 
+    /** Optionally auto tag image.
+      * Check if auto tag is enabled and call it if true.
+      */
+    void autoTag();
+
 private:
 
     /** Update the user interface.
@@ -472,5 +479,11 @@ private:
     QLabel      *m_l_location;      /**< info text for current IPTC location value in image settings */
 
     WebInfos    *m_webInfos;        /**< instance for gettings version infos from the web */
+
+    bool        m_autotag;          /**< is autotagging enabled? */
+    bool        m_autolim;          /**< is auto locate in map enabled? */
+    bool        m_autofnl;          /**< is auto find nearest location enabled? */
+
+    QString     m_default_button_style;  /**< default button stylesheet as backup */
 
 };
