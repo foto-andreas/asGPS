@@ -3,8 +3,8 @@
 /** \mainpage asGPS - A geotagging plugin for AfterShot Pro
   *
   * @author    Andeas Schrell
-  * @version   1.0.0
-  * @date      2011-01-30
+  * @version   1.0.1
+  * @date      2011-02-05
   * @warning   Works only when QtWebKit-Libs are delivered with ASP
   *
   * \section intro_sec Introduction
@@ -49,12 +49,10 @@
   * @bug    check situations with zero coordinates
   * @bug    resolve a bug in ASP which need the HELPER setting.
   *         See \c hotnessChanged().
-  * @bug    Reset when iamge has tags should reset to these tag.
   *
-  * @todo   more comments
+  * @todo   more comments in the cpp files
   * @todo   check date and time formats in the edit fields when editing
-  * @todo   check for reload exif - wanted?
-  * @todo   add a clear button
+  * @todo   check reload exif - it resets asGPS coordinates - is that wanted?
   *
   */
  
