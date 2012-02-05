@@ -134,6 +134,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     }
     m_edit = uiWidget->findChild<QLineEdit*>("asGPSText_edit");
     m_reset = uiWidget->findChild<QAbstractButton*>("asGPSReset_button");
+    m_reload = uiWidget->findChild<QAbstractButton*>("asGPSReload_button");
     m_tag = uiWidget->findChild<QAbstractButton*>("asGPSTag_button");
     m_info = uiWidget->findChild<QAbstractButton*>("asGPSAbout_button");
 
@@ -180,6 +181,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_iptcCB = uiWidget->findChild<QCheckBox*>("iptcCB");
 
     connect(m_reset, SIGNAL( clicked() ), SLOT ( reset() ));
+    connect(m_reload, SIGNAL( clicked() ), SLOT ( reload() ));
     connect(m_lim, SIGNAL( clicked() ), SLOT ( geocode() ));
     connect(m_fnl, SIGNAL( clicked() ), SLOT ( reversegeocode() ));
     connect(m_tag, SIGNAL ( clicked() ), SLOT ( tagImage() ));
@@ -240,7 +242,7 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
     //  reset the controls
     reset();
 
-    m_pHub->beginSettingsChange("HELPER");
+    m_pHub->beginSettingsChange("asGPS hotness helper");
     m_pHub->endSettingChange();
 // correct would be in a correct ASP
 //    bool ok;
@@ -304,6 +306,12 @@ void asGPSplugin::reset() {
     m_edit->setText("");
     resetIPTC();
     resetGPS();
+}
+
+void asGPSplugin::reload() {
+    reset();
+    m_pHub->beginSettingsChange("asGPS reload helper");
+    m_pHub->endSettingChange();
 }
 
 void asGPSplugin::handleIptcCB(int unused) {

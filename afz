@@ -2,10 +2,17 @@
 
 VERSION="$1"
 
+MAV=${VERSION%%.*}
+RST=${VERSION#*.}
+MIV=${RST%.*}
+BFV=${RST#*.}
+
 rm -rf asGPS.afplugin &&
   mkdir -p asGPS.afplugin/lib asGPS.afplugin/ui asGPS.afplugin/locale asGPS.afplugin/resources &&
     cp asGPS.afpxml asGPS.afplugin/Info.afpxml &&
-    sed -i s/1\.0\.0/$VERSION/ asGPS.afplugin/Info.afpxml &&
+    sed -i s/4711/$MAV/ asGPS.afplugin/Info.afpxml &&
+    sed -i s/4712/$MIV/ asGPS.afplugin/Info.afpxml &&
+    sed -i s/4713/$BFV/ asGPS.afplugin/Info.afpxml &&
     cp libasGPS.so asGPS.afplugin/lib &&
     cp libasGPS.dylib asGPS.afplugin/lib &&
     cp asGPS.dll asGPS.afplugin/lib/asGPS.dll &&

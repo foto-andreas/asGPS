@@ -97,7 +97,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>10000</width>
          <height>20</height>
         </size>
        </property>
@@ -106,6 +106,19 @@
        </property>
        <property name="text">
         <string>Tag Image</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="asGPSReload_button">
+       <property name="maximumSize">
+        <size>
+         <width>60</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Reload</string>
        </property>
       </widget>
      </item>
@@ -125,7 +138,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>60</width>
          <height>20</height>
         </size>
        </property>
@@ -153,7 +166,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>30</width>
          <height>20</height>
         </size>
        </property>
@@ -250,7 +263,7 @@
           </size>
          </property>
          <property name="toolTip">
-          <string> </string>
+          <string/>
          </property>
          <property name="url">
           <url>

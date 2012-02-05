@@ -225,6 +225,12 @@ private slots:
       */
     void reset();
 
+    /** Reload all asGPS fields.
+      * This slot is called when the user clicks on reload. It reloads
+      * all asGPS fields from the GPS/IPTC tags and repositions the map.
+      */
+    void reload();
+
     /** Tag the image.
       * When the user clicks on the tag button, this slot is called. It tags the image
       * with the values from the edit fields. It obeys the settings in the tristate
@@ -432,6 +438,7 @@ private:
     QLineEdit   *m_location;        /**< the edit field for the location */
 
     QAbstractButton *m_reset;       /**< button for reset */
+    QAbstractButton *m_reload;      /**< button for reload */
     QAbstractButton *m_info;        /**< button to open the info window */
     QAbstractButton *m_tag;         /**< button to tag the image */
     QAbstractButton *m_lim;         /**< button for "locate in map" */

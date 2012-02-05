@@ -35,200 +35,205 @@
         <translation>etikettieren</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="133"/>
+        <location filename="../asGPS.ui" line="121"/>
+        <source>Reload</source>
+        <translation>Laden</translation>
+    </message>
+    <message>
+        <location filename="../asGPS.ui" line="146"/>
         <source>&lt;html&gt;Clear all edit fields.&lt;/html&gt;</source>
         <translation>&lt;html&gt;Alle Eingabefelder löschen.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="136"/>
+        <location filename="../asGPS.ui" line="149"/>
         <source>Reset</source>
         <translation>Reset</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="161"/>
+        <location filename="../asGPS.ui" line="174"/>
         <source>&lt;html&gt;Click to see further informations on this plugin and license infos&lt;/html&gt;</source>
         <translation>&lt;html&gt;Hier klicken um, um weitere Informationen zu diesem Plugin und Lizenzinformationen zu erhalten.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="164"/>
+        <location filename="../asGPS.ui" line="177"/>
         <source> ? </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="226"/>
+        <location filename="../asGPS.ui" line="239"/>
         <source>Map</source>
         <translation>Karte</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="257"/>
+        <location filename="../asGPS.ui" line="270"/>
         <source>about:blank</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="278"/>
+        <location filename="../asGPS.ui" line="291"/>
         <source>Coordinates</source>
         <translation>Koordinaten</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="293"/>
+        <location filename="../asGPS.ui" line="306"/>
         <source>Latitude</source>
         <translation>Breite</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="300"/>
+        <location filename="../asGPS.ui" line="313"/>
         <source>&lt;html&gt;Enter a latitude value in the form ddd,mm.mmmmmX. With d for degrees mm.mmmmm as minutes in decimal and X standing for N or S.&lt;/html&gt;</source>
         <translation>&lt;html&gt;Geben Sie eine gegraphische Breite in der Form ddd,mm.mmmmmX ein. Mit d für Grad mm.mmmmm als Minuten in dezimaler Notation, und X steht für N oder S.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="307"/>
+        <location filename="../asGPS.ui" line="320"/>
         <source>Longitude</source>
         <translation>Länge</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="314"/>
+        <location filename="../asGPS.ui" line="327"/>
         <source>Altitude</source>
         <translation>Höhe</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="321"/>
+        <location filename="../asGPS.ui" line="334"/>
         <source>&lt;html&gt;Altitude value in the form NNNNN/DD, e.g. 123/10 for 12.3m&lt;/html&gt;</source>
         <translation>&lt;html&gt;Höhenwert in der Form NNNNN/DD, z.B. 123/10 für 12,3m.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="328"/>
+        <location filename="../asGPS.ui" line="341"/>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="338"/>
+        <location filename="../asGPS.ui" line="351"/>
         <source>Time</source>
         <translation>Zeit</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="348"/>
+        <location filename="../asGPS.ui" line="361"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="355"/>
+        <location filename="../asGPS.ui" line="368"/>
         <source>&lt;html&gt;GPS status of the tool. Normal value is &apos;A&apos; for valid GPS data.&lt;/html&gt;</source>
         <translation>&lt;html&gt;GPS-Status des Geräts. Ein üblicher Wert ist &apos;A&apos; für gültige GPS-Daten.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="362"/>
+        <location filename="../asGPS.ui" line="375"/>
         <source>Satellites</source>
         <translation>Satelliten</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="369"/>
+        <location filename="../asGPS.ui" line="382"/>
         <source>&lt;html&gt;Number of satellites used in the GPS unit.&lt;/html&gt;</source>
         <translation>&lt;html&gt;Anzahl der Satelliten, die das GPS-Gerät benutzt hat.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="389"/>
         <location filename="../asGPS.ui" line="402"/>
         <location filename="../asGPS.ui" line="415"/>
         <location filename="../asGPS.ui" line="428"/>
         <location filename="../asGPS.ui" line="441"/>
         <location filename="../asGPS.ui" line="454"/>
         <location filename="../asGPS.ui" line="467"/>
-        <location filename="../asGPS.ui" line="744"/>
+        <location filename="../asGPS.ui" line="480"/>
         <location filename="../asGPS.ui" line="757"/>
         <location filename="../asGPS.ui" line="770"/>
         <location filename="../asGPS.ui" line="783"/>
-        <location filename="../asGPS.ui" line="806"/>
+        <location filename="../asGPS.ui" line="796"/>
+        <location filename="../asGPS.ui" line="819"/>
         <source>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</source>
         <translation>&lt;html&gt;grün: überschreiben&lt;br/&gt;gelb: überschreiben, falls leer&lt;br/&gt;rot: nicht überschreiben&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="483"/>
+        <location filename="../asGPS.ui" line="496"/>
         <source>&lt;html&gt;Enter a longitude value in the form ddd,mm.mmmmmX. With d for degrees mm.mmmmm as minutes in decimal and X standing for E or W.&lt;/html&gt;</source>
         <translation>&lt;html&gt;Geben Sie eine gegraphische Länge in der Form ddd,mm.mmmmmX ein. Mit d für Grad mm.mmmmm als Minuten in dezimaler Notation, und X steht für E oder W.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="490"/>
-        <location filename="../asGPS.ui" line="819"/>
+        <location filename="../asGPS.ui" line="503"/>
+        <location filename="../asGPS.ui" line="832"/>
         <source>&lt;html&gt;Checker for all subsequent check boxes.&lt;/html&gt;</source>
         <translation>&lt;html&gt;Schaltbox für alle darunter liegenden Schaltboxen.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="508"/>
-        <location filename="../asGPS.ui" line="529"/>
-        <location filename="../asGPS.ui" line="550"/>
-        <location filename="../asGPS.ui" line="571"/>
-        <location filename="../asGPS.ui" line="592"/>
-        <location filename="../asGPS.ui" line="613"/>
-        <location filename="../asGPS.ui" line="634"/>
+        <location filename="../asGPS.ui" line="521"/>
+        <location filename="../asGPS.ui" line="542"/>
+        <location filename="../asGPS.ui" line="563"/>
+        <location filename="../asGPS.ui" line="584"/>
+        <location filename="../asGPS.ui" line="605"/>
+        <location filename="../asGPS.ui" line="626"/>
+        <location filename="../asGPS.ui" line="647"/>
         <source>&lt;html&gt;current EXIF data value&lt;/html&gt;</source>
         <translation>&lt;html&gt;aktueller EXIF Datenwert&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="650"/>
-        <location filename="../asGPS.ui" line="928"/>
+        <location filename="../asGPS.ui" line="663"/>
+        <location filename="../asGPS.ui" line="941"/>
         <source>switch all</source>
         <translation>alle umschalten</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="676"/>
+        <location filename="../asGPS.ui" line="689"/>
         <source>IPTC</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="691"/>
+        <location filename="../asGPS.ui" line="704"/>
         <source>Country code</source>
         <translation>Länderkennung</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="701"/>
+        <location filename="../asGPS.ui" line="714"/>
         <source>Country</source>
         <translation>Land</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="711"/>
+        <location filename="../asGPS.ui" line="724"/>
         <source>State</source>
         <translation>Bundesland</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="721"/>
+        <location filename="../asGPS.ui" line="734"/>
         <source>City</source>
         <translation>Stadt</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="796"/>
+        <location filename="../asGPS.ui" line="809"/>
         <source>Location</source>
         <translation>Ortsangabe</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="840"/>
-        <location filename="../asGPS.ui" line="858"/>
-        <location filename="../asGPS.ui" line="876"/>
-        <location filename="../asGPS.ui" line="894"/>
-        <location filename="../asGPS.ui" line="912"/>
+        <location filename="../asGPS.ui" line="853"/>
+        <location filename="../asGPS.ui" line="871"/>
+        <location filename="../asGPS.ui" line="889"/>
+        <location filename="../asGPS.ui" line="907"/>
+        <location filename="../asGPS.ui" line="925"/>
         <source>&lt;html&gt;current IPTC data value&lt;/html&gt;</source>
         <translation>&lt;html&gt;aktueller IPTC Datenwert&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="953"/>
+        <location filename="../asGPS.ui" line="966"/>
         <source>&lt;html&gt;Locate in Map from this edit field or if it is empty from&lt;br&gt;the values in the IPTC tab. Updates the GPS tab and map.&lt;/html&gt;</source>
         <translation>&lt;html&gt;In Karte suchen für dieses Eingabefeld oder falls es leer ist&lt;br/&gt;anhand der Werte aus dem IPTC-Reiter. Erneuert die Felder im GPS-Reiter und die Karte.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="956"/>
+        <location filename="../asGPS.ui" line="969"/>
         <source>LIM</source>
         <translation>IKS</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="969"/>
+        <location filename="../asGPS.ui" line="982"/>
         <source>&lt;html&gt;Insert search String for Google Maps here. If this field is empty, it will be composed from IPTC tags when you press LIM&lt;/html&gt;</source>
         <translation>&lt;html&gt;Zeichenkette zum Suchen in der Google-Karte hier eintragen. Wenn es leer ist, wird es aus den IPTC-Feldern zusammengesetzt, sobald Sie IKS betätigen.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="976"/>
+        <location filename="../asGPS.ui" line="989"/>
         <source>&lt;html&gt;Find nearest Location from the position values in the GPS tab. This updates the IPTC tab.&lt;/html&gt;</source>
         <translation>&lt;html&gt;Nächste Orstangabe anhand der Positionswerte im GPS-Reiter suchen. Erneuert die Felder im IPTC-Reiter.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="979"/>
+        <location filename="../asGPS.ui" line="992"/>
         <source>FNL</source>
         <translation>NOS</translation>
     </message>
@@ -236,23 +241,33 @@
 <context>
     <name>asGPSplugin</name>
     <message>
-        <location filename="../asGPSplugin.cpp" line="94"/>
+        <location filename="../asGPSplugin.cpp" line="96"/>
         <source>There is a newer version of %1 available. It is version %2. You are running %3. You can download it under the following url: &lt;a href=&apos;%4&apos;&gt;%4&lt;/a&gt;</source>
         <translation>Es ist eine neuere Version von %1 verfügbar. Es ist Version %2. Sie benutzen %3. Sie können die neue Version unter der folgenden URL herunterladen: &lt;a href=&apos;%4&apos;&gt;%4&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="202"/>
+        <location filename="../asGPSplugin.cpp" line="207"/>
         <source>qrc:///html/asGPSmap_EN.html</source>
         <translation>qrc:///html/asGPSmap_DE.html</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="492"/>
-        <location filename="../asGPSplugin.cpp" line="511"/>
+        <location filename="../asGPSplugin.cpp" line="225"/>
+        <source>Error creating QWebView</source>
+        <translation>Fehler beim Erzeugen einer QWebView</translation>
+    </message>
+    <message>
+        <location filename="../asGPSplugin.cpp" line="225"/>
+        <source>It was not possible to create a QWebView widget.</source>
+        <translation>Es war nicht möglich, ein QWebView Widget zu erzeugen.</translation>
+    </message>
+    <message>
+        <location filename="../asGPSplugin.cpp" line="521"/>
+        <location filename="../asGPSplugin.cpp" line="541"/>
         <source>AfterShot Pro - asGPS browser window</source>
         <translation>AfterShot Pro - asGPS Browser-Fenster</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="505"/>
+        <location filename="../asGPSplugin.cpp" line="535"/>
         <source>qrc:///html/asGPSinfo_EN.html</source>
         <translation>qrc:///html/asGPSinfo_DE.html</translation>
     </message>

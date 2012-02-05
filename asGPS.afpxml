@@ -9,9 +9,9 @@
         macLibFile="lib/libasGPS.dylib" 
         linuxLibFile="lib/libasGPS.so" 
         author="Andreas Schrell" 
-        majorVersion="1" 
-        minorVersion="0" 
-        bugfixVersion="0" 
+        majorVersion="4711" 
+        minorVersion="4712" 
+        bugfixVersion="4713" 
         sdkVersion="8" 
         dataVersion="1">
         <StringList name="uiFiles">
