@@ -31,6 +31,7 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 # we are including the ASP SDK headers from various locations where they may be
+DEPENDPATH += ../Plugin ../SDK/Plugin ../SDK
 INCLUDEPATH += ../Plugin ../SDK/Plugin ../SDK
 
 # include mac build defines only on mac. these are from the SDK examples
@@ -57,9 +58,6 @@ OTHER_FILES += \
     asGPS.js \
     asGPSmap_EN.html \
     asGPSmap_DE.html \
-    asGPSmap_JA.htm \
-    asGPSmap_NL.htm \
-    asGPSmap_IT.htm \
     asGPSmap_NL.html \
     asGPSmap_JA.html \
     asGPSmap_IT.html \

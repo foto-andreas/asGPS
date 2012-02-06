@@ -51,7 +51,6 @@
   *         See \c hotnessChanged().
   *
   * @todo   user documentation
-  * @todo   optional autoLIM, autoFNL and autoTAG on hotnessChanged()
   * @todo   check date and time formats in the edit fields when editing
   * @todo   more comments in the cpp files
   * @todo   import GPS coordinates from geotracking files
