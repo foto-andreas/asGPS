@@ -24,8 +24,8 @@ VERSION = 1.0.2
 # This is used in the source
 DEFINES += TARGET_VERSION=$$VERSION
 
-# everything depends on local path, we ignore the ASP plugin includes here
-DEPENDPATH += .
+# everything depends on local path and locale files
+DEPENDPATH += . locale
 
 # we are including local header files
 INCLUDEPATH += .

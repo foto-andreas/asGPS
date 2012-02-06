@@ -124,7 +124,6 @@ QList<QWidget*> asGPSplugin::toolWidgets()
 void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 {
     qDebug() << "asGPSplugin::toolWidgetCreated";
-    uiWidget->setWindowTitle(uiWidget->windowTitle() + " (" + TARGET_VERSION_STRING + ")");
     m_enable = uiWidget->findChild<QCheckBox*>("asGPSEnabled_checker");
     m_enable->setChecked(false); // map ausgeschaltet beim Start von ASP
     m_autotag = false;
@@ -595,7 +594,7 @@ void asGPSplugin::displayHelp() {
              SIGNAL( linkClicked(QUrl) ),
                 this,
              SLOT( openExternalBrowser(QUrl) ));
-    view->setWindowTitle(tr("AfterShot Pro - asGPS browser window"));
+    view->setWindowTitle("AfterShot Pro - asGPS v"  TARGET_VERSION_STRING);
     view->setWindowIcon(view->icon());
     view->show();
 }
