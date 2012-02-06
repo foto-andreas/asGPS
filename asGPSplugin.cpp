@@ -585,7 +585,8 @@ void asGPSplugin::openExternalBrowser(QUrl url) {
 }
 
 void asGPSplugin::displayHelp() {
-    QWebView *view = new QWebView;
+    qDebug() << "asGPS: displayHelp";
+    QWebView *view = new QWebView();
     if (!view) return;
     view->setPage(new MyWebPage());
     view->setUrl(QUrl(tr("qrc:///html/asGPSinfo_EN.html")));

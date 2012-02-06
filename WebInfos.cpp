@@ -51,6 +51,7 @@ bool WebInfos::isWebNewer() {
     if (!ok) return false;
     int meFi = me.at(2).toInt(&ok);
     if (!ok) return false;
+    qDebug() << "asGPS: version check" << meMa << webMa << meMi << webMi << meFi << webFi;
     if (meMa > webMa) return false;
     if ((meMa == webMa) && (meMi > webMi)) return false;
     if ((meMa == webMa) && (meMi == webMi) && (meFi > webFi)) return false;
