@@ -238,19 +238,11 @@ void asGPSplugin::populateJavaScriptWindowObject() {
 
 void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 {
-    Q_UNUSED(options);
 
     qDebug() << "asGPSplugin::handleHotnessChanged";
 
-    //  reset the controls
     reset();
 
-// work around
-//    m_pHub->beginSettingsChange("asGPS hotness helper");
-//    m_pHub->endSettingChange();
-// correct would be in a correct ASP
-//    bool ok;
-//    optionsNew->setString(ID_Location, 0, options->getString(ID_Location, 0, ok));
     if (options.options(0) != NULL) {
         updateUi(options.options(0));
         if (m_autolim) geocode();
