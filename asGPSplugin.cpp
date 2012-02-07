@@ -243,11 +243,16 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 
     reset();
 
-    if (options.options(0) != NULL) {
-        updateUi(options.options(0));
-        if (m_autolim) geocode();
-        if (m_autofnl) reversegeocode();
-    }
+    Q_UNUSED(options);
+
+    m_pHub->beginSettingsChange("asGPS hotness helper");
+    m_pHub->endSettingChange();
+
+//    if (options.options(0) != NULL) {
+//        updateUi(options.options(0));
+//        if (m_autolim) geocode();
+//        if (m_autofnl) reversegeocode();
+//    }
 
 }
 

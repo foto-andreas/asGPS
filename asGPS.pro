@@ -19,7 +19,7 @@ QT += testlib
 
 # what we build here
 TARGET = asGPS
-VERSION = 1.0.2
+VERSION = 1.0.3
 
 # This is used in the source
 DEFINES += TARGET_VERSION=$$VERSION
