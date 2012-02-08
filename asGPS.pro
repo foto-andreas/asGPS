@@ -3,8 +3,14 @@
 # (c) Andreas Schrell, Wermelskirchen, DE
 ######################################################################
 
-# TEMPLATE: set to "lib" for the ASP plugin, set to "app" for a cunit test application
+# set to "lib" for the ASP plugin
 TEMPLATE = lib
+
+# Include these lines for build a main application which does the cunit tests
+# TEMPLATE = app
+# QT += testlib
+# HEADERS += Tests.h
+# SOURCES += Tests.cpp
 
 # Include default Qt libraries
 QT += core
@@ -14,8 +20,6 @@ QT += gui
 QT += webkit
 QT += network
 
-# Include extra Qt libraries für the cunit tests
-QT += testlib
 
 # what we build here
 TARGET = asGPS
@@ -41,11 +45,11 @@ mac {
 }
 
 # our header files
-HEADERS += asGPSplugin.h gpsLocation.h Tests.h  WebContents.h WebInfos.h \
+HEADERS += asGPSplugin.h gpsLocation.h WebContents.h WebInfos.h \
     TargetVersion.h
 
 # our source files
-SOURCES += asGPSplugin.cpp gpsLocation.cpp Tests.cpp WebContents.cpp WebInfos.cpp
+SOURCES += asGPSplugin.cpp gpsLocation.cpp WebContents.cpp WebInfos.cpp
 
 # our resource file with html pages and images
 RESOURCES += asGPS.qrc

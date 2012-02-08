@@ -54,7 +54,11 @@
   * @todo   check date and time formats in the edit fields when editing
   * @todo   more comments in the cpp files
   * @todo   import GPS coordinates from geotracking files
-  *
+  * @todo	user defined country code mapping
+  * @todo   check if WSG98 or other standards can be used for input
+  * @todo   provide a tab with the Google Raw Data. 
+  * @todo   check possibilities of direction info
+  * 
   */
  
 #include <QString>
