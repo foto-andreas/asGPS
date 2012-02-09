@@ -3,7 +3,7 @@
 /** \mainpage asGPS - A geotagging plugin for AfterShot Pro
   *
   * @author    Andeas Schrell
-  * @version   1.0.3
+  * @version   1.0.4
   * @date      2011-02-08
   * @warning   Works only when QtWebKit-Libs are delivered with ASP
   *
@@ -49,14 +49,16 @@
   * @bug    check situations with zero coordinates
   * @bug    resolve a bug in ASP which need the HELPER setting.
   *         See \c hotnessChanged().
+  * @bug    cut date/time into two fields
   *
   * @todo   user documentation
   * @todo   check date and time formats in the edit fields when editing
+  * @todo   option to set the google api language to other one than used in ASP 
+  * @todo   provide a tab with the Google raw data results 
   * @todo   more comments in the cpp files
-  * @todo   import GPS coordinates from geotracking files
   * @todo	user defined country code mapping
+  * @todo   import GPS coordinates from geotracking files
   * @todo   check if WSG98 or other standards can be used for input
-  * @todo   provide a tab with the Google Raw Data. 
   * @todo   check possibilities of direction info
   * 
   */
@@ -74,6 +76,8 @@
 #include "PluginData.h"
 
 #include "WebInfos.h"
+
+#include "iso3166.h"
 
 #define ON_GPSLatitude "GPSLatitude"
 #define ON_GPSLongitude "GPSLongitude"
@@ -488,5 +492,7 @@ private:
     bool        m_autofnl;          /**< is auto find nearest location enabled? */
 
     QString     m_default_button_style;  /**< default button stylesheet as backup */
+
+    Iso3166     m_iso3661;          /**< the country code conversion */
 
 };

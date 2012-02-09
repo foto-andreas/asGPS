@@ -5,6 +5,8 @@
 
 #include "gpsLocation.h"
 
+#include "iso3166.h"
+
 
 void Tests::testNew() {
     gpsLocation g1, g2(0,0);
@@ -112,6 +114,16 @@ void Tests::testDegFormat() {
         QCOMPARE(sl.at(0), QString("0° 12' 00.00\" N"));
         QCOMPARE(sl.at(1), QString("0° 01' 00.00\" E"));
     }
+}
+
+void Tests::testIso3661() {
+    Iso3166 iso;
+    iso.load();
+    QCOMPARE (iso.from2to3("DE"), QString("DEU"));
+    QCOMPARE (iso.from2to3("GB"), QString("GBR"));
+    QCOMPARE (iso.from2to3("US"), QString("USA"));
+    QCOMPARE (iso.from3to2("DEU"), QString("DE"));
+    QCOMPARE (iso.name("DE"), QString("Germany, Federal Republic of"));
 }
 
 QTEST_MAIN(Tests)

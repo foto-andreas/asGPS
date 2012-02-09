@@ -23,7 +23,7 @@ QT += network
 
 # what we build here
 TARGET = asGPS
-VERSION = 1.0.3
+VERSION = 1.0.4
 
 # This is used in the source
 DEFINES += TARGET_VERSION=$$VERSION
@@ -46,10 +46,12 @@ mac {
 
 # our header files
 HEADERS += asGPSplugin.h gpsLocation.h WebContents.h WebInfos.h \
-    TargetVersion.h
+    TargetVersion.h \
+    iso3166.h
 
 # our source files
-SOURCES += asGPSplugin.cpp gpsLocation.cpp WebContents.cpp WebInfos.cpp
+SOURCES += asGPSplugin.cpp gpsLocation.cpp WebContents.cpp WebInfos.cpp \
+    iso3166.cpp
 
 # our resource file with html pages and images
 RESOURCES += asGPS.qrc
@@ -94,3 +96,5 @@ unix {
    QMAKE_POST_LINK += "; doxygen"
 }
 }
+
+

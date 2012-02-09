@@ -28,4 +28,7 @@ class Tests : public QObject
 
         /** Test degrees minutes seconds format */
         void testDegFormat();
+
+        /** Test country code conversion */
+        void testIso3661();
 };

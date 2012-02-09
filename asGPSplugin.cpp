@@ -87,6 +87,8 @@ bool asGPSplugin::finish()
 
     m_webInfos->fetch();
 
+    m_iso3661.load();
+
     return b;
 }
 
@@ -509,7 +511,12 @@ void asGPSplugin::marker_moved(double lat, double lng)
 void asGPSplugin::set_country(QString short_name, QString long_name) {
     qDebug() << "asGPS: set_country" << long_name << short_name;
     m_country->setText(long_name);
-    m_countryCode->setText(short_name);
+    QString cc3 = m_iso3661.from2to3(short_name);
+    if (cc3=="") {
+        m_countryCode->setText(short_name);
+    } else {
+        m_countryCode->setText(cc3);
+    }
 }
 
 void asGPSplugin::set_city(QString short_name, QString long_name) {
