@@ -126,16 +126,27 @@ QList<QWidget*> asGPSplugin::toolWidgets()
 void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 {
     qDebug() << "asGPSplugin::toolWidgetCreated";
-    m_enable = uiWidget->findChild<QCheckBox*>("asGPSEnabled_checker");
-    m_enable->setChecked(false); // map ausgeschaltet beim Start von ASP
+
+    m_cc3 = uiWidget->findChild<QCheckBox*>("cc3letterCB");
+    m_openEnabled = uiWidget->findChild<QCheckBox*>("openEnabledCB");
+    m_openExtraMap = uiWidget->findChild<QCheckBox*>("openExtraMapCB");
+
+    m_enable = uiWidget->findChild<QCheckBox*>("enabled");
+    if (m_openEnabled->isChecked()) {
+        m_enable->setChecked(true); // map eingeschaltet beim Start von ASP
+    } else  {
+        m_enable->setChecked(false); // map ausgeschaltet beim Start von ASP
+    }
     m_autotag = false;
     m_autolim = false;
     m_autofnl = false;
-    m_view = uiWidget->findChild<QWebView*>("asGPSWebView");
-    if (m_view) {
-        m_view->setGeometry(QRect(0,0,250,250));
-        m_view->adjustSize();
-    }
+    m_internalView = uiWidget->findChild<QWebView*>("asGPSWebView");
+    m_internalView->setGeometry(QRect(0,0,250,250));
+    m_internalView->adjustSize();
+    m_externalView = new QWebView();
+    m_externalView->setWindowTitle(tr("AfterShot Pro - asGPS map window"));
+    m_externalView->setWindowIcon(m_externalView->icon());
+    m_externalView->setWindowFlags( m_externalView->windowFlags() & ~Qt::WindowCloseButtonHint);
     m_edit = uiWidget->findChild<QLineEdit*>("asGPSText_edit");
     m_reset = uiWidget->findChild<QAbstractButton*>("asGPSReset_button");
     m_reload = uiWidget->findChild<QAbstractButton*>("asGPSReload_button");
@@ -197,50 +208,62 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect(m_coordsCB, SIGNAL( stateChanged(int) ), SLOT( handleCoordsCB(int) ));
     connect(m_iptcCB, SIGNAL( stateChanged(int) ), SLOT( handleIptcCB(int) ));
 
-    if (m_view) {
-        m_view->hide();
+    m_xmap = uiWidget->findChild<QCheckBox*>("xMap");
+    connect(m_xmap, SIGNAL( toggled(bool) ), SLOT( handleXmapChange(bool) ) );
 
-        connect( m_view,
-                      SIGNAL( loadFinished ( bool ) ),
-                 this,
-                      SLOT( handleLoadFinished ( bool ) ));
-
-        connect( m_view,
-                      SIGNAL( loadStarted () ),
-                 this,
-                      SLOT( handleLoadStarted () ));
-
-        m_view->setPage(new MyWebPage());
-        m_view->setUrl(QUrl(tr("qrc:///html/asGPSmap_EN.html")));
-        qDebug() << "asGPS map url =" << m_view->url();
-        m_view->page()->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
-        connect( m_view->page(),
-                 SIGNAL( linkClicked(QUrl) ),
-                    this,
-                 SLOT( openInternalBrowser(QUrl) ));
+    if (m_openExtraMap->isChecked()) {
+        m_xmap->setChecked(true);
     } else {
-        webViewError();
+        m_xmap->setChecked(false);
     }
+
+    m_internalMapPage = new MyWebPage();
+    m_externalMapPage = new MyWebPage();
+    initMap(m_internalView, m_internalMapPage);
+    initMap(m_externalView, m_externalMapPage);
 
     m_iptcCB->setCheckState(Qt::PartiallyChecked);
     m_coordsCB->setCheckState(Qt::PartiallyChecked);
 
-    updateMap();
+    // TEST openInternalBrowser(QUrl("http://khm0.googleapis.com/kh?v=102&hl=en&x=198&y=371&z=10&token=26514"));
 }
+
+void asGPSplugin::initMap(QWebView * view, QWebPage * page) {
+    view->hide();
+
+    connect( view,
+                  SIGNAL( loadFinished ( bool ) ),
+             this,
+                  SLOT( handleLoadFinished ( bool ) ));
+
+    view->setPage(page);
+    view->setUrl(QUrl(tr("qrc:///html/asGPSmap_EN.html")));
+    qDebug() << "asGPS map url =" << view->url();
+    page->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
+    connect( page,
+             SIGNAL( linkClicked(QUrl) ),
+                this,
+             SLOT( openInternalBrowser(QUrl) ));
+    connect(page->mainFrame(),
+              SIGNAL(javaScriptWindowObjectCleared()),
+          this,
+              SLOT(populateJavaScriptWindowObject()));
+
+}
+
 
 void asGPSplugin::webViewError() {
     QMessageBox::information(NULL, tr("Error creating QWebView"), tr("It was not possible to create a QWebView widget."));
 }
 
 void asGPSplugin::populateJavaScriptWindowObject() {
-    if (m_view) {
-        m_view->page()->mainFrame()->addToJavaScriptWindowObject(QString("api"), this);
-    }
+    m_internalMapPage->mainFrame()->addToJavaScriptWindowObject(QString("api"), this);
+    m_externalMapPage->mainFrame()->addToJavaScriptWindowObject(QString("api"), this);
 }
 
 void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 {
-
+    if (!m_enable->isChecked()) return;
     qDebug() << "asGPSplugin::handleHotnessChanged";
 
     reset();
@@ -261,6 +284,7 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  const PluginImageSettings &changed, int layer )
 {
     Q_UNUSED(changed);
+    if (!m_enable->isChecked()) return;
     qDebug() << "asGPSplugin::handleSettingsChanged started" << layer;
     // only run in main layer
     if (layer == 0 && options.options(0) != NULL) {
@@ -315,8 +339,9 @@ void asGPSplugin::reset() {
 
 void asGPSplugin::reload() {
     reset();
-    m_pHub->beginSettingsChange("asGPS reload helper");
-    m_pHub->endSettingChange();
+    if (m_pHub->beginSettingsChange("asGPS reload helper")) {
+        m_pHub->endSettingChange();
+    }
 }
 
 void asGPSplugin::handleIptcCB(int unused) {
@@ -357,7 +382,6 @@ void asGPSplugin::updateUi(PluginOptionList *options) {
     setStringField(options, m_state, ID_State);
     setStringField(options, m_city, ID_City);
     setStringField(options, m_location, ID_Location);
-    setStringField(options, m_edit, ID_Location);
     setStringField(options, m_l_lat, ID_GPSLatitude);
     setStringField(options, m_l_lon, ID_GPSLongitude);
     setStringField(options, m_l_alt, ID_GPSAltitude);
@@ -370,6 +394,8 @@ void asGPSplugin::updateUi(PluginOptionList *options) {
     setStringField(options, m_l_state, ID_State);
     setStringField(options, m_l_city, ID_City);
     setStringField(options, m_l_location, ID_Location);
+    //    setStringField(options, m_edit, ID_Location);
+    m_edit->setText(getIPTCconcat());
     updateMap();
 }
 
@@ -407,21 +433,16 @@ void asGPSplugin::tagImage() {
 }
 
 void asGPSplugin::updateMap() {
-    if (!m_view) return;
     if (m_enable->isChecked()) {
-      qDebug() << "asGPS: updateMap with map checked";
-
-      if (m_view->layout() != NULL) m_view->layout()->activate();
-
-      gpsLocation gpsl(m_lat->text(), m_lon->text());
-
-      m_view->page()->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+        qDebug() << "asGPS: updateMap with map checked";
+        gpsLocation gpsl(m_lat->text(), m_lon->text());
+        if (m_internalView->layout() != NULL) m_internalView->layout()->activate();
+        m_internalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+        QString("%1").arg(gpsl.getLat(),0,'f',5) + "," + QString("%1").arg(gpsl.getLng(),0,'f',5) + ")");
+        if (m_externalView->layout() != NULL) m_externalView->layout()->activate();
+        m_externalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
           QString("%1").arg(gpsl.getLat(),0,'f',5) + "," + QString("%1").arg(gpsl.getLng(),0,'f',5) + ")");
     }
-    connect(m_view->page()->mainFrame(),
-              SIGNAL(javaScriptWindowObjectCleared()),
-          this,
-              SLOT(populateJavaScriptWindowObject()));
 }
 
 void asGPSplugin::geocode() {
@@ -441,17 +462,28 @@ void asGPSplugin::geocode() {
         qDebug() << "asGPS: geocode" << m_edit->text();
         resetGPS();
         if (m_edit->text().length()==0) {
-            QString tmp("");
-            if (m_countryCode->text().length()>0) tmp.append(m_countryCode->text() + ", ");
-            if (m_country->text().length()>0)tmp.append(m_country->text() + ", ");
-            if (m_city->text().length()>0)tmp.append(m_city->text());
-            m_edit->setText(tmp);
+            m_edit->setText(getIPTCconcat());
         }
-        if (m_view) {
-            m_view->page()->mainFrame()->evaluateJavaScript("codeCoordinatesFrom('" + m_edit->text() + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
+        if (m_internalView) {
+            m_internalMapPage->mainFrame()->evaluateJavaScript("codeCoordinatesFrom('" + m_edit->text() + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
         }
+        if (m_xmap->isChecked())  {
+            m_externalMapPage->mainFrame()->evaluateJavaScript("codeCoordinatesFrom('" + m_edit->text() + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
+        }
+        updateMap();
     }
 }
+
+QString asGPSplugin::getIPTCconcat() {
+    QString tmp("");
+    if (m_countryCode->text().length()>0) tmp.append(m_countryCode->text());
+    if (m_country->text().length()>0) tmp.append(", " + m_country->text());
+    if (m_state->text().length()>0) tmp.append(", " + m_state->text());
+    if (m_city->text().length()>0) tmp.append(", " + m_city->text());
+    if (m_location->text().length()>0) tmp.append(", " + m_location->text());
+    return tmp;
+}
+
 
 void asGPSplugin::reversegeocode() {
     Qt::KeyboardModifiers keyMod = QApplication::keyboardModifiers ();
@@ -471,9 +503,13 @@ void asGPSplugin::reversegeocode() {
         gpsLocation gpsl(m_lat->text(), m_lon->text());
         resetIPTC();
         QStringList qsl = gpsl.formatAsGoogle(5);
-        if (m_view) {
-            m_view->page()->mainFrame()->evaluateJavaScript("codeAddressFrom('" + qsl.at(0) + "," + qsl.at(1) + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
+        if (m_internalMapPage) {
+            m_internalMapPage->mainFrame()->evaluateJavaScript("codeAddressFrom('" + qsl.at(0) + "," + qsl.at(1) + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
         }
+        if (m_xmap->isChecked()) {
+            m_externalMapPage->mainFrame()->evaluateJavaScript("codeAddressFrom('" + qsl.at(0) + "," + qsl.at(1) + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
+        }
+        updateMap();
     }
 }
 
@@ -506,13 +542,14 @@ void asGPSplugin::marker_moved(double lat, double lng)
     m_lat->setText(qsl.at(0));
     m_lon->setText(qsl.at(1));
     m_status->setText("A");
+    updateMap();
 }
 
 void asGPSplugin::set_country(QString short_name, QString long_name) {
     qDebug() << "asGPS: set_country" << long_name << short_name;
     m_country->setText(long_name);
     QString cc3 = m_iso3661.from2to3(short_name);
-    if (cc3=="") {
+    if (cc3=="" || !m_cc3->isChecked()) {
         m_countryCode->setText(short_name);
     } else {
         m_countryCode->setText(cc3);
@@ -541,28 +578,32 @@ void asGPSplugin::autoTag() {
     }
 }
 
-void asGPSplugin::handleLoadFinished ( bool ok) {
-    if (m_view) {
-        m_view->adjustSize();
-    }
+void asGPSplugin::handleLoadFinished ( bool ok ) {
+    m_internalView->adjustSize();
+    if (m_xmap->isChecked()) m_externalView->adjustSize();
     qDebug() << "asGPS: load finished" << ok;
-}
-
-void asGPSplugin::handleLoadStarted () {
-    qDebug() << "asGPS: load started...";
 }
 
 void asGPSplugin::handleCheckedChange(bool enabled) {
     qDebug() << "asGPS: enabled change enabled =" << enabled;
-    if (!m_view) return;
     if (enabled) {
-        m_view->show();
-        updateMap();
-        m_view->hide();
-        m_view->show();
+        reload();
+        m_internalView->show();
+        if (m_xmap->isChecked()) m_externalView->show();
         updateMap();
     } else {
-        m_view->hide();
+        m_internalView->hide();
+        if (m_xmap->isChecked()) m_externalView->hide();
+    }
+}
+
+void asGPSplugin::handleXmapChange(bool enabled) {
+    qDebug() << "asGPS: enabled xmap enabled =" << enabled;
+    if (enabled) {
+        m_externalView->show();
+        updateMap();
+    } else {
+        m_externalView->hide();
     }
 }
 

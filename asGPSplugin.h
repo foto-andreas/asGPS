@@ -112,61 +112,61 @@ public:
     /** Gives the priority of our plugin.
       * @returns constant 100.
       */
-    virtual int priority() { return 100; }
+    int priority() { return 100; }
 
     /** Gives the name of our plugin.
       * @returns the plugin name.
       */
-    virtual QString name() { return QString("asGPS"); }
+    QString name() { return QString("asGPS"); }
 
     /** Gives the group name of our plugin.
       * @returns the plugin group name.
       */
-    virtual QString group() { return QString("asGPSplug"); }
+    QString group() { return QString("asGPSplug"); }
 
     /** Initialize our asGPS plugin.
       * We have to initialize our class and save some variables from ASP.
       * @returns true, if everything is ok.
       */
-    virtual bool init(PluginHub *hub, int id, int groupId, const QString &bundlePath);
+    bool init(PluginHub *hub, int id, int groupId, const QString &bundlePath);
 
     /** Register filters for ASP.
       * @returns true, if fiters could be registered.
       */
-    virtual bool registerFilters();
+    bool registerFilters();
 
     /** Register options for ASP.
       * @returns true, if options could be registered.
       */
-    virtual bool registerOptions();
+    bool registerOptions();
 
     /** Setup finished.
       * Connect signals to ASP, check for updates etc.
       * @returns true, if everything was ok.
       */
-    virtual bool finish();
+    bool finish();
 
     /** Create a plugin dependency.
       * The name must begin with the plugin name ("asGPS::....")
       * @returns a new plugin dependency.
       */
-    virtual PluginDependency *createDependency(const QString &name);
+    PluginDependency *createDependency(const QString &name);
 
     /** Gives a list of tool files.
       * @returns a QList of QString
       */
-    virtual QList<QString> toolFiles();
+    QList<QString> toolFiles();
 
     /** Gives a list of widgets.
       * @returns a QList of QWidgets
       */
-    virtual QList<QWidget*> toolWidgets();
+    QList<QWidget*> toolWidgets();
 
     /** After tool widget created.
       * After the tool widget was created we are called with this method. Now
       * we can get identifiers from the UI and make adjustments to the UI.
       */
-    virtual void toolWidgetCreated(QWidget *uiWidget);
+    void toolWidgetCreated(QWidget *uiWidget);
 
     /** Group ID.
       * A getter for the group id.
@@ -196,36 +196,37 @@ private slots:
       */
     void handleSettingsChanged( const PluginImageSettings &options, const PluginImageSettings &changed, int layer );
 
-    /** Slot which is called when the map loading begins.
-      * This slot is called from the JavaScript part.
-      */
-    virtual void handleLoadStarted ();
-
     /** Slot which is called when the map is loaded.
       * This slot is called from the JavaScript part.
       * @param ok true, if the html page war loaded correctly.
       */
-    virtual void handleLoadFinished ( bool ok);
+    void handleLoadFinished ( bool ok );
 
     /** Slot which is called when enable check box is changed.
       * Called on user click.
       * @param enabled true, if the plugin was enabled by the user.
       */
-    virtual void handleCheckedChange(bool enabled);
+    void handleCheckedChange(bool enabled);
+
+    /** Slot which is called when external map check box is changed.
+      * Called on user click.
+      * @param enabled true, if the map should be visible.
+      */
+    void handleXmapChange(bool enabled);
 
     /** Slot for the top tristate checkbox in the coords tab.
       * This slot is called, when the user changes the top checkbox in the coordinates tab.
       * It enables the dependent checkboxes in this tab.
       * @param unused The tristate value of the box.
       */
-    virtual void handleCoordsCB(int unused);
+    void handleCoordsCB(int unused);
 
     /** Slot for the top tristate checkbox in the IPTC tab.
       * This slot is called, when the user changes the top checkbox in the IPTC tab.
       * It enables the dependent checkboxes in this tab.
       * @param unused The tristate value of the box.
       */
-    virtual void handleIptcCB(int unused);
+    void handleIptcCB(int unused);
 
     /** Reset all asGPS fields.
       * This slot is called when the user clicks on reset.
@@ -412,6 +413,14 @@ private:
       */
     void webViewError();
 
+    /** Map initializer.
+      */
+    void initMap(QWebView *view, QWebPage *page);
+
+    /** IPTC-Daten zusammenstellen.
+      */
+    QString getIPTCconcat();
+
 private:
 
     PluginHub   *m_pHub;            /**< out plugin hub, which is our connection to ASP */
@@ -432,7 +441,7 @@ private:
     int ID_State;                   /**< this will hold the id of the IPTC state */
     int ID_City;                    /**< this will hold the id of the IPTC city */
 
-    QWebView    *m_view;            /**< the web view for the Google map */
+    QWebView    *xm_view;            /**< the web view for the Google map */
     QCheckBox   *m_enable;          /**< this is the enable map check box */
     QLineEdit   *m_edit;            /**< this is the main edit field for location input */
 
@@ -491,8 +500,20 @@ private:
     bool        m_autolim;          /**< is auto locate in map enabled? */
     bool        m_autofnl;          /**< is auto find nearest location enabled? */
 
+    QCheckBox   *m_cc3;             /**< checkbox for 3letter country code */
+    QCheckBox   *m_openEnabled;     /**< checkbox for enabled on startup */
+    QCheckBox   *m_openExtraMap;    /**< checkbox for extra map window on startup */
+
     QString     m_default_button_style;  /**< default button stylesheet as backup */
 
     Iso3166     m_iso3661;          /**< the country code conversion */
+
+    QWebView    *m_internalView;    /**< map in the toolbar - used to dock */
+    QWebView    *m_externalView;    /**< map in the extra window - used to dock */
+
+    QWebPage    *m_internalMapPage; /**< the qweb page with rthe map */
+    QWebPage    *m_externalMapPage; /**< the qweb page with rthe map */
+
+    QCheckBox   *m_xmap;            /**< checkbox for external map */
 
 };

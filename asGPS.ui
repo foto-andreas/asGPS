@@ -53,7 +53,7 @@
       <number>2</number>
      </property>
      <item>
-      <widget class="QCheckBox" name="asGPSEnabled_checker">
+      <widget class="QCheckBox" name="enabled">
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -67,7 +67,17 @@
         <string>&lt;html&gt;Check here to enable the Google Map view.&lt;/html&gt;</string>
        </property>
        <property name="text">
-        <string>Enable Map View</string>
+        <string>enable</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="xMap">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="text">
+        <string>Xmap</string>
        </property>
       </widget>
      </item>
@@ -100,7 +110,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>10000</width>
+         <width>60</width>
          <height>20</height>
         </size>
        </property>
@@ -118,7 +128,7 @@
 </string>
        </property>
        <property name="text">
-        <string>Tag Image</string>
+        <string>Tag</string>
        </property>
       </widget>
      </item>
@@ -1017,6 +1027,117 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="asGPSSettingsTab">
+      <attribute name="title">
+       <string>Settings</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="openEnabledCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="text">
+          <string>open enabled</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QCheckBox" name="openExtraMapCB">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="text">
+          <string>open with map undocked</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="0">
+        <widget class="QCheckBox" name="cc3letterCB">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="text">
+          <string>use 3 letter country codes</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="cmLabel">
+           <property name="text">
+            <string>country map:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="countryMap"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="fileSelectorButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>10</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Settings are not saved in this version!</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
    <item>
@@ -1105,7 +1226,7 @@
  </customwidgets>
  <tabstops>
   <tabstop>asGPSTabWidget</tabstop>
-  <tabstop>asGPSEnabled_checker</tabstop>
+  <tabstop>enabled</tabstop>
   <tabstop>asGPSTag_button</tabstop>
   <tabstop>asGPSReload_button</tabstop>
   <tabstop>asGPSReset_button</tabstop>
