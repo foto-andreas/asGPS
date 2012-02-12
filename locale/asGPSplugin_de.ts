@@ -228,52 +228,72 @@
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1041"/>
+        <location filename="../asGPS.ui" line="1047"/>
         <source>open enabled</source>
         <translation>Eingeschaltet beim Start</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1060"/>
+        <location filename="../asGPS.ui" line="1066"/>
         <source>open with map undocked</source>
         <translation>Externe Karte beim Start</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1083"/>
+        <location filename="../asGPS.ui" line="1095"/>
         <source>use 3 letter country codes</source>
         <translation>Länderkürzel mit drei-Buchstaben-nutzen</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1095"/>
+        <location filename="../asGPS.ui" line="1107"/>
         <source>country map:</source>
         <translation>Ländertabelle:</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1126"/>
+        <location filename="../asGPS.ui" line="1138"/>
         <source>...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1150"/>
+        <location filename="../asGPS.ui" line="1147"/>
+        <source>Settings are not saved in this version!</source>
+        <translation>Einstellung werden in dieser Versionnicht gesichert!</translation>
+    </message>
+    <message>
+        <location filename="../asGPS.ui" line="1160"/>
+        <source>import all IPTC fields into search field</source>
+        <translation>alle IPTC-Felder in das Suchfeld importieren</translation>
+    </message>
+    <message>
+        <location filename="../asGPS.ui" line="1173"/>
+        <source>automatic centering on click in map</source>
+        <translation>Karte bei Klick zentrieren</translation>
+    </message>
+    <message>
+        <location filename="../asGPS.ui" line="1186"/>
+        <source>check for updates on startup</source>
+        <translation>Beim Start auf Updates prüfen</translation>
+    </message>
+    <message>
+        <location filename="../asGPS.ui" line="1208"/>
         <source>&lt;html&gt;Locate in Map from this edit field or if it is empty from&lt;br&gt;the values in the IPTC tab. Updates the GPS tab and map.&lt;/html&gt;</source>
         <translation>&lt;html&gt;In Karte suchen für dieses Eingabefeld oder falls es leer ist&lt;br/&gt;anhand der Werte aus dem IPTC-Reiter. Erneuert die Felder im GPS-Reiter und die Karte.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1160"/>
+        <location filename="../asGPS.ui" line="1218"/>
         <source>LIM</source>
         <translation>IKS</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1173"/>
+        <location filename="../asGPS.ui" line="1231"/>
         <source>&lt;html&gt;Insert search String for Google Maps here. If this field is empty, it will be composed from IPTC tags when you press LIM&lt;/html&gt;</source>
         <translation>&lt;html&gt;Zeichenkette zum Suchen in der Google-Karte hier eintragen. Wenn es leer ist, wird es aus den IPTC-Feldern zusammengesetzt, sobald Sie IKS betätigen.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1183"/>
+        <location filename="../asGPS.ui" line="1241"/>
         <source>&lt;html&gt;Find nearest Location from the position values in the GPS tab. This updates the IPTC tab.&lt;/html&gt;</source>
         <translation>&lt;html&gt;Nächste Orstangabe anhand der Positionswerte im GPS-Reiter suchen. Erneuert die Felder im IPTC-Reiter.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1193"/>
+        <location filename="../asGPS.ui" line="1251"/>
         <source>FNL</source>
         <translation>NOS</translation>
     </message>
@@ -286,32 +306,32 @@
         <translation>Es ist eine neuere Version von %1 verfügbar. Es ist Version %2. Sie benutzen %3. Sie können die neue Version unter der folgenden URL herunterladen: &lt;a href=&apos;%4&apos;&gt;%4&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="147"/>
+        <location filename="../asGPSplugin.cpp" line="149"/>
         <source>AfterShot Pro - asGPS map window</source>
         <translation>AfterShot Pro - asGPS Kartenfenster</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="240"/>
+        <location filename="../asGPSplugin.cpp" line="242"/>
         <source>qrc:///html/asGPSmap_EN.html</source>
         <translation>qrc:///html/asGPSmap_DE.html</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="256"/>
+        <location filename="../asGPSplugin.cpp" line="258"/>
         <source>Error creating QWebView</source>
         <translation>Fehler beim Erzeugen einer QWebView</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="256"/>
+        <location filename="../asGPSplugin.cpp" line="258"/>
         <source>It was not possible to create a QWebView widget.</source>
         <translation>Es war nicht möglich, ein QWebView Widget zu erzeugen.</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="620"/>
+        <location filename="../asGPSplugin.cpp" line="629"/>
         <source>AfterShot Pro - asGPS browser window</source>
         <translation>AfterShot Pro - asGPS Browser-Fenster</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="635"/>
+        <location filename="../asGPSplugin.cpp" line="644"/>
         <source>qrc:///html/asGPSinfo_EN.html</source>
         <translation>qrc:///html/asGPSinfo_DE.html</translation>
     </message>

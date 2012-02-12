@@ -50,6 +50,7 @@
   * @bug    resolve a bug in ASP which need the HELPER setting.
   *         See \c hotnessChanged().
   * @bug    cut date/time into two fields
+  * @bug    satellite view not available on windows systems
   *
   * @todo   user documentation
   * @todo   check date and time formats in the edit fields when editing
@@ -503,6 +504,8 @@ private:
     QCheckBox   *m_cc3;             /**< checkbox for 3letter country code */
     QCheckBox   *m_openEnabled;     /**< checkbox for enabled on startup */
     QCheckBox   *m_openExtraMap;    /**< checkbox for extra map window on startup */
+    QCheckBox   *m_allIptc;         /**< checkbox for all IPTC fields in search field */
+    QCheckBox   *m_center;          /**< checkbox for automatic map centering on click */
 
     QString     m_default_button_style;  /**< default button stylesheet as backup */
 

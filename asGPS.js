@@ -41,26 +41,28 @@
       optimized: false
     });
 
+    toolsMap = gup('toolsMap');
+
     google.maps.event.addListener(marker, 'click', function() {
       map.panTo(marker.getPosition());
-      api.marker_click();
+      api.marker_click(toolsMap);
     });
 
     google.maps.event.addListener(map, 'click', function(e) {
       marker.setPosition(e.latLng);
-      api.marker_moved(e.latLng.lat(),e.latLng.lng());
+      api.marker_moved(e.latLng.lat(),e.latLng.lng(), toolsMap);
     });
 
     google.maps.event.addListener(marker, 'dragend', function() {
       var pos = marker.getPosition();
-      api.marker_moved(pos.lat(), pos.lng());
+      api.marker_moved(pos.lat(), pos.lng(), toolsMap);
     });
 
   }
 
   function centerAndMark(lat, lng) {
     centerAndMarkOnlyMap(lat,lng);
-    api.marker_moved(lat,lng);
+    api.marker_moved(lat, lng, toolsMap);
   }
 
   function centerAndMarkOnlyMap(lat, lng) {
@@ -89,7 +91,7 @@
             }
             erg += "\n" + v.types + v.short_name + "/" + v.long_name;
         });
-        api.autoTag();
+        api.autoTag(toolsMap);
       } else {
         api.alert("Geocode was not successful for the following reason: " + status);
       }
@@ -103,11 +105,22 @@
         if (withMap) {
             centerAndMark(loc.lat(), loc.lng());
         }
-        api.autoTag();
+        api.autoTag(toolsMap);
       } else {
         api.alert("Geocode was not successful for the following reason: " + status);
       }
     });
+  }
+
+  function gup( name ) {
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( window.location.href );
+    if( results == null )
+      return "";
+    else
+      return results[1];
   }
 
   google.maps.event.addDomListener(window, 'load', initialize);

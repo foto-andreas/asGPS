@@ -228,52 +228,72 @@
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1041"/>
+        <location filename="../asGPS.ui" line="1047"/>
         <source>open enabled</source>
         <translation>Enabled at startup</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1060"/>
+        <location filename="../asGPS.ui" line="1066"/>
         <source>open with map undocked</source>
         <translation>External map on startup</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1083"/>
+        <location filename="../asGPS.ui" line="1095"/>
         <source>use 3 letter country codes</source>
-        <translation>Use contry codes with three letters</translation>
+        <translation>Use country codes with three letters</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1095"/>
+        <location filename="../asGPS.ui" line="1107"/>
         <source>country map:</source>
         <translation>Country table:</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1126"/>
+        <location filename="../asGPS.ui" line="1138"/>
         <source>...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1150"/>
+        <location filename="../asGPS.ui" line="1147"/>
+        <source>Settings are not saved in this version!</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../asGPS.ui" line="1160"/>
+        <source>import all IPTC fields into search field</source>
+        <translation>Import all IPTC fields into search field</translation>
+    </message>
+    <message>
+        <location filename="../asGPS.ui" line="1173"/>
+        <source>automatic centering on click in map</source>
+        <translation>Automatic centering on click in map</translation>
+    </message>
+    <message>
+        <location filename="../asGPS.ui" line="1186"/>
+        <source>check for updates on startup</source>
+        <translation>Check for updates on startup</translation>
+    </message>
+    <message>
+        <location filename="../asGPS.ui" line="1208"/>
         <source>&lt;html&gt;Locate in Map from this edit field or if it is empty from&lt;br&gt;the values in the IPTC tab. Updates the GPS tab and map.&lt;/html&gt;</source>
         <translation>&lt;html&gt;Locate in Map from this edit field or if it is empty from&lt;br/&gt;the values in the IPTC tab. Updates the fields in the GPS tab and map.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1160"/>
+        <location filename="../asGPS.ui" line="1218"/>
         <source>LIM</source>
         <translation>LIM</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1173"/>
+        <location filename="../asGPS.ui" line="1231"/>
         <source>&lt;html&gt;Insert search String for Google Maps here. If this field is empty, it will be composed from IPTC tags when you press LIM&lt;/html&gt;</source>
         <translation>&lt;html&gt;Insert search String for Google Maps here. If this field is empty, it will be composed from IPTC tags when you press LIM.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1183"/>
+        <location filename="../asGPS.ui" line="1241"/>
         <source>&lt;html&gt;Find nearest Location from the position values in the GPS tab. This updates the IPTC tab.&lt;/html&gt;</source>
         <translation>&lt;html&gt;Find nearest Location from the position values in the GPS tab. This updates the fields in the IPTC tab.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1193"/>
+        <location filename="../asGPS.ui" line="1251"/>
         <source>FNL</source>
         <translation>FNL</translation>
     </message>
@@ -286,32 +306,32 @@
         <translation>There is a newer version of %1 available. It is version %2. You are running %3. You can download it under the following url: &lt;a href=&apos;%4&apos;&gt;%4&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="147"/>
+        <location filename="../asGPSplugin.cpp" line="149"/>
         <source>AfterShot Pro - asGPS map window</source>
         <translation>AfterShot Pro - asGPS map window</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="240"/>
+        <location filename="../asGPSplugin.cpp" line="242"/>
         <source>qrc:///html/asGPSmap_EN.html</source>
         <translation>qrc:///html/asGPSmap_EN.html</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="256"/>
+        <location filename="../asGPSplugin.cpp" line="258"/>
         <source>Error creating QWebView</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="256"/>
+        <location filename="../asGPSplugin.cpp" line="258"/>
         <source>It was not possible to create a QWebView widget.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="620"/>
+        <location filename="../asGPSplugin.cpp" line="629"/>
         <source>AfterShot Pro - asGPS browser window</source>
         <translation>AfterShot Pro - asGPS browser window</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="635"/>
+        <location filename="../asGPSplugin.cpp" line="644"/>
         <source>qrc:///html/asGPSinfo_EN.html</source>
         <translation>qrc:///html/asGPSinfo_EN.html</translation>
     </message>

@@ -130,8 +130,10 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_cc3 = uiWidget->findChild<QCheckBox*>("cc3letterCB");
     m_openEnabled = uiWidget->findChild<QCheckBox*>("openEnabledCB");
     m_openExtraMap = uiWidget->findChild<QCheckBox*>("openExtraMapCB");
-
+    m_allIptc = uiWidget->findChild<QCheckBox*>("allIptcCB");
+    m_center = uiWidget->findChild<QCheckBox*>("centerCB");
     m_enable = uiWidget->findChild<QCheckBox*>("enabled");
+
     if (m_openEnabled->isChecked()) {
         m_enable->setChecked(true); // map eingeschaltet beim Start von ASP
     } else  {
@@ -437,11 +439,13 @@ void asGPSplugin::updateMap() {
         qDebug() << "asGPS: updateMap with map checked";
         gpsLocation gpsl(m_lat->text(), m_lon->text());
         if (m_internalView->layout() != NULL) m_internalView->layout()->activate();
-        m_internalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
-        QString("%1").arg(gpsl.getLat(),0,'f',5) + "," + QString("%1").arg(gpsl.getLng(),0,'f',5) + ")");
         if (m_externalView->layout() != NULL) m_externalView->layout()->activate();
-        m_externalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
-          QString("%1").arg(gpsl.getLat(),0,'f',5) + "," + QString("%1").arg(gpsl.getLng(),0,'f',5) + ")");
+        if (m_center->isChecked()) {
+            m_internalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+                QString("%1").arg(gpsl.getLat(),0,'f',5) + "," + QString("%1").arg(gpsl.getLng(),0,'f',5) + ")");
+            m_externalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+                QString("%1").arg(gpsl.getLat(),0,'f',5) + "," + QString("%1").arg(gpsl.getLng(),0,'f',5) + ")");
+        }
     }
 }
 
@@ -476,11 +480,15 @@ void asGPSplugin::geocode() {
 
 QString asGPSplugin::getIPTCconcat() {
     QString tmp("");
-    if (m_countryCode->text().length()>0) tmp.append(m_countryCode->text());
-    if (m_country->text().length()>0) tmp.append(", " + m_country->text());
-    if (m_state->text().length()>0) tmp.append(", " + m_state->text());
-    if (m_city->text().length()>0) tmp.append(", " + m_city->text());
-    if (m_location->text().length()>0) tmp.append(", " + m_location->text());
+    if (m_allIptc->isChecked()) {
+        if (m_countryCode->text().length()>0) tmp.append(m_countryCode->text());
+        if (m_country->text().length()>0) tmp.append(", " + m_country->text());
+        if (m_state->text().length()>0) tmp.append(", " + m_state->text());
+        if (m_city->text().length()>0) tmp.append(", " + m_city->text());
+        if (m_location->text().length()>0) tmp.append(", " + m_location->text());
+    } else {
+        return m_location->text();
+    }
     return tmp;
 }
 

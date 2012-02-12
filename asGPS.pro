@@ -38,12 +38,6 @@ INCLUDEPATH += .
 DEPENDPATH += ../Plugin ../SDK/Plugin ../SDK
 INCLUDEPATH += ../Plugin ../SDK/Plugin ../SDK
 
-# include mac build defines only on mac. these are from the SDK examples
-mac {
-    include( mac.pri )
-    include( Release.xcconfig )
-}
-
 # our header files
 HEADERS += asGPSplugin.h gpsLocation.h WebContents.h WebInfos.h \
     TargetVersion.h \
@@ -83,6 +77,12 @@ CONFIG(release,debug|release) {
 	UI_SOURCES_DIR = build/objects/release/uisrc
 }
 
+# include mac build defines only on mac. these are from the SDK examples
+mac {
+    include( mac.pri )
+    include( Release.xcconfig )
+}
+
 # on unix, but not on OS/X we pack the plugin file and create the documentation.
 # feel free to disable the QMAKE_POST_LINKs if you pack with PluginZipper and
 # do not create a new documentation.
@@ -97,4 +97,7 @@ unix {
 }
 }
 
-
+# SSE2, faster coder over smaller, full optimization
+windows {
+    QMAKE_CXXFLAGS += /arch:SSE2 /Oi /Ot
+}
