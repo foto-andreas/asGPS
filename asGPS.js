@@ -50,14 +50,20 @@
 
     google.maps.event.addListener(map, 'click', function(e) {
       marker.setPosition(e.latLng);
+      setMarkerTitle(e.latLng);
       api.marker_moved(e.latLng.lat(),e.latLng.lng(), toolsMap);
     });
 
     google.maps.event.addListener(marker, 'dragend', function(e) {
       marker.setPosition(e.latLng);
+      setMarkerTitle(e.latLng);
       api.marker_moved(e.latLng.lat(),e.latLng.lng(), toolsMap);
     });
 
+  }
+
+  function setMarkerTitle(loc) {
+     marker.setTitle(loc.lat().toFixed(5) + "/" + loc.lng().toFixed(5));
   }
 
   function centerAndMark(lat, lng) {
@@ -69,13 +75,13 @@
     var loc = new google.maps.LatLng(lat,lng);
     map.setCenter(loc);
     marker.setPosition(loc);
-    marker.setTitle(loc.lat() + "/" + loc.lng());
+    setMarkerTitle(loc);
   }
 
   function moveMarker(lat, lng) {
     var loc = new google.maps.LatLng(lat,lng);
     marker.setPosition(loc);
-    marker.setTitle(loc.lat().toFixed(5) + "/" + loc.lng().toFixed(5));
+    setMarkerTitle(loc);
   }
 
 function codeAddressFrom(coordinates, withMap) {
