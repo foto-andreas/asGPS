@@ -221,8 +221,8 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 
     m_internalMapPage = new MyWebPage();
     m_externalMapPage = new MyWebPage();
-    initMap(m_internalView, m_internalMapPage);
-    initMap(m_externalView, m_externalMapPage);
+    initMap(m_internalView, m_internalMapPage, true);
+    initMap(m_externalView, m_externalMapPage, false);
 
     m_iptcCB->setCheckState(Qt::PartiallyChecked);
     m_coordsCB->setCheckState(Qt::PartiallyChecked);
@@ -230,7 +230,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     // TEST openInternalBrowser(QUrl("http://khm0.googleapis.com/kh?v=102&hl=en&x=198&y=371&z=10&token=26514"));
 }
 
-void asGPSplugin::initMap(QWebView * view, QWebPage * page) {
+void asGPSplugin::initMap(QWebView * view, QWebPage * page, bool toolsMap) {
     view->hide();
 
     connect( view,
@@ -239,7 +239,7 @@ void asGPSplugin::initMap(QWebView * view, QWebPage * page) {
                   SLOT( handleLoadFinished ( bool ) ));
 
     view->setPage(page);
-    view->setUrl(QUrl(tr("qrc:///html/asGPSmap_EN.html")));
+    view->setUrl(QUrl(tr("qrc:///html/asGPSmap_EN.html") + "?toolsMap=" + ((toolsMap) ? "true" : "false")));
     qDebug() << "asGPS map url =" << view->url();
     page->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
     connect( page,
@@ -272,8 +272,9 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 
     Q_UNUSED(options);
 
-    m_pHub->beginSettingsChange("asGPS hotness helper");
-    m_pHub->endSettingChange();
+    if (m_pHub->beginSettingsChange("asGPS hotness helper")) {
+        m_pHub->endSettingChange();
+    }
 
 //    if (options.options(0) != NULL) {
 //        updateUi(options.options(0));
@@ -291,6 +292,8 @@ void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  co
     // only run in main layer
     if (layer == 0 && options.options(0) != NULL) {
         updateUi(options.options(0));
+    } else {
+        updateMap();
     }
 }
 
@@ -440,12 +443,10 @@ void asGPSplugin::updateMap() {
         gpsLocation gpsl(m_lat->text(), m_lon->text());
         if (m_internalView->layout() != NULL) m_internalView->layout()->activate();
         if (m_externalView->layout() != NULL) m_externalView->layout()->activate();
-        if (m_center->isChecked()) {
-            m_internalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
-                QString("%1").arg(gpsl.getLat(),0,'f',5) + "," + QString("%1").arg(gpsl.getLng(),0,'f',5) + ")");
-            m_externalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
-                QString("%1").arg(gpsl.getLat(),0,'f',5) + "," + QString("%1").arg(gpsl.getLng(),0,'f',5) + ")");
-        }
+        m_internalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+            QString("%1").arg(gpsl.getLat(),0,'f',5) + "," + QString("%1").arg(gpsl.getLng(),0,'f',5) + ")");
+        m_externalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+            QString("%1").arg(gpsl.getLat(),0,'f',5) + "," + QString("%1").arg(gpsl.getLng(),0,'f',5) + ")");
     }
 }
 
@@ -537,20 +538,29 @@ void asGPSplugin::setOptionIDs() {
     ID_Location = m_pHub->optionIdForName(ON_Location,0);
 }
 
-void asGPSplugin::marker_click()
+void asGPSplugin::marker_click(bool toolsMap)
 {
     qDebug() << "asGPS: marker clicked";
 }
 
-void asGPSplugin::marker_moved(double lat, double lng)
+void asGPSplugin::marker_moved(double lat, double lng, bool toolsMap)
 {
-    qDebug() << "asGPS: marker moved:" <<lat << lng;
+    qDebug() << "asGPS: marker moved:" <<lat << lng << toolsMap;
     gpsLocation gpsl(lat,lng);
     QStringList qsl = gpsl.formatAsOption(3);
     m_lat->setText(qsl.at(0));
     m_lon->setText(qsl.at(1));
     m_status->setText("A");
-    updateMap();
+    QWebView *wv = toolsMap ? m_externalView : m_internalView;
+    if (wv->layout() != NULL) wv->layout()->activate();
+//    if (m_center->isChecked()) {
+        wv->page()->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+            QString("%1").arg(lat,0,'f',5) + "," + QString("%1").arg(lng,0,'f',5) + ")");
+//    } else {
+//        wv->page()->mainFrame()->evaluateJavaScript("moveMarker(" +
+//            QString("%1").arg(gpsl.getLat(),0,'f',5) + "," + QString("%1").arg(gpsl.getLng(),0,'f',5) + ")");
+//    }
+//    updateMap();
 }
 
 void asGPSplugin::set_country(QString short_name, QString long_name) {

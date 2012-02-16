@@ -302,7 +302,7 @@ public slots:
       * This is the reaction of a click on a marker in the map. The map was centered
       * in the current implementation (JavaScript). In this C++ part it does nothing.
       */
-    void marker_click();
+    void marker_click(bool toolsMap);
 
     /** A marker was moved (dragged) in the map.
       * This changes the GPS coordinates, so we have to be informed from JavaScript
@@ -312,7 +312,7 @@ public slots:
       * @param lat latitude in degrees as a double value
       * @param lng longitude in degrees as a double value
       */
-    void marker_moved(double lat, double lng);
+    void marker_moved(double lat, double lng, bool toolsMap);
 
     /** Slot for the JavaScript part to set the country code and country.
       * The Google Maps API provides us with these values.
@@ -416,7 +416,7 @@ private:
 
     /** Map initializer.
       */
-    void initMap(QWebView *view, QWebPage *page);
+    void initMap(QWebView *view, QWebPage *page, bool toolsMap);
 
     /** IPTC-Daten zusammenstellen.
       */

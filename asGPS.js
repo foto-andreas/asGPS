@@ -41,7 +41,7 @@
       optimized: false
     });
 
-    toolsMap = gup('toolsMap');
+    toolsMap = (gup('toolsMap') == "true") ? true : false;
 
     google.maps.event.addListener(marker, 'click', function() {
       map.panTo(marker.getPosition());
@@ -53,9 +53,9 @@
       api.marker_moved(e.latLng.lat(),e.latLng.lng(), toolsMap);
     });
 
-    google.maps.event.addListener(marker, 'dragend', function() {
-      var pos = marker.getPosition();
-      api.marker_moved(pos.lat(), pos.lng(), toolsMap);
+    google.maps.event.addListener(marker, 'dragend', function(e) {
+      marker.setPosition(e.latLng);
+      api.marker_moved(e.latLng.lat(),e.latLng.lng(), toolsMap);
     });
 
   }
@@ -69,10 +69,16 @@
     var loc = new google.maps.LatLng(lat,lng);
     map.setCenter(loc);
     marker.setPosition(loc);
+    marker.setTitle(loc.lat() + "/" + loc.lng());
+  }
+
+  function moveMarker(lat, lng) {
+    var loc = new google.maps.LatLng(lat,lng);
+    marker.setPosition(loc);
     marker.setTitle(loc.lat().toFixed(5) + "/" + loc.lng().toFixed(5));
   }
 
-  function codeAddressFrom(coordinates, withMap) {
+function codeAddressFrom(coordinates, withMap) {
    var c = coordinates.split(",",2);
    var loc = new google.maps.LatLng(c[0],c[1]);
    geocoder.geocode( { 'latLng': loc}, function(results, status) {
