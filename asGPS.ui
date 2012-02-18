@@ -1197,7 +1197,7 @@
          <item>
           <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>map language:</string>
+            <string>map language (after restart):</string>
            </property>
           </widget>
          </item>

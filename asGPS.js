@@ -76,7 +76,6 @@
     map.setCenter(loc);
     marker.setPosition(loc);
     setMarkerTitle(loc);
-    api.adjustSize();
   }
 
   function moveMarker(lat, lng) {

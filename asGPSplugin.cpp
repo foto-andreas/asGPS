@@ -158,8 +158,6 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_autolim = false;
     m_autofnl = false;
     m_internalView = uiWidget->findChild<QWebView*>("asGPSWebView");
-    m_internalView->setGeometry(QRect(0,0,250,250));
-    m_internalView->adjustSize();
     m_externalView = new QWebView();
     m_externalView->setWindowTitle(tr("AfterShot Pro - asGPS map window"));
     m_externalView->setWindowIcon(m_externalView->icon());
@@ -435,6 +433,7 @@ void asGPSplugin::reset() {
     m_edit->setText("");
     resetIPTC();
     resetGPS();
+    updateMap();
 }
 
 void asGPSplugin::reload() {
@@ -530,11 +529,6 @@ void asGPSplugin::tagImage() {
             m_pHub->endSettingChange();
         }
     }
-}
-
-void asGPSplugin::adjustSize() {
-    qDebug() << "asGPS: adjustSize";
-    //TEST m_internalView->adjustSize();
 }
 
 void asGPSplugin::updateMap() {
@@ -700,8 +694,6 @@ void asGPSplugin::autoTag() {
 }
 
 void asGPSplugin::handleLoadFinished ( bool ok ) {
-    m_internalView->adjustSize();
-//TEST    if (m_xmap->isChecked()) m_externalView->adjustSize();
     qDebug() << "asGPS: load finished" << ok;
 }
 

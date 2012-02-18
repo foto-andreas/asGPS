@@ -370,8 +370,6 @@ public slots:
       */
     void autoTag();
 
-    void adjustSize();
-
 
 private:
 
