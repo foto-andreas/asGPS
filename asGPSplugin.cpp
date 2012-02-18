@@ -213,6 +213,9 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 
     m_xmap = uiWidget->findChild<QCheckBox*>("xMap");
 
+    QLabel *lab_configPath = uiWidget->findChild<QLabel*>("configPath");
+    lab_configPath->setText(m_configDir);
+
     m_internalMapPage = new MyWebPage();
     m_externalMapPage = new MyWebPage();
 
@@ -232,6 +235,20 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 
     m_iptcCB->setCheckState(Qt::PartiallyChecked);
     m_coordsCB->setCheckState(Qt::PartiallyChecked);
+
+    connect(m_latCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsLat(int) ) );
+    connect(m_lonCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsLng(int) ) );
+    connect(m_altCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsAlt(int) ) );
+    connect(m_dateCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsDate(int) ) );
+    connect(m_timeCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsTime(int) ) );
+    connect(m_statusCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsStatus(int) ) );
+    connect(m_satsCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsSats(int) ) );
+
+    connect(m_countryCodeCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsCountryCode(int) ) );
+    connect(m_countryCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsCountry(int) ) );
+    connect(m_stateCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsState(int) ) );
+    connect(m_cityCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsCity(int) ) );
+    connect(m_locationCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsLocation(int) ) );
 
     readAndCreateConfigFile();
 
@@ -313,6 +330,20 @@ void asGPSplugin::readAndCreateConfigFile() {
 
     m_mapLanguage->setCurrentIndex(m_mapLanguage->findText(m_config->mapLanguage()));
 
+
+    m_countryCodeCB->setCheckState((Qt::CheckState)m_config->cbSettingsCountryCode());
+    m_countryCB->setCheckState((Qt::CheckState)m_config->cbSettingsCountry());
+    m_stateCB->setCheckState((Qt::CheckState)m_config->cbSettingsState());
+    m_cityCB->setCheckState((Qt::CheckState)m_config->cbSettingsCity());
+    m_locationCB->setCheckState((Qt::CheckState)m_config->cbSettingsLocation());
+
+    m_latCB->setCheckState((Qt::CheckState)m_config->cbSettingsLat());
+    m_lonCB->setCheckState((Qt::CheckState)m_config->cbSettingsLng());
+    m_altCB->setCheckState((Qt::CheckState)m_config->cbSettingsAlt());
+    m_dateCB->setCheckState((Qt::CheckState)m_config->cbSettingsDate());
+    m_timeCB->setCheckState((Qt::CheckState)m_config->cbSettingsTime());
+    m_statusCB->setCheckState((Qt::CheckState)m_config->cbSettingsStatus());
+    m_satsCB->setCheckState((Qt::CheckState)m_config->cbSettingsSats());
 }
 
 void asGPSplugin::initMap(QWebView * view, QWebPage * page, bool toolsMap) {

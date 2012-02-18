@@ -59,7 +59,7 @@ QString ConfigFile::getValue(QString key) {
     if (i != m_config.end()) {
         return i.value();
     } else {
-        return "";
+        return NULL;
     }
 }
 

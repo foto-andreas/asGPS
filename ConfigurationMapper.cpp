@@ -13,6 +13,18 @@ static const char *CENTERONCLICK = "centerMapOnClick";
 static const char *CHECKFORUPDATES = "checkForUpdates";
 static const char *COUNTRYTABLE = "userCountryTable";
 static const char *MAPLANGUAGE = "mapLanguage";
+static const char *CBLAT = "checkBoxLat";
+static const char *CBLNG = "checkBoxLng";
+static const char *CBALT = "checkBoxAlt";
+static const char *CBDATE = "checkBoxDate";
+static const char *CBTIME = "checkBoxTime";
+static const char *CBSTATUS = "checkBoxStatus";
+static const char *CBSATS = "checkBoxSats";
+static const char *CBCC = "checkBoxCountryCode";
+static const char *CBCOUNTRY = "checkBoxCountry";
+static const char *CBSTATE = "checkBoxState";
+static const char *CBCITY = "checkBoxCity";
+static const char *CBLOC = "checkBoxLocation";
 
 ConfigurationMapper::ConfigurationMapper(QString fileName) {
     qDebug() << "asGPS: ConfigurationMapper";
@@ -20,20 +32,22 @@ ConfigurationMapper::ConfigurationMapper(QString fileName) {
     m_cf->autoWrite(true);
 }
 
-bool ConfigurationMapper::getBool(const char *key) {
+bool ConfigurationMapper::getBool(const char *key, bool def = false) {
     QString val = m_cf->getValue(key);
-    if (val == "") {
-        m_cf->setValue(key, "false");
-    }
+    if (val == NULL) return def;
     return val == "true";
 }
 
-QString ConfigurationMapper::getString(const char *key) {
+QString ConfigurationMapper::getString(const char *key, QString def = "") {
     QString val = m_cf->getValue(key);
-    if (val == "") {
-        m_cf->setValue(key, "");
-    }
+    if (val == NULL) return def;
     return val;
+}
+
+int ConfigurationMapper::getInt(const char *key, int def = 0) {
+    QString val = m_cf->getValue(key);
+    if (val == NULL) return def;
+    return val.toInt();
 }
 
 bool ConfigurationMapper::startEnabled() {
@@ -99,4 +113,101 @@ QString ConfigurationMapper::mapLanguage() {
 void ConfigurationMapper::mapLanguage(QString language) {
     m_cf->setValue(MAPLANGUAGE, language);
 }
+
+int ConfigurationMapper::cbSettingsLat() {
+    return getInt(CBLAT, 1);
+}
+
+void ConfigurationMapper::cbSettingsLat(int settings) {
+    m_cf->setValue(CBLAT, QString("%1").arg(settings));
+}
+
+int ConfigurationMapper::cbSettingsLng() {
+    return getInt(CBLNG, 1);
+}
+
+void ConfigurationMapper::cbSettingsLng(int settings) {
+    m_cf->setValue(CBLNG, QString("%1").arg(settings));
+}
+
+int ConfigurationMapper::cbSettingsAlt() {
+    return getInt(CBALT, 1);
+}
+
+void ConfigurationMapper::cbSettingsAlt(int settings) {
+    m_cf->setValue(CBALT, QString("%1").arg(settings));
+}
+
+int ConfigurationMapper::cbSettingsDate() {
+    return getInt(CBDATE, 1);
+}
+
+void ConfigurationMapper::cbSettingsDate(int settings) {
+    m_cf->setValue(CBDATE, QString("%1").arg(settings));
+}
+
+int ConfigurationMapper::cbSettingsTime() {
+    return getInt(CBTIME, 1);
+}
+
+void ConfigurationMapper::cbSettingsTime(int settings) {
+    m_cf->setValue(CBTIME, QString("%1").arg(settings));
+}
+
+int ConfigurationMapper::cbSettingsStatus() {
+    return getInt(CBSTATUS, 1);
+}
+
+void ConfigurationMapper::cbSettingsStatus(int settings) {
+    m_cf->setValue(CBSTATUS, QString("%1").arg(settings));
+}
+
+int ConfigurationMapper::cbSettingsSats() {
+    return getInt(CBSATS, 1);
+}
+
+void ConfigurationMapper::cbSettingsSats(int settings) {
+    m_cf->setValue(CBSATS, QString("%1").arg(settings));
+}
+
+int ConfigurationMapper::cbSettingsCountryCode() {
+    return getInt(CBCC, 1);
+}
+
+void ConfigurationMapper::cbSettingsCountryCode(int settings) {
+    m_cf->setValue(CBCC, QString("%1").arg(settings));
+}
+
+int ConfigurationMapper::cbSettingsCountry() {
+    return getInt(CBCOUNTRY, 1);
+}
+
+void ConfigurationMapper::cbSettingsCountry(int settings) {
+    m_cf->setValue(CBCOUNTRY, QString("%1").arg(settings));
+}
+
+int ConfigurationMapper::cbSettingsState() {
+    return getInt(CBSTATE, 1);
+}
+
+void ConfigurationMapper::cbSettingsState(int settings) {
+    m_cf->setValue(CBSTATE, QString("%1").arg(settings));
+}
+
+int ConfigurationMapper::cbSettingsCity() {
+    return getInt(CBCITY, 1);
+}
+
+void ConfigurationMapper::cbSettingsCity(int settings) {
+    m_cf->setValue(CBCITY, QString("%1").arg(settings));
+}
+
+int ConfigurationMapper::cbSettingsLocation() {
+    return getInt(CBLOC, 1);
+}
+
+void ConfigurationMapper::cbSettingsLocation(int settings) {
+    m_cf->setValue(CBLOC, QString("%1").arg(settings));
+}
+
 

@@ -273,57 +273,67 @@
         <translation>Map language (after restart):</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1238"/>
+        <location filename="../asGPS.ui" line="1241"/>
         <source>DE</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1243"/>
+        <location filename="../asGPS.ui" line="1246"/>
         <source>EN</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1248"/>
+        <location filename="../asGPS.ui" line="1251"/>
         <source>FR</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1253"/>
+        <location filename="../asGPS.ui" line="1256"/>
         <source>IT</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1258"/>
+        <location filename="../asGPS.ui" line="1261"/>
         <source>JA</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1263"/>
+        <location filename="../asGPS.ui" line="1266"/>
         <source>NL</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1288"/>
+        <location filename="../asGPS.ui" line="1281"/>
+        <source>Config path:</source>
+        <translation>Path to configuration files:</translation>
+    </message>
+    <message>
+        <location filename="../asGPS.ui" line="1293"/>
+        <source>TextLabel</source>
+        <translation>filled by asGPS</translation>
+    </message>
+    <message>
+        <location filename="../asGPS.ui" line="1321"/>
         <source>&lt;html&gt;Locate in Map from this edit field or if it is empty from&lt;br&gt;the values in the IPTC tab. Updates the GPS tab and map.&lt;/html&gt;</source>
         <translation>&lt;html&gt;Locate in Map from this edit field or if it is empty from&lt;br/&gt;the values in the IPTC tab. Updates the fields in the GPS tab and map.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1298"/>
+        <location filename="../asGPS.ui" line="1331"/>
         <source>LIM</source>
         <translation>LIM</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1311"/>
+        <location filename="../asGPS.ui" line="1344"/>
         <source>&lt;html&gt;Insert search String for Google Maps here. If this field is empty, it will be composed from IPTC tags when you press LIM&lt;/html&gt;</source>
         <translation>&lt;html&gt;Insert search String for Google Maps here. If this field is empty, it will be composed from IPTC tags when you press LIM.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1321"/>
+        <location filename="../asGPS.ui" line="1354"/>
         <source>&lt;html&gt;Find nearest Location from the position values in the GPS tab. This updates the IPTC tab.&lt;/html&gt;</source>
         <translation>&lt;html&gt;Find nearest Location from the position values in the GPS tab. This updates the fields in the IPTC tab.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1331"/>
+        <location filename="../asGPS.ui" line="1364"/>
         <source>FNL</source>
         <translation>FNL</translation>
     </message>
@@ -346,32 +356,32 @@
         <translation>AfterShot Pro - asGPS map window</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="243"/>
+        <location filename="../asGPSplugin.cpp" line="246"/>
         <source>Select your country table</source>
         <translation>Select your country table</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="331"/>
+        <location filename="../asGPSplugin.cpp" line="334"/>
         <source>qrc:///html/asGPSmap_EN.html</source>
         <translation>qrc:///html/asGPSmap_EN.html</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="348"/>
+        <location filename="../asGPSplugin.cpp" line="351"/>
         <source>Error creating QWebView</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="348"/>
+        <location filename="../asGPSplugin.cpp" line="351"/>
         <source>It was not possible to create a QWebView widget.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="764"/>
+        <location filename="../asGPSplugin.cpp" line="767"/>
         <source>AfterShot Pro - asGPS browser window</source>
         <translation>AfterShot Pro - asGPS browser window</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="779"/>
+        <location filename="../asGPSplugin.cpp" line="782"/>
         <source>qrc:///html/asGPSinfo_EN.html</source>
         <translation>qrc:///html/asGPSinfo_EN.html</translation>
     </message>
