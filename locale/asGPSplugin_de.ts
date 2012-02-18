@@ -27,7 +27,7 @@
     <message>
         <location filename="../asGPS.ui" line="70"/>
         <source>enable</source>
-        <translation>Einschalten</translation>
+        <translation>Ein</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="80"/>
@@ -37,7 +37,7 @@
     <message>
         <location filename="../asGPS.ui" line="131"/>
         <source>Tag</source>
-        <translation>Etiketten</translation>
+        <translation>Sichern</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="147"/>
@@ -57,7 +57,7 @@
     <message>
         <location filename="../asGPS.ui" line="181"/>
         <source>Reset</source>
-        <translation>Reset</translation>
+        <translation>Leeren</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="209"/>
@@ -253,10 +253,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>Settings are not saved in this version!</source>
-        <translation type="obsolete">Einstellung werden in dieser Versionnicht gesichert!</translation>
-    </message>
-    <message>
         <location filename="../asGPS.ui" line="1156"/>
         <source>import all IPTC fields into search field</source>
         <translation>alle IPTC-Felder in das Suchfeld importieren</translation>
@@ -345,37 +341,37 @@
         <translation>Es ist eine neuere Version von %1 verfügbar. Es ist Version %2. Sie benutzen %3. Sie können die neue Version unter der folgenden URL herunterladen: &lt;a href=&apos;%4&apos;&gt;%4&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="164"/>
+        <location filename="../asGPSplugin.cpp" line="162"/>
         <source>AfterShot Pro - asGPS map window</source>
         <translation>AfterShot Pro - asGPS Kartenfenster</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="245"/>
+        <location filename="../asGPSplugin.cpp" line="243"/>
         <source>Select your country table</source>
         <translation>Wählen Sie Ihre Ländertabelle</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="333"/>
+        <location filename="../asGPSplugin.cpp" line="331"/>
         <source>qrc:///html/asGPSmap_EN.html</source>
         <translation>qrc:///html/asGPSmap_DE.html</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="350"/>
+        <location filename="../asGPSplugin.cpp" line="348"/>
         <source>Error creating QWebView</source>
         <translation>Fehler beim Erzeugen einer QWebView</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="350"/>
+        <location filename="../asGPSplugin.cpp" line="348"/>
         <source>It was not possible to create a QWebView widget.</source>
         <translation>Es war nicht möglich, ein QWebView Widget zu erzeugen.</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="745"/>
+        <location filename="../asGPSplugin.cpp" line="764"/>
         <source>AfterShot Pro - asGPS browser window</source>
         <translation>AfterShot Pro - asGPS Browser-Fenster</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="760"/>
+        <location filename="../asGPSplugin.cpp" line="779"/>
         <source>qrc:///html/asGPSinfo_EN.html</source>
         <translation>qrc:///html/asGPSinfo_DE.html</translation>
     </message>

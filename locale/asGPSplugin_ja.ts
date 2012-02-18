@@ -341,37 +341,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="164"/>
+        <location filename="../asGPSplugin.cpp" line="162"/>
         <source>AfterShot Pro - asGPS map window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="245"/>
+        <location filename="../asGPSplugin.cpp" line="243"/>
         <source>Select your country table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="333"/>
+        <location filename="../asGPSplugin.cpp" line="331"/>
         <source>qrc:///html/asGPSmap_EN.html</source>
         <translation>qrc:///html/asGPSmap_JA.html</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="350"/>
+        <location filename="../asGPSplugin.cpp" line="348"/>
         <source>Error creating QWebView</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="350"/>
+        <location filename="../asGPSplugin.cpp" line="348"/>
         <source>It was not possible to create a QWebView widget.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="745"/>
+        <location filename="../asGPSplugin.cpp" line="764"/>
         <source>AfterShot Pro - asGPS browser window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="760"/>
+        <location filename="../asGPSplugin.cpp" line="779"/>
         <source>qrc:///html/asGPSinfo_EN.html</source>
         <translation type="unfinished"></translation>
     </message>

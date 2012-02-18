@@ -397,6 +397,7 @@ void asGPSplugin::setStringField(PluginOptionList *options, QLineEdit *field, in
 }
 
 void asGPSplugin::tag(PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, int optionID) {
+    if (!m_enable->isChecked()) return;
     qDebug() << "asGPS: tag";
     if ((cb == NULL) || (cb->checkState() == Qt::Checked) || ((cb->checkState() == Qt::PartiallyChecked) && (lab->text() == ""))) {
         qDebug() << QString("asGPS: setting option %1 to: '" + field->text() + "'").arg(optionID).toAscii();
@@ -437,6 +438,7 @@ void asGPSplugin::reset() {
 }
 
 void asGPSplugin::reload() {
+    if (!m_enable->isChecked()) return;
     reset();
     if (m_pHub->beginSettingsChange("asGPS reload helper")) {
         m_pHub->endSettingChange();
@@ -468,19 +470,8 @@ void asGPSplugin::handleCoordsCB(int unused) {
 }
 
 void asGPSplugin::updateUi(PluginOptionList *options) {
+    if (!m_enable->isChecked()) return;
     qDebug() << "asGPS: updateUI";
-    setStringField(options, m_lat, ID_GPSLatitude);
-    setStringField(options, m_lon, ID_GPSLongitude);
-    setStringField(options, m_alt, ID_GPSAltitude);
-    setStringField(options, m_date, ID_GPSDateStamp);
-    setStringField(options, m_time, ID_GPSTimeStamp);
-    setStringField(options, m_status, ID_GPSStatus);
-    setStringField(options, m_sats, ID_GPSSatellites);
-    setStringField(options, m_countryCode, ID_CountryCode);
-    setStringField(options, m_country, ID_Country);
-    setStringField(options, m_state, ID_State);
-    setStringField(options, m_city, ID_City);
-    setStringField(options, m_location, ID_Location);
     setStringField(options, m_l_lat, ID_GPSLatitude);
     setStringField(options, m_l_lon, ID_GPSLongitude);
     setStringField(options, m_l_alt, ID_GPSAltitude);
@@ -493,12 +484,39 @@ void asGPSplugin::updateUi(PluginOptionList *options) {
     setStringField(options, m_l_state, ID_State);
     setStringField(options, m_l_city, ID_City);
     setStringField(options, m_l_location, ID_Location);
-    //    setStringField(options, m_edit, ID_Location);
+    setStringField(options, m_lat, ID_GPSLatitude);
+    setStringField(options, m_lon, ID_GPSLongitude);
+    setStringField(options, m_alt, ID_GPSAltitude);
+    setStringField(options, m_date, ID_GPSDateStamp);
+    setStringField(options, m_time, ID_GPSTimeStamp);
+    setStringField(options, m_status, ID_GPSStatus);
+    setStringField(options, m_sats, ID_GPSSatellites);
+    setStringField(options, m_countryCode, ID_CountryCode);
+    setStringField(options, m_country, ID_Country);
+    setStringField(options, m_state, ID_State);
+    setStringField(options, m_city, ID_City);
+    setStringField(options, m_location, ID_Location);
     m_edit->setText(getIPTCconcat());
     updateMap();
 }
 
+void asGPSplugin::clearTags() {
+    m_l_lat->setText("");
+    m_l_lon->setText("");
+    m_l_alt->setText("");
+    m_l_date->setText("");
+    m_l_time->setText("");
+    m_l_status->setText("");
+    m_l_sats->setText("");
+    m_l_countryCode->setText("");
+    m_l_country->setText("");
+    m_l_state->setText("");
+    m_l_city->setText("");
+    m_l_location->setText("");
+}
+
 void asGPSplugin::tagImage() {
+    if (!m_enable->isChecked()) return;
     Qt::KeyboardModifiers keyMod = QApplication::keyboardModifiers ();
     bool isCTRL = keyMod.testFlag(Qt::ControlModifier);
     if (isCTRL) {
@@ -547,6 +565,7 @@ void asGPSplugin::updateMap() {
 }
 
 void asGPSplugin::geocode() {
+    if (!m_enable->isChecked()) return;
     Qt::KeyboardModifiers keyMod = QApplication::keyboardModifiers ();
     bool isCTRL = keyMod.testFlag(Qt::ControlModifier);
     if (isCTRL) {
@@ -591,6 +610,7 @@ QString asGPSplugin::getIPTCconcat() {
 
 
 void asGPSplugin::reversegeocode() {
+    if (!m_enable->isChecked()) return;
     Qt::KeyboardModifiers keyMod = QApplication::keyboardModifiers ();
     bool isCTRL = keyMod.testFlag(Qt::ControlModifier);
     if (isCTRL) {
@@ -642,6 +662,7 @@ void asGPSplugin::marker_click(bool toolsMap)
 
 void asGPSplugin::marker_moved(double lat, double lng, bool toolsMap)
 {
+    if (!m_enable->isChecked()) return;
     qDebug() << "asGPS: marker moved:" <<lat << lng << toolsMap;
     gpsLocation gpsl(lat,lng);
     QStringList qsl = gpsl.formatAsOption(3);
@@ -661,6 +682,7 @@ void asGPSplugin::marker_moved(double lat, double lng, bool toolsMap)
 }
 
 void asGPSplugin::set_country(QString short_name, QString long_name) {
+    if (!m_enable->isChecked()) return;
     qDebug() << "asGPS: set_country" << long_name << short_name;
     m_country->setText(long_name);
     QString cc3 = m_iso3661.from2to3(short_name);
@@ -672,21 +694,25 @@ void asGPSplugin::set_country(QString short_name, QString long_name) {
 }
 
 void asGPSplugin::set_city(QString short_name, QString long_name) {
+    if (!m_enable->isChecked()) return;
     qDebug() << "asGPS: set_city" << long_name << short_name;
     m_city->setText(long_name);
 }
 
 void asGPSplugin::set_state(QString short_name, QString long_name) {
+    if (!m_enable->isChecked()) return;
     qDebug() << "asGPS: set_state" << long_name << short_name;
     m_state->setText(long_name);
 }
 
 void asGPSplugin::set_location(QString long_name) {
+    if (!m_enable->isChecked()) return;
     qDebug() << "asGPS: set_location" << long_name;
     m_location->setText(long_name);
 }
 
 void asGPSplugin::autoTag() {
+    if (!m_enable->isChecked()) return;
     if (m_autotag) {
         qDebug() << "asGPS: autotag";
         tagImage();
@@ -707,6 +733,8 @@ void asGPSplugin::handleCheckedChange(bool enabled) {
     } else {
         m_internalView->hide();
         if (m_xmap->isChecked()) m_externalView->hide();
+        reset();
+        clearTags();
     }
 }
 

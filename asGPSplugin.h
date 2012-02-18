@@ -184,6 +184,13 @@ public:
       */
     int	pluginId() const { return m_pluginId; }
 
+    /** Clear tag fields in the asGPS ui.
+      * This method clears the IPTC and GPS labels which display the
+      * tags from the image under the edit fields. It does not change the tags
+      * of the image.
+      */
+    void clearTags();
+
 private slots:
 
     /** Slot which handles the change of the hotness (selected main image) in ASP.
