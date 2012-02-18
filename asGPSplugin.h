@@ -71,6 +71,7 @@
 #include <QWebView>
 #include <QCheckBox>
 #include <QLabel>
+#include <QComboBox>
 
 #include "B5Plugin.h"
 #include "PluginRevisions.h"
@@ -79,6 +80,8 @@
 #include "WebInfos.h"
 
 #include "iso3166.h"
+
+#include "ConfigurationMapper.h"
 
 #define ON_GPSLatitude "GPSLatitude"
 #define ON_GPSLongitude "GPSLongitude"
@@ -272,6 +275,15 @@ private slots:
       */
     void populateJavaScriptWindowObject();
 
+    /** Fileselector for user country file
+      *
+      */
+    void fileSelectorUserCountries();
+
+    /** Entry for country table was changed.
+     */
+    void countryTableChanged(QString table);
+
 public slots:
 
     /** Slot for connecting an external browser application.
@@ -301,6 +313,7 @@ public slots:
     /** A marker was clicked.
       * This is the reaction of a click on a marker in the map. The map was centered
       * in the current implementation (JavaScript). In this C++ part it does nothing.
+      * @param toolsMap the info which map is used
       */
     void marker_click(bool toolsMap);
 
@@ -311,6 +324,7 @@ public slots:
       * correct GPS values.
       * @param lat latitude in degrees as a double value
       * @param lng longitude in degrees as a double value
+      * @param toolsMap the info which map is used
       */
     void marker_moved(double lat, double lng, bool toolsMap);
 
@@ -355,6 +369,9 @@ public slots:
       * Check if auto tag is enabled and call it if true.
       */
     void autoTag();
+
+    void adjustSize();
+
 
 private:
 
@@ -415,12 +432,19 @@ private:
     void webViewError();
 
     /** Map initializer.
+      * @param view the QWebVie to initialize
+      * @param page the QWebPage to use
+      * @param toolsMap the info which map is used
       */
     void initMap(QWebView *view, QWebPage *page, bool toolsMap);
 
     /** IPTC-Daten zusammenstellen.
       */
     QString getIPTCconcat();
+
+    /** Read config file or create it.
+      */
+    void readAndCreateConfigFile();
 
 private:
 
@@ -506,6 +530,12 @@ private:
     QCheckBox   *m_openExtraMap;    /**< checkbox for extra map window on startup */
     QCheckBox   *m_allIptc;         /**< checkbox for all IPTC fields in search field */
     QCheckBox   *m_center;          /**< checkbox for automatic map centering on click */
+    QCheckBox   *m_checkUpdates;    /**< checkbox for update check on startup */
+
+    QLineEdit   *m_countryMap;      /**< the user defined country table */
+    QAbstractButton *m_fileSelect;  /**< button for the file selector */
+
+    QComboBox   *m_mapLanguage;     /**< edit field to set the map language */
 
     QString     m_default_button_style;  /**< default button stylesheet as backup */
 
@@ -518,5 +548,8 @@ private:
     QWebPage    *m_externalMapPage; /**< the qweb page with rthe map */
 
     QCheckBox   *m_xmap;            /**< checkbox for external map */
+
+    ConfigurationMapper  *m_config; /**< configuration */
+    QString     m_configDir;        /**< configuration directory */
 
 };

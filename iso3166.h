@@ -16,7 +16,7 @@ public:
       */
     Iso3166();
 
-    /** Load countries from a resource or local file  and add them to the list
+    /** Load countries from a resource or local file and add them to the list
       * @param nameOrResource filename or resource name
       */
     bool load(QString nameOrResource = QString(":/text/iso3166.txt"));

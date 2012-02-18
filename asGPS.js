@@ -76,6 +76,7 @@
     map.setCenter(loc);
     marker.setPosition(loc);
     setMarkerTitle(loc);
+    api.adjustSize();
   }
 
   function moveMarker(lat, lng) {
@@ -84,10 +85,10 @@
     setMarkerTitle(loc);
   }
 
-function codeAddressFrom(coordinates, withMap) {
-   var c = coordinates.split(",",2);
-   var loc = new google.maps.LatLng(c[0],c[1]);
-   geocoder.geocode( { 'latLng': loc}, function(results, status) {
+  function codeAddressFrom(coordinates, withMap) {
+    var c = coordinates.split(",",2);
+    var loc = new google.maps.LatLng(c[0],c[1]);
+    geocoder.geocode( { 'latLng': loc}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         var erg = results[0].formatted_address;
         api.set_location(erg);
@@ -129,7 +130,7 @@ function codeAddressFrom(coordinates, withMap) {
     var regexS = "[\\?&]"+name+"=([^&#]*)";
     var regex = new RegExp( regexS );
     var results = regex.exec( window.location.href );
-    if( results == null )
+    if ( results == null )
       return "";
     else
       return results[1];

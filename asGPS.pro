@@ -7,10 +7,10 @@
 TEMPLATE = lib
 
 # Include these lines for build a main application which does the cunit tests
-# TEMPLATE = app
-# QT += testlib
-# HEADERS += Tests.h
-# SOURCES += Tests.cpp
+#TEMPLATE = app
+#QT += testlib
+#HEADERS += Tests.h
+#SOURCES += Tests.cpp
 
 # Include default Qt libraries
 QT += core
@@ -41,11 +41,15 @@ INCLUDEPATH += ../Plugin ../SDK/Plugin ../SDK
 # our header files
 HEADERS += asGPSplugin.h gpsLocation.h WebContents.h WebInfos.h \
     TargetVersion.h \
-    iso3166.h
+    iso3166.h \
+    ConfigFile.h \
+    ConfigurationMapper.h
 
 # our source files
 SOURCES += asGPSplugin.cpp gpsLocation.cpp WebContents.cpp WebInfos.cpp \
-    iso3166.cpp
+    iso3166.cpp \
+    ConfigFile.cpp \
+    ConfigurationMapper.cpp
 
 # our resource file with html pages and images
 RESOURCES += asGPS.qrc
@@ -61,7 +65,8 @@ OTHER_FILES += \
     asGPSmap_NL.html \
     asGPSmap_JA.html \
     asGPSmap_IT.html \
-    asGPSmap_FR.html
+    asGPSmap_FR.html \
+    iso3166.txt
 
 # the user interface file
 FORMS += asGPS.ui
@@ -101,3 +106,8 @@ unix {
 windows {
     QMAKE_CXXFLAGS += /arch:SSE2 /Oi /Ot
 }
+
+
+
+
+

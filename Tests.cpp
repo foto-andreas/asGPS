@@ -4,9 +4,9 @@
 #include "Tests.h"
 
 #include "gpsLocation.h"
-
 #include "iso3166.h"
-
+#include "ConfigFile.h"
+#include "ConfigurationMapper.h"
 
 void Tests::testNew() {
     gpsLocation g1, g2(0,0);
@@ -124,6 +124,28 @@ void Tests::testIso3661() {
     QCOMPARE (iso.from2to3("US"), QString("USA"));
     QCOMPARE (iso.from3to2("DEU"), QString("DE"));
     QCOMPARE (iso.name("DE"), QString("Germany, Federal Republic of"));
+}
+
+void Tests::testConfig() {
+    ConfigFile cf("asGPS.conf");
+    cf.setValue("TEST1", "VALUE1");
+    cf.setValue("TEST2", "VALUE2");
+    QCOMPARE (cf.getValue("TEST2"), QString("VALUE2"));
+    QCOMPARE (cf.getValue("TEST1"), QString("VALUE1"));
+    cf.writeFile();
+    ConfigFile cf2("asGPS.conf");
+    QCOMPARE (cf2.getValue("TEST2"), QString("VALUE2"));
+    QCOMPARE (cf2.getValue("TEST1"), QString("VALUE1"));
+    cf2.autoWrite(true);
+    cf2.setValue("AUTO1", "V1");
+    cf.readFile();
+    QCOMPARE (cf.getValue("AUTO1"), QString("V1"));
+}
+
+void Tests::testConfigMapper() {
+    ConfigurationMapper cm("asGPSmapper.conf");
+    cm.cc3(true);
+    QCOMPARE (cm.cc3(), true);
 }
 
 QTEST_MAIN(Tests)

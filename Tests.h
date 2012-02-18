@@ -31,4 +31,11 @@ class Tests : public QObject
 
         /** Test country code conversion */
         void testIso3661();
+
+        /** Test config file */
+        void testConfig();
+
+        /** Test config mapper */
+        void testConfigMapper();
+
 };
