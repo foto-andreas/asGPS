@@ -5,7 +5,7 @@
         identifier="de.schrell.asGPS" 
         website="http://schrell.de" 
         resourcesPath="resources" 
-        windowsLibFile="lib/asGPS.dll" 
+        windowsLibFile="lib/asGPS.dll"
         macLibFile="lib/libasGPS.dylib" 
         linuxLibFile="lib/libasGPS.so" 
         author="Andreas Schrell" 

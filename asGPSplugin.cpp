@@ -84,10 +84,10 @@ bool asGPSplugin::finish()
     setOptionIDs();
 
     // configuration file abstraction with a configuration mapper
-    m_configDir = m_pHub->property("pluginStorageHome").toString() + QDir::separator() + "asGPS";
+    m_configDir = m_pHub->property("pluginStorageHome").toString() + "/asGPS";
     QDir qdir;
     qdir.mkdir(m_configDir);
-    QString configPath = m_configDir + QDir::separator() + QString("asGPS.conf");
+    QString configPath = m_configDir + "/asGPS.conf";
     m_config = new ConfigurationMapper(configPath);
     if (m_config == NULL) {
         alert(tr("asGPS: configuration file problem with file:") + "<br/>" + configPath);
