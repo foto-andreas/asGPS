@@ -35,7 +35,7 @@ bool Iso3166::load(QString nameOrResource) {
 
         }
         file.close();
-    } catch (int e) {
+    } catch (int) {
         return false;
     }
     return true;
