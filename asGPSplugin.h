@@ -72,6 +72,7 @@
 #include <QCheckBox>
 #include <QLabel>
 #include <QComboBox>
+#include <QTextEdit>
 
 #include "B5Plugin.h"
 #include "PluginRevisions.h"
@@ -377,6 +378,12 @@ public slots:
       */
     void autoTag();
 
+    /** Fill Rawa Data.
+      * Fills the Google raw data into the corresponding edit field
+      * in the ui.
+      */
+    void fillGoogleRaw(QString rawData);
+
 
 private:
 
@@ -430,6 +437,11 @@ private:
       * This method resets the edit fields in the IPTC tab of the plugin.
       */
     void resetIPTC();
+
+    /** Reset the Goggle tab to default (empty) values.
+      * This method resets the text fields in the Google tab of the plugin.
+      */
+    void resetGoogle();
 
     /** WebView not loadable.
       * Display an error that QWebView can not be used.
@@ -536,6 +548,7 @@ private:
     QCheckBox   *m_allIptc;         /**< checkbox for all IPTC fields in search field */
     QCheckBox   *m_center;          /**< checkbox for automatic map centering on click */
     QCheckBox   *m_checkUpdates;    /**< checkbox for update check on startup */
+    QCheckBox   *m_splitGpsTime;    /**< should we split date/time in GPS timestamp */
 
     QLineEdit   *m_countryMap;      /**< the user defined country table */
     QAbstractButton *m_fileSelect;  /**< button for the file selector */
@@ -556,5 +569,8 @@ private:
 
     ConfigurationMapper  *m_config; /**< configuration */
     QString     m_configDir;        /**< configuration directory */
+
+    QTextEdit   *m_googleRaw;       /**< area to display the Google raw data */
+    QTextEdit   *m_googleCoordinates;    /**< area to display the coordinate data */
 
 };

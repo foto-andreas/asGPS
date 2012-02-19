@@ -4,6 +4,10 @@
     }
   }
 
+  String.prototype.trim = function () {
+    return this.replace(/^\s*/, "").replace(/\s*$/, "");
+  }
+
   function initialize() {
 
     geocoder = new google.maps.Geocoder();
@@ -91,6 +95,7 @@
       if (status == google.maps.GeocoderStatus.OK) {
         var erg = results[0].formatted_address;
         api.set_location(erg);
+        erg += "<br/>";
         results[0].address_components.foreach( function(k, v) {
             if (v.types == "country,political") {
                 api.set_country(v.short_name, v.long_name);
@@ -101,8 +106,14 @@
             if (v.types == "locality,political") {
                 api.set_city(v.short_name, v.long_name);
             }
-            erg += "\n" + v.types + v.short_name + "/" + v.long_name;
+            erg += "<br/><em>" + v.types + ":</em><br/>&nbsp;&nbsp;&nbsp;&nbsp;"
+                   + v.short_name;
+            if (v.short_name.localeCompare(v.long_name) !== 0) {
+                erg += " / " + v.long_name;
+            }
+            erg += "<br/>";
         });
+        api.fillGoogleRaw(erg);
         api.autoTag(toolsMap);
       } else {
         api.alert("Geocode was not successful for the following reason: " + status);
@@ -117,6 +128,7 @@
         if (withMap) {
             centerAndMark(loc.lat(), loc.lng());
         }
+        api.fillGoogleRaw("");
         api.autoTag(toolsMap);
       } else {
         api.alert("Geocode was not successful for the following reason: " + status);
@@ -129,7 +141,7 @@
     var regexS = "[\\?&]"+name+"=([^&#]*)";
     var regex = new RegExp( regexS );
     var results = regex.exec( window.location.href );
-    if ( results == null )
+    if ( results === null )
       return "";
     else
       return results[1];

@@ -23,6 +23,7 @@
 #include <QApplication>
 #include <QDir>
 #include <QFileDialog>
+#include <QTextEdit>
 
 #include "TargetVersion.h"
 #include "gpsLocation.h"
@@ -148,6 +149,8 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_allIptc = uiWidget->findChild<QCheckBox*>("allIptcCB");
     m_center = uiWidget->findChild<QCheckBox*>("centerCB");
     m_checkUpdates = uiWidget->findChild<QCheckBox*>("checkForUpdates");
+    m_splitGpsTime = uiWidget->findChild<QCheckBox*>("splitGpsTimestamp");
+
     m_countryMap = uiWidget->findChild<QLineEdit*>("countryMap");
     m_fileSelect = uiWidget->findChild<QAbstractButton*>("fileSelectorButton");
     m_mapLanguage = uiWidget->findChild<QComboBox*>("mapLanguage");
@@ -212,6 +215,9 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_iptcCB = uiWidget->findChild<QCheckBox*>("iptcCB");
 
     m_xmap = uiWidget->findChild<QCheckBox*>("xMap");
+
+    m_googleCoordinates = uiWidget->findChild<QTextEdit*>("googleCoordinates");
+    m_googleRaw = uiWidget->findChild<QTextEdit*>("googleRaw");
 
     QLabel *lab_configPath = uiWidget->findChild<QLabel*>("configPath");
     lab_configPath->setText(m_configDir);
@@ -281,6 +287,8 @@ void asGPSplugin::readAndCreateConfigFile() {
     connect(m_center, SIGNAL( toggled(bool) ), m_config, SLOT( centerOnClick(bool) ) );
     connect(m_allIptc, SIGNAL( toggled(bool) ), m_config, SLOT( searchAllIPTC(bool) ) );
     connect(m_checkUpdates, SIGNAL( toggled(bool) ), m_config, SLOT( checkForUpdates(bool) ) );
+    connect(m_splitGpsTime, SIGNAL( toggled(bool) ), m_config, SLOT( splitGpsTimestamp(bool) ) );
+
     connect(m_countryMap, SIGNAL ( textChanged(QString) ), SLOT ( countryTableChanged(QString) ) );
     connect(m_mapLanguage, SIGNAL ( currentIndexChanged(QString) ), m_config, SLOT ( mapLanguage(QString) ) );
 
@@ -324,6 +332,12 @@ void asGPSplugin::readAndCreateConfigFile() {
         m_checkUpdates->setChecked(true);
     } else {
         m_checkUpdates->setChecked(false);
+    }
+
+    if (m_config->splitGpsTimestamp()) {
+        m_splitGpsTime->setChecked(true);
+    } else {
+        m_splitGpsTime->setChecked(false);
     }
 
     m_countryMap->setText(m_config->countryTable());
@@ -461,10 +475,16 @@ void asGPSplugin::resetGPS() {
     m_sats->setText("");
 }
 
+void asGPSplugin::resetGoogle() {
+    m_googleCoordinates->setText("");
+    m_googleRaw->setText("");
+}
+
 void asGPSplugin::reset() {
     m_edit->setText("");
     resetIPTC();
     resetGPS();
+    resetGoogle();
     updateMap();
 }
 
@@ -474,6 +494,15 @@ void asGPSplugin::reload() {
     if (m_pHub->beginSettingsChange("asGPS reload helper")) {
         m_pHub->endSettingChange();
     }
+}
+
+void asGPSplugin::fillGoogleRaw(QString rawData) {
+    gpsLocation loc(m_lat->text(), m_lon->text());
+    QString coords = m_lat->text() + " / " + m_lon->text();
+    QStringList formatted = loc.formatAsDegreesMinutesSeconds(4);
+    coords += "<br/>" + formatted[0] + " / " + formatted[1];
+    m_googleCoordinates->setText(coords.replace("°","&deg;"));
+    m_googleRaw->setText(rawData);
 }
 
 void asGPSplugin::handleIptcCB(int unused) {
@@ -527,6 +556,11 @@ void asGPSplugin::updateUi(PluginOptionList *options) {
     setStringField(options, m_state, ID_State);
     setStringField(options, m_city, ID_City);
     setStringField(options, m_location, ID_Location);
+    if (m_config->splitGpsTimestamp()) {
+        QStringList dsts = m_time->text().split(" ");
+        m_date->setText(dsts.at(0));
+        m_time->setText(dsts.at(1));
+    }
     m_edit->setText(getIPTCconcat());
     updateMap();
 }

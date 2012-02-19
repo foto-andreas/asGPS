@@ -20,6 +20,7 @@ public:
     bool searchAllIPTC();
     bool centerOnClick();
     bool checkForUpdates();
+    bool splitGpsTimestamp();
 
     QString countryTable();
     QString mapLanguage();
@@ -45,6 +46,7 @@ public slots:
     void searchAllIPTC(bool val);
     void centerOnClick(bool val);
     void checkForUpdates(bool val);
+    void splitGpsTimestamp(bool val);
 
     void countryTable(QString cT);
     void mapLanguage(QString language);

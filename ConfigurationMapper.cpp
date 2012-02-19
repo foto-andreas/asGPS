@@ -11,8 +11,11 @@ static const char *USETHREELETTER = "useThreeLetterCountryCodes";
 static const char *SEARCHALLIPTC = "searchWithAllIptcFields";
 static const char *CENTERONCLICK = "centerMapOnClick";
 static const char *CHECKFORUPDATES = "checkForUpdates";
+static const char *SPLITGPSTIMESTAMP = "splitGpsTimestamp";
+
 static const char *COUNTRYTABLE = "userCountryTable";
 static const char *MAPLANGUAGE = "mapLanguage";
+
 static const char *CBLAT = "checkBoxLat";
 static const char *CBLNG = "checkBoxLng";
 static const char *CBALT = "checkBoxAlt";
@@ -91,11 +94,19 @@ void ConfigurationMapper::centerOnClick(bool val) {
 }
 
 bool ConfigurationMapper::checkForUpdates() {
-    return getBool(CHECKFORUPDATES);
+    return getBool(CHECKFORUPDATES, true);
 }
 
 void ConfigurationMapper::checkForUpdates(bool val) {
     m_cf->setValue(CHECKFORUPDATES, val ? "true" : "false" );
+}
+
+bool ConfigurationMapper::splitGpsTimestamp() {
+    return getBool(SPLITGPSTIMESTAMP, false);
+}
+
+void ConfigurationMapper::splitGpsTimestamp(bool val) {
+    m_cf->setValue(SPLITGPSTIMESTAMP, val ? "true" : "false" );
 }
 
 QString ConfigurationMapper::countryTable() {
