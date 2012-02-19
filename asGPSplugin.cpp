@@ -258,7 +258,11 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 
     readAndCreateConfigFile();
 
-    // TEST openInternalBrowser(QUrl("http://khm0.googleapis.com/kh?v=102&hl=en&x=198&y=371&z=10&token=26514"));
+    // TEST
+    // QWebView *wv = new QWebView;
+    // wv->setUrl(QUrl("http://khm0.googleapis.com/kh?v=102&hl=en&x=198&y=371&z=10&token=26514"));
+    // wv->show();
+
 }
 
 void asGPSplugin::fileSelectorUserCountries() {
@@ -558,8 +562,10 @@ void asGPSplugin::updateUi(PluginOptionList *options) {
     setStringField(options, m_location, ID_Location);
     if (m_config->splitGpsTimestamp()) {
         QStringList dsts = m_time->text().split(" ");
-        m_date->setText(dsts.at(0));
-        m_time->setText(dsts.at(1));
+        if (dsts.length() == 2) {
+            m_date->setText(dsts.at(0));
+            m_time->setText(dsts.at(1));
+        }
     }
     m_edit->setText(getIPTCconcat());
     updateMap();
