@@ -405,7 +405,6 @@ void asGPSplugin::populateJavaScriptWindowObject() {
 void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 {
     Q_UNUSED(options);
-    if (!m_enable->isChecked()) return;
     qDebug() << "asGPSplugin::handleHotnessChanged";
     reset();
 
@@ -415,10 +414,12 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 
     if (options.options(0) != NULL) {
         updateUi(options.options(0));
+        if (!m_enable->isChecked()) return;
         if (m_autolim) geocode();
         if (m_autofnl) reversegeocode();
     }
 
+    // size update and correct centering  map
     if (m_enable->isChecked()) {
         m_internalView->hide();
         m_internalView->show();
@@ -429,13 +430,12 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  const PluginImageSettings &changed, int layer )
 {
     Q_UNUSED(changed);
-    if (!m_enable->isChecked()) return;
-    qDebug() << "asGPSplugin::handleSettingsChanged started" << layer;
+    qDebug() << "asGPSplugin::handleSettingsChanged started on layer" << layer;
     // only run in main layer
     if (layer == 0 && options.options(0) != NULL) {
         updateUi(options.options(0));
     } else {
-        updateMap();
+        if (m_enable->isChecked()) updateMap();
     }
 }
 
@@ -495,9 +495,20 @@ void asGPSplugin::reset() {
 void asGPSplugin::reload() {
     if (!m_enable->isChecked()) return;
     reset();
-    if (m_pHub->beginSettingsChange("asGPS reload helper")) {
-        m_pHub->endSettingChange();
-    }
+    m_countryCode->setText(m_l_countryCode->text());
+    m_country->setText(m_l_country->text());
+    m_state->setText(m_l_state->text());
+    m_city->setText(m_l_city->text());
+    m_location->setText(m_l_location->text());
+    m_lat->setText(m_l_lat->text());
+    m_lon->setText(m_l_lon->text());
+    m_alt->setText(m_l_alt->text());
+    m_date->setText(m_l_date->text());
+    m_time->setText(m_l_time->text());
+    m_status->setText(m_l_status->text());
+    m_sats->setText(m_l_sats->text());
+    splitDate();
+    m_edit->setText(getIPTCconcat());
 }
 
 void asGPSplugin::fillGoogleRaw(QString rawData) {
@@ -534,7 +545,6 @@ void asGPSplugin::handleCoordsCB(int unused) {
 }
 
 void asGPSplugin::updateUi(PluginOptionList *options) {
-    if (!m_enable->isChecked()) return;
     qDebug() << "asGPS: updateUI";
     setStringField(options, m_l_lat, ID_GPSLatitude);
     setStringField(options, m_l_lon, ID_GPSLongitude);
@@ -548,6 +558,8 @@ void asGPSplugin::updateUi(PluginOptionList *options) {
     setStringField(options, m_l_state, ID_State);
     setStringField(options, m_l_city, ID_City);
     setStringField(options, m_l_location, ID_Location);
+    if (!m_enable->isChecked()) return;
+    qDebug() << "asGPS: updateUI continued with asGPS enabled";
     setStringField(options, m_lat, ID_GPSLatitude);
     setStringField(options, m_lon, ID_GPSLongitude);
     setStringField(options, m_alt, ID_GPSAltitude);
@@ -560,6 +572,12 @@ void asGPSplugin::updateUi(PluginOptionList *options) {
     setStringField(options, m_state, ID_State);
     setStringField(options, m_city, ID_City);
     setStringField(options, m_location, ID_Location);
+    splitDate();
+    m_edit->setText(getIPTCconcat());
+    updateMap();
+}
+
+void asGPSplugin::splitDate() {
     if (m_config->splitGpsTimestamp()) {
         QStringList dsts = m_time->text().split(" ");
         if (dsts.length() == 2) {
@@ -567,8 +585,6 @@ void asGPSplugin::updateUi(PluginOptionList *options) {
             m_time->setText(dsts.at(1));
         }
     }
-    m_edit->setText(getIPTCconcat());
-    updateMap();
 }
 
 void asGPSplugin::clearTags() {
@@ -805,7 +821,6 @@ void asGPSplugin::handleCheckedChange(bool enabled) {
         m_internalView->hide();
         if (m_xmap->isChecked()) m_externalView->hide();
         reset();
-        clearTags();
     }
 }
 

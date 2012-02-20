@@ -23,7 +23,7 @@ QT += network
 
 # what we build here
 TARGET = asGPS
-VERSION = 1.1.0
+VERSION = 1.1.1
 
 # This is used in the source
 DEFINES += TARGET_VERSION=$$VERSION

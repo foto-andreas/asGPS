@@ -1062,6 +1062,9 @@ QTextEdit {
            <height>34</height>
           </size>
          </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="verticalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOff</enum>
          </property>
@@ -1357,6 +1360,9 @@ QTextEdit {
        </item>
        <item row="6" column="0">
         <widget class="QCheckBox" name="splitGpsTimestamp">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
          <property name="text">
           <string>split GPS timestamp</string>
          </property>

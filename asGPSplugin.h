@@ -3,8 +3,8 @@
 /** \mainpage asGPS - A geotagging plugin for AfterShot Pro
   *
   * @author    Andeas Schrell
-  * @version   1.1.0
-  * @date      2011-02-19
+  * @version   1.1.1
+  * @date      2011-02-20
   * @warning   Works only when QtWebKit-Libs are delivered with ASP
   *
   * \section intro_sec Introduction
@@ -46,10 +46,9 @@
   *
   * \section other Other Information
   *
-  * @bug    check situations with zero coordinates
+  * @bug    check situations with zero coordinates (windows: black map, linux: water)
   * @bug    resolve a bug in ASP which need the HELPER setting.
   *         See \c hotnessChanged().
-  * @bug    satellite view not available on windows systems
   *
   * @todo   user documentation
   * @todo   check date and time formats in the edit fields when editing
@@ -458,6 +457,10 @@ private:
     /** Read config file or create it.
       */
     void readAndCreateConfigFile();
+
+    /** Split timestamp in date and time field.
+      */
+    void splitDate();
 
 private:
 
