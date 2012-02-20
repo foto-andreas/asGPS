@@ -24,6 +24,7 @@ public:
 
     QString countryTable();
     QString mapLanguage();
+    QString mapRegion();
 
     int cbSettingsLat();
     int cbSettingsLng();
@@ -50,6 +51,7 @@ public slots:
 
     void countryTable(QString cT);
     void mapLanguage(QString language);
+    void mapRegion(QString region);
 
     void cbSettingsLat(int settings);
     void cbSettingsLng(int settings);

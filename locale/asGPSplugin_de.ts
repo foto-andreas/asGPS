@@ -364,87 +364,72 @@
     </message>
     <message>
         <location filename="../asGPS.ui" line="1320"/>
-        <source>map language (after restart):</source>
-        <translation>Sprache der Karte (nach Neustart):</translation>
+        <source>map language*:</source>
+        <translation>Sprache der Karte*:</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1355"/>
-        <source>&lt;html&gt;The country code used for the map and Google API calls. This results in different language specific replys from google. Leave unset to use the default ASP language. May be used to select your country if this does not match your ASP language setting.&lt;/html&gt;</source>
-        <translation>&lt;html&gt;Der Ländercode, der für die Karte und Google API-Aufrufe benutzt wird. Dieser führt zu sprachabhängigen Antworten von Google. Lassen sie ihn leer, um die Standard-Spracheinstellung von ASP zu benutzen. Er kann genutzt werden, um Ihr Land festzulegen, wenn dies nicht der Spracheinstellung in ASP entspricht.&lt;/tml&gt;</translation>
+        <location filename="../asGPS.ui" line="1339"/>
+        <source>&lt;html&gt;The language used for the map. This results in different language specific replys from google. Leave unset to use the default ASP language. May be used to select your language if this does not match your ASP language setting.&lt;/html&gt;</source>
+        <translation>&lt;html&gt;Der Ländercode, der für die Karte benutzt wird. Dieser führt zu sprachabhängigen Antworten von Google. Lassen sie ihn leer, um die Standard-Spracheinstellung von ASP zu benutzen. Er kann genutzt werden, um Ihre Sprache festzulegen, wenn diese nicht der Spracheinstellung in ASP entspricht.&lt;/tml&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1367"/>
-        <source>DE</source>
-        <translation></translation>
+        <location filename="../asGPS.ui" line="1359"/>
+        <source>map region**:</source>
+        <translation>Karten-Region**:</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1372"/>
-        <source>EN</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../asGPS.ui" line="1377"/>
-        <source>FR</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../asGPS.ui" line="1382"/>
-        <source>IT</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../asGPS.ui" line="1387"/>
-        <source>JA</source>
-        <translation></translation>
+        <location filename="../asGPS.ui" line="1378"/>
+        <source>&lt;html&gt;Set this to the country code of the country for which you prefer search results. Try with &quot;ES&quot; and &quot;US&quot; and search for &quot;Toledo&quot; with LIM.&lt;/html&gt;</source>
+        <translation>&lt;html&gt;Setzen sie dieses Feld auf den Ländercode des Landes, aus dem Sie Suchergebnisse bevorzugen. Versuchen sie es mit &quot;ES&quot; und &quot;US&quot; und suchen Sie jeweils nach &quot;Toledo&quot; mit IKS.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1392"/>
-        <source>NL</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../asGPS.ui" line="1407"/>
         <source>Config path:</source>
         <translation>Pfad zu Konfigurationsdateien:</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1419"/>
+        <location filename="../asGPS.ui" line="1404"/>
         <source>TextLabel</source>
         <translation>gefüllt durch asGPS</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1435"/>
+        <location filename="../asGPS.ui" line="1420"/>
         <source>&lt;html&gt;Split the GPS timestamp field in separate date and time fields.&lt;/html&gt;</source>
         <translation>&lt;html&gt;Den GPS Zeitstempel in separate Datums- und Zeitfelder aufteilen.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1438"/>
+        <location filename="../asGPS.ui" line="1423"/>
         <source>split GPS timestamp</source>
         <translation>GPS Zeitstempel aufteilen</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1460"/>
+        <location filename="../asGPS.ui" line="1435"/>
+        <source>* active after reboot, ** active for following FNLs</source>
+        <translation>* aktiv nach Neustart, ** aktiv für folgenden NOS-Aufrufe</translation>
+    </message>
+    <message>
+        <location filename="../asGPS.ui" line="1457"/>
         <source>&lt;html&gt;Locate in Map from this edit field or if it is empty from&lt;br&gt;the values in the IPTC tab. Updates the GPS tab and map.&lt;/html&gt;</source>
         <translation>&lt;html&gt;In Karte suchen für dieses Eingabefeld oder falls es leer ist&lt;br/&gt;anhand der Werte aus dem IPTC-Reiter. Erneuert die Felder im GPS-Reiter und die Karte.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1470"/>
+        <location filename="../asGPS.ui" line="1467"/>
         <source>LIM</source>
         <translatorcomment>In Karte Suchen</translatorcomment>
         <translation>IKS</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1483"/>
+        <location filename="../asGPS.ui" line="1480"/>
         <source>&lt;html&gt;Insert search String for Google Maps here. If this field is empty, it will be composed from IPTC tags when you press LIM&lt;/html&gt;</source>
         <translation>&lt;html&gt;Zeichenkette zum Suchen in der Google-Karte hier eintragen. Wenn es leer ist, wird es aus den IPTC-Feldern zusammengesetzt, sobald Sie IKS betätigen.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1493"/>
+        <location filename="../asGPS.ui" line="1490"/>
         <source>&lt;html&gt;Find nearest Location from the position values in the GPS tab. This updates the IPTC tab.&lt;/html&gt;</source>
         <translation>&lt;html&gt;Nächste Orstangabe anhand der Positionswerte im GPS-Reiter suchen. Erneuert die Felder im IPTC-Reiter.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1503"/>
+        <location filename="../asGPS.ui" line="1500"/>
         <source>FNL</source>
         <translatorcomment>Nächsten Ort Suchen</translatorcomment>
         <translation>NOS</translation>
@@ -463,37 +448,32 @@
         <translation>Es ist eine neuere Version von %1 verfügbar. Es ist Version %2. Sie benutzen %3. Sie können die neue Version unter der folgenden URL herunterladen: &lt;a href=&apos;%4&apos;&gt;%4&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="165"/>
+        <location filename="../asGPSplugin.cpp" line="166"/>
         <source>AfterShot Pro - asGPS map window</source>
         <translation>AfterShot Pro - asGPS Kartenfenster</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="270"/>
+        <location filename="../asGPSplugin.cpp" line="271"/>
         <source>Select your country table</source>
         <translation>Wählen Sie Ihre Ländertabelle</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="380"/>
-        <source>qrc:///html/asGPSmap_EN.html</source>
-        <translation>qrc:///html/asGPSmap_DE.html</translation>
-    </message>
-    <message>
-        <location filename="../asGPSplugin.cpp" line="397"/>
+        <location filename="../asGPSplugin.cpp" line="405"/>
         <source>Error creating QWebView</source>
         <translation>Fehler beim Erzeugen einer QWebView</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="397"/>
+        <location filename="../asGPSplugin.cpp" line="405"/>
         <source>It was not possible to create a QWebView widget.</source>
         <translation>Es war nicht möglich, ein QWebView Widget zu erzeugen.</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="850"/>
+        <location filename="../asGPSplugin.cpp" line="862"/>
         <source>AfterShot Pro - asGPS browser window</source>
         <translation>AfterShot Pro - asGPS Browser-Fenster</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="865"/>
+        <location filename="../asGPSplugin.cpp" line="877"/>
         <source>qrc:///html/asGPSinfo_EN.html</source>
         <translation>qrc:///html/asGPSinfo_DE.html</translation>
     </message>

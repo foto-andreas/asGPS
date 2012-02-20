@@ -3,8 +3,8 @@
 /** \mainpage asGPS - A geotagging plugin for AfterShot Pro
   *
   * @author    Andeas Schrell
-  * @version   1.1.1
-  * @date      2011-02-20
+  * @version   1.1.2
+  * @date      2011-02-21
   * @warning   Works only when QtWebKit-Libs are delivered with ASP
   *
   * \section intro_sec Introduction
@@ -462,6 +462,11 @@ private:
       */
     void splitDate();
 
+    /** Update the map url.
+      * This updates the map url on the fly.
+      */
+    void updateMapUrl(QWebView *view, bool toolsMap);
+
 private:
 
     PluginHub   *m_pHub;            /**< out plugin hub, which is our connection to ASP */
@@ -552,7 +557,8 @@ private:
     QLineEdit   *m_countryMap;      /**< the user defined country table */
     QAbstractButton *m_fileSelect;  /**< button for the file selector */
 
-    QComboBox   *m_mapLanguage;     /**< edit field to set the map language */
+    QLineEdit   *m_mapLanguage;     /**< edit field to set the map language */
+    QLineEdit   *m_mapRegion;       /**< edit field to set the map region */
 
     QString     m_default_button_style;  /**< default button stylesheet as backup */
 
@@ -571,5 +577,7 @@ private:
 
     QTextEdit   *m_googleRaw;       /**< area to display the Google raw data */
     QTextEdit   *m_googleCoordinates;    /**< area to display the coordinate data */
+
+    int         m_loaded;           /**< counter for loaded web pages */
 
 };

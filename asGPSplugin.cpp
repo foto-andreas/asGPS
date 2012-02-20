@@ -24,6 +24,7 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QTextEdit>
+#include <QTimer>
 
 #include "TargetVersion.h"
 #include "gpsLocation.h"
@@ -54,6 +55,7 @@ bool asGPSplugin::init(PluginHub *hub, int id, int groupId, const QString &)
     m_pHub = hub;
     m_pluginId = id;
     m_groupId = groupId;
+    m_loaded = 0;
     return true;
 }
 
@@ -153,7 +155,8 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 
     m_countryMap = uiWidget->findChild<QLineEdit*>("countryMap");
     m_fileSelect = uiWidget->findChild<QAbstractButton*>("fileSelectorButton");
-    m_mapLanguage = uiWidget->findChild<QComboBox*>("mapLanguage");
+    m_mapLanguage = uiWidget->findChild<QLineEdit*>("mapLanguage");
+    m_mapRegion = uiWidget->findChild<QLineEdit*>("mapRegion");
 
     m_enable = uiWidget->findChild<QCheckBox*>("enabled");
 
@@ -256,12 +259,6 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect(m_cityCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsCity(int) ) );
     connect(m_locationCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsLocation(int) ) );
 
-    readAndCreateConfigFile();
-
-    // TEST
-    // QWebView *wv = new QWebView;
-    // wv->setUrl(QUrl("http://khm0.googleapis.com/kh?v=102&hl=en&x=198&y=371&z=10&token=26514"));
-    // wv->show();
 
 }
 
@@ -294,13 +291,16 @@ void asGPSplugin::readAndCreateConfigFile() {
     connect(m_splitGpsTime, SIGNAL( toggled(bool) ), m_config, SLOT( splitGpsTimestamp(bool) ) );
 
     connect(m_countryMap, SIGNAL ( textChanged(QString) ), SLOT ( countryTableChanged(QString) ) );
-    connect(m_mapLanguage, SIGNAL ( currentIndexChanged(QString) ), m_config, SLOT ( mapLanguage(QString) ) );
+
+    connect(m_mapLanguage, SIGNAL ( textChanged(QString) ), m_config, SLOT ( mapLanguage(QString) ) );
+    connect(m_mapRegion, SIGNAL ( textChanged(QString) ), m_config, SLOT ( mapRegion(QString) ) );
 
     connect(m_fileSelect, SIGNAL ( clicked() ), SLOT( fileSelectorUserCountries() ) );
 
     if (m_config->startEnabled()) {
         m_openEnabled->setChecked(true);
         m_enable->setChecked(true); // map eingeschaltet beim Start von ASP
+        QTimer::singleShot(3000, this, SLOT(reload()));
     } else {
         m_openEnabled->setChecked(false);
         m_enable->setChecked(false); // map ausgeschaltet beim Start von ASP
@@ -346,8 +346,8 @@ void asGPSplugin::readAndCreateConfigFile() {
 
     m_countryMap->setText(m_config->countryTable());
 
-    m_mapLanguage->setCurrentIndex(m_mapLanguage->findText(m_config->mapLanguage()));
-
+    m_mapLanguage->setText(m_config->mapLanguage());
+    m_mapRegion->setText(m_config->mapRegion());
 
     m_countryCodeCB->setCheckState((Qt::CheckState)m_config->cbSettingsCountryCode());
     m_countryCB->setCheckState((Qt::CheckState)m_config->cbSettingsCountry());
@@ -364,34 +364,37 @@ void asGPSplugin::readAndCreateConfigFile() {
     m_satsCB->setCheckState((Qt::CheckState)m_config->cbSettingsSats());
 }
 
-void asGPSplugin::initMap(QWebView * view, QWebPage * page, bool toolsMap) {
+void asGPSplugin::initMap(QWebView *view, QWebPage *page, bool toolsMap) {
+    m_loaded--;
     view->hide();
-
-    connect( view,
-                  SIGNAL( loadFinished ( bool ) ),
-             this,
-                  SLOT( handleLoadFinished ( bool ) ));
-
+    connect(view,
+                SIGNAL( loadFinished ( bool ) ),
+            this,
+                SLOT( handleLoadFinished ( bool ) ));
     view->setPage(page);
-    if (m_config->mapLanguage() != "") {
-        view->setUrl(QUrl("qrc:///html/asGPSmap_"
-           + m_config->mapLanguage() + ".html?toolsMap=" + ((toolsMap) ? "true" : "false")));
-    } else {
-        view->setUrl(QUrl(tr("qrc:///html/asGPSmap_EN.html") + "?toolsMap=" + ((toolsMap) ? "true" : "false")));
-    }
-    qDebug() << "asGPS map url =" << view->url();
     page->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
-    connect( page,
-             SIGNAL( linkClicked(QUrl) ),
-                this,
-             SLOT( openInternalBrowser(QUrl) ));
+    updateMapUrl(view, toolsMap);
+    connect(page,
+            SIGNAL( linkClicked(QUrl) ),
+               this,
+            SLOT( openInternalBrowser(QUrl) ));
     connect(page->mainFrame(),
-              SIGNAL(javaScriptWindowObjectCleared()),
-          this,
-              SLOT(populateJavaScriptWindowObject()));
-
+            SIGNAL(javaScriptWindowObjectCleared()),
+               this,
+            SLOT(populateJavaScriptWindowObject()));
 }
 
+void asGPSplugin::updateMapUrl(QWebView *view, bool toolsMap) {
+    QString url("qrc:///html/asGPSmap.html");
+    url += "?toolsMap=";
+    url += ((toolsMap) ? "true" : "false");
+    if (m_config->mapLanguage() != "") {
+        url += "&language=";
+        url += m_config->mapLanguage();
+    }
+    qDebug() << "asGPS: updateMapUrl =" << url;
+    view->setUrl(QUrl(url));
+}
 
 void asGPSplugin::webViewError() {
     QMessageBox::information(NULL, tr("Error creating QWebView"), tr("It was not possible to create a QWebView widget."));
@@ -406,11 +409,9 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 {
     Q_UNUSED(options);
     qDebug() << "asGPSplugin::handleHotnessChanged";
-    reset();
-
-//    if (m_pHub->beginSettingsChange("asGPS hotness helper")) {
-//        m_pHub->endSettingChange();
-//    }
+    resetIPTC();
+    resetGPS();
+    resetGoogle();
 
     if (options.options(0) != NULL) {
         updateUi(options.options(0));
@@ -494,7 +495,9 @@ void asGPSplugin::reset() {
 
 void asGPSplugin::reload() {
     if (!m_enable->isChecked()) return;
-    reset();
+    resetIPTC();
+    resetGPS();
+    resetGoogle();
     m_countryCode->setText(m_l_countryCode->text());
     m_country->setText(m_l_country->text());
     m_state->setText(m_l_state->text());
@@ -509,6 +512,7 @@ void asGPSplugin::reload() {
     m_sats->setText(m_l_sats->text());
     splitDate();
     m_edit->setText(getIPTCconcat());
+    updateMap();
 }
 
 void asGPSplugin::fillGoogleRaw(QString rawData) {
@@ -637,11 +641,10 @@ void asGPSplugin::tagImage() {
 }
 
 void asGPSplugin::updateMap() {
+    qDebug() << "asGPS: updateMap loaded =" << m_loaded;
     if (m_enable->isChecked()) {
         qDebug() << "asGPS: updateMap with map checked";
         gpsLocation gpsl(m_lat->text(), m_lon->text());
-        if (m_internalView->layout() != NULL) m_internalView->layout()->activate();
-        if (m_externalView->layout() != NULL) m_externalView->layout()->activate();
         m_internalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
             QString("%1").arg(gpsl.getLat(),0,'f',5) + "," + QString("%1").arg(gpsl.getLng(),0,'f',5) + ")");
         if (m_xmap->isChecked()) {
@@ -672,10 +675,16 @@ void asGPSplugin::geocode() {
             m_edit->setText(getIPTCconcat());
         }
         if (m_internalView) {
-            m_internalMapPage->mainFrame()->evaluateJavaScript("codeCoordinatesFrom('" + m_edit->text() + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
+            m_internalMapPage->mainFrame()->evaluateJavaScript(
+                        "codeCoordinatesFrom('" + m_edit->text() +
+                        "'," + (m_enable->isChecked() ? "true" : "false") +
+                        ", '" + m_config->mapRegion() + "')");
         }
         if (m_xmap->isChecked())  {
-            m_externalMapPage->mainFrame()->evaluateJavaScript("codeCoordinatesFrom('" + m_edit->text() + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
+            m_externalMapPage->mainFrame()->evaluateJavaScript(
+                        "codeCoordinatesFrom('" + m_edit->text() +
+                        "'," + (m_enable->isChecked() ? "true" : "false") +
+                        ", '" + m_config->mapRegion() + "')");
         }
         updateMap();
     }
@@ -758,8 +767,6 @@ void asGPSplugin::marker_moved(double lat, double lng, bool toolsMap)
     m_status->setText("A");
     QWebView *wv = toolsMap ? m_externalView : m_internalView;
     QWebView *ov = toolsMap ? m_internalView : m_externalView;
-    if (wv->layout() != NULL)
-        wv->layout()->activate();
     wv->page()->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
         QString("%1").arg(lat,0,'f',5) + "," + QString("%1").arg(lng,0,'f',5) + ")");
     if (m_center->isChecked()) {
@@ -808,6 +815,10 @@ void asGPSplugin::autoTag() {
 
 void asGPSplugin::handleLoadFinished ( bool ok ) {
     qDebug() << "asGPS: load finished" << ok;
+    m_loaded++;
+    if (m_loaded == 0) {
+        readAndCreateConfigFile();
+    }
 }
 
 void asGPSplugin::handleCheckedChange(bool enabled) {
@@ -815,12 +826,16 @@ void asGPSplugin::handleCheckedChange(bool enabled) {
     if (enabled) {
         reload();
         m_internalView->show();
-        if (m_xmap->isChecked()) m_externalView->show();
+        if (m_xmap->isChecked()) {
+            m_externalView->show();
+        }
         updateMap();
     } else {
         m_internalView->hide();
         if (m_xmap->isChecked()) m_externalView->hide();
-        reset();
+        resetIPTC();
+        resetGPS();
+        resetGoogle();
     }
 }
 

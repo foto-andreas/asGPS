@@ -5,12 +5,12 @@ macx {
 	QMAKE_MAC_SDK=/Developer/SDKs/MacOSX10.6.sdk
 	
 	# Use GCC 4.0 - later versions of GCC will not work on Mac OS X 10.4
-#	QMAKE_CC	= gcc-4.0
-#	QMAKE_CXX	= g++-4.0
+    # QMAKE_CC	= gcc-4.0
+    # QMAKE_CXX	= g++-4.0
 	
-	macx-xcode {
-		# Add the Release Xcode configuration - it will now be available in the Target window
-		SOURCES += "../common/Release.xcconfig"
+    # Add the Release Xcode configuration - it will now be available in the Target window
+    macx-xcode {
+		SOURCES += "Release.xcconfig"
 	}
 	
 	# Create a Deploy 'extra' target

@@ -15,6 +15,7 @@ static const char *SPLITGPSTIMESTAMP = "splitGpsTimestamp";
 
 static const char *COUNTRYTABLE = "userCountryTable";
 static const char *MAPLANGUAGE = "mapLanguage";
+static const char *MAPREGION = "mapRegion";
 
 static const char *CBLAT = "checkBoxLat";
 static const char *CBLNG = "checkBoxLng";
@@ -118,11 +119,19 @@ void ConfigurationMapper::countryTable(QString cT) {
 }
 
 QString ConfigurationMapper::mapLanguage() {
-    return getString(MAPLANGUAGE);
+    return getString(MAPLANGUAGE, "");
 }
 
 void ConfigurationMapper::mapLanguage(QString language) {
     m_cf->setValue(MAPLANGUAGE, language);
+}
+
+QString ConfigurationMapper::mapRegion() {
+    return getString(MAPREGION, "");
+}
+
+void ConfigurationMapper::mapRegion(QString region) {
+    m_cf->setValue(MAPREGION, region);
 }
 
 int ConfigurationMapper::cbSettingsLat() {

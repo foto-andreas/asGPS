@@ -23,7 +23,7 @@ QT += network
 
 # what we build here
 TARGET = asGPS
-VERSION = 1.1.1
+VERSION = 1.1.2
 
 # This is used in the source
 DEFINES += TARGET_VERSION=$$VERSION
@@ -39,14 +39,22 @@ DEPENDPATH += ../Plugin ../SDK/Plugin ../SDK
 INCLUDEPATH += ../Plugin ../SDK/Plugin ../SDK
 
 # our header files
-HEADERS += asGPSplugin.h gpsLocation.h WebContents.h WebInfos.h \
+HEADERS += \
+    asGPSplugin.h \
+    gpsLocation.h \
+    WebContents.h \
+    WebInfos.h \
     TargetVersion.h \
     iso3166.h \
     ConfigFile.h \
     ConfigurationMapper.h
 
 # our source files
-SOURCES += asGPSplugin.cpp gpsLocation.cpp WebContents.cpp WebInfos.cpp \
+SOURCES += \
+    asGPSplugin.cpp \
+    gpsLocation.cpp \
+    WebContents.cpp \
+    WebInfos.cpp \
     iso3166.cpp \
     ConfigFile.cpp \
     ConfigurationMapper.cpp
@@ -60,19 +68,15 @@ OTHER_FILES += \
     asGPSinfo_EN.html \
     style.css \
     asGPS.js \
-    asGPSmap_EN.html \
-    asGPSmap_DE.html \
-    asGPSmap_NL.html \
-    asGPSmap_JA.html \
-    asGPSmap_IT.html \
-    asGPSmap_FR.html \
-    iso3166.txt
+    iso3166.txt \
+    gup.js \
+    asGPSmap.html
 
 # the user interface file
 FORMS += asGPS.ui
 
 # we are building a release
-CONFIG(release,debug|release) {
+CONFIG(release) {
 	message( release )
 	UI_DIR		=	build/objects/release/ui
 	MOC_DIR		=	build/objects/release/moc
@@ -82,30 +86,17 @@ CONFIG(release,debug|release) {
 	UI_SOURCES_DIR = build/objects/release/uisrc
 }
 
-# include mac build defines only on mac. these are from the SDK examples
-mac {
-    include( mac.pri )
-    include( Release.xcconfig )
-}
+include( mac.pri )
 
-# on unix, but not on OS/X we pack the plugin file and create the documentation.
-# feel free to disable the QMAKE_POST_LINKs if you pack with PluginZipper and
-# do not create a new documentation.
-unix {
-!mac {
-   QMAKE_CFLAGS   += -m32 -mfpmath=sse -msse2
-   QMAKE_CXXFLAGS += -m32 -mfpmath=sse -msse2 
-   QMAKE_LFLAGS   += -m32 -mfpmath=sse -msse2
-   QMAKE_LIBS     += -L/usr/lib32
-   QMAKE_POST_LINK += "./afz $$VERSION"
-   QMAKE_POST_LINK += "; doxygen"
-}
-}
+include( unix.pri )
 
-# SSE2, faster coder over smaller, full optimization
-windows {
-    QMAKE_CXXFLAGS += /arch:SSE2 /Oi /Ot
-}
+include( win.pri)
+
+QMAKE_POST_LINK += "./afz $$VERSION"
+QMAKE_POST_LINK += "; doxygen"
+
+
+
 
 
 

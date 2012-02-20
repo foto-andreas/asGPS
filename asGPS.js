@@ -15,6 +15,8 @@
     var latLng = new google.maps.LatLng(0, 0);
     var infowindow = new google.maps.InfoWindow();
 
+    var region = gup( "region" );
+
     var myOptions = {
       zoom: 15,
       center: latLng,
@@ -91,7 +93,8 @@
   function codeAddressFrom(coordinates, withMap) {
     var c = coordinates.split(",",2);
     var loc = new google.maps.LatLng(c[0],c[1]);
-    geocoder.geocode( { 'latLng': loc}, function(results, status) {
+    geocoder.geocode( { 'latLng': loc },
+      function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         var erg = results[0].formatted_address;
         api.set_location(erg);
@@ -121,8 +124,9 @@
     });
   }
 
-  function codeCoordinatesFrom(address, withMap) {
-   geocoder.geocode( { 'address': address}, function(results, status) {
+  function codeCoordinatesFrom(address, withMap, region) {
+   geocoder.geocode( { 'address': address, 'region': region},
+      function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         var loc = results[0].geometry.location;
         if (withMap) {
@@ -134,17 +138,6 @@
         api.alert("Geocode was not successful for the following reason: " + status);
       }
     });
-  }
-
-  function gup( name ) {
-    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-    var regexS = "[\\?&]"+name+"=([^&#]*)";
-    var regex = new RegExp( regexS );
-    var results = regex.exec( window.location.href );
-    if ( results === null )
-      return "";
-    else
-      return results[1];
   }
 
   google.maps.event.addDomListener(window, 'load', initialize);

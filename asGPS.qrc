@@ -3,12 +3,8 @@
         <file>asGPSinfo_DE.html</file>
         <file>asGPSinfo_EN.html</file>
         <file>asGPS.js</file>
-        <file>asGPSmap_DE.html</file>
-        <file>asGPSmap_EN.html</file>
-        <file>asGPSmap_FR.html</file>
-        <file>asGPSmap_IT.html</file>
-        <file>asGPSmap_JA.html</file>
-        <file>asGPSmap_NL.html</file>
+        <file>gup.js</file>
+        <file>asGPSmap.html</file>
     </qresource>
     <qresource prefix="/img">
         <file>DE_btn_donateCC_LG.gif</file>
