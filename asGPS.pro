@@ -56,10 +56,15 @@ OTHER_FILES += \
 # the user interface file
 FORMS += asGPS.ui
 
+unix {
+!mac {
+# private extra targets here on my linux box
+QMAKE_POST_LINK += "echo 'extras...'"
+
 # we create the source documentation
-QMAKE_POST_LINK += "echo 'extras...'; doxygen"
+QMAKE_POST_LINK += "; doxygen"
 
-# we pack out plugin
+# we pack our plugin - I hate PZ
 QMAKE_POST_LINK += "; ./afz $$VERSION"
-
-
+}
+}
