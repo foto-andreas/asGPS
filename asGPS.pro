@@ -3,8 +3,11 @@
 # (c) Andreas Schrell, Wermelskirchen, DE
 ######################################################################
 
-# set to "lib" for the ASP plugin
-TEMPLATE = lib
+# what we build here (plugin name and version)
+TARGET = asGPS
+VERSION = 1.1.2
+
+include ( ../PluginDefaults/PluginDefaults.pri )
 
 # Include these lines for build a main application which does the cunit tests
 #TEMPLATE = app
@@ -12,31 +15,9 @@ TEMPLATE = lib
 #HEADERS += Tests.h
 #SOURCES += Tests.cpp
 
-# Include default Qt libraries
-QT += core
-QT += gui
-
 # Include extra Qt libraries for the web views resp. map
 QT += webkit
 QT += network
-
-
-# what we build here
-TARGET = asGPS
-VERSION = 1.1.2
-
-# This is used in the source
-DEFINES += TARGET_VERSION=$$VERSION
-
-# everything depends on local path and locale files
-DEPENDPATH += . locale
-
-# we are including local header files
-INCLUDEPATH += .
-
-# we are including the ASP SDK headers from various locations where they may be
-DEPENDPATH += ../Plugin ../SDK/Plugin ../SDK
-INCLUDEPATH += ../Plugin ../SDK/Plugin ../SDK
 
 # our header files
 HEADERS += \
@@ -44,7 +25,6 @@ HEADERS += \
     gpsLocation.h \
     WebContents.h \
     WebInfos.h \
-    TargetVersion.h \
     iso3166.h \
     ConfigFile.h \
     ConfigurationMapper.h
@@ -70,35 +50,16 @@ OTHER_FILES += \
     asGPS.js \
     iso3166.txt \
     gup.js \
-    asGPSmap.html
+    asGPSmap.html \
+    PluginDefaults.pri
 
 # the user interface file
 FORMS += asGPS.ui
 
-# we are building a release
-CONFIG(release) {
-	message( release )
-	UI_DIR		=	build/objects/release/ui
-	MOC_DIR		=	build/objects/release/moc
-	OBJECTS_DIR	=	build/objects/release/obj
-	RCC_DIR	    =	build/objects/release/rcc
-	UI_HEADERS_DIR = build/objects/release/uih
-	UI_SOURCES_DIR = build/objects/release/uisrc
-}
+# we create the source documentation
+QMAKE_POST_LINK += "echo 'extras...'; doxygen"
 
-include( mac.pri )
-
-include( unix.pri )
-
-include( win.pri)
-
-QMAKE_POST_LINK += "./afz $$VERSION"
-QMAKE_POST_LINK += "; doxygen"
-
-
-
-
-
-
+# we pack out plugin
+QMAKE_POST_LINK += "; ./afz $$VERSION"
 
 
