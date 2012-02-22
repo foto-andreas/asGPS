@@ -152,6 +152,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_center = uiWidget->findChild<QCheckBox*>("centerCB");
     m_checkUpdates = uiWidget->findChild<QCheckBox*>("checkForUpdates");
     m_splitGpsTime = uiWidget->findChild<QCheckBox*>("splitGpsTimestamp");
+    m_hotnessWorkaround = uiWidget->findChild<QCheckBox*>("hotnessWorkaround");
 
     m_countryMap = uiWidget->findChild<QLineEdit*>("countryMap");
     m_fileSelect = uiWidget->findChild<QAbstractButton*>("fileSelectorButton");
@@ -289,6 +290,7 @@ void asGPSplugin::readAndCreateConfigFile() {
     connect(m_allIptc, SIGNAL( toggled(bool) ), m_config, SLOT( searchAllIPTC(bool) ) );
     connect(m_checkUpdates, SIGNAL( toggled(bool) ), m_config, SLOT( checkForUpdates(bool) ) );
     connect(m_splitGpsTime, SIGNAL( toggled(bool) ), m_config, SLOT( splitGpsTimestamp(bool) ) );
+    connect(m_hotnessWorkaround, SIGNAL( toggled(bool) ), m_config, SLOT( hotnessWorkaround(bool) ) );
 
     connect(m_countryMap, SIGNAL ( textChanged(QString) ), SLOT ( countryTableChanged(QString) ) );
 
@@ -314,35 +316,12 @@ void asGPSplugin::readAndCreateConfigFile() {
         m_xmap->setChecked(false);
     }
 
-    if (m_config->cc3()) {
-        m_cc3->setChecked(true);
-    } else {
-        m_cc3->setChecked(false);
-    }
-
-    if (m_config->searchAllIPTC()) {
-        m_allIptc->setChecked(true);
-    } else {
-        m_allIptc->setChecked(false);
-    }
-
-    if (m_config->centerOnClick()) {
-        m_center->setChecked(true);
-    } else {
-        m_center->setChecked(false);
-    }
-
-    if (m_config->checkForUpdates()) {
-        m_checkUpdates->setChecked(true);
-    } else {
-        m_checkUpdates->setChecked(false);
-    }
-
-    if (m_config->splitGpsTimestamp()) {
-        m_splitGpsTime->setChecked(true);
-    } else {
-        m_splitGpsTime->setChecked(false);
-    }
+    m_cc3->setChecked(m_config->cc3());
+    m_allIptc->setChecked(m_config->searchAllIPTC());
+    m_center->setChecked(m_config->centerOnClick());
+    m_checkUpdates->setChecked(m_config->checkForUpdates());
+    m_splitGpsTime->setChecked(m_config->splitGpsTimestamp());
+    m_hotnessWorkaround->setChecked(m_config->hotnessWorkaround());
 
     m_countryMap->setText(m_config->countryTable());
 
@@ -413,17 +392,25 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
     resetGPS();
     resetGoogle();
 
-    if (options.options(0) != NULL) {
-        updateUi(options.options(0));
-        if (!m_enable->isChecked()) return;
-        if (m_autolim) geocode();
-        if (m_autofnl) reversegeocode();
-    }
 
-    // size update and correct centering  map
-    if (m_enable->isChecked()) {
-        m_internalView->hide();
-        m_internalView->show();
+    if (m_config->hotnessWorkaround()) {
+        PluginOptionList *options = m_pHub->beginSettingsChange("asGPS hotness helper");
+        if (options) {
+            m_pHub->endSettingChange();
+        }
+    } else {
+        if (options.options(0) != NULL) {
+            updateUi(options.options(0));
+            if (!m_enable->isChecked()) return;
+            if (m_autolim) geocode();
+            if (m_autofnl) reversegeocode();
+        }
+
+        // size update and correct centering  map
+        if (m_enable->isChecked()) {
+            m_internalView->hide();
+            m_internalView->show();
+        }
     }
 
 }

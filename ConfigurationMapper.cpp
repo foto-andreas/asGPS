@@ -12,6 +12,7 @@ static const char *SEARCHALLIPTC = "searchWithAllIptcFields";
 static const char *CENTERONCLICK = "centerMapOnClick";
 static const char *CHECKFORUPDATES = "checkForUpdates";
 static const char *SPLITGPSTIMESTAMP = "splitGpsTimestamp";
+static const char *HOTNESSWORKAROUND = "hotnessWorkaround";
 
 static const char *COUNTRYTABLE = "userCountryTable";
 static const char *MAPLANGUAGE = "mapLanguage";
@@ -108,6 +109,14 @@ bool ConfigurationMapper::splitGpsTimestamp() {
 
 void ConfigurationMapper::splitGpsTimestamp(bool val) {
     m_cf->setValue(SPLITGPSTIMESTAMP, val ? "true" : "false" );
+}
+
+bool ConfigurationMapper::hotnessWorkaround() {
+    return getBool(HOTNESSWORKAROUND, false);
+}
+
+void ConfigurationMapper::hotnessWorkaround(bool val) {
+    m_cf->setValue(HOTNESSWORKAROUND, val ? "true" : "false" );
 }
 
 QString ConfigurationMapper::countryTable() {
