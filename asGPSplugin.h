@@ -551,6 +551,7 @@ private:
     QCheckBox   *m_center;          /**< checkbox for automatic map centering on click */
     QCheckBox   *m_checkUpdates;    /**< checkbox for update check on startup */
     QCheckBox   *m_splitGpsTime;    /**< should we split date/time in GPS timestamp */
+    QCheckBox   *m_hotnessWorkaround; /**< should we use the hotnessChange workaround */
 
     QLineEdit   *m_countryMap;      /**< the user defined country table */
     QAbstractButton *m_fileSelect;  /**< button for the file selector */
