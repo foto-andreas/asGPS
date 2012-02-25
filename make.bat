@@ -13,7 +13,7 @@ set PATH=%PATH%;C:\Programme\QtSDK\Desktop\Qt\4.7.4\msvc2008\bin
 set PATH=%PATH%;C:\Programme\QtSDK\QtCreator\bin
 
 rem create Makefile.Release
-qmake CONFIT+=Release
+qmake CONFIG+=Release
 
 rem make all clean
 jom clean -j12 -f Makefile.Release
