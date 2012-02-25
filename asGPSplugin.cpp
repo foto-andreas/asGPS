@@ -300,7 +300,7 @@ void asGPSplugin::readAndCreateConfigFile() {
     if (m_config->startEnabled()) {
         m_openEnabled->setChecked(true);
         m_enable->setChecked(true); // map eingeschaltet beim Start von ASP
-        QTimer::singleShot(3000, this, SLOT(reload()));
+        QTimer::singleShot(5000, this, SLOT(reload()));
     } else {
         m_openEnabled->setChecked(false);
         m_enable->setChecked(false); // map ausgeschaltet beim Start von ASP
@@ -408,12 +408,14 @@ void asGPSplugin::populateJavaScriptWindowObject() {
 void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 {
     Q_UNUSED(options);
-    qDebug() << "asGPSplugin::handleHotnessChanged";
+    qDebug() << "\n\nasGPSplugin: handleHotnessChanged";
     resetIPTC();
     resetGPS();
     resetGoogle();
 
     if (options.options(0) != NULL) {
+        bool ok;
+        qDebug() << "HHC: " << options.options(0)->getString(ID_Location, 0, ok) << ok;
         updateUi(options.options(0));
         if (!m_enable->isChecked()) return;
         if (m_autolim) geocode();
@@ -431,9 +433,13 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  const PluginImageSettings &changed, int layer )
 {
     Q_UNUSED(changed);
-    qDebug() << "asGPSplugin::handleSettingsChanged started on layer" << layer;
+    qDebug() << "\n\nasGPSplugin: handleSettingsChanged started on layer" << layer;
     // only run in main layer
+    qDebug() << options.options(layer);
+    qDebug() << changed.options(layer);
     if (layer == 0 && options.options(0) != NULL) {
+        bool ok;
+        qDebug() << "HSC: " << options.options(0)->getString(ID_Location, 0, ok) << ok;
         updateUi(options.options(0));
     } else {
         if (m_enable->isChecked()) updateMap();
@@ -619,7 +625,7 @@ void asGPSplugin::tagImage() {
         }
         qDebug() << "asGPS: changed tag state" << (m_autotag);
     } else {
-        qDebug() << "asGPS: tag Image GPS & IPTC";
+        qDebug() << "asGPS: beginSettingsChange()";
         PluginOptionList* options = m_pHub->beginSettingsChange("GPS & IPTC");
         qDebug() << options;
         if (options) {
@@ -636,6 +642,7 @@ void asGPSplugin::tagImage() {
             tag(options, m_city, m_cityCB, m_l_city, ID_City);
             tag(options, m_location, m_locationCB, m_l_location, ID_Location);
             m_pHub->endSettingChange();
+            qDebug() << "asGPS: endSettingsChange()";
         }
     }
 }

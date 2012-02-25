@@ -15,7 +15,7 @@ rm -rf asGPS.afplugin &&
     sed -i s/4713/$BFV/ asGPS.afplugin/Info.afpxml &&
     cp libasGPS.so asGPS.afplugin/lib &&
     cp libasGPS.dylib asGPS.afplugin/lib &&
-    cp asGPS1.dll asGPS.afplugin/lib/asGPS.dll &&
+    cp release/asGPS1.dll asGPS.afplugin/lib/asGPS.dll &&
     cp asGPS.ui asGPS.afplugin/ui &&
     cp locale/*.qm asGPS.afplugin/locale &&
     cp "asGPS GPS & IPTC tagging.xmp" "asGPS IPTC tagging.xmp" asGPS.afplugin/resources &&
