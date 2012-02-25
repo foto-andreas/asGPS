@@ -4,7 +4,7 @@
   *
   * @author    Andeas Schrell
   * @version   1.1.2
-  * @date      2011-02-21
+  * @date      2011-02-25
   * @warning   Works only when QtWebKit-Libs are delivered with ASP
   *
   * \section intro_sec Introduction
@@ -47,8 +47,6 @@
   * \section other Other Information
   *
   * @bug    check situations with zero coordinates (windows: black map, linux: water)
-  * @bug    resolve a bug in ASP which need the HELPER setting.
-  *         See \c hotnessChanged().
   *
   * @todo   user documentation
   * @todo   check date and time formats in the edit fields when editing
