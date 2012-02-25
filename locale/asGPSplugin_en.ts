@@ -415,7 +415,7 @@
     <message>
         <location filename="../asGPS.ui" line="1460"/>
         <source>use hotnessChange workaround</source>
-        <translation>use hotnessChange workaround</translation>
+        <translation>Use hotnessChange workaround</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1482"/>

@@ -3,7 +3,7 @@
 /** \mainpage asGPS - A geotagging plugin for AfterShot Pro
   *
   * @author    Andeas Schrell
-  * @version   1.1.2
+  * @version   1.1.3
   * @date      2011-02-25
   * @warning   Works only when QtWebKit-Libs are delivered with ASP
   *
@@ -485,7 +485,6 @@ private:
     int ID_State;                   /**< this will hold the id of the IPTC state */
     int ID_City;                    /**< this will hold the id of the IPTC city */
 
-    QWebView    *xm_view;            /**< the web view for the Google map */
     QCheckBox   *m_enable;          /**< this is the enable map check box */
     QLineEdit   *m_edit;            /**< this is the main edit field for location input */
 
