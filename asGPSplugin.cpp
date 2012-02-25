@@ -853,7 +853,7 @@ void asGPSplugin::handleXmapChange(bool enabled) {
 
 void asGPSplugin::alert(QString text) {
     qDebug() << "asGPS: alert: " + text;
-    QMessageBox::information(NULL,"asGPS - Information", text);
+    QMessageBox::information(NULL,tr("asGPS - Information"), text);
 }
 
 void asGPSplugin::openInternalBrowser(QUrl url) {

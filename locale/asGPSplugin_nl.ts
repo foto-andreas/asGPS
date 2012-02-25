@@ -393,42 +393,52 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1420"/>
+        <location filename="../asGPS.ui" line="1426"/>
         <source>&lt;html&gt;Split the GPS timestamp field in separate date and time fields.&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1423"/>
+        <location filename="../asGPS.ui" line="1429"/>
         <source>split GPS timestamp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1435"/>
+        <location filename="../asGPS.ui" line="1441"/>
         <source>* active after reboot, ** active for following FNLs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1457"/>
+        <source>&lt;html&gt;Use this setting, if you experience not tagged images if you return to it from another image.&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../asGPS.ui" line="1460"/>
+        <source>use hotnessChange workaround</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../asGPS.ui" line="1482"/>
         <source>&lt;html&gt;Locate in Map from this edit field or if it is empty from&lt;br&gt;the values in the IPTC tab. Updates the GPS tab and map.&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1467"/>
+        <location filename="../asGPS.ui" line="1492"/>
         <source>LIM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1480"/>
+        <location filename="../asGPS.ui" line="1505"/>
         <source>&lt;html&gt;Insert search String for Google Maps here. If this field is empty, it will be composed from IPTC tags when you press LIM&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1490"/>
+        <location filename="../asGPS.ui" line="1515"/>
         <source>&lt;html&gt;Find nearest Location from the position values in the GPS tab. This updates the IPTC tab.&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1500"/>
+        <location filename="../asGPS.ui" line="1525"/>
         <source>FNL</source>
         <translation type="unfinished"></translation>
     </message>
@@ -436,42 +446,47 @@
 <context>
     <name>asGPSplugin</name>
     <message>
-        <location filename="../asGPSplugin.cpp" line="93"/>
+        <location filename="../asGPSplugin.cpp" line="95"/>
         <source>asGPS: configuration file problem with file:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="114"/>
+        <location filename="../asGPSplugin.cpp" line="116"/>
         <source>There is a newer version of %1 available. It is version %2. You are running %3. You can download it under the following url: &lt;a href=&apos;%4&apos;&gt;%4&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="166"/>
+        <location filename="../asGPSplugin.cpp" line="169"/>
         <source>AfterShot Pro - asGPS map window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="271"/>
+        <location filename="../asGPSplugin.cpp" line="268"/>
         <source>Select your country table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="405"/>
+        <location filename="../asGPSplugin.cpp" line="379"/>
         <source>Error creating QWebView</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="405"/>
+        <location filename="../asGPSplugin.cpp" line="379"/>
         <source>It was not possible to create a QWebView widget.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="862"/>
+        <location filename="../asGPSplugin.cpp" line="856"/>
+        <source>asGPS - Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../asGPSplugin.cpp" line="865"/>
         <source>AfterShot Pro - asGPS browser window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="877"/>
+        <location filename="../asGPSplugin.cpp" line="880"/>
         <source>qrc:///html/asGPSinfo_EN.html</source>
         <translation type="unfinished"></translation>
     </message>
