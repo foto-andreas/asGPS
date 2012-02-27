@@ -65,7 +65,7 @@ cp "$NAME.ui" "$UIDIR" || exit 1
 cp locale/*.qm "$LANGDIR" || exit 1
 
 while [ -n "$1" ]; do
-  cp "$1" "$RESDIR" || exit 1
+  cp -r "$1" "$RESDIR" || exit 1
   shift
 done
 
