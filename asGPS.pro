@@ -64,6 +64,9 @@ QMAKE_POST_LINK += "echo 'extras...'"
 # we create the source documentation
 QMAKE_POST_LINK += "; doxygen"
 
+# locale files
+QMAKE_POST_LINK += "; lrelease xlate.pro"
+
 # strip the lib
 QMAKE_POST_LINK += "; strip 'lib$${TARGET}.so.$${VERSION}'"
 
