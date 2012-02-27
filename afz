@@ -1,22 +1,74 @@
 #!/bin/bash
 
-VERSION="$1"
+# set -o xtrace
+
+if [ -z "$2" ]; then
+  echo "afz <pluginName> <version> [extra resource files ... ]"
+  exit 1
+fi
+
+NAME="$1"
+VERSION="$2"
+
+shift 2
 
 MAV=${VERSION%%.*}
 RST=${VERSION#*.}
 MIV=${RST%.*}
 BFV=${RST#*.}
 
-rm -rf asGPS.afplugin &&
-  mkdir -p asGPS.afplugin/lib asGPS.afplugin/ui asGPS.afplugin/locale asGPS.afplugin/resources &&
-    cp asGPS.afpxml asGPS.afplugin/Info.afpxml &&
-    sed -i s/4711/$MAV/ asGPS.afplugin/Info.afpxml &&
-    sed -i s/4712/$MIV/ asGPS.afplugin/Info.afpxml &&
-    sed -i s/4713/$BFV/ asGPS.afplugin/Info.afpxml &&
-    cp libasGPS.so asGPS.afplugin/lib &&
-    cp libasGPS.dylib asGPS.afplugin/lib &&
-    cp release/asGPS1.dll asGPS.afplugin/lib/asGPS.dll &&
-    cp asGPS.ui asGPS.afplugin/ui &&
-    cp locale/*.qm asGPS.afplugin/locale &&
-    cp "asGPS GPS & IPTC tagging.xmp" "asGPS IPTC tagging.xmp" asGPS.afplugin/resources &&
-      zip -r asGPS-$VERSION.afzplug asGPS.afplugin
+PDIR="$NAME.afplugin"
+LDIR="$PDIR/lib"
+UIDIR="$PDIR/ui"
+LANGDIR="$PDIR/locale"
+RESDIR="$PDIR/resources"
+IFILE="$PDIR/Info.afpxml"
+
+rm -rf "$PDIR" || exit 1
+mkdir -p "$LDIR" "$UIDIR" "$LANGDIR" "$RESDIR" || exit 1
+cp "$NAME.afpxml" "$IFILE" || exit 1
+
+if [ -f "release/$NAME$MAV.dll" ]; then
+  cp "release/$NAME$MAV.dll" "$LDIR/$NAME.dll" || exit 1
+  LIBWIN="lib/$NAME.dll"
+  EXT+="W"
+fi
+
+if [ -f "lib$NAME.so" ]; then
+  cp "lib$NAME.so" "$LDIR" || exit 1
+  LIBLIN="lib/lib$NAME.so"
+  EXT+="L"
+fi
+
+if [ -f "lib$NAME.dylib" ]; then
+  cp "lib$NAME.dylib" "$LDIR" || exit 1
+  LIBMAC="lib/lib$NAME.dylib"
+  EXT+="M"
+fi
+
+# no libs at all
+[ "$EXT" = "" ] && { echo "no libs"; exit 1; }
+
+LIBWIN=${LIBWIN//\//\\\/}
+LIBLIN=${LIBLIN//\//\\\/}
+LIBMAC=${LIBMAC//\//\\\/}
+
+sed -i s/__maj__/$MAV/ "$IFILE" || exit 1
+sed -i s/__min__/$MIV/ "$IFILE" || exit 1
+sed -i s/__fix__/$BFV/ "$IFILE" || exit 1
+sed -i s/__libwinpath__/$LIBWIN/ "$IFILE" || exit 1
+sed -i s/__liblinpath__/$LIBLIN/ "$IFILE" || exit 1
+sed -i s/__libmacpath__/$LIBMAC/ "$IFILE" || exit 1
+
+cp "$NAME.ui" "$UIDIR" || exit 1
+
+cp locale/*.qm "$LANGDIR" || exit 1
+
+while [ -n "$1" ]; do
+  cp "$1" "$RESDIR" || exit 1
+  shift
+done
+
+zip -r "$NAME-$VERSION-$EXT.afzplug" "$PDIR"
+
+echo "build: $NAME-$VERSION-$EXT.afzplug"
