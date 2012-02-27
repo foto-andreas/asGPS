@@ -65,6 +65,6 @@ QMAKE_POST_LINK += "echo 'extras...'"
 QMAKE_POST_LINK += "; doxygen"
 
 # we pack our plugin - I hate PZ
-QMAKE_POST_LINK += "; ./afz '$$TARGET' '$$VERSION' 'asGPS GPS & IPTC tagging.xmp' 'asGPS IPTC tagging.xmp'
+QMAKE_POST_LINK += "; ./afz '$$TARGET' '$$VERSION' 'asGPS GPS & IPTC tagging.xmp' 'asGPS IPTC tagging.xmp'"
 }
 }
