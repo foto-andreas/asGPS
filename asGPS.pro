@@ -64,6 +64,9 @@ QMAKE_POST_LINK += "echo 'extras...'"
 # we create the source documentation
 QMAKE_POST_LINK += "; doxygen"
 
+# strip the lib
+QMAKE_POST_LINK += "; strip 'lib$${TARGET}.so.$${VERSION}'"
+
 # we pack our plugin - I hate PZ
 QMAKE_POST_LINK += "; ./afz '$$TARGET' '$$VERSION' 'asGPS GPS & IPTC tagging.xmp' 'asGPS IPTC tagging.xmp'"
 }
