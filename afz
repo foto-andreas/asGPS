@@ -53,12 +53,12 @@ LIBWIN=${LIBWIN//\//\\\/}
 LIBLIN=${LIBLIN//\//\\\/}
 LIBMAC=${LIBMAC//\//\\\/}
 
-sed -i s/__maj__/$MAV/ "$IFILE" || exit 1
-sed -i s/__min__/$MIV/ "$IFILE" || exit 1
-sed -i s/__fix__/$BFV/ "$IFILE" || exit 1
-sed -i s/__libwinpath__/$LIBWIN/ "$IFILE" || exit 1
-sed -i s/__liblinpath__/$LIBLIN/ "$IFILE" || exit 1
-sed -i s/__libmacpath__/$LIBMAC/ "$IFILE" || exit 1
+sed -i"" s/__maj__/$MAV/ "$IFILE" || exit 1
+sed -i"" s/__min__/$MIV/ "$IFILE" || exit 1
+sed -i"" s/__fix__/$BFV/ "$IFILE" || exit 1
+sed -i"" s/__libwinpath__/$LIBWIN/ "$IFILE" || exit 1
+sed -i"" s/__liblinpath__/$LIBLIN/ "$IFILE" || exit 1
+sed -i"" s/__libmacpath__/$LIBMAC/ "$IFILE" || exit 1
 
 cp "$NAME.ui" "$UIDIR" || exit 1
 
