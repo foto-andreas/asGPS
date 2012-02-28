@@ -28,8 +28,8 @@ rm -rf "$PDIR" || exit 1
 mkdir -p "$LDIR" "$UIDIR" "$LANGDIR" "$RESDIR" || exit 1
 cp "$NAME.afpxml" "$IFILE" || exit 1
 
-if [ -f "release/$NAME$MAV.dll" ]; then
-  cp "release/$NAME$MAV.dll" "$LDIR/$NAME.dll" || exit 1
+if [ -f "$NAME.dll" ]; then
+  cp "$NAME.dll" "$LDIR" || exit 1
   LIBWIN="lib/$NAME.dll"
   EXT+="W"
 fi
