@@ -56,6 +56,13 @@ bool asGPSplugin::init(PluginHub *hub, int id, int groupId, const QString &)
     m_pluginId = id;
     m_groupId = groupId;
     m_loaded = 0;
+    QWebView wvTester = new QWebView();
+
+    if (!wvTester) {
+        qDebug() << "asGPSplugin: can not be used without the QWebView libs.";
+        return false;
+    }
+
     return true;
 }
 
@@ -75,6 +82,7 @@ bool asGPSplugin::finish()
 {
     qDebug() << "asGPSplugin::finish";
     bool b = true;
+
     b = connect( m_pHub,
                   SIGNAL( hotnessChanged( const PluginImageSettings & ) ),
                   SLOT( handleHotnessChanged( const PluginImageSettings & ) ) );
