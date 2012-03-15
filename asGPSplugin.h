@@ -3,8 +3,8 @@
 /** \mainpage asGPS - A geotagging plugin for AfterShot Pro
   *
   * @author    Andeas Schrell
-  * @version   1.1.3
-  * @date      2011-02-25
+  * @version   1.1.4
+  * @date      2011-03-15
   * @warning   Works only when QtWebKit-Libs are delivered with ASP
   *
   * \section intro_sec Introduction
@@ -366,11 +366,6 @@ public slots:
       */
     void displayHelp();
 
-    /** Optionally auto tag image.
-      * Check if auto tag is enabled and call it if true.
-      */
-    void autoTag();
-
     /** Fill Rawa Data.
       * Fills the Google raw data into the corresponding edit field
       * in the ui.
@@ -539,7 +534,6 @@ private:
 
     WebInfos    *m_webInfos;        /**< instance for gettings version infos from the web */
 
-    bool        m_autotag;          /**< is autotagging enabled? */
     bool        m_autolim;          /**< is auto locate in map enabled? */
     bool        m_autofnl;          /**< is auto find nearest location enabled? */
 
@@ -550,7 +544,6 @@ private:
     QCheckBox   *m_center;          /**< checkbox for automatic map centering on click */
     QCheckBox   *m_checkUpdates;    /**< checkbox for update check on startup */
     QCheckBox   *m_splitGpsTime;    /**< should we split date/time in GPS timestamp */
-    QCheckBox   *m_hotnessWorkaround; /**< should we use the hotnessChange workaround */
 
     QLineEdit   *m_countryMap;      /**< the user defined country table */
     QAbstractButton *m_fileSelect;  /**< button for the file selector */
