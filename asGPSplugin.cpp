@@ -25,6 +25,9 @@
 #include <QFileDialog>
 #include <QTextEdit>
 #include <QTimer>
+#include <QCloseEvent>
+#include <QShowEvent>
+#include <QGridLayout>
 
 #include "TargetVersion.h"
 #include "gpsLocation.h"
@@ -48,20 +51,64 @@ class MyWebPage : public QWebPage
 
 };
 
+class MyWebView : public QWebView
+{
+    public:
+        MyWebView(QCheckBox *xmap) {
+            this->m_xmap = xmap;
+            qDebug() << "asGPS: external map window created.";
+        }
+
+    protected:
+        virtual void closeEvent(QCloseEvent *event) {
+            m_xmap->setChecked(false);
+            event->accept();
+            qDebug() << "asGPS: external map window closed.";
+        }
+
+        virtual QSize sizeHint() const {
+            qDebug() << "asGPS: sizeHint";
+            return QSize();
+        }
+
+    private:
+        QCheckBox *m_xmap;
+
+};
+
+class InternalWebView : public QWebView
+{
+    public:
+        InternalWebView(QWidget *parent, asGPSplugin *plugin) : QWebView(parent) {
+            this->plugin = plugin;
+        }
+
+    protected:
+        virtual void showEvent(QShowEvent *event) {
+            qDebug() << "asGPS: show Event";
+            plugin->updateMap();
+            this->plugin->reload();
+            event->accept();
+        }
+
+        virtual QSize sizeHint() const {
+            qDebug() << "asGPS: sizeHint";
+            return QSize();
+        }
+
+    private:
+        asGPSplugin *plugin;
+
+};
 
 bool asGPSplugin::init(PluginHub *hub, int id, int groupId, const QString &)
 {
     qDebug() << "asGPSplugin::init";
+
     m_pHub = hub;
     m_pluginId = id;
     m_groupId = groupId;
     m_loaded = 0;
-    QWebView *wvTester = new QWebView();
-
-    if (!wvTester) {
-        qDebug() << "asGPSplugin: can not be used without the QWebView libs.";
-        return false;
-    }
 
     return true;
 }
@@ -167,14 +214,14 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_mapRegion = uiWidget->findChild<QLineEdit*>("mapRegion");
 
     m_enable = uiWidget->findChild<QCheckBox*>("enabled");
+    m_xmap = uiWidget->findChild<QCheckBox*>("xMap");
 
     m_autolim = false;
     m_autofnl = false;
     m_internalView = uiWidget->findChild<QWebView*>("asGPSWebView");
-    m_externalView = new QWebView();
+    m_externalView = new MyWebView(m_xmap);
     m_externalView->setWindowTitle(tr("AfterShot Pro - asGPS map window"));
     m_externalView->setWindowIcon(m_externalView->icon());
-    m_externalView->setWindowFlags( m_externalView->windowFlags() & ~Qt::WindowCloseButtonHint);
     m_edit = uiWidget->findChild<QLineEdit*>("asGPSText_edit");
     m_reset = uiWidget->findChild<QAbstractButton*>("asGPSReset_button");
     m_reload = uiWidget->findChild<QAbstractButton*>("asGPSReload_button");
@@ -224,8 +271,6 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_coordsCB = uiWidget->findChild<QCheckBox*>("coordsCB");
     m_iptcCB = uiWidget->findChild<QCheckBox*>("iptcCB");
 
-    m_xmap = uiWidget->findChild<QCheckBox*>("xMap");
-
     m_googleCoordinates = uiWidget->findChild<QTextEdit*>("googleCoordinates");
     m_googleRaw = uiWidget->findChild<QTextEdit*>("googleRaw");
 
@@ -234,6 +279,16 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 
     m_internalMapPage = new MyWebPage();
     m_externalMapPage = new MyWebPage();
+
+    if (m_internalView == NULL) {
+        qDebug() << "asGPS: FormBuilder does not support QWebView - emulating with own web view - expect problems with the map view";
+        QGridLayout *layout = (QGridLayout*)(QWidget*)(uiWidget->findChild<QWidget*>("asGPSMapTab"))->layout();
+        m_internalView = new InternalWebView(NULL, this);
+        layout->addWidget(m_internalView, 0, 0);
+        m_internalView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        m_internalView->updateGeometry();
+        qDebug() << m_internalView;
+    }
 
     initMap(m_internalView, m_internalMapPage, true);
     initMap(m_externalView, m_externalMapPage, false);
@@ -391,7 +446,9 @@ void asGPSplugin::populateJavaScriptWindowObject() {
 void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 {
     Q_UNUSED(options);
+
     qDebug() << "\n\nasGPSplugin: handleHotnessChanged";
+
     resetIPTC();
     resetGPS();
     resetGoogle();
@@ -403,13 +460,9 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
         if (!m_enable->isChecked()) return;
         if (m_autolim) geocode();
         if (m_autofnl) reversegeocode();
+        reload();
     }
 
-    // size update and correct centering  map
-    if (m_enable->isChecked()) {
-        m_internalView->hide();
-        m_internalView->show();
-    }
 }
 
 void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  const PluginImageSettings &changed, int layer )
@@ -423,6 +476,7 @@ void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  co
         bool ok;
         qDebug() << "HSC: " << options.options(0)->getString(ID_Location, 0, ok) << ok;
         updateUi(options.options(0));
+//        reload();
     } else {
         if (m_enable->isChecked()) updateMap();
     }
@@ -597,7 +651,7 @@ void asGPSplugin::clearTags() {
 void asGPSplugin::tagImage() {
     if (!m_enable->isChecked()) return;
     qDebug() << "asGPS: beginSettingsChange()";
-    PluginOptionList* options = m_pHub->beginSettingsChange("GPS & IPTC");
+    PluginOptionList* options = m_pHub->beginSettingsChange("asGPS: GPS & IPTC");
     qDebug() << options;
     if (options) {
         tag(options, m_lat, m_latCB, m_l_lat, ID_GPSLatitude);

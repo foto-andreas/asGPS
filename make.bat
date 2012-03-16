@@ -12,11 +12,19 @@ set PATH=%PATH%;C:\Programme\Microsoft Visual Studio 9.0\Common7\IDE
 set PATH=%PATH%;C:\Programme\QtSDK\Desktop\Qt\4.7.4\msvc2008\bin
 set PATH=%PATH%;C:\Programme\QtSDK\QtCreator\bin
 
+del release\asGPS1.dll
+del asGPS.dll
+
 rem create Makefile.Release
-qmake CONFIG+=Release
+qmake
 
 rem make all clean
-jom clean -j12 -f Makefile.Release
+jom clean -f Makefile.Release
 
 rem combile release version
-jom -j 12 -f Makefile.Release
+jom -j 12  -f Makefile.Release
+
+move release\asGPS1.dll asGPS.dll
+
+pause
+

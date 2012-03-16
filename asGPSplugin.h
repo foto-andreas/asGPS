@@ -238,12 +238,6 @@ private slots:
       */
     void reset();
 
-    /** Reload all asGPS fields.
-      * This slot is called when the user clicks on reload. It reloads
-      * all asGPS fields from the GPS/IPTC tags and repositions the map.
-      */
-    void reload();
-
     /** Tag the image.
       * When the user clicks on the tag button, this slot is called. It tags the image
       * with the values from the edit fields. It obeys the settings in the tristate
@@ -372,6 +366,17 @@ public slots:
       */
     void fillGoogleRaw(QString rawData);
 
+    /** Reload all asGPS fields.
+      * This slot is called when the user clicks on reload. It reloads
+      * all asGPS fields from the GPS/IPTC tags and repositions the map.
+      */
+    void reload();
+
+    /** Update the Google Map.
+      * This method updates the Google Map. It locates the map to the correct
+      * position according to the GPS location.
+      */
+    void updateMap();
 
 private:
 
@@ -381,12 +386,6 @@ private:
       * @param options the values which should be set in the ui fields.
       */
     void updateUi( PluginOptionList *options );
-
-    /** Update the Google Map.
-      * This method updates the Google Map. It locates the map to the correct
-      * position according to the GPS location.
-      */
-    void updateMap();
 
     /** Sets the field value with the correct values.
       * We set the infos in the user interface. This variant is used to set the edit fields.

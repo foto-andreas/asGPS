@@ -273,47 +273,17 @@ QTextEdit {
       </property>
       <property name="minimumSize">
        <size>
-        <width>0</width>
+        <width>250</width>
         <height>250</height>
        </size>
       </property>
       <attribute name="title">
        <string>Map</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0">
+      <layout class="QGridLayout" name="gridLayout_3">
        <property name="margin">
         <number>0</number>
        </property>
-       <item>
-        <widget class="QWebView" name="asGPSWebView">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string/>
-         </property>
-         <property name="url">
-          <url>
-           <string>about:blank</string>
-          </url>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="asGPSFieldTab">
@@ -1513,11 +1483,6 @@ QTextEdit {
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QWebView</class>
-   <extends>QWidget</extends>
-   <header>QtWebKit/QWebView</header>
-  </customwidget>
-  <customwidget>
    <class>SettingsWidget</class>
    <extends>QWidget</extends>
    <header>settingswidget.h</header>
@@ -1537,7 +1502,6 @@ QTextEdit {
   <tabstop>asGPSReload_button</tabstop>
   <tabstop>asGPSReset_button</tabstop>
   <tabstop>asGPSAbout_button</tabstop>
-  <tabstop>asGPSWebView</tabstop>
   <tabstop>latLineEdit</tabstop>
   <tabstop>lonLineEdit</tabstop>
   <tabstop>altLineEdit</tabstop>
