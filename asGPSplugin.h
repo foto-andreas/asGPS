@@ -459,6 +459,10 @@ private:
       */
     void updateMapUrl(QWebView *view, bool toolsMap);
 
+    /** Check if marker should be gray or red.
+      */
+    void hideUnhideMarker(QString merk_lat, QString merk_lng);
+
 private:
 
     PluginHub   *m_pHub;            /**< out plugin hub, which is our connection to ASP */

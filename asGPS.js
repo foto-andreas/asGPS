@@ -92,7 +92,6 @@
 
   function setMarkerTitle(loc) {
     marker.setTitle(loc.lat().toFixed(5) + "/" + loc.lng().toFixed(5));
-    unhideMarker();
   }
 
   function centerAndMark(lat, lng) {

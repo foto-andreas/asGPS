@@ -462,15 +462,7 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
         updateUi(options.options(0));
         if (!m_enable->isChecked()) return;
 
-        if (m_config->keepMapOnHotnessChange() && m_lat->text().isEmpty() && m_lon->text().isEmpty()) {
-            qDebug() << "asGPS: hideMarker";
-            m_internalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
-            if (m_xmap->isChecked()) {
-                m_externalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
-            }
-            m_lat->setText(merk_lat);
-            m_lon->setText(merk_lng);
-        }
+        hideUnhideMarker(merk_lat, merk_lng);
 
         if (m_autolim) geocode();
         if (m_autofnl) reversegeocode();
@@ -494,18 +486,31 @@ void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  co
 
         updateUi(options.options(0));
 
-        if (m_config->keepMapOnHotnessChange() && m_lat->text().isEmpty() && m_lon->text().isEmpty()) {
-            qDebug() << "asGPS: hideMarker";
-            m_internalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
-            if (m_xmap->isChecked()) {
-                m_externalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
-            }
-            m_lat->setText(merk_lat);
-            m_lon->setText(merk_lng);
-        }
+        hideUnhideMarker(merk_lat, merk_lng);
 
     } else {
         if (m_enable->isChecked()) updateMap();
+    }
+}
+
+void asGPSplugin::hideUnhideMarker(QString merk_lat, QString merk_lng) {
+    // if image has no lat/lng values
+    if (m_config->keepMapOnHotnessChange() && m_lat->text().isEmpty() && m_lon->text().isEmpty()) {
+        qDebug() << "asGPS: hideMarker";
+        m_internalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
+        if (m_xmap->isChecked()) {
+            m_externalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
+        }
+        m_lat->setText(merk_lat);
+        m_lon->setText(merk_lng);
+    }
+    // if image is tagged with lat/lng
+    if (m_config->keepMapOnHotnessChange() && !m_l_lat->text().isEmpty() && !m_l_lon->text().isEmpty()) {
+        qDebug() << "asGPS: unhideMarker";
+        m_internalMapPage->mainFrame()->evaluateJavaScript("unhideMarker()");
+        if (m_xmap->isChecked()) {
+            m_externalMapPage->mainFrame()->evaluateJavaScript("unhideMarker()");
+        }
     }
 }
 
@@ -707,10 +712,6 @@ void asGPSplugin::updateMap() {
         if (gpsl.getLat() == 0 && gpsl.getLng() == 0) {
             if (m_config->keepMapOnHotnessChange()) {
                 qDebug() << "asGPS: keeping Map on 0/0-Position";
-                m_internalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
-                if (m_xmap->isChecked()) {
-                    m_externalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
-                }
                 return;
             }
         }
