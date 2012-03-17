@@ -44,7 +44,16 @@
       position: latLng,
       map: map,
       draggable: true,
-      optimized: false
+      optimized: false,
+      icon: new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FF3333")
+    });
+
+    markerGray = new google.maps.Marker({
+      position: latLng,
+      map: null,
+      draggable: true,
+      optimized: false,
+      icon: new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|909090")
     });
 
     toolsMap = (gup('toolsMap') == "true") ? true : false;
@@ -54,22 +63,36 @@
       api.marker_click(toolsMap);
     });
 
+    google.maps.event.addListener(markerGray, 'click', function() {
+      map.panTo(marker.getPosition());
+      api.marker_click(toolsMap);
+    });
+
     google.maps.event.addListener(map, 'click', function(e) {
       marker.setPosition(e.latLng);
+      markerGray.setPosition(e.latLng);
       setMarkerTitle(e.latLng);
       api.marker_moved(e.latLng.lat(),e.latLng.lng(), toolsMap);
     });
 
     google.maps.event.addListener(marker, 'dragend', function(e) {
       marker.setPosition(e.latLng);
+      markerGray.setPosition(e.latLng);
       setMarkerTitle(e.latLng);
       api.marker_moved(e.latLng.lat(),e.latLng.lng(), toolsMap);
     });
 
+    google.maps.event.addListener(markerGray, 'dragend', function(e) {
+      markerGray.setPosition(e.latLng);
+      marker.setPosition(e.latLng);
+      setMarkerTitle(e.latLng);
+      api.marker_moved(e.latLng.lat(),e.latLng.lng(), toolsMap);
+    });
   }
 
   function setMarkerTitle(loc) {
-     marker.setTitle(loc.lat().toFixed(5) + "/" + loc.lng().toFixed(5));
+    marker.setTitle(loc.lat().toFixed(5) + "/" + loc.lng().toFixed(5));
+    unhideMarker();
   }
 
   function centerAndMark(lat, lng) {
@@ -81,13 +104,25 @@
     var loc = new google.maps.LatLng(lat,lng);
     map.setCenter(loc);
     marker.setPosition(loc);
+    markerGray.setPosition(loc);
     setMarkerTitle(loc);
   }
 
   function moveMarker(lat, lng) {
     var loc = new google.maps.LatLng(lat,lng);
     marker.setPosition(loc);
+    markerGray.setPosition(loc);
     setMarkerTitle(loc);
+  }
+
+  function hideMarker() {
+    marker.setMap(null);
+    markerGray.setMap(map);
+  }
+
+  function unhideMarker() {
+    marker.setMap(map);
+    markerGray.setMap(null);
   }
 
   function codeAddressFrom(coordinates, withMap) {

@@ -449,6 +449,9 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 
     qDebug() << "\n\nasGPSplugin: handleHotnessChanged";
 
+    QString merk_lat = m_lat->text();
+    QString merk_lng = m_lon->text();
+
     resetIPTC();
     resetGPS();
     resetGoogle();
@@ -458,9 +461,19 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
         qDebug() << "HHC: " << options.options(0)->getString(ID_Location, 0, ok) << ok;
         updateUi(options.options(0));
         if (!m_enable->isChecked()) return;
+
+        if (m_config->keepMapOnHotnessChange() && m_lat->text().isEmpty() && m_lon->text().isEmpty()) {
+            qDebug() << "asGPS: hideMarker";
+            m_internalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
+            if (m_xmap->isChecked()) {
+                m_externalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
+            }
+            m_lat->setText(merk_lat);
+            m_lon->setText(merk_lng);
+        }
+
         if (m_autolim) geocode();
         if (m_autofnl) reversegeocode();
-        reload();
     }
 
 }
@@ -468,15 +481,29 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  const PluginImageSettings &changed, int layer )
 {
     Q_UNUSED(changed);
+
     qDebug() << "\n\nasGPSplugin: handleSettingsChanged started on layer" << layer;
+
     // only run in main layer
-    qDebug() << options.options(layer);
-    qDebug() << changed.options(layer);
     if (layer == 0 && options.options(0) != NULL) {
         bool ok;
         qDebug() << "HSC: " << options.options(0)->getString(ID_Location, 0, ok) << ok;
+
+        QString merk_lat = m_lat->text();
+        QString merk_lng = m_lon->text();
+
         updateUi(options.options(0));
-//        reload();
+
+        if (m_config->keepMapOnHotnessChange() && m_lat->text().isEmpty() && m_lon->text().isEmpty()) {
+            qDebug() << "asGPS: hideMarker";
+            m_internalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
+            if (m_xmap->isChecked()) {
+                m_externalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
+            }
+            m_lat->setText(merk_lat);
+            m_lon->setText(merk_lng);
+        }
+
     } else {
         if (m_enable->isChecked()) updateMap();
     }
@@ -536,6 +563,7 @@ void asGPSplugin::reset() {
 }
 
 void asGPSplugin::reload() {
+    qDebug() << "asGPS: reload";
     if (!m_enable->isChecked()) return;
     resetIPTC();
     resetGPS();
@@ -672,10 +700,20 @@ void asGPSplugin::tagImage() {
 }
 
 void asGPSplugin::updateMap() {
-    qDebug() << "asGPS: updateMap loaded =" << m_loaded;
+    qDebug() << "asGPS: updateMap loaded =" << m_loaded; 
     if (m_enable->isChecked()) {
         qDebug() << "asGPS: updateMap with map checked";
         gpsLocation gpsl(m_lat->text(), m_lon->text());
+        if (gpsl.getLat() == 0 && gpsl.getLng() == 0) {
+            if (m_config->keepMapOnHotnessChange()) {
+                qDebug() << "asGPS: keeping Map on 0/0-Position";
+                m_internalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
+                if (m_xmap->isChecked()) {
+                    m_externalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
+                }
+                return;
+            }
+        }
         m_internalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
             QString("%1").arg(gpsl.getLat(),0,'f',5) + "," + QString("%1").arg(gpsl.getLng(),0,'f',5) + ")");
         if (m_xmap->isChecked()) {
@@ -692,8 +730,8 @@ void asGPSplugin::geocode() {
     if (isCTRL) {
         m_autolim = !m_autolim;
         if (m_autolim) {
-//            m_fnl->setStyleSheet(m_default_button_style);
-//            m_autofnl = false;
+            m_fnl->setStyleSheet(m_default_button_style);
+            m_autofnl = false;
             m_lim->setStyleSheet("QPushButton {background-color: rgb(0, 100, 0); }");
         } else {
             m_lim->setStyleSheet(m_default_button_style);
@@ -743,8 +781,8 @@ void asGPSplugin::reversegeocode() {
     if (isCTRL) {
         m_autofnl = !m_autofnl;
         if (m_autofnl) {
-//            m_lim->setStyleSheet(m_default_button_style);
-//            m_autolim = false;
+            m_lim->setStyleSheet(m_default_button_style);
+            m_autolim = false;
             m_fnl->setStyleSheet("QPushButton {background-color: rgb(0, 100, 0); }");
         } else {
             m_fnl->setStyleSheet(m_default_button_style);
@@ -790,12 +828,13 @@ void asGPSplugin::marker_click(bool toolsMap)
 void asGPSplugin::marker_moved(double lat, double lng, bool toolsMap)
 {
     if (!m_enable->isChecked()) return;
-    qDebug() << "asGPS: marker moved:" <<lat << lng << toolsMap;
+    qDebug() << "asGPS: marker moved:" << lat << lng << toolsMap;
     gpsLocation gpsl(lat,lng);
     QStringList qsl = gpsl.formatAsOption(3);
     m_lat->setText(qsl.at(0));
     m_lon->setText(qsl.at(1));
     m_status->setText("A");
+    if (m_autofnl) reversegeocode();
     QWebView *wv = toolsMap ? m_externalView : m_internalView;
     QWebView *ov = toolsMap ? m_internalView : m_externalView;
     wv->page()->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
