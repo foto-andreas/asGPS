@@ -21,6 +21,9 @@ QT += network
 
 # our header files
 HEADERS += \
+    cgps.h \
+    gpscsv.h \
+    gpsgpx.h \
     asGPSplugin.h \
     gpsLocation.h \
     WebContents.h \
@@ -31,6 +34,9 @@ HEADERS += \
 
 # our source files
 SOURCES += \
+    cgps.cpp \
+    gpscsv.cpp \
+    gpsgpx.cpp \
     asGPSplugin.cpp \
     gpsLocation.cpp \
     WebContents.cpp \

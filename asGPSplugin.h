@@ -66,6 +66,8 @@
 #include <QLabel>
 #include <QComboBox>
 #include <QTextEdit>
+#include <QSpinBox>
+#include <QDateTime>
 
 #include "B5Plugin.h"
 #include "PluginRevisions.h"
@@ -74,6 +76,10 @@
 #include "WebInfos.h"
 
 #include "iso3166.h"
+
+#include "cgps.h"
+#include "gpscsv.h"
+#include "gpsgpx.h"
 
 #include "ConfigurationMapper.h"
 
@@ -378,6 +384,14 @@ public slots:
       */
     void updateMap();
 
+	/** Open file dialog to read GPS track.
+      */
+    void trackFileDialog();
+
+    /** Update GPS position from file.
+      */
+    void trackUpdatePos();
+
 private:
 
     /** Update the user interface.
@@ -506,6 +520,7 @@ private:
     QAbstractButton *m_lim;         /**< button for "locate in map" */
     QAbstractButton *m_fnl;         /**< button for "find nearest location" */
 
+
     QCheckBox   *m_coordsCB;        /**< global checkbox for GPS coordinates */
     QCheckBox   *m_iptcCB;          /**< global checkbox for IPTC coordinates */
 
@@ -535,7 +550,18 @@ private:
     QLabel      *m_l_city;          /**< info text for current IPTC city value in image settings */
     QLabel      *m_l_location;      /**< info text for current IPTC location value in image settings */
 
-    WebInfos    *m_webInfos;        /**< instance for gettings version infos from the web */
+	//GPS Track
+	QAbstractButton *m_t_filebutton;/**< button to browse for a GPS track file */
+	QCheckBox   *m_t_localTZ;       /**< checkbox to use the local time zone */
+	QSpinBox	*m_t_timezone;		/**< spinbox for time zone */
+	QLabel      *m_t_status;        /**< info text for GPS track read status */
+    QLineEdit   *m_t_filename;      /**< GPS track file name */
+    QLineEdit   *m_t_lat;			/**< GPS track file name */
+    QLineEdit   *m_t_lon;			/**< GPS track file name */
+	QString		photoTime;			/**< Metadata - photo time */
+	//GPS Track
+
+	WebInfos    *m_webInfos;        /**< instance for gettings version infos from the web */
 
     bool        m_autolim;          /**< is auto locate in map enabled? */
     bool        m_autofnl;          /**< is auto find nearest location enabled? */

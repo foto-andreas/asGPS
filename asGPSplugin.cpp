@@ -268,6 +268,16 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_l_city = uiWidget->findChild<QLabel*>("labCity");
     m_l_location = uiWidget->findChild<QLabel*>("labLoc");
 
+	//GPS Track
+	m_t_filename = uiWidget->findChild< QLineEdit * >( "trackFileEdit" );
+	m_t_lon = uiWidget->findChild< QLineEdit * >( "trackLonEdit" );
+	m_t_lat = uiWidget->findChild< QLineEdit * >( "trackLatEdit" );
+	m_t_status= uiWidget->findChild< QLabel * >( "trackStatusLabel" );
+	m_t_filebutton = uiWidget->findChild< QAbstractButton * >( "trackFileButton" );
+	m_t_timezone = uiWidget->findChild< QSpinBox * >( "trackTimeZoneSpinBox" );
+	m_t_localTZ = uiWidget->findChild< QCheckBox * >( "trackLocalTZCheck" );
+	//GPS Track
+
     m_coordsCB = uiWidget->findChild<QCheckBox*>("coordsCB");
     m_iptcCB = uiWidget->findChild<QCheckBox*>("iptcCB");
 
@@ -303,6 +313,11 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect(m_coordsCB, SIGNAL( stateChanged(int) ), SLOT( handleCoordsCB(int) ));
     connect(m_iptcCB, SIGNAL( stateChanged(int) ), SLOT( handleIptcCB(int) ));
     connect(m_xmap, SIGNAL( toggled(bool) ), SLOT( handleXmapChange(bool) ) );
+
+	//GPS Track
+	connect(m_t_filebutton, SIGNAL ( clicked() ), SLOT ( trackFileDialog() ));
+	connect(m_t_filename,SIGNAL( editingFinished() ), SLOT( trackUpdatePos() ) );
+	//GPS Track
 
     m_iptcCB->setCheckState(Qt::PartiallyChecked);
     m_coordsCB->setCheckState(Qt::PartiallyChecked);
@@ -457,15 +472,23 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
     resetGoogle();
 
     if (options.options(0) != NULL) {
-        bool ok;
+        bool ok=true;
         qDebug() << "HHC: " << options.options(0)->getString(ID_Location, 0, ok) << ok;
+
         updateUi(options.options(0));
+
         if (!m_enable->isChecked()) return;
+
+        int iopt=m_pHub->optionIdForName("DigitizedDateTime",0);
+		photoTime=options.options(0)->getString(iopt,0,ok);
+        trackUpdatePos();
 
         hideUnhideMarker(merk_lat, merk_lng);
 
         if (m_autolim) geocode();
         if (m_autofnl) reversegeocode();
+
+
     }
 
 }
@@ -949,4 +972,45 @@ void asGPSplugin::displayHelp() {
     view->setWindowTitle("AfterShot Pro - asGPS v"  TARGET_VERSION_STRING);
     view->setWindowIcon(view->icon());
     view->show();
+}
+
+void asGPSplugin::trackFileDialog() {
+	qDebug() << "asGPS: trackFileDialog";
+	QString filename=QFileDialog::getOpenFileName(0,tr("Open GPS track"),QString(), tr("Track files (*.gpx *.csv);;All files(*.*)"));	//Display file open dialog
+	if(filename=="")return;	//cancel pressed
+	m_t_filename->setText(filename);
+	trackUpdatePos();
+}
+
+void asGPSplugin::trackUpdatePos() {
+	qDebug() << "asGPS: trackUpdatePos";
+	QString filename=m_t_filename->text();
+	bool localTZ=m_t_localTZ->checkState();
+	int tzData=m_t_timezone->value();
+	int res;
+	CGps *track;
+    if(filename.indexOf("csv",0,Qt::CaseInsensitive)>0) {
+		track=new GpsCsv(filename,localTZ,tzData); 
+    } else {
+		track=new GpsGpx(filename,localTZ,tzData);
+    }
+	res=track->parsetime(photoTime);
+	//qDebug()<<"UpdatePos - Changing the settings "<<photoTime<<" Result:"<<track->lat<<" "<<track->lon;
+    if(res==CGps::OK) {
+		m_t_status->setText("<B>Position updated correctly</B>");
+		QStringList pos=track->position.formatAsOption(4);
+		m_t_lat->setText(pos[0]);
+		m_t_lon->setText(pos[1]);
+		m_lat->setText(pos[0]);
+		m_lon->setText(pos[1]);
+        updateMap();
+    } else {
+		if(res==CGps::FileErr)m_t_status->setText("<B>Error:</B> File open problem");
+		if(res==CGps::ParseErr)m_t_status->setText("<B>Error:</B> Parse problem");
+		if(res==CGps::NotFound)m_t_status->setText("<B>Error:</B> Timestamp not found in track file");
+		m_t_lat->setText("");
+		m_t_lon->setText("");
+	}
+	free(track);
+
 }
