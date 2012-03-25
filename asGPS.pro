@@ -5,7 +5,7 @@
 
 # what we build here (plugin name and version)
 TARGET = asGPS
-VERSION = 1.1.5
+VERSION = 1.1.6
 
 include ( ../PluginDefaults/PluginDefaults.pri )
 
@@ -18,6 +18,7 @@ include ( ../PluginDefaults/PluginDefaults.pri )
 # Include extra Qt libraries for the web views resp. map
 QT += webkit
 QT += network
+QT += xml
 
 # our header files
 HEADERS += \
