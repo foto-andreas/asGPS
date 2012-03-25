@@ -3,7 +3,7 @@
 /** \mainpage asGPS - A geotagging plugin for AfterShot Pro
   *
   * @author    Andeas Schrell
-  * @version   1.1.5
+  * @version   1.2.0
   * @date      2011-03-25
   * @warning   Works only when QtWebKit-Libs are delivered with ASP
   *
@@ -392,6 +392,11 @@ public slots:
       */
     void trackUpdatePos();
 
+    /**
+      * Get track file content.
+      */
+    QString getTrackData();
+
 private:
 
     /** Update the user interface.
@@ -599,5 +604,7 @@ private:
     QTextEdit   *m_googleCoordinates;    /**< area to display the coordinate data */
 
     int         m_loaded;           /**< counter for loaded web pages */
+
+    QString     m_trackData;        /**< track file content */
 
 };

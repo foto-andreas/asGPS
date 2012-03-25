@@ -5,7 +5,7 @@
 
 # what we build here (plugin name and version)
 TARGET = asGPS
-VERSION = 1.1.6
+VERSION = 1.2.0
 
 include ( ../PluginDefaults/PluginDefaults.pri )
 
@@ -58,7 +58,9 @@ OTHER_FILES += \
     iso3166.txt \
     gup.js \
     asGPSmap.html \
-    PluginDefaults.pri
+    PluginDefaults.pri \
+    trackView.js \
+    jquery-1.7.2.min.js
 
 # the user interface file
 FORMS += asGPS.ui
@@ -81,3 +83,5 @@ QMAKE_POST_LINK += "; strip 'lib$${TARGET}.so.$${VERSION}'"
 QMAKE_POST_LINK += "; ./afz '$$TARGET' '$$VERSION' 'asGPS GPS & IPTC tagging.xmp' 'asGPS IPTC tagging.xmp'"
 }
 }
+
+

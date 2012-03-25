@@ -276,6 +276,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 	m_t_filebutton = uiWidget->findChild< QAbstractButton * >( "trackFileButton" );
 	m_t_timezone = uiWidget->findChild< QSpinBox * >( "trackTimeZoneSpinBox" );
 	m_t_localTZ = uiWidget->findChild< QCheckBox * >( "trackLocalTZCheck" );
+    m_trackData = "";
 	//GPS Track
 
     m_coordsCB = uiWidget->findChild<QCheckBox*>("coordsCB");
@@ -481,13 +482,13 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 
         int iopt=m_pHub->optionIdForName("DigitizedDateTime",0);
 		photoTime=options.options(0)->getString(iopt,0,ok);
-        trackUpdatePos();
 
         hideUnhideMarker(merk_lat, merk_lng);
 
+        trackUpdatePos();
+
         if (m_autolim) geocode();
         if (m_autofnl) reversegeocode();
-
 
     }
 
@@ -977,15 +978,34 @@ void asGPSplugin::displayHelp() {
 void asGPSplugin::trackFileDialog() {
 	qDebug() << "asGPS: trackFileDialog";
 	QString filename=QFileDialog::getOpenFileName(0,tr("Open GPS track"),QString(), tr("Track files (*.gpx *.csv);;All files(*.*)"));	//Display file open dialog
-	if(filename=="")return;	//cancel pressed
+    m_trackData = "";
+    m_internalView->page()->mainFrame()->evaluateJavaScript("trackView()");
+    if(filename=="")return;	//cancel pressed
 	m_t_filename->setText(filename);
-	trackUpdatePos();
+    QFile file(filename);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file);
+        m_trackData = stream.readAll();
+        file.close();
+        m_internalView->page()->mainFrame()->evaluateJavaScript("trackView()");
+        if (m_xmap->isChecked()) {
+            m_externalView->page()->mainFrame()->evaluateJavaScript("trackView()");
+        }
+    }
+    trackUpdatePos();
 }
 
 void asGPSplugin::trackUpdatePos() {
 	qDebug() << "asGPS: trackUpdatePos";
 	QString filename=m_t_filename->text();
-	bool localTZ=m_t_localTZ->checkState();
+    if (filename == "") {
+        m_trackData = "";
+        m_internalView->page()->mainFrame()->evaluateJavaScript("trackView()");
+        if (m_xmap->isChecked()) {
+            m_externalView->page()->mainFrame()->evaluateJavaScript("trackView()");
+        }
+    }
+    bool localTZ=m_t_localTZ->checkState();
 	int tzData=m_t_timezone->value();
 	int res;
 	CGps *track;
@@ -1013,4 +1033,8 @@ void asGPSplugin::trackUpdatePos() {
 	}
 	free(track);
 
+}
+
+QString asGPSplugin::getTrackData() {
+    return m_trackData;
 }
