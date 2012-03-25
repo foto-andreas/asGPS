@@ -6,7 +6,6 @@
         <file>gup.js</file>
         <file>asGPSmap.html</file>
         <file>trackView.js</file>
-        <file>jquery-1.7.2.min.js</file>
     </qresource>
     <qresource prefix="/img">
         <file>DE_btn_donateCC_LG.gif</file>
