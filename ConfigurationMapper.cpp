@@ -39,19 +39,19 @@ ConfigurationMapper::ConfigurationMapper(QString fileName) {
 
 bool ConfigurationMapper::getBool(const char *key, bool def = false) {
     QString val = m_cf->getValue(key);
-    if (val == NULL) return def;
+    if (val == 0) return def;
     return val == "true";
 }
 
 QString ConfigurationMapper::getString(const char *key, QString def = "") {
     QString val = m_cf->getValue(key);
-    if (val == NULL) return def;
+    if (val == 0) return def;
     return val;
 }
 
 int ConfigurationMapper::getInt(const char *key, int def = 0) {
     QString val = m_cf->getValue(key);
-    if (val == NULL) return def;
+    if (val == 0) return def;
     return val.toInt();
 }
 
@@ -120,7 +120,7 @@ void ConfigurationMapper::keepMapOnHotnessChange(bool val) {
 }
 
 QString ConfigurationMapper::countryTable() {
-    return getString(COUNTRYTABLE);
+    return getString(COUNTRYTABLE, "");
 }
 
 void ConfigurationMapper::countryTable(QString cT) {

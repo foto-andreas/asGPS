@@ -1,5 +1,7 @@
 #include "iso3166.h"
 
+#include <QMap>
+#include <QString>
 #include <QTextStream>
 #include <QFile>
 #include <QDebug>

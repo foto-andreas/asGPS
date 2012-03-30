@@ -1,9 +1,6 @@
 #ifndef CONFIGFILE_H
 #define CONFIGFILE_H
 
-#include <iostream>
-#include <fstream>
-
 #include <QString>
 #include <QMap>
 #include <QFile>

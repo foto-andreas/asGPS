@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QMap>
-#include <QUrl>
 #include <QString>
 
 /** Class to convert between ISO country codes.

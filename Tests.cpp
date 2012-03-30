@@ -1,5 +1,7 @@
 #include <QtTest/QTest>
 #include <QDebug>
+#include <QString>
+#include <QStringList>
 
 #include "Tests.h"
 
@@ -164,8 +166,10 @@ void Tests::testTrackList() {
     tl->append(tp4);
     tl->append(tp5);
     tl->append(tp6);
-    TrackPoint t = TrackPoint::interpolate(tp1, tp3, 20);
-//    QCOMPARE(t, tp2);
+    TrackPoint *t = TrackPoint::interpolate(tp1, tp3, 20);
+    qDebug() << t->toString() << "/" << tp2.toString();
+    QCOMPARE(*t, tp2);
+    delete t;
 
 }
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <QString>
+
 class TrackPoint {
 
 public:
@@ -16,9 +18,9 @@ public:
     bool former(TrackPoint t);
     bool sameTime(TrackPoint t);
 
-    static void interpolate(TrackPoint t1, TrackPoint t2, long timePos);
+    bool operator==(TrackPoint const &t1) const;
 
-    bool operator==(TrackPoint t1) {
-        return t1.time == this->time && t1.lat == this->lat && t1.lng == this->lng && t1.alt == this->alt;
-    }
+    static  TrackPoint *interpolate(TrackPoint const &t1, TrackPoint const &t2, long timePos);
+
+    QString toString();
 };

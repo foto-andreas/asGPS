@@ -1,8 +1,5 @@
 #include "ConfigFile.h"
 
-#include <iostream>
-#include <fstream>
-
 #include <QString>
 #include <QMap>
 #include <QTextStream>
@@ -41,7 +38,7 @@ void ConfigFile::readFile() {
     QTextStream stream(&file);
     stream.setCodec("UTF-8");
     QString line;
-    while (NULL != (line = stream.readLine())) {
+    while (0 != (line = stream.readLine())) {
         QString key = line.mid(0, line.indexOf("="));
         QString val = line.mid(line.indexOf("=") + 1);
         m_config.insert(key, val);
@@ -59,7 +56,7 @@ QString ConfigFile::getValue(QString key) {
     if (i != m_config.end()) {
         return i.value();
     } else {
-        return NULL;
+        return 0;
     }
 }
 
