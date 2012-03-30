@@ -7,6 +7,8 @@
 #include "iso3166.h"
 #include "ConfigFile.h"
 #include "ConfigurationMapper.h"
+#include "trackpoint.h"
+#include "tracklist.h"
 
 void Tests::testNew() {
     gpsLocation g1, g2(0,0);
@@ -146,6 +148,25 @@ void Tests::testConfigMapper() {
     ConfigurationMapper cm("asGPSmapper.conf");
     cm.cc3(true);
     QCOMPARE (cm.cc3(), true);
+}
+
+void Tests::testTrackList() {
+    TrackList *tl = new TrackList();
+    TrackPoint tp1(10, 1.0, 2.0, 0.1);
+    TrackPoint tp2(20, 2.0, 2.0, 0.2);
+    TrackPoint tp3(30, 3.0, 2.0, 0.3);
+    TrackPoint tp4(35, 3.5, 2.0, 0.35);
+    TrackPoint tp5(40, 4.0, 2.0, -0.40);
+    TrackPoint tp6(45, 4.5, 2.0, -0.45);
+    tl->append(tp1);
+    tl->append(tp2);
+    tl->append(tp3);
+    tl->append(tp4);
+    tl->append(tp5);
+    tl->append(tp6);
+    TrackPoint t = TrackPoint::interpolate(tp1, tp3, 20);
+//    QCOMPARE(t, tp2);
+
 }
 
 QTEST_MAIN(Tests)

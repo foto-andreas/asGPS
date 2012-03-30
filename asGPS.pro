@@ -10,10 +10,10 @@ VERSION = 1.2.0
 include ( ../PluginDefaults/PluginDefaults.pri )
 
 # Include these lines for build a main application which does the cunit tests
-#TEMPLATE = app
-#QT += testlib
-#HEADERS += Tests.h
-#SOURCES += Tests.cpp
+TEMPLATE = app
+QT += testlib
+HEADERS += Tests.h
+SOURCES += Tests.cpp
 
 # Include extra Qt libraries for the web views resp. map
 QT += webkit
@@ -31,7 +31,9 @@ HEADERS += \
     WebInfos.h \
     iso3166.h \
     ConfigFile.h \
-    ConfigurationMapper.h
+    ConfigurationMapper.h \
+    trackpoint.h \
+    tracklist.h
 
 # our source files
 SOURCES += \
@@ -44,7 +46,8 @@ SOURCES += \
     WebInfos.cpp \
     iso3166.cpp \
     ConfigFile.cpp \
-    ConfigurationMapper.cpp
+    ConfigurationMapper.cpp \
+    trackpoint.cpp
 
 # our resource file with html pages and images
 RESOURCES += asGPS.qrc
@@ -83,5 +86,14 @@ QMAKE_POST_LINK += "; strip 'lib$${TARGET}.so.$${VERSION}'"
 QMAKE_POST_LINK += "; ./afz '$$TARGET' '$$VERSION' 'asGPS GPS & IPTC tagging.xmp' 'asGPS IPTC tagging.xmp'"
 }
 }
+
+
+
+
+
+
+
+
+
 
 

@@ -81,6 +81,8 @@
 #include "gpscsv.h"
 #include "gpsgpx.h"
 
+#include "tracklist.h"
+
 #include "ConfigurationMapper.h"
 
 #define ON_GPSLatitude "GPSLatitude"
@@ -606,5 +608,7 @@ private:
     int         m_loaded;           /**< counter for loaded web pages */
 
     QString     m_trackData;        /**< track file content */
+
+    TrackList   *m_tracklist;
 
 };

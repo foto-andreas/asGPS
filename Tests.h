@@ -38,4 +38,7 @@ class Tests : public QObject
         /** Test config mapper */
         void testConfigMapper();
 
+        /** Test TrackList */
+        void testTrackList();
+
 };

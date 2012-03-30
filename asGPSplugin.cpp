@@ -162,6 +162,8 @@ bool asGPSplugin::finish()
 
     m_iso3661.load();
 
+    m_tracklist = new TrackList();
+
     return b;
 }
 
