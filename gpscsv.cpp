@@ -19,40 +19,28 @@ int GpsCsv::parsefile()
     if(!readFile(&file))return FileErr;
     file.close();
     QStringList qsl=parseLine();
-    int typepos,timepos,latpos,lonpos;
+    int typepos,timepos,latpos,lonpos,elevpos;
     typepos=qsl.indexOf("TYPE");
     timepos=qsl.indexOf("TIME");
     latpos=qsl.indexOf("LAT");
     lonpos=qsl.indexOf("LON");
+	elevpos=qsl.indexOf("ALT");
     if(typepos==-1||timepos==-1||latpos==-1||lonpos==-1)return ParseErr;
-    QString minlat,minlon;
-    QDateTime qdt;
-    int diff,mindiff=10000;
-	QString pds,qds;
-	pds=pdt.toString("hh:mm:ss");
+    double lat,lon,elev=0;
+    QDateTime timestamp;
     while(!m_eof){
         qsl=parseLine();
         if(m_eof)break;
         if(qsl.at(typepos)=="P"){
-            qdt=QDateTime::fromString(qsl.at(timepos),"yyyy-MM-ddThh:mm:ssZ");
-			qds=qdt.toString("hh:mm:ss");
-			convertTZ(&qdt);
-			qds=qdt.toString("hh:mm:ss");
-            diff=abs(qdt.secsTo(pdt));
-            if(diff<mindiff){
-                mindiff=diff;
-                minlat=qsl.at(latpos);
-                minlon=qsl.at(lonpos);
-            }
+            timestamp=QDateTime::fromString(qsl.at(timepos),"yyyy-MM-ddThh:mm:ssZ");
+			lat=qsl.at(latpos).toDouble();
+			lon=qsl.at(lonpos).toDouble();
+			if(elevpos>0)elev=qsl.at(elevpos).toDouble();
+			addElement(lat,lon,elev,timestamp);
         }
     }
-    if(mindiff<7500){
-        //qout<<"Position found:"<<minlat<<":"<<minlon<<"... Time difference:"<<mindiff<<endl;
-		position.setLat(minlat.toDouble());
-		position.setLng(minlon.toDouble());
-        return OK;
-    }
-    return NotFound;
+	loaded=true;
+    return OK;
 }
 
 bool GpsCsv::readFile(QIODevice *m_device){

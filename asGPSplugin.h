@@ -81,8 +81,6 @@
 #include "gpscsv.h"
 #include "gpsgpx.h"
 
-#include "tracklist.h"
-
 #include "ConfigurationMapper.h"
 
 #define ON_GPSLatitude "GPSLatitude"
@@ -390,9 +388,13 @@ public slots:
       */
     void trackFileDialog();
 
-    /** Update GPS position from file.
+     /** Parse a GPS track.
       */
-    void trackUpdatePos();
+    void trackLoad();
+
+	/** Update GPS position from the loaded track.
+      */
+    void trackGetPos();
 
     /**
       * Get track file content.
@@ -568,6 +570,8 @@ private:
 	QString		photoTime;			/**< Metadata - photo time */
 	//GPS Track
 
+	CGps *track;
+
 	WebInfos    *m_webInfos;        /**< instance for gettings version infos from the web */
 
     bool        m_autolim;          /**< is auto locate in map enabled? */
@@ -608,7 +612,5 @@ private:
     int         m_loaded;           /**< counter for loaded web pages */
 
     QString     m_trackData;        /**< track file content */
-
-    TrackList   *m_tracklist;
 
 };
