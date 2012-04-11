@@ -30,7 +30,8 @@
 #include <QGridLayout>
 
 #include "TargetVersion.h"
-#include "gpsLocation.h"
+#include "trackpoint.h"
+#include "tracklist.h"
 #include "WebInfos.h"
 #include "ConfigurationMapper.h"
 
@@ -87,7 +88,7 @@ class InternalWebView : public QWebView
         virtual void showEvent(QShowEvent *event) {
             qDebug() << "asGPS: show Event";
             plugin->updateMap();
-            this->plugin->reload();
+//TEST            this->plugin->reload();
             event->accept();
         }
 
@@ -109,6 +110,7 @@ bool asGPSplugin::init(PluginHub *hub, int id, int groupId, const QString &)
     m_pluginId = id;
     m_groupId = groupId;
     m_loaded = 0;
+    track = NULL;
 
     return true;
 }
@@ -268,14 +270,15 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_l_city = uiWidget->findChild<QLabel*>("labCity");
     m_l_location = uiWidget->findChild<QLabel*>("labLoc");
 
-	//GPS Track
-	m_t_filename = uiWidget->findChild< QLineEdit * >( "trackFileEdit" );
-	m_t_lon = uiWidget->findChild< QLineEdit * >( "trackLonEdit" );
-	m_t_lat = uiWidget->findChild< QLineEdit * >( "trackLatEdit" );
-	m_t_status= uiWidget->findChild< QLabel * >( "trackStatusLabel" );
-	m_t_filebutton = uiWidget->findChild< QAbstractButton * >( "trackFileButton" );
-	m_t_timezone = uiWidget->findChild< QSpinBox * >( "trackTimeZoneSpinBox" );
-	m_t_localTZ = uiWidget->findChild< QCheckBox * >( "trackLocalTZCheck" );
+    //GPS Track
+    m_t_filename = uiWidget->findChild< QLineEdit * >( "trackFileEdit" );
+    m_t_lon = uiWidget->findChild< QLineEdit * >( "trackLonEdit" );
+    m_t_lat = uiWidget->findChild< QLineEdit * >( "trackLatEdit" );
+    m_t_alt = uiWidget->findChild< QLineEdit * >( "trackAltEdit" );
+    m_t_status= uiWidget->findChild< QLabel * >( "trackStatusLabel" );
+    m_t_filebutton = uiWidget->findChild< QAbstractButton * >( "trackFileButton" );
+    m_t_timezone = uiWidget->findChild< QSpinBox * >( "trackTimeZoneSpinBox" );
+    m_t_localTZ = uiWidget->findChild< QCheckBox * >( "trackLocalTZCheck" );
     m_trackData = "";
 	//GPS Track
 
@@ -616,7 +619,7 @@ void asGPSplugin::reload() {
 }
 
 void asGPSplugin::fillGoogleRaw(QString rawData) {
-    gpsLocation loc(m_lat->text(), m_lon->text());
+    TrackPoint loc(QString(m_l_date->text()).append(" ").append(m_l_time->text()), m_lat->text(), m_lon->text(), m_alt->text());
     QString coords = m_lat->text() + " / " + m_lon->text();
     QStringList formatted = loc.formatAsDegreesMinutesSeconds(4);
     coords += "<br/>" + formatted[0] + " / " + formatted[1];
@@ -733,18 +736,18 @@ void asGPSplugin::updateMap() {
     qDebug() << "asGPS: updateMap loaded =" << m_loaded; 
     if (m_enable->isChecked()) {
         qDebug() << "asGPS: updateMap with map checked";
-        gpsLocation gpsl(m_lat->text(), m_lon->text());
-        if (gpsl.getLat() == 0 && gpsl.getLng() == 0) {
+        TrackPoint gpsl("", m_lat->text(), m_lon->text(), m_alt->text());
+        if (gpsl.lat == 0 && gpsl.lng == 0) {
             if (m_config->keepMapOnHotnessChange()) {
                 qDebug() << "asGPS: keeping Map on 0/0-Position";
                 return;
             }
         }
         m_internalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
-            QString("%1").arg(gpsl.getLat(),0,'f',5) + "," + QString("%1").arg(gpsl.getLng(),0,'f',5) + ")");
+            QString("%1").arg(gpsl.lat,0,'f',5) + "," + QString("%1").arg(gpsl.lng,0,'f',5) + ")");
         if (m_xmap->isChecked()) {
             m_externalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
-                QString("%1").arg(gpsl.getLat(),0,'f',5) + "," + QString("%1").arg(gpsl.getLng(),0,'f',5) + ")");
+                QString("%1").arg(gpsl.lat,0,'f',5) + "," + QString("%1").arg(gpsl.lng,0,'f',5) + ")");
         }
     }
 }
@@ -997,12 +1000,12 @@ void asGPSplugin::trackFileDialog() {
 }
 
 void asGPSplugin::trackLoad() {
-	if(m_enable->checkState()==false){
-		m_t_status->setText("<B>Enable the plugin to read the track");
-		return;
-	}
-	qDebug() << "asGPS: trackLoad";
-	QString filename=m_t_filename->text();
+    if(m_enable->checkState()==false){
+        m_t_status->setText("<B>Enable the plugin to read the track");
+        return;
+    }
+    qDebug() << "asGPS: trackLoad";
+    QString filename=m_t_filename->text();
     if (filename == "") {
         m_trackData = "";
         m_internalView->page()->mainFrame()->evaluateJavaScript("trackView()");
@@ -1010,40 +1013,46 @@ void asGPSplugin::trackLoad() {
             m_externalView->page()->mainFrame()->evaluateJavaScript("trackView()");
         }
     }
+    qDebug() << "1";
     bool localTZ=m_t_localTZ->checkState();
-	int tzData=m_t_timezone->value();
-	int res;
-	if(track)free(track);
+    int tzData=m_t_timezone->value();
+    int res;
+    qDebug() << "2";
+    if (track) delete track;
+    qDebug() << "3";
     if(filename.indexOf("csv",0,Qt::CaseInsensitive)>0) {
-		track=new GpsCsv(filename,localTZ,tzData); 
+        track=new GpsCsv(filename,localTZ,tzData);
     } else {
-		track=new GpsGpx(filename,localTZ,tzData);
+        track=new GpsGpx(filename,localTZ,tzData);
     }
-	res=track->parsefile();
-	if(res==CGps::FileErr)m_t_status->setText("<B><font color=#FF0000>Error:</font></B> File open problem");
-	if(res==CGps::ParseErr)m_t_status->setText("<B><font color=#FF0000>Error:</font></B> Parse problem");
-	trackGetPos();
+    qDebug() << "4";
+    res=track->parsefile();
+    if(res==CGps::FileErr)m_t_status->setText("<B><font color=#FF0000>Error:</font></B> File open problem");
+    if(res==CGps::ParseErr)m_t_status->setText("<B><font color=#FF0000>Error:</font></B> Parse problem");
+    trackGetPos();
 }
 
 void asGPSplugin::trackGetPos()
 {
-	if(track==NULL) return;
-	if(!track->isLoaded()) return;
-	int res;
-	res=track->searchElement(photoTime);
-	if(res==CGps::NotFound){
-		m_t_status->setText("<B><font color=#FF0000>Error:</font></B> Timestamp not found in track file");
-		m_t_lat->setText("");
-		m_t_lon->setText("");
-		return;
-	}
-	if(res==CGps::OK)m_t_status->setText("<B><font color=#00FF00>Success!</font></B> Position updated correctly");
-	else m_t_status->setText("<B><font color=#FFFF00>Warning:</font></B> Position outside the track timestamps");
-	QStringList pos=track->position.formatAsOption(4);
-	m_t_lat->setText(pos[0]);
-	m_t_lon->setText(pos[1]);
-	m_lat->setText(pos[0]);
-	m_lon->setText(pos[1]);
+    if(track==NULL) return;
+    if(!track->isLoaded()) return;
+    QDateTime time = QDateTime::fromString(photoTime, "yyyy-MM-dd HH:mm:ss.zzz");
+    CGps::ParseResult res = track->searchElement(time);
+    if(res != CGps::OK){ //TEST
+        m_t_status->setText("<B><font color=#FF0000>Error:</font></B> Timestamp not found in track file");
+        m_t_lat->setText("");
+        m_t_lon->setText("");
+        return;
+    } else {
+        m_t_status->setText("<B><font color=#00FF00>Success!</font></B> Position updated correctly");
+    }
+    QStringList pos=track->position.formatAsOption(4);
+    m_t_lat->setText(pos[0]);
+    m_t_lon->setText(pos[1]);
+    m_t_alt->setText(pos[2]);
+    m_lat->setText(pos[0]);
+    m_lon->setText(pos[1]);
+    m_alt->setText(pos[2]);
     updateMap();
 }
 

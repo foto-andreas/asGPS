@@ -3,8 +3,8 @@
 /** \mainpage asGPS - A geotagging plugin for AfterShot Pro
   *
   * @author    Andeas Schrell
-  * @version   1.2.0
-  * @date      2011-03-25
+  * @version   1.2.1
+  * @date      2011-04-10
   * @warning   Works only when QtWebKit-Libs are delivered with ASP
   *
   * \section intro_sec Introduction
@@ -559,20 +559,21 @@ private:
     QLabel      *m_l_city;          /**< info text for current IPTC city value in image settings */
     QLabel      *m_l_location;      /**< info text for current IPTC location value in image settings */
 
-	//GPS Track
-	QAbstractButton *m_t_filebutton;/**< button to browse for a GPS track file */
-	QCheckBox   *m_t_localTZ;       /**< checkbox to use the local time zone */
-	QSpinBox	*m_t_timezone;		/**< spinbox for time zone */
-	QLabel      *m_t_status;        /**< info text for GPS track read status */
+    //GPS Track
+    QAbstractButton *m_t_filebutton;/**< button to browse for a GPS track file */
+    QCheckBox   *m_t_localTZ;       /**< checkbox to use the local time zone */
+    QSpinBox	*m_t_timezone;      /**< spinbox for time zone */
+    QLabel      *m_t_status;        /**< info text for GPS track read status */
     QLineEdit   *m_t_filename;      /**< GPS track file name */
-    QLineEdit   *m_t_lat;			/**< GPS track file name */
-    QLineEdit   *m_t_lon;			/**< GPS track file name */
-	QString		photoTime;			/**< Metadata - photo time */
-	//GPS Track
+    QLineEdit   *m_t_lat;           /**< GPS track latitude */
+    QLineEdit   *m_t_lon;           /**< GPS track longitude */
+    QLineEdit   *m_t_alt;           /**< GPS track altitude */
+    QString     photoTime;          /**< Metadata - photo time */
+    //GPS Track
 
-	CGps *track;
+    CGps        *track;
 
-	WebInfos    *m_webInfos;        /**< instance for gettings version infos from the web */
+    WebInfos    *m_webInfos;        /**< instance for gettings version infos from the web */
 
     bool        m_autolim;          /**< is auto locate in map enabled? */
     bool        m_autofnl;          /**< is auto find nearest location enabled? */

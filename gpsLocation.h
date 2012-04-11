@@ -35,7 +35,7 @@ public:
     gpsLocation(QString lats, QString lngs);
 
     /** Check whether the positions are equal.
-      * compare with the given locateion.
+      * compare with the given location.
       * @param r a gpsLocation to compare with us.
       */
     bool operator==(const gpsLocation& r) const;

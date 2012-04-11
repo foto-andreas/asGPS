@@ -5,15 +5,15 @@
 
 # what we build here (plugin name and version)
 TARGET = asGPS
-VERSION = 1.2.0
+VERSION = 1.2.1
 
 include ( ../PluginDefaults/PluginDefaults.pri )
 
 # Include these lines for build a main application which does the cunit tests
-TEMPLATE = app
-QT += testlib
-HEADERS += Tests.h
-SOURCES += Tests.cpp
+#TEMPLATE = app
+#QT += testlib
+#HEADERS += Tests.h
+#SOURCES += Tests.cpp
 
 # Include extra Qt libraries for the web views resp. map
 QT += webkit
@@ -47,7 +47,8 @@ SOURCES += \
     iso3166.cpp \
     ConfigFile.cpp \
     ConfigurationMapper.cpp \
-    trackpoint.cpp
+    trackpoint.cpp \
+    tracklist.cpp
 
 # our resource file with html pages and images
 RESOURCES += asGPS.qrc
@@ -62,8 +63,7 @@ OTHER_FILES += \
     gup.js \
     asGPSmap.html \
     PluginDefaults.pri \
-    trackView.js \
-    jquery-1.7.2.min.js
+    trackView.js
 
 # the user interface file
 FORMS += asGPS.ui
@@ -86,6 +86,7 @@ QMAKE_POST_LINK += "; strip 'lib$${TARGET}.so.$${VERSION}'"
 QMAKE_POST_LINK += "; ./afz '$$TARGET' '$$VERSION' 'asGPS GPS & IPTC tagging.xmp' 'asGPS IPTC tagging.xmp'"
 }
 }
+
 
 
 

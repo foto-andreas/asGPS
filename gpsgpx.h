@@ -5,13 +5,16 @@
 #include <QtXml/qdom.h>
 #include "cgps.h"
 
-class GpsGpx : public CGps
-{
+class GpsGpx: public CGps {
+	
 public:
-    GpsGpx(QString filename,bool useLocalTZ,int tzData);
+	GpsGpx(QString filename, bool useLocalTZ, int tzData);
+	
 private:
-    int parsefile();
-	void readElement(QDomElement wpt, double *lat, double *lon, double *elev, QDateTime *timestamp);
+	int parsefile();
+	void readElement(QDomElement wpt, double *lat, double *lon, double *elev,
+			QDateTime *timestamp);
+
 };
 
 #endif // GPSGPX_H

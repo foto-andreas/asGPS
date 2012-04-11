@@ -154,22 +154,39 @@ void Tests::testConfigMapper() {
 
 void Tests::testTrackList() {
     TrackList *tl = new TrackList();
-    TrackPoint tp1(10, 1.0, 2.0, 0.1);
-    TrackPoint tp2(20, 2.0, 2.0, 0.2);
-    TrackPoint tp3(30, 3.0, 2.0, 0.3);
-    TrackPoint tp4(35, 3.5, 2.0, 0.35);
-    TrackPoint tp5(40, 4.0, 2.0, -0.40);
-    TrackPoint tp6(45, 4.5, 2.0, -0.45);
+    TrackPoint tp1(QDateTime::fromTime_t(10), 1.0, 2.0, 0.1);
+    TrackPoint tp2(QDateTime::fromTime_t(20), 2.0, 3.0, 0.2);
+    TrackPoint tp3(QDateTime::fromTime_t(30), 3.0, 5.0, 0.3);
+    TrackPoint tp4(QDateTime::fromTime_t(35), 3.5, 2.0, 0.35);
+    TrackPoint tp5(QDateTime::fromTime_t(40), 4.0, 2.0, -0.40);
+    TrackPoint tp6(QDateTime::fromTime_t(45), 4.5, 2.0, -0.45);
     tl->append(tp1);
     tl->append(tp2);
     tl->append(tp3);
     tl->append(tp4);
     tl->append(tp5);
     tl->append(tp6);
-    TrackPoint *t = TrackPoint::interpolate(tp1, tp3, 20);
-    qDebug() << t->toString() << "/" << tp2.toString();
-    QCOMPARE(*t, tp2);
-    delete t;
+    TrackPoint t = TrackPoint::interpolate(tp1, tp3, QDateTime::fromTime_t(20));
+    TrackPoint tc(QDateTime::fromTime_t(20), 2.0, 3.5, 0.2);
+    qDebug() << t.toString() << "///" << tc.toString();
+    QCOMPARE(t, tc);
+    t = tl->search(QDateTime::fromTime_t(15));
+    TrackPoint ta(QDateTime::fromTime_t(15), 1.5, 2.5, 0.15);
+    qDebug() << t.toString() << "///" << ta.toString();
+    QCOMPARE(t, ta);
+    t = tl->search(QDateTime::fromTime_t(10));
+    qDebug() << t.toString() << "///" << tp1.toString();
+    QCOMPARE(t, tp1);
+    t = tl->search(QDateTime::fromTime_t(45));
+    qDebug() << t.toString() << "///" << tp6.toString();
+    QCOMPARE(t, tp6);
+    t = tl->search(QDateTime::fromTime_t(99));
+    qDebug() << t.toString() << "///" << tp6.toString();
+    QCOMPARE(t, tp6);
+    t = tl->search(QDateTime::fromTime_t(21));
+    TrackPoint tb(QDateTime::fromTime_t(21), 2.1, 3.2, 0.21);
+    qDebug() << t.toString() << "///" << tb.toString();
+    QCOMPARE(t, tb);
 
 }
 
