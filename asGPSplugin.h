@@ -203,7 +203,7 @@ class asGPSplugin : public QObject, public B5Plugin {
          */
         void clearTags();
 
-        private slots:
+    private slots:
 
         /** Slot which handles the change of the hotness (selected main image) in ASP.
          * When the user changes the hotness image in ASP, this slot is called.
@@ -297,7 +297,7 @@ class asGPSplugin : public QObject, public B5Plugin {
          */
         void countryTableChanged(QString table);
 
-        public slots:
+    public slots:
 
         /** Slot for connecting an external browser application.
          * This slot is used to open the given url in an external browser window.
@@ -417,6 +417,10 @@ class asGPSplugin : public QObject, public B5Plugin {
          * Get String with the points lat/lng
          */
         QString getTrackPoint(int n);
+
+        /** Set the optional Layers in the map on/off
+          */
+        void mapLayers();
 
     private:
 
@@ -627,6 +631,11 @@ class asGPSplugin : public QObject, public B5Plugin {
 
         QTextEdit *m_googleRaw; /**< area to display the Google raw data */
         QTextEdit *m_googleCoordinates; /**< area to display the coordinate data */
+
+        QCheckBox *m_cb_bicycle;
+        QCheckBox *m_cb_traffic;
+        QCheckBox *m_cb_weather;
+        QCheckBox *m_cb_clouds;
 
         int m_loaded; /**< counter for loaded web pages */
 

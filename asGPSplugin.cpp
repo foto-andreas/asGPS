@@ -287,6 +287,11 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_t_tracktime->setText("");
 	//GPS Track
 
+    m_cb_bicycle = uiWidget->findChild<QCheckBox*>("cbBicycle");
+    m_cb_traffic = uiWidget->findChild<QCheckBox*>("cbTraffic");
+    m_cb_weather = uiWidget->findChild<QCheckBox*>("cbWeather");
+    m_cb_clouds = uiWidget->findChild<QCheckBox*>("cbClouds");
+
     m_coordsCB = uiWidget->findChild<QCheckBox*>("coordsCB");
     m_iptcCB = uiWidget->findChild<QCheckBox*>("iptcCB");
 
@@ -333,6 +338,11 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 	connect(m_t_filebutton, SIGNAL ( clicked() ), SLOT ( trackFileDialog() ));
 	connect(m_t_filename,SIGNAL( editingFinished() ), SLOT( trackUpdatePos() ) );
 	//GPS Track
+
+    connect(m_cb_bicycle, SIGNAL(clicked()), SLOT(mapLayers()));
+    connect(m_cb_traffic, SIGNAL(clicked()), SLOT(mapLayers()));
+    connect(m_cb_weather, SIGNAL(clicked()), SLOT(mapLayers()));
+    connect(m_cb_clouds, SIGNAL(clicked()), SLOT(mapLayers()));
 
     m_iptcCB->setCheckState(Qt::PartiallyChecked);
     m_coordsCB->setCheckState(Qt::PartiallyChecked);
@@ -1108,4 +1118,18 @@ QString asGPSplugin::getTrackPoint(int n) {
     QString ret = QString("%1:%2:%3:%4").arg(tp.lat, 0, 'f', 8).arg(tp.lng, 0, 'f', 8).arg((int) tp.type).arg(tp.name);
 //    qDebug() << "track: " << ret;
     return ret;
+}
+
+void asGPSplugin::mapLayers() {
+    QString command("mapLayers(");
+    command.append(m_cb_bicycle->isChecked() ? "true" : "false");
+    command.append(", ");
+    command.append(m_cb_traffic->isChecked() ? "true" : "false");
+    command.append(", ");
+    command.append(m_cb_weather->isChecked() ? "true" : "false");
+    command.append(", ");
+    command.append(m_cb_clouds->isChecked() ? "true" : "false");
+    command.append(")");
+    m_internalView->page()->mainFrame()->evaluateJavaScript(command);
+    m_externalView->page()->mainFrame()->evaluateJavaScript(command);
 }

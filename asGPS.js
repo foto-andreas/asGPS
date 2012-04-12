@@ -40,6 +40,14 @@
     map = new google.maps.Map(document.getElementById('map_canvas'),
         myOptions);
 
+    trafficLayer = new google.maps.TrafficLayer();
+
+    bikeLayer = new google.maps.BicyclingLayer();
+
+    weatherLayer = new google.maps.weather.WeatherLayer();
+
+    cloudLayer = new google.maps.weather.CloudLayer();
+
     marker = new google.maps.Marker({
       position: latLng,
       map: map,
@@ -88,6 +96,13 @@
       setMarkerTitle(e.latLng);
       api.marker_moved(e.latLng.lat(),e.latLng.lng(), toolsMap);
     });
+  }
+
+  function mapLayers(bike, traffic, weather, clouds) {
+    bikeLayer.setMap(bike ? map : null);
+    trafficLayer.setMap(traffic ? map : null);
+    weatherLayer.setMap(weather ? map : null);
+    cloudLayer.setMap(clouds ? map : null);
   }
 
   function setMarkerTitle(loc) {
