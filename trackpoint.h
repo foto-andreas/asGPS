@@ -22,8 +22,8 @@ public:
     TrackPoint() :
         type(INVALID) {;}
 
-    TrackPoint(QDateTime time, double lat, double lng, double alt, TP_TYPE type = TRACK_POINT) :
-        time(time), lat(lat), lng(lng), alt(alt), type(type) {;}
+    TrackPoint(QDateTime time, double lat, double lng, double alt, TP_TYPE type = TRACK_POINT, QString name = "") :
+        time(time), lat(lat), lng(lng), alt(alt), type(type), name(name) {;}
 
     TrackPoint(QString time, QString lats, QString lngs, QString alts);
 
@@ -32,6 +32,7 @@ public:
     double      lng;
     double      alt;
     TP_TYPE     type;
+    QString     name;
 
     bool isLater(TrackPoint t);
     bool isFormer(TrackPoint t);

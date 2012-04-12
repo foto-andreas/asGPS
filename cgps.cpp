@@ -36,10 +36,10 @@ void CGps::convertTZ(QDateTime *ts, bool localtz, int tzdata, int offset) {
     *ts = ts->addSecs(offset);
 }
 
-void CGps::addElement(double lat, double lon, double elevation, QDateTime time, TrackPoint::TP_TYPE type) {
+void CGps::addElement(double lat, double lon, double elevation, QDateTime time, TrackPoint::TP_TYPE type, QString name) {
 //    qDebug() << "pointTime:" << time;
     time.setTimeSpec(Qt::UTC);
-    TrackPoint loc(time, lat, lon, elevation, type);
+    TrackPoint loc(time, lat, lon, elevation, type, name);
     int a=0, b=this->size()-1;
     if (this->binarySearch(time,a,b)) {
         this->insert(b, loc);

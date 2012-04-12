@@ -13,7 +13,7 @@ public:
 private:
 	int parsefile();
 	void readElement(QDomElement wpt, double *lat, double *lon, double *elev,
-			QDateTime *timestamp);
+            QDateTime *timestamp, QString *name);
 
 };
 

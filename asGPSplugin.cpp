@@ -1102,7 +1102,7 @@ int asGPSplugin::getTrackSize() {
 QString asGPSplugin::getTrackPoint(int n) {
     if (track == NULL || n>=track->size()) return "";
     TrackPoint tp = track->at(n);
-    QString ret = QString("%1:%2:%3").arg(tp.lat,0,'f',8).arg(tp.lng,0,'f',8).arg((int)tp.type);
+    QString ret = QString("%1:%2:%3:%4").arg(tp.lat,0,'f',8).arg(tp.lng,0,'f',8).arg((int)tp.type).arg(tp.name);
 //    qDebug() << "track: " << ret;
     return ret;
 }

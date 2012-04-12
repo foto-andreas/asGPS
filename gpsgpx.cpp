@@ -19,6 +19,7 @@ int GpsGpx::parsefile() {
     //		-> RTE  -> RTEPT
     //		-> TRK  -> TRKSEG  -> TRKPT
     QDomElement gpx, l1, l2, l3;
+    QString name;
     bool found = false;
     double lat, lon, elevation;
     QDateTime time;
@@ -31,14 +32,14 @@ int GpsGpx::parsefile() {
     l1 = gpx.firstChildElement();
     while (!l1.isNull()) {
         if (l1.tagName() == "wpt") { //waypoint node
-            readElement(l1, &lat, &lon, &elevation, &time);
-            addElement(lat, lon, elevation, time, TrackPoint::WAY_POINT);
+            readElement(l1, &lat, &lon, &elevation, &time, &name);
+            addElement(lat, lon, elevation, time, TrackPoint::WAY_POINT, name);
             found = true;
         } else if (l1.tagName() == "rte") { //route node
             l2 = l1.firstChildElement("rtept");
             while (!l2.isNull()) {
-                readElement(l2, &lat, &lon, &elevation, &time);
-                addElement(lat, lon, elevation, time, TrackPoint::ROUTE_POINT);
+                readElement(l2, &lat, &lon, &elevation, &time, &name);
+                addElement(lat, lon, elevation, time, TrackPoint::ROUTE_POINT, name);
                 found = true;
                 l2 = l2.nextSiblingElement("rtept");
             }
@@ -47,8 +48,8 @@ int GpsGpx::parsefile() {
             while (!l2.isNull()) {
                 l3 = l2.firstChildElement("trkpt");
                 while (!l3.isNull()) {
-                    readElement(l3, &lat, &lon, &elevation, &time);
-                    addElement(lat, lon, elevation, time, TrackPoint::TRACK_POINT);
+                    readElement(l3, &lat, &lon, &elevation, &time, &name);
+                    addElement(lat, lon, elevation, time, TrackPoint::TRACK_POINT, name);
                     found = true;
                     l3 = l3.nextSiblingElement("trkpt");
                 }
@@ -64,7 +65,7 @@ int GpsGpx::parsefile() {
 }
 
 void GpsGpx::readElement(QDomElement wpt, double *lat, double *lon,
-                         double *elev, QDateTime *timestamp) {
+                         double *elev, QDateTime *timestamp, QString *name) {
     QDomElement data;
     *lat = wpt.attribute("lat").toDouble();
     *lon = wpt.attribute("lon").toDouble();
@@ -72,4 +73,6 @@ void GpsGpx::readElement(QDomElement wpt, double *lat, double *lon,
     *timestamp = QDateTime::fromString(data.text(), TimeDate_GPS);
     data = wpt.firstChildElement("ele");
     *elev = data.text().toDouble();
+    data = wpt.firstChildElement("name");
+    *name = data.text();
 }

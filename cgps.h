@@ -29,7 +29,7 @@ protected:
 	QDateTime pdt;
 	int getTZ(QString lat, QString lon, QDateTime ts);
     void convertTZ(QDateTime *ts, bool localTZ, int tzData, int offset);
-    void addElement(double lat, double lon, double elevation, QDateTime time, TrackPoint::TP_TYPE type);
+    void addElement(double lat, double lon, double elevation, QDateTime time, TrackPoint::TP_TYPE type, QString name);
 
 };
 

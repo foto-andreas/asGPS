@@ -19,15 +19,17 @@ int GpsCsv::parsefile() {
         return FileErr;
     file.close();
     QStringList qsl = parseLine();
-    int typepos, timepos, latpos, lonpos, elevpos;
+    int typepos, timepos, latpos, lonpos, elevpos, namepos;
     typepos = qsl.indexOf("TYPE");
     timepos = qsl.indexOf("TIME");
     latpos = qsl.indexOf("LAT");
     lonpos = qsl.indexOf("LON");
     elevpos = qsl.indexOf("ALT");
+    namepos = qsl.indexOf("NAME");
     if (typepos == -1 || timepos == -1 || latpos == -1 || lonpos == -1)
         return ParseErr;
     double lat, lon, elev = 0;
+    QString name="";
     QDateTime timestamp;
     while (!m_eof) {
         qsl = parseLine();
@@ -39,7 +41,11 @@ int GpsCsv::parsefile() {
             lon = qsl.at(lonpos).toDouble();
             if (elevpos > 0)
                 elev = qsl.at(elevpos).toDouble();
-            addElement(lat, lon, elev, timestamp, TrackPoint::TRACK_POINT);
+            if (namepos > 0) {
+                name = qsl.at(namepos);
+            }
+            // TODO TYPEs
+            addElement(lat, lon, elev, timestamp, TrackPoint::TRACK_POINT, name);
         }
     }
     loaded = true;
