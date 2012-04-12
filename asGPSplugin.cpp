@@ -1053,7 +1053,7 @@ void asGPSplugin::trackLoad() {
         m_externalView->page()->mainFrame()->evaluateJavaScript(QString("trackView()"));
     }
 
-    if (!track->isEmpty()) {
+    if (track != NULL && !track->isEmpty()) {
         qDebug() << "asGPS: centering map on track start";
         TrackPoint start = track->first();
         m_internalView->page()->mainFrame()->evaluateJavaScript(
