@@ -291,6 +291,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_cb_traffic = uiWidget->findChild<QCheckBox*>("cbTraffic");
     m_cb_weather = uiWidget->findChild<QCheckBox*>("cbWeather");
     m_cb_clouds = uiWidget->findChild<QCheckBox*>("cbClouds");
+    m_cb_panoramio = uiWidget->findChild<QCheckBox*>("cbPanoramio");
 
     m_coordsCB = uiWidget->findChild<QCheckBox*>("coordsCB");
     m_iptcCB = uiWidget->findChild<QCheckBox*>("iptcCB");
@@ -343,6 +344,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect(m_cb_traffic, SIGNAL(clicked()), SLOT(mapLayers()));
     connect(m_cb_weather, SIGNAL(clicked()), SLOT(mapLayers()));
     connect(m_cb_clouds, SIGNAL(clicked()), SLOT(mapLayers()));
+    connect(m_cb_panoramio, SIGNAL(clicked()), SLOT(mapLayers()));
 
     m_iptcCB->setCheckState(Qt::PartiallyChecked);
     m_coordsCB->setCheckState(Qt::PartiallyChecked);
@@ -1129,6 +1131,8 @@ void asGPSplugin::mapLayers() {
     command.append(m_cb_weather->isChecked() ? "true" : "false");
     command.append(", ");
     command.append(m_cb_clouds->isChecked() ? "true" : "false");
+    command.append(", ");
+    command.append(m_cb_panoramio->isChecked() ? "true" : "false");
     command.append(")");
     m_internalView->page()->mainFrame()->evaluateJavaScript(command);
     m_externalView->page()->mainFrame()->evaluateJavaScript(command);

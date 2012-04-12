@@ -48,6 +48,8 @@
 
     cloudLayer = new google.maps.weather.CloudLayer();
 
+    panoramioLayer = new google.maps.panoramio.PanoramioLayer();
+
     marker = new google.maps.Marker({
       position: latLng,
       map: map,
@@ -98,11 +100,12 @@
     });
   }
 
-  function mapLayers(bike, traffic, weather, clouds) {
+  function mapLayers(bike, traffic, weather, clouds, panoramio) {
     bikeLayer.setMap(bike ? map : null);
     trafficLayer.setMap(traffic ? map : null);
     weatherLayer.setMap(weather ? map : null);
     cloudLayer.setMap(clouds ? map : null);
+    panoramioLayer.setMap(panoramio ? map : null);
   }
 
   function setMarkerTitle(loc) {

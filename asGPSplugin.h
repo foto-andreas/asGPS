@@ -636,6 +636,7 @@ class asGPSplugin : public QObject, public B5Plugin {
         QCheckBox *m_cb_traffic;
         QCheckBox *m_cb_weather;
         QCheckBox *m_cb_clouds;
+        QCheckBox *m_cb_panoramio;
 
         int m_loaded; /**< counter for loaded web pages */
 
