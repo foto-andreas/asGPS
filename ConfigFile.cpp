@@ -8,8 +8,7 @@
 
 using namespace std;
 
-ConfigFile::ConfigFile(QString fileName)
-{
+ConfigFile::ConfigFile(QString fileName) {
     m_config.clear();
     m_auto = false;
     m_file = fileName;
@@ -24,7 +23,7 @@ void ConfigFile::writeFile() {
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream stream(&file);
     stream.setCodec("UTF-8");
-    QMapIterator<QString, QString> i(m_config);
+    QMapIterator < QString, QString > i(m_config);
     while (i.hasNext()) {
         i.next();
         stream << i.key() << "=" << i.value() << endl;
@@ -52,7 +51,7 @@ void ConfigFile::setValue(QString key, QString value) {
 }
 
 QString ConfigFile::getValue(QString key) {
-    QMap<QString,QString>::iterator i =  m_config.find(key);
+    QMap<QString, QString>::iterator i = m_config.find(key);
     if (i != m_config.end()) {
         return i.value();
     } else {

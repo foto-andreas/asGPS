@@ -3,8 +3,8 @@
 #include <QDebug>
 #include "stdlib.h"
 
-GpsGpx::GpsGpx(QString filename) :
-    CGps(filename) {
+GpsGpx::GpsGpx(QString filename)
+    : CGps(filename) {
 }
 
 int GpsGpx::parsefile() {
@@ -26,8 +26,7 @@ int GpsGpx::parsefile() {
     //GPX
     qDebug() << "parseFile";
     gpx = doc.documentElement();
-    if (gpx.tagName() != "gpx")
-        return ParseErr;
+    if (gpx.tagName() != "gpx") return ParseErr;
     //TRK
     l1 = gpx.firstChildElement();
     while (!l1.isNull()) {
@@ -58,14 +57,12 @@ int GpsGpx::parsefile() {
         }
         l1 = l1.nextSiblingElement();
     }
-    if (!found)
-        return ParseErr; //do something if nothing's read...
+    if (!found) return ParseErr; //do something if nothing's read...
     loaded = true;
     return OK;
 }
 
-void GpsGpx::readElement(QDomElement wpt, double *lat, double *lon,
-                         double *elev, QDateTime *timestamp, QString *name) {
+void GpsGpx::readElement(QDomElement wpt, double *lat, double *lon, double *elev, QDateTime *timestamp, QString *name) {
     QDomElement data;
     *lat = wpt.attribute("lat").toDouble();
     *lon = wpt.attribute("lon").toDouble();

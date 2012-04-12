@@ -6,21 +6,17 @@
 
 #include "WebContents.h"
 
-WebInfos::WebInfos(QString identifier, QString sdkVersion)
-{
+WebInfos::WebInfos(QString identifier, QString sdkVersion) {
     m_wc = new WebContents;
 
-    connect(m_wc,
-            SIGNAL(stringAvailable(QString)),
-            SLOT(infosArrived(QString)));
+    connect(m_wc, SIGNAL(stringAvailable(QString)), SLOT(infosArrived(QString)));
 
     m_identifier = identifier;
     m_sdk_version = sdkVersion;
 
 }
 
-void WebInfos::fetch()
-{
+void WebInfos::fetch() {
     m_wc->fetch("http://schrell.de/AfterShotPro/WebTools/PlugInfo.php?sdk=" + m_sdk_version + "&id=" + m_identifier);
 }
 
@@ -36,7 +32,7 @@ void WebInfos::infosArrived(QString str) {
 }
 
 bool WebInfos::isWebNewer() {
-    QStringList web= m_version.split(".");
+    QStringList web = m_version.split(".");
     QStringList me = QString(TARGET_VERSION_STRING).split(".");
     bool ok = true;
     int webMa = web.at(0).toInt(&ok);
@@ -51,14 +47,14 @@ bool WebInfos::isWebNewer() {
     if (!ok) return false;
     int meFi = me.at(2).toInt(&ok);
     if (!ok) return false;
-    qDebug() << "asGPS: version check" << m_version << TARGET_VERSION_STRING << meMa << webMa << meMi << webMi << meFi << webFi;
+    qDebug() << "asGPS: version check" << m_version << TARGET_VERSION_STRING << meMa << webMa << meMi << webMi << meFi
+        << webFi;
     if (meMa > webMa) return false;
     if ((meMa == webMa) && (meMi > webMi)) return false;
     if ((meMa == webMa) && (meMi == webMi) && (meFi > webFi)) return false;
     if ((meMa == webMa) && (meMi == webMi) && (meFi == webFi)) return false;
     return true;
 }
-
 
 QString WebInfos::name() {
     return m_name;

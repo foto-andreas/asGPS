@@ -5,11 +5,10 @@
 
 #include "trackpoint.h"
 
-class TrackList : public QList<TrackPoint>
-{
+class TrackList : public QList<TrackPoint> {
 
-public:
-    bool binarySearch(const QDateTime time, int &a, int &b);
-    TrackPoint search(QDateTime time);
+    public:
+        bool binarySearch(const QDateTime time, int &a, int &b);
+        TrackPoint search(QDateTime time);
 
 };

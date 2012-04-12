@@ -25,7 +25,7 @@ bool TrackList::binarySearch(const QDateTime time, int &a, int &b) {
 }
 
 TrackPoint TrackList::search(QDateTime time) {
-    int a = 0, b = this->size()-1;
+    int a = 0, b = this->size() - 1;
     if (binarySearch(time, a, b)) {
         return TrackPoint::interpolate(this->at(a), this->at(b), time);
     } else {

@@ -60,7 +60,7 @@ bool ConfigurationMapper::startEnabled() {
 }
 
 void ConfigurationMapper::startEnabled(bool val) {
-    m_cf->setValue(STARTENABLED, val ? "true" : "false" );
+    m_cf->setValue(STARTENABLED, val ? "true" : "false");
 }
 
 bool ConfigurationMapper::startWithExternalMap() {
@@ -68,7 +68,7 @@ bool ConfigurationMapper::startWithExternalMap() {
 }
 
 void ConfigurationMapper::startWithExternalMap(bool val) {
-    m_cf->setValue(STARTWITHEXT, val ? "true" : "false" );
+    m_cf->setValue(STARTWITHEXT, val ? "true" : "false");
 }
 
 bool ConfigurationMapper::cc3() {
@@ -76,7 +76,7 @@ bool ConfigurationMapper::cc3() {
 }
 
 void ConfigurationMapper::cc3(bool val) {
-    m_cf->setValue(USETHREELETTER, val ? "true" : "false" );
+    m_cf->setValue(USETHREELETTER, val ? "true" : "false");
 }
 
 bool ConfigurationMapper::searchAllIPTC() {
@@ -84,7 +84,7 @@ bool ConfigurationMapper::searchAllIPTC() {
 }
 
 void ConfigurationMapper::searchAllIPTC(bool val) {
-    m_cf->setValue(SEARCHALLIPTC, val ? "true" : "false" );
+    m_cf->setValue(SEARCHALLIPTC, val ? "true" : "false");
 }
 
 bool ConfigurationMapper::centerOnClick() {
@@ -92,7 +92,7 @@ bool ConfigurationMapper::centerOnClick() {
 }
 
 void ConfigurationMapper::centerOnClick(bool val) {
-    m_cf->setValue(CENTERONCLICK, val ? "true" : "false" );
+    m_cf->setValue(CENTERONCLICK, val ? "true" : "false");
 }
 
 bool ConfigurationMapper::checkForUpdates() {
@@ -100,7 +100,7 @@ bool ConfigurationMapper::checkForUpdates() {
 }
 
 void ConfigurationMapper::checkForUpdates(bool val) {
-    m_cf->setValue(CHECKFORUPDATES, val ? "true" : "false" );
+    m_cf->setValue(CHECKFORUPDATES, val ? "true" : "false");
 }
 
 bool ConfigurationMapper::splitGpsTimestamp() {
@@ -108,7 +108,7 @@ bool ConfigurationMapper::splitGpsTimestamp() {
 }
 
 void ConfigurationMapper::splitGpsTimestamp(bool val) {
-    m_cf->setValue(SPLITGPSTIMESTAMP, val ? "true" : "false" );
+    m_cf->setValue(SPLITGPSTIMESTAMP, val ? "true" : "false");
 }
 
 bool ConfigurationMapper::keepMapOnHotnessChange() {
@@ -116,7 +116,7 @@ bool ConfigurationMapper::keepMapOnHotnessChange() {
 }
 
 void ConfigurationMapper::keepMapOnHotnessChange(bool val) {
-    m_cf->setValue(KEEPMAPONHOTNESSCHANGE, val ? "true" : "false" );
+    m_cf->setValue(KEEPMAPONHOTNESSCHANGE, val ? "true" : "false");
 }
 
 QString ConfigurationMapper::countryTable() {
@@ -238,5 +238,4 @@ int ConfigurationMapper::cbSettingsLocation() {
 void ConfigurationMapper::cbSettingsLocation(int settings) {
     m_cf->setValue(CBLOC, QString("%1").arg(settings));
 }
-
 

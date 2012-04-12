@@ -6,42 +6,44 @@
 #include "trackpoint.h"
 #include "tracklist.h"
 
-
 CGps::CGps(QString filename) {
-	loaded = false;
-	fn = filename;
+    loaded = false;
+    fn = filename;
 }
 
 int CGps::parsefile() {
-	return -1;
+    return -1;
 }
 
 int CGps::getTZ(QString lat, QString lon, QDateTime ts) {
-    Q_UNUSED(lat); Q_UNUSED(lon); Q_UNUSED(ts);
-	//Example http://api.geonames.org/timezone?lat=47.01&lng=10.2&username=demo
-	//or http://api.geonames.org/timezoneJSON?lat=47.01&lng=10.2&username=demo 
+    Q_UNUSED(lat);
+    Q_UNUSED(lon);
+    Q_UNUSED(ts);
+    //Example http://api.geonames.org/timezone?lat=47.01&lng=10.2&username=demo
+    //or http://api.geonames.org/timezoneJSON?lat=47.01&lng=10.2&username=demo 
 //	QString querystring=
-	return 0;
+    return 0;
 }
 
 void CGps::convertTZ(QDateTime *ts, bool localtz, int tzdata, int offset) {
-	if (localtz) {
+    if (localtz) {
         ts->setTimeSpec(Qt::LocalTime); // mark the timestamp as LocalTime (but don't convert it)
         *ts = ts->toUTC();
         ts->setTimeSpec(Qt::UTC);
-	} else {
+    } else {
         ts->setTimeSpec(Qt::UTC); // mark it as UTC
         *ts = ts->addSecs(-3600 * tzdata);
-	}
+    }
     *ts = ts->addSecs(offset);
 }
 
-void CGps::addElement(double lat, double lon, double elevation, QDateTime time, TrackPoint::TP_TYPE type, QString name) {
+void CGps::addElement(double lat, double lon, double elevation, QDateTime time, TrackPoint::TP_TYPE type,
+    QString name) {
 //    qDebug() << "pointTime:" << time;
     time.setTimeSpec(Qt::UTC);
     TrackPoint loc(time, lat, lon, elevation, type, name);
-    int a=0, b=this->size()-1;
-    if (this->binarySearch(time,a,b)) {
+    int a = 0, b = this->size() - 1;
+    if (this->binarySearch(time, a, b)) {
         this->insert(b, loc);
     } else {
         this->append(loc);

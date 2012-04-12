@@ -1002,40 +1002,42 @@ void asGPSplugin::displayHelp() {
 }
 
 void asGPSplugin::trackFileDialog() {
-    qDebug() << "asGPS: trackFileDialog";
-    QString filename=QFileDialog::getOpenFileName(0,tr("Open GPS track"),QString(), tr("Track files (*.gpx *.csv);;All files(*.*)"));	//Display file open dialog
-    if(filename=="")return;	//cancel pressed
-    m_t_filename->setText(filename);
-    trackLoad();
+	qDebug() << "asGPS: trackFileDialog";
+	QString filename = QFileDialog::getOpenFileName(0, tr("Open GPS track"),
+			QString(), tr("Track files (*.gpx *.csv);;All files(*.*)")); //Display file open dialog
+	if (filename == "")
+		return; //cancel pressed
+	m_t_filename->setText(filename);
+	trackLoad();
 }
 
 void asGPSplugin::trackLoad() {
-    if(m_enable->checkState()==false){
+    if (m_enable->checkState() == false) {
         m_t_status->setText("<B>Enable the plugin to read the track");
         return;
     }
     qDebug() << "asGPS: trackLoad";
-    QString filename=m_t_filename->text();
+    QString filename = m_t_filename->text();
     int res;
     if (track) {
         delete track;
         track = NULL;
     }
     if (!filename.isEmpty()) {
-        if(filename.endsWith(".csv", Qt::CaseInsensitive)) {
-            track=new GpsCsv(filename);
+        if (filename.endsWith(".csv", Qt::CaseInsensitive)) {
+            track = new GpsCsv(filename);
         } else {
-            track=new GpsGpx(filename);
+            track = new GpsGpx(filename);
         }
-        res=track->parsefile();
-        if (res==CGps::FileErr)
-            m_t_status->setText("<B><font color=#FF0000>Error:</font></B> File open problem.");
-        if (res==CGps::ParseErr)
+        res = track->parsefile();
+        if (res == CGps::FileErr) m_t_status->setText("<B><font color=#FF0000>Error:</font></B> File open problem.");
+        if (res == CGps::ParseErr)
             m_t_status->setText("<B><font color=#FF0000>Error:</font></B> Parse problem or empty track.");
-        if (res==CGps::OK) {
+        if (res == CGps::OK) {
             qDebug() << "asGPS: track loaded";
-            m_t_tracktime->setText(track->first().time.toString(TimeDate_DEF)
-                                   + " UTC ... " + track->last().time.toString(TimeDate_DEF) + " UTC");
+            m_t_tracktime->setText(
+                track->first().time.toString(TimeDate_DEF) + " UTC ... " + track->last().time.toString(TimeDate_DEF)
+                    + " UTC");
             trackGetPos();
         }
     } else {
@@ -1054,37 +1056,38 @@ void asGPSplugin::trackLoad() {
     if (!track->isEmpty()) {
         qDebug() << "asGPS: centering map on track start";
         TrackPoint start = track->first();
-        m_internalView->page()->mainFrame()->evaluateJavaScript(QString("centerMap(%1,%2)").arg(start.lat).arg(start.lng));
+        m_internalView->page()->mainFrame()->evaluateJavaScript(
+            QString("centerMap(%1,%2)").arg(start.lat).arg(start.lng));
         if (m_xmap->isChecked()) {
-            m_externalView->page()->mainFrame()->evaluateJavaScript(QString("centerMap(%1,%2)").arg(start.lat).arg(start.lng));
+            m_externalView->page()->mainFrame()->evaluateJavaScript(
+                QString("centerMap(%1,%2)").arg(start.lat).arg(start.lng));
         }
     }
 }
 
-void asGPSplugin::trackGetPos(int dummy)
-{
+void asGPSplugin::trackGetPos(int dummy) {
     Q_UNUSED(dummy);
-    if(track==NULL) return;
-    if(!track->isLoaded()) return;
-    bool localTZ=m_t_localTZ->checkState();
-    int tzData=m_t_timezone->value();
+    if (track == NULL) return;
+    if (!track->isLoaded()) return;
+    bool localTZ = m_t_localTZ->checkState();
+    int tzData = m_t_timezone->value();
     int offset = m_t_timeoffset->value();
     QDateTime time = QDateTime::fromString(photoTime, TimeDate_DEF);
     CGps::ParseResult res = track->searchElement(time, localTZ, tzData, offset);
-    if(res != CGps::OK){ //TEST
+    if (res != CGps::OK) { //TEST
         m_t_status->setText(
-                    QString("<B><font color=#FF0000>Error:</font></B> Timestamp %1 UTC not found in track file.")
-                        .arg(track->position.time.toString(TimeDate_DEF)));
+            QString("<B><font color=#FF0000>Error:</font></B> Timestamp %1 UTC not found in track file.").arg(
+                track->position.time.toString(TimeDate_DEF)));
         m_t_lat->setText("");
         m_t_lng->setText("");
         m_t_alt->setText("");
         return;
     } else {
         m_t_status->setText(
-                    QString("<B><font color=#00FF00>Success!</font></B> Position at %1 UTC found.")
-                        .arg(track->position.time.toString(TimeDate_DEF)));
+            QString("<B><font color=#00FF00>Success!</font></B> Position at %1 UTC found.").arg(
+                track->position.time.toString(TimeDate_DEF)));
     }
-    QStringList pos=track->position.formatAsOption(4);
+    QStringList pos = track->position.formatAsOption(4);
     m_t_lat->setText(pos[0]);
     m_t_lng->setText(pos[1]);
     m_t_alt->setText(pos[2]);
@@ -1095,14 +1098,14 @@ void asGPSplugin::trackGetPos(int dummy)
 }
 
 int asGPSplugin::getTrackSize() {
-   if (track == NULL) return 0;
-   return track->size();
+    if (track == NULL) return 0;
+    return track->size();
 }
 
 QString asGPSplugin::getTrackPoint(int n) {
-    if (track == NULL || n>=track->size()) return "";
+    if (track == NULL || n >= track->size()) return "";
     TrackPoint tp = track->at(n);
-    QString ret = QString("%1:%2:%3:%4").arg(tp.lat,0,'f',8).arg(tp.lng,0,'f',8).arg((int)tp.type).arg(tp.name);
+    QString ret = QString("%1:%2:%3:%4").arg(tp.lat, 0, 'f', 8).arg(tp.lng, 0, 'f', 8).arg((int) tp.type).arg(tp.name);
 //    qDebug() << "track: " << ret;
     return ret;
 }

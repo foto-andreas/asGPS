@@ -7,18 +7,18 @@
 #include <QIODevice>
 #include <QFile>
 
-class GpsCsv: public CGps {
-	
-public:
-    GpsCsv(QString filename);
+class GpsCsv : public CGps {
 
-private:
-	int parsefile();
-	bool readFile(QIODevice *m_device);
-	QStringList parseLine();
-	int m_pos;
-	QString m_string;
-	bool m_eof;
+    public:
+        GpsCsv(QString filename);
+
+    private:
+        int parsefile();
+        bool readFile(QIODevice *m_device);
+        QStringList parseLine();
+        int m_pos;
+        QString m_string;
+        bool m_eof;
 
 };
 
