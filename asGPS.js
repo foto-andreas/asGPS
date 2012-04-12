@@ -100,15 +100,20 @@
   }
 
   function centerAndMarkOnlyMap(lat, lng) {
-    var loc = new google.maps.LatLng(lat,lng);
+    loc = new google.maps.LatLng(lat,lng);
     map.setCenter(loc);
     marker.setPosition(loc);
     markerGray.setPosition(loc);
     setMarkerTitle(loc);
   }
 
+  function centerMap(lat, lng) {
+    loc = new google.maps.LatLng(lat,lng);
+    map.setCenter(loc);
+  }
+
   function moveMarker(lat, lng) {
-    var loc = new google.maps.LatLng(lat,lng);
+    loc = new google.maps.LatLng(lat,lng);
     marker.setPosition(loc);
     markerGray.setPosition(loc);
     setMarkerTitle(loc);
@@ -125,8 +130,8 @@
   }
 
   function codeAddressFrom(coordinates, withMap) {
-    var c = coordinates.split(",",2);
-    var loc = new google.maps.LatLng(c[0],c[1]);
+    c = coordinates.split(",",2);
+    loc = new google.maps.LatLng(c[0],c[1]);
     geocoder.geocode( { 'latLng': loc },
       function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
@@ -162,7 +167,7 @@
    geocoder.geocode( { 'address': address, 'region': region},
       function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        var loc = results[0].geometry.location;
+        loc = results[0].geometry.location;
         if (withMap) {
             centerAndMark(loc.lat(), loc.lng());
         }

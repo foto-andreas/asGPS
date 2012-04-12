@@ -3,8 +3,8 @@
 #include <QDebug>
 #include "stdlib.h"
 
-GpsGpx::GpsGpx(QString filename, bool useLocalTZ, int tzData) :
-    CGps(filename, useLocalTZ, tzData) {
+GpsGpx::GpsGpx(QString filename) :
+    CGps(filename) {
 }
 
 int GpsGpx::parsefile() {
@@ -69,7 +69,7 @@ void GpsGpx::readElement(QDomElement wpt, double *lat, double *lon,
     *lat = wpt.attribute("lat").toDouble();
     *lon = wpt.attribute("lon").toDouble();
     data = wpt.firstChildElement("time");
-    *timestamp = QDateTime::fromString(data.text(), "yyyy-MM-ddThh:mm:ssZ");
+    *timestamp = QDateTime::fromString(data.text(), TimeDate_GPS);
     data = wpt.firstChildElement("ele");
     *elev = data.text().toDouble();
 }

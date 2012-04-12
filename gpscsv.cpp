@@ -3,8 +3,8 @@
 #include <QTextDecoder>
 #include <stdlib.h>
 
-GpsCsv::GpsCsv(QString filename, bool useLocalTZ, int tzData) :
-    CGps(filename, useLocalTZ, tzData) {
+GpsCsv::GpsCsv(QString filename) :
+    CGps(filename) {
     //m_codec = QTextCodec::codecForLocale();
     m_pos = 0;
     m_string = "";
@@ -34,8 +34,7 @@ int GpsCsv::parsefile() {
         if (m_eof)
             break;
         if (qsl.at(typepos) == "P") {
-            timestamp = QDateTime::fromString(qsl.at(timepos),
-                                              "yyyy-MM-ddThh:mm:ssZ");
+            timestamp = QDateTime::fromString(qsl.at(timepos), TimeDate_GPS);
             lat = qsl.at(latpos).toDouble();
             lon = qsl.at(lonpos).toDouble();
             if (elevpos > 0)

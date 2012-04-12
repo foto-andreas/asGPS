@@ -1,37 +1,51 @@
-function loadXMLString(txt) {
-  parser=new DOMParser();
-  xmlDoc=parser.parseFromString(txt, "text/xml");
-  return xmlDoc;
-}
+var polyTrack = new google.maps.Polyline();
 
-var poly = new google.maps.Polyline();
+var markers = [];
 
 function trackView() {
 
-    poly.setMap(null);
+    polyTrack.setMap(null);
+    delete polyTrack;
+    polyTrack = new google.maps.Polyline();
 
-    var xml = api.getTrackData();
+    markers.foreach( function (k, m) {
+        m.setMap(null);
+        delete m;
+    });
+    markers = [];
 
-    var gps = loadXMLString(xml);
+    track = [];
 
-    var p = gps.getElementsByTagName("trkpt");
-
-    var points = [];
-
-    for (i=0; i<p.length; i++) {
-        var lat = ((p[i].attributes).getNamedItem("lat")).nodeValue;
-        var lon = ((p[i].attributes).getNamedItem("lon")).nodeValue;
-        var l = new google.maps.LatLng(lat, lon);
-        points.push(l);
+    for (i=0; i<api.getTrackSize(); i++) {
+        loc = api.getTrackPoint(i).split(':',3);
+        l = new google.maps.LatLng(loc[0], loc[1]);
+        if (loc[2] == "0") { // track
+            track.push(l);
+        }
+        if (loc[2] == "1") { // way
+            m = new google.maps.Marker({
+                  position: l,
+                  map: map,
+                  text: "way point"});
+            markers.push(m);
+        }
+        if (loc[2] == "2") { // route
+            m = new google.maps.Marker({
+                  position: l,
+                  map: map,
+                  text: "route point"});
+            markers.push(m);
+        }
     };
 
-    poly = new google.maps.Polyline({
-          path: points,
+    polyTrack = new google.maps.Polyline({
+          path: track,
           strokeColor: "#FF00AA",
           strokeOpacity: .4,
           strokeWeight: 2
         });
 
-    poly.setMap(map);
+
+    polyTrack.setMap(map);
 
 }

@@ -10,7 +10,7 @@
 class GpsCsv: public CGps {
 	
 public:
-	GpsCsv(QString filename, bool useLocalTZ, int tzData);
+    GpsCsv(QString filename);
 
 private:
 	int parsefile();

@@ -87,7 +87,7 @@ class InternalWebView : public QWebView
     protected:
         virtual void showEvent(QShowEvent *event) {
             qDebug() << "asGPS: show Event";
-            plugin->updateMap();
+//            plugin->updateMap();
 //TEST            this->plugin->reload();
             event->accept();
         }
@@ -111,6 +111,7 @@ bool asGPSplugin::init(PluginHub *hub, int id, int groupId, const QString &)
     m_groupId = groupId;
     m_loaded = 0;
     track = NULL;
+    inSettingsChange = false;
 
     return true;
 }
@@ -176,6 +177,8 @@ void asGPSplugin::webInfosReady() {
                         .arg(m_webInfos->name(), m_webInfos->version(), TARGET_VERSION_STRING, m_webInfos->link());
         QMessageBox::information(NULL, m_webInfos->name(), text);
     }
+    delete m_webInfos;
+    m_webInfos = NULL;
 }
 
 PluginDependency *asGPSplugin::createDependency(const QString &name)
@@ -232,7 +235,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_info = uiWidget->findChild<QAbstractButton*>("asGPSAbout_button");
 
     m_lat = uiWidget->findChild<QLineEdit*>("latLineEdit");
-    m_lon = uiWidget->findChild<QLineEdit*>("lonLineEdit");
+    m_lng = uiWidget->findChild<QLineEdit*>("lonLineEdit");
     m_alt = uiWidget->findChild<QLineEdit*>("altLineEdit");
     m_date = uiWidget->findChild<QLineEdit*>("dateLineEdit");
     m_time = uiWidget->findChild<QLineEdit*>("timeLineEdit");
@@ -244,7 +247,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_city = uiWidget->findChild<QLineEdit*>("cityLineEdit");
     m_location = uiWidget->findChild<QLineEdit*>("locationLineEdit");
     m_latCB = uiWidget->findChild<QCheckBox*>("latCB");
-    m_lonCB = uiWidget->findChild<QCheckBox*>("lonCB");
+    m_lngCB = uiWidget->findChild<QCheckBox*>("lonCB");
     m_altCB = uiWidget->findChild<QCheckBox*>("altCB");
     m_dateCB = uiWidget->findChild<QCheckBox*>("dateCB");
     m_timeCB = uiWidget->findChild<QCheckBox*>("timeCB");
@@ -258,7 +261,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_lim = uiWidget->findChild<QAbstractButton*>("asGPSLIM_button");
     m_fnl = uiWidget->findChild<QAbstractButton*>("asGPSFNL_button");
     m_l_lat = uiWidget->findChild<QLabel*>("labLat");
-    m_l_lon = uiWidget->findChild<QLabel*>("labLng");
+    m_l_lng = uiWidget->findChild<QLabel*>("labLng");
     m_l_alt = uiWidget->findChild<QLabel*>("labAlt");
     m_l_date = uiWidget->findChild<QLabel*>("labDate");
     m_l_time = uiWidget->findChild<QLabel*>("labTime");
@@ -272,14 +275,16 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 
     //GPS Track
     m_t_filename = uiWidget->findChild< QLineEdit * >( "trackFileEdit" );
-    m_t_lon = uiWidget->findChild< QLineEdit * >( "trackLonEdit" );
+    m_t_lng = uiWidget->findChild< QLineEdit * >( "trackLonEdit" );
     m_t_lat = uiWidget->findChild< QLineEdit * >( "trackLatEdit" );
     m_t_alt = uiWidget->findChild< QLineEdit * >( "trackAltEdit" );
     m_t_status= uiWidget->findChild< QLabel * >( "trackStatusLabel" );
     m_t_filebutton = uiWidget->findChild< QAbstractButton * >( "trackFileButton" );
     m_t_timezone = uiWidget->findChild< QSpinBox * >( "trackTimeZoneSpinBox" );
+    m_t_timeoffset = uiWidget->findChild< QSpinBox * >( "trackTimeOffset" );
     m_t_localTZ = uiWidget->findChild< QCheckBox * >( "trackLocalTZCheck" );
-    m_trackData = "";
+    m_t_tracktime = uiWidget->findChild< QLabel * >( "trackTimeInterval" );
+    m_t_tracktime->setText("");
 	//GPS Track
 
     m_coordsCB = uiWidget->findChild<QCheckBox*>("coordsCB");
@@ -315,8 +320,14 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect(m_enable, SIGNAL( toggled(bool) ), SLOT (handleCheckedChange(bool) ));
     connect(m_info, SIGNAL(clicked()), SLOT(displayHelp() ));
     connect(m_coordsCB, SIGNAL( stateChanged(int) ), SLOT( handleCoordsCB(int) ));
-    connect(m_iptcCB, SIGNAL( stateChanged(int) ), SLOT( handleIptcCB(int) ));
+    connect(m_iptcCB, SIGNAL( stateChanged(int) ), SLOT( handleIptcCB(int) ) );
     connect(m_xmap, SIGNAL( toggled(bool) ), SLOT( handleXmapChange(bool) ) );
+    connect(m_t_filename, SIGNAL( editingFinished() ), SLOT( trackLoad() ) );
+    connect(m_t_localTZ, SIGNAL( clicked() ), SLOT( trackGetPos() ) );
+    connect(m_t_timezone, SIGNAL( editingFinished() ), SLOT( trackGetPos() ) );
+    connect(m_t_timezone, SIGNAL( valueChanged(int) ), SLOT( trackGetPos(int) ) );
+    connect(m_t_timeoffset, SIGNAL( editingFinished() ), SLOT( trackGetPos() ) );
+    connect(m_t_timeoffset, SIGNAL( valueChanged(int) ), SLOT( trackGetPos(int) ) );
 
 	//GPS Track
 	connect(m_t_filebutton, SIGNAL ( clicked() ), SLOT ( trackFileDialog() ));
@@ -327,7 +338,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_coordsCB->setCheckState(Qt::PartiallyChecked);
 
     connect(m_latCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsLat(int) ) );
-    connect(m_lonCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsLng(int) ) );
+    connect(m_lngCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsLng(int) ) );
     connect(m_altCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsAlt(int) ) );
     connect(m_dateCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsDate(int) ) );
     connect(m_timeCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsTime(int) ) );
@@ -413,7 +424,7 @@ void asGPSplugin::readAndCreateConfigFile() {
     m_locationCB->setCheckState((Qt::CheckState)m_config->cbSettingsLocation());
 
     m_latCB->setCheckState((Qt::CheckState)m_config->cbSettingsLat());
-    m_lonCB->setCheckState((Qt::CheckState)m_config->cbSettingsLng());
+    m_lngCB->setCheckState((Qt::CheckState)m_config->cbSettingsLng());
     m_altCB->setCheckState((Qt::CheckState)m_config->cbSettingsAlt());
     m_dateCB->setCheckState((Qt::CheckState)m_config->cbSettingsDate());
     m_timeCB->setCheckState((Qt::CheckState)m_config->cbSettingsTime());
@@ -468,8 +479,14 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 
     qDebug() << "\n\nasGPSplugin: handleHotnessChanged";
 
+    if (inSettingsChange) {
+        qDebug() << "asGPSplugin: hotness ignored";
+        return;
+    }
+
     QString merk_lat = m_lat->text();
-    QString merk_lng = m_lon->text();
+    QString merk_lng = m_lng->text();
+    QString merk_alt = m_alt->text();
 
     resetIPTC();
     resetGPS();
@@ -487,7 +504,7 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
         if (!m_enable->isChecked()) return;
 
 
-        hideUnhideMarker(merk_lat, merk_lng);
+        hideUnhideMarker(merk_lat, merk_lng, merk_alt);
 
         trackGetPos();
 
@@ -510,30 +527,32 @@ void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  co
         qDebug() << "HSC: " << options.options(0)->getString(ID_Location, 0, ok) << ok;
 
         QString merk_lat = m_lat->text();
-        QString merk_lng = m_lon->text();
+        QString merk_lng = m_lng->text();
+        QString merk_alt = m_alt->text();
 
         updateUi(options.options(0));
 
-        hideUnhideMarker(merk_lat, merk_lng);
+        hideUnhideMarker(merk_lat, merk_lng, merk_alt);
 
     } else {
         if (m_enable->isChecked()) updateMap();
     }
 }
 
-void asGPSplugin::hideUnhideMarker(QString merk_lat, QString merk_lng) {
+void asGPSplugin::hideUnhideMarker(QString merk_lat, QString merk_lng, QString merk_alt) {
     // if image has no lat/lng values
-    if (m_config->keepMapOnHotnessChange() && m_lat->text().isEmpty() && m_lon->text().isEmpty()) {
+    if (m_config->keepMapOnHotnessChange() && m_lat->text().isEmpty() && m_lng->text().isEmpty()) {
         qDebug() << "asGPS: hideMarker";
         m_internalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
         if (m_xmap->isChecked()) {
             m_externalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
         }
         m_lat->setText(merk_lat);
-        m_lon->setText(merk_lng);
+        m_lng->setText(merk_lng);
+        m_alt->setText(merk_alt);
     }
     // if image is tagged with lat/lng
-    if (m_config->keepMapOnHotnessChange() && !m_l_lat->text().isEmpty() && !m_l_lon->text().isEmpty()) {
+    if (m_config->keepMapOnHotnessChange() && !m_l_lat->text().isEmpty() && !m_l_lng->text().isEmpty()) {
         qDebug() << "asGPS: unhideMarker";
         m_internalMapPage->mainFrame()->evaluateJavaScript("unhideMarker()");
         if (m_xmap->isChecked()) {
@@ -574,7 +593,7 @@ void asGPSplugin::resetIPTC() {
 
 void asGPSplugin::resetGPS() {
     m_lat->setText("");
-    m_lon->setText("");
+    m_lng->setText("");
     m_alt->setText("");
     m_date->setText("");
     m_time->setText("");
@@ -607,7 +626,7 @@ void asGPSplugin::reload() {
     m_city->setText(m_l_city->text());
     m_location->setText(m_l_location->text());
     m_lat->setText(m_l_lat->text());
-    m_lon->setText(m_l_lon->text());
+    m_lng->setText(m_l_lng->text());
     m_alt->setText(m_l_alt->text());
     m_date->setText(m_l_date->text());
     m_time->setText(m_l_time->text());
@@ -619,8 +638,8 @@ void asGPSplugin::reload() {
 }
 
 void asGPSplugin::fillGoogleRaw(QString rawData) {
-    TrackPoint loc(QString(m_l_date->text()).append(" ").append(m_l_time->text()), m_lat->text(), m_lon->text(), m_alt->text());
-    QString coords = m_lat->text() + " / " + m_lon->text();
+    TrackPoint loc(QString(m_l_date->text()).append(" ").append(m_l_time->text()), m_lat->text(), m_lng->text(), m_alt->text());
+    QString coords = m_lat->text() + " / " + m_lng->text();
     QStringList formatted = loc.formatAsDegreesMinutesSeconds(4);
     coords += "<br/>" + formatted[0] + " / " + formatted[1];
     m_googleCoordinates->setText(coords.replace("°","&deg;"));
@@ -643,7 +662,7 @@ void asGPSplugin::handleCoordsCB(int unused) {
     Qt::CheckState state = m_coordsCB->checkState();
     qDebug() << "asGPS: handleCoordsCB" <<state;
     m_latCB->setCheckState(state);
-    m_lonCB->setCheckState(state);
+    m_lngCB->setCheckState(state);
     m_altCB->setCheckState(state);
     m_dateCB->setCheckState(state);
     m_timeCB->setCheckState(state);
@@ -654,7 +673,7 @@ void asGPSplugin::handleCoordsCB(int unused) {
 void asGPSplugin::updateUi(PluginOptionList *options) {
     qDebug() << "asGPS: updateUI";
     setStringField(options, m_l_lat, ID_GPSLatitude);
-    setStringField(options, m_l_lon, ID_GPSLongitude);
+    setStringField(options, m_l_lng, ID_GPSLongitude);
     setStringField(options, m_l_alt, ID_GPSAltitude);
     setStringField(options, m_l_date, ID_GPSDateStamp);
     setStringField(options, m_l_time, ID_GPSTimeStamp);
@@ -668,7 +687,7 @@ void asGPSplugin::updateUi(PluginOptionList *options) {
     if (!m_enable->isChecked()) return;
     qDebug() << "asGPS: updateUI continued with asGPS enabled";
     setStringField(options, m_lat, ID_GPSLatitude);
-    setStringField(options, m_lon, ID_GPSLongitude);
+    setStringField(options, m_lng, ID_GPSLongitude);
     setStringField(options, m_alt, ID_GPSAltitude);
     setStringField(options, m_date, ID_GPSDateStamp);
     setStringField(options, m_time, ID_GPSTimeStamp);
@@ -696,7 +715,7 @@ void asGPSplugin::splitDate() {
 
 void asGPSplugin::clearTags() {
     m_l_lat->setText("");
-    m_l_lon->setText("");
+    m_l_lng->setText("");
     m_l_alt->setText("");
     m_l_date->setText("");
     m_l_time->setText("");
@@ -712,11 +731,12 @@ void asGPSplugin::clearTags() {
 void asGPSplugin::tagImage() {
     if (!m_enable->isChecked()) return;
     qDebug() << "asGPS: beginSettingsChange()";
+    inSettingsChange = true;
     PluginOptionList* options = m_pHub->beginSettingsChange("asGPS: GPS & IPTC");
     qDebug() << options;
     if (options) {
         tag(options, m_lat, m_latCB, m_l_lat, ID_GPSLatitude);
-        tag(options, m_lon, m_lonCB, m_l_lon, ID_GPSLongitude);
+        tag(options, m_lng, m_lngCB, m_l_lng, ID_GPSLongitude);
         tag(options, m_alt, m_altCB, m_l_alt, ID_GPSAltitude);
         tag(options, m_date, m_dateCB, m_l_date, ID_GPSDateStamp);
         tag(options, m_time, m_timeCB, m_l_time, ID_GPSTimeStamp);
@@ -728,6 +748,7 @@ void asGPSplugin::tagImage() {
         tag(options, m_city, m_cityCB, m_l_city, ID_City);
         tag(options, m_location, m_locationCB, m_l_location, ID_Location);
         m_pHub->endSettingChange();
+        inSettingsChange = false;
         qDebug() << "asGPS: endSettingsChange()";
     }
 }
@@ -736,7 +757,7 @@ void asGPSplugin::updateMap() {
     qDebug() << "asGPS: updateMap loaded =" << m_loaded; 
     if (m_enable->isChecked()) {
         qDebug() << "asGPS: updateMap with map checked";
-        TrackPoint gpsl("", m_lat->text(), m_lon->text(), m_alt->text());
+        TrackPoint gpsl("", m_lat->text(), m_lng->text(), m_alt->text());
         if (gpsl.lat == 0 && gpsl.lng == 0) {
             if (m_config->keepMapOnHotnessChange()) {
                 qDebug() << "asGPS: keeping Map on 0/0-Position";
@@ -818,8 +839,8 @@ void asGPSplugin::reversegeocode() {
         }
         qDebug() << "asGPS: changed fnl state" << (m_autofnl);
     } else {
-        qDebug() << "asGPS: reversegeocode" << m_lat->text() + "," + m_lon->text();
-        gpsLocation gpsl(m_lat->text(), m_lon->text());
+        qDebug() << "asGPS: reversegeocode" << m_lat->text() + "," + m_lng->text();
+        TrackPoint gpsl("", m_lat->text(), m_lng->text(), m_alt->text());
         resetIPTC();
         QStringList qsl = gpsl.formatAsGoogle(5);
         if (m_internalMapPage) {
@@ -858,10 +879,10 @@ void asGPSplugin::marker_moved(double lat, double lng, bool toolsMap)
 {
     if (!m_enable->isChecked()) return;
     qDebug() << "asGPS: marker moved:" << lat << lng << toolsMap;
-    gpsLocation gpsl(lat,lng);
+    TrackPoint gpsl(QDateTime::currentDateTime(), lat, lng, 0);
     QStringList qsl = gpsl.formatAsOption(3);
     m_lat->setText(qsl.at(0));
-    m_lon->setText(qsl.at(1));
+    m_lng->setText(qsl.at(1));
     m_status->setText("A");
     if (m_autofnl) reversegeocode();
     QWebView *wv = toolsMap ? m_externalView : m_internalView;
@@ -935,6 +956,7 @@ void asGPSplugin::handleXmapChange(bool enabled) {
     if (enabled) {
         if (m_enable->isChecked()) {
             m_externalView->show();
+            m_externalView->page()->mainFrame()->evaluateJavaScript("trackView()");
             updateMap();
         }
     } else {
@@ -980,22 +1002,10 @@ void asGPSplugin::displayHelp() {
 }
 
 void asGPSplugin::trackFileDialog() {
-	qDebug() << "asGPS: trackFileDialog";
-	QString filename=QFileDialog::getOpenFileName(0,tr("Open GPS track"),QString(), tr("Track files (*.gpx *.csv);;All files(*.*)"));	//Display file open dialog
-    m_trackData = "";
-    m_internalView->page()->mainFrame()->evaluateJavaScript("trackView()");
+    qDebug() << "asGPS: trackFileDialog";
+    QString filename=QFileDialog::getOpenFileName(0,tr("Open GPS track"),QString(), tr("Track files (*.gpx *.csv);;All files(*.*)"));	//Display file open dialog
     if(filename=="")return;	//cancel pressed
-	m_t_filename->setText(filename);
-    QFile file(filename);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream stream(&file);
-        m_trackData = stream.readAll();
-        file.close();
-        m_internalView->page()->mainFrame()->evaluateJavaScript("trackView()");
-        if (m_xmap->isChecked()) {
-            m_externalView->page()->mainFrame()->evaluateJavaScript("trackView()");
-        }
-    }
+    m_t_filename->setText(filename);
     trackLoad();
 }
 
@@ -1006,56 +1016,93 @@ void asGPSplugin::trackLoad() {
     }
     qDebug() << "asGPS: trackLoad";
     QString filename=m_t_filename->text();
-    if (filename == "") {
-        m_trackData = "";
-        m_internalView->page()->mainFrame()->evaluateJavaScript("trackView()");
+    int res;
+    if (track) {
+        delete track;
+        track = NULL;
+    }
+    if (!filename.isEmpty()) {
+        if(filename.endsWith(".csv", Qt::CaseInsensitive)) {
+            track=new GpsCsv(filename);
+        } else {
+            track=new GpsGpx(filename);
+        }
+        res=track->parsefile();
+        if (res==CGps::FileErr)
+            m_t_status->setText("<B><font color=#FF0000>Error:</font></B> File open problem.");
+        if (res==CGps::ParseErr)
+            m_t_status->setText("<B><font color=#FF0000>Error:</font></B> Parse problem or empty track.");
+        if (res==CGps::OK) {
+            qDebug() << "asGPS: track loaded";
+            m_t_tracktime->setText(track->first().time.toString(TimeDate_DEF)
+                                   + " UTC ... " + track->last().time.toString(TimeDate_DEF) + " UTC");
+            trackGetPos();
+        }
+    } else {
+        m_t_status->setText("no track file loaded.");
+        m_t_lat->setText("");
+        m_t_lng->setText("");
+        m_t_alt->setText("");
+        m_t_tracktime->setText("");
+    }
+
+    m_internalView->page()->mainFrame()->evaluateJavaScript(QString("trackView()"));
+    if (m_xmap->isChecked()) {
+        m_externalView->page()->mainFrame()->evaluateJavaScript(QString("trackView()"));
+    }
+
+    if (!track->isEmpty()) {
+        qDebug() << "asGPS: centering map on track start";
+        TrackPoint start = track->first();
+        m_internalView->page()->mainFrame()->evaluateJavaScript(QString("centerMap(%1,%2)").arg(start.lat).arg(start.lng));
         if (m_xmap->isChecked()) {
-            m_externalView->page()->mainFrame()->evaluateJavaScript("trackView()");
+            m_externalView->page()->mainFrame()->evaluateJavaScript(QString("centerMap(%1,%2)").arg(start.lat).arg(start.lng));
         }
     }
-    qDebug() << "1";
-    bool localTZ=m_t_localTZ->checkState();
-    int tzData=m_t_timezone->value();
-    int res;
-    qDebug() << "2";
-    if (track) delete track;
-    qDebug() << "3";
-    if(filename.indexOf("csv",0,Qt::CaseInsensitive)>0) {
-        track=new GpsCsv(filename,localTZ,tzData);
-    } else {
-        track=new GpsGpx(filename,localTZ,tzData);
-    }
-    qDebug() << "4";
-    res=track->parsefile();
-    if(res==CGps::FileErr)m_t_status->setText("<B><font color=#FF0000>Error:</font></B> File open problem");
-    if(res==CGps::ParseErr)m_t_status->setText("<B><font color=#FF0000>Error:</font></B> Parse problem");
-    trackGetPos();
 }
 
-void asGPSplugin::trackGetPos()
+void asGPSplugin::trackGetPos(int dummy)
 {
+    Q_UNUSED(dummy);
     if(track==NULL) return;
     if(!track->isLoaded()) return;
-    QDateTime time = QDateTime::fromString(photoTime, "yyyy-MM-dd HH:mm:ss.zzz");
-    CGps::ParseResult res = track->searchElement(time);
+    bool localTZ=m_t_localTZ->checkState();
+    int tzData=m_t_timezone->value();
+    int offset = m_t_timeoffset->value();
+    QDateTime time = QDateTime::fromString(photoTime, TimeDate_DEF);
+    CGps::ParseResult res = track->searchElement(time, localTZ, tzData, offset);
     if(res != CGps::OK){ //TEST
-        m_t_status->setText("<B><font color=#FF0000>Error:</font></B> Timestamp not found in track file");
+        m_t_status->setText(
+                    QString("<B><font color=#FF0000>Error:</font></B> Timestamp %1 UTC not found in track file.")
+                        .arg(track->position.time.toString(TimeDate_DEF)));
         m_t_lat->setText("");
-        m_t_lon->setText("");
+        m_t_lng->setText("");
+        m_t_alt->setText("");
         return;
     } else {
-        m_t_status->setText("<B><font color=#00FF00>Success!</font></B> Position updated correctly");
+        m_t_status->setText(
+                    QString("<B><font color=#00FF00>Success!</font></B> Position at %1 UTC found.")
+                        .arg(track->position.time.toString(TimeDate_DEF)));
     }
     QStringList pos=track->position.formatAsOption(4);
     m_t_lat->setText(pos[0]);
-    m_t_lon->setText(pos[1]);
+    m_t_lng->setText(pos[1]);
     m_t_alt->setText(pos[2]);
     m_lat->setText(pos[0]);
-    m_lon->setText(pos[1]);
+    m_lng->setText(pos[1]);
     m_alt->setText(pos[2]);
     updateMap();
 }
 
-QString asGPSplugin::getTrackData() {
-    return m_trackData;
+int asGPSplugin::getTrackSize() {
+   if (track == NULL) return 0;
+   return track->size();
+}
+
+QString asGPSplugin::getTrackPoint(int n) {
+    if (track == NULL || n>=track->size()) return "";
+    TrackPoint tp = track->at(n);
+    QString ret = QString("%1:%2:%3").arg(tp.lat,0,'f',8).arg(tp.lng,0,'f',8).arg((int)tp.type);
+//    qDebug() << "track: " << ret;
+    return ret;
 }

@@ -26,7 +26,6 @@ HEADERS += \
     gpscsv.h \
     gpsgpx.h \
     asGPSplugin.h \
-    gpsLocation.h \
     WebContents.h \
     WebInfos.h \
     iso3166.h \
@@ -41,7 +40,6 @@ SOURCES += \
     gpscsv.cpp \
     gpsgpx.cpp \
     asGPSplugin.cpp \
-    gpsLocation.cpp \
     WebContents.cpp \
     WebInfos.cpp \
     iso3166.cpp \
@@ -86,6 +84,8 @@ QMAKE_POST_LINK += "; strip 'lib$${TARGET}.so.$${VERSION}'"
 QMAKE_POST_LINK += "; ./afz '$$TARGET' '$$VERSION' 'asGPS GPS & IPTC tagging.xmp' 'asGPS IPTC tagging.xmp'"
 }
 }
+
+
 
 
 

@@ -8,7 +8,7 @@
 
 TrackPoint::TrackPoint(QString time, QString lats, QString lngs, QString alts) {
     qDebug() << "asGPS:" << lats << "/" << lngs;
-    this->time = QDateTime::fromString(time, "yyyy-MM-dd HH:mm:ss.zzz");
+    this->time = QDateTime::fromString(time, TimeDate_DEF);
     int latSign = 1;
     if (lats.endsWith("S")) {
         latSign = -1;
@@ -88,7 +88,7 @@ bool TrackPoint::operator==(TrackPoint const &t1) const {
 }
 
 QString TrackPoint::toString() const {
-    return QString("%1: %2/%3/%4").arg(this->time.toString("yyyy-MM-dd HH:mm:ss.zzz")).arg(this->lat).arg(this->lng).arg(this->alt);
+    return QString("%1: %2/%3/%4").arg(this->time.toString(TimeDate_DEF)).arg(this->lat).arg(this->lng).arg(this->alt);
 }
 
 QStringList TrackPoint::formatAsGoogle(int n) {
@@ -109,7 +109,7 @@ QStringList TrackPoint::formatAsOption(int n) {
     d = fabs(this->lng);
     m = (fabs(this->lng) - d)*60;
     sl << QString("%1,%2%3").arg(d).arg(m,n+3,'f',n,'0').arg(this->lng<0?'W':'E');
-    sl << QString("%1/10").arg(this->alt * 10, 0, 'f', 0);
+    sl << QString("%1/100").arg(this->alt * 100, 0, 'f', 0);
     return sl;
 }
 

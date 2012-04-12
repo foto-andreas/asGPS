@@ -394,12 +394,17 @@ public slots:
 
 	/** Update GPS position from the loaded track.
       */
-    void trackGetPos();
+    void trackGetPos(int dummy = 0);
 
     /**
-      * Get track file content.
+      * Get number of points in the track.
       */
-    QString getTrackData();
+    int getTrackSize();
+
+    /**
+      * Get String with the points lat/lng
+      */
+    QString getTrackPoint(int n);
 
 private:
 
@@ -484,7 +489,7 @@ private:
 
     /** Check if marker should be gray or red.
       */
-    void hideUnhideMarker(QString merk_lat, QString merk_lng);
+    void hideUnhideMarker(QString merk_lat, QString merk_lng, QString merk_alt);
 
 private:
 
@@ -510,7 +515,7 @@ private:
     QLineEdit   *m_edit;            /**< this is the main edit field for location input */
 
     QLineEdit   *m_lat;             /**< the edit field for the latitude */
-    QLineEdit   *m_lon;             /**< the edit field for the longitude */
+    QLineEdit   *m_lng;             /**< the edit field for the longitude */
     QLineEdit   *m_alt;             /**< the edit field for the altitude */
     QLineEdit   *m_date;            /**< the edit field for the date */
     QLineEdit   *m_time;            /**< the edit field for the time */
@@ -534,7 +539,7 @@ private:
     QCheckBox   *m_iptcCB;          /**< global checkbox for IPTC coordinates */
 
     QCheckBox   *m_latCB;           /**< checkbox for the latitude edit field */
-    QCheckBox   *m_lonCB;           /**< checkbox for the longitude edit field */
+    QCheckBox   *m_lngCB;           /**< checkbox for the longitude edit field */
     QCheckBox   *m_altCB;           /**< checkbox for the altitude edit field */
     QCheckBox   *m_dateCB;          /**< checkbox for the date edit field */
     QCheckBox   *m_timeCB;          /**< checkbox for the time edit field */
@@ -547,7 +552,7 @@ private:
     QCheckBox   *m_locationCB;      /**< checkbox for the location edit field */
 
     QLabel      *m_l_lat;           /**< info text for current GPS latitude value in image settings */
-    QLabel      *m_l_lon;           /**< info text for current GPS longitude value in image settings */
+    QLabel      *m_l_lng;           /**< info text for current GPS longitude value in image settings */
     QLabel      *m_l_alt;           /**< info text for current GPS altitude value in image settings */
     QLabel      *m_l_date;          /**< info text for current GPS date value in image settings */
     QLabel      *m_l_time;          /**< info text for current GPS time value in image settings */
@@ -563,11 +568,13 @@ private:
     QAbstractButton *m_t_filebutton;/**< button to browse for a GPS track file */
     QCheckBox   *m_t_localTZ;       /**< checkbox to use the local time zone */
     QSpinBox	*m_t_timezone;      /**< spinbox for time zone */
+    QSpinBox	*m_t_timeoffset;    /**< spinbox for time offset */
     QLabel      *m_t_status;        /**< info text for GPS track read status */
     QLineEdit   *m_t_filename;      /**< GPS track file name */
     QLineEdit   *m_t_lat;           /**< GPS track latitude */
-    QLineEdit   *m_t_lon;           /**< GPS track longitude */
+    QLineEdit   *m_t_lng;           /**< GPS track longitude */
     QLineEdit   *m_t_alt;           /**< GPS track altitude */
+    QLabel      *m_t_tracktime;     /**< display the track time interval */
     QString     photoTime;          /**< Metadata - photo time */
     //GPS Track
 
@@ -612,6 +619,6 @@ private:
 
     int         m_loaded;           /**< counter for loaded web pages */
 
-    QString     m_trackData;        /**< track file content */
+    bool inSettingsChange;
 
 };

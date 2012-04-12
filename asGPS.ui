@@ -717,6 +717,12 @@ QTextEdit {
       </layout>
      </widget>
      <widget class="QWidget" name="asGPSTrackTab">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <attribute name="title">
        <string>Track</string>
       </attribute>
@@ -749,6 +755,12 @@ QTextEdit {
        </item>
        <item row="1" column="0" colspan="6">
         <widget class="QGroupBox" name="trackPosGroupBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="title">
           <string>GPS Position</string>
          </property>
@@ -798,7 +810,7 @@ QTextEdit {
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QLabel" name="label_8">
+           <widget class="QLabel" name="trackAltLabel">
             <property name="text">
              <string>Altitude</string>
             </property>
@@ -859,14 +871,14 @@ QTextEdit {
          </property>
         </widget>
        </item>
-       <item row="3" column="0" colspan="6">
+       <item row="5" column="0" colspan="6">
         <widget class="QLabel" name="trackStatusLabel">
          <property name="text">
           <string>&lt;b&gt;Status:&lt;/b&gt;</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="2">
+       <item row="6" column="2">
         <spacer name="verticalSpacer_4">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -878,6 +890,42 @@ QTextEdit {
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="4" column="0" colspan="6">
+        <widget class="QLabel" name="trackTimeInterval">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>tracktime</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QSpinBox" name="trackTimeOffset">
+         <property name="toolTip">
+          <string>&lt;html&gt;Use this setting to correct a small time offset between camera and gps unit.&lt;/html&gt;</string>
+         </property>
+         <property name="suffix">
+          <string> s</string>
+         </property>
+         <property name="minimum">
+          <number>-3600</number>
+         </property>
+         <property name="maximum">
+          <number>3600</number>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="trackTimeOffsetLabel">
+         <property name="text">
+          <string>Time offset</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

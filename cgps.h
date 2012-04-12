@@ -4,19 +4,20 @@
 #include <QIODevice>
 #include <QDateTime>
 
-#include "gpsLocation.h"
 #include "trackpoint.h"
 #include "tracklist.h"
 
 class CGps : public TrackList {
 	
 public:
+
     typedef enum  {
         OK, Outside, FileErr, ParseErr, NotFound
     } ParseResult;
-    CGps(QString filename, bool useLocalTZ, int tzData);
-	virtual int parsefile();
-    ParseResult searchElement(QDateTime timestamp);
+
+    CGps(QString filename);
+    virtual int parsefile();
+    ParseResult searchElement(QDateTime timestamp, bool localTZ, int tzData, int offset);
     TrackPoint position;
 	bool isLoaded() {
 		return loaded;
@@ -25,11 +26,9 @@ public:
 protected:
 	bool loaded;
 	QString fn;
-	bool localtz;
-	int tzdata;
 	QDateTime pdt;
 	int getTZ(QString lat, QString lon, QDateTime ts);
-	void convertTZ(QDateTime *ts);
+    void convertTZ(QDateTime *ts, bool localTZ, int tzData, int offset);
     void addElement(double lat, double lon, double elevation, QDateTime time, TrackPoint::TP_TYPE type);
 
 };

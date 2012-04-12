@@ -8,7 +8,7 @@
 class GpsGpx: public CGps {
 	
 public:
-	GpsGpx(QString filename, bool useLocalTZ, int tzData);
+    GpsGpx(QString filename);
 	
 private:
 	int parsefile();

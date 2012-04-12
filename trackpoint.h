@@ -5,15 +5,18 @@
 
 #define EPS 0.0000000000001
 
+#define TimeDate_DEF "yyyy-MM-dd HH:mm:ss.zzz"
+#define TimeDate_GPS "yyyy-MM-ddThh:mm:ssZ"
+
 class TrackPoint {
 
 public:
 
     typedef enum {
-      TRACK_POINT,
-      WAY_POINT,
-      ROUTE_POINT,
-      INVALID
+      TRACK_POINT = 0,
+      WAY_POINT = 1,
+      ROUTE_POINT = 2,
+      INVALID = 3
     } TP_TYPE;
 
     TrackPoint() :
