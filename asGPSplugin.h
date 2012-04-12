@@ -599,6 +599,7 @@ class asGPSplugin : public QObject, public B5Plugin {
 
         bool m_autolim; /**< is auto locate in map enabled? */
         bool m_autofnl; /**< is auto find nearest location enabled? */
+        bool m_autotag; /**< is auto tagging enabled? */
 
         QCheckBox *m_cc3; /**< checkbox for 3letter country code */
         QCheckBox *m_openEnabled; /**< checkbox for enabled on startup */
