@@ -3,9 +3,9 @@
 /** \mainpage asGPS - A geotagging plugin for AfterShot Pro
  *
  * @author    Andeas Schrell
- * @version   1.2.1
- * @date      2011-04-10
- * @warning   Works only when QtWebKit-Libs are delivered with ASP
+ * @version   1.2.2
+ * @date      2011-04-22
+ * @warning   Works only when QtWebKit-Libs are delivered with ASP (since v1.0.1 of ASP)
  *
  * \section intro_sec Introduction
  *

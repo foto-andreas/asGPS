@@ -363,9 +363,7 @@ void asGPSplugin::fileSelectorUserCountries() {
 }
 
 void asGPSplugin::countryTableChanged(QString table) {
-    m_countryMap->blockSignals(true);
     m_config->countryTable(table);
-    m_countryMap->blockSignals(false);
     qDebug() << "asGPS: loading user defined country table from" << table;
     m_iso3661.clear();
     m_iso3661.load();
