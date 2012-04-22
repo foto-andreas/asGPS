@@ -52,7 +52,7 @@
 
     marker = new google.maps.Marker({
       position: latLng,
-      map: map,
+      map: null,
       draggable: true,
       optimized: false,
       icon: new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FF3333")
@@ -60,7 +60,7 @@
 
     markerGray = new google.maps.Marker({
       position: latLng,
-      map: null,
+      map: map,
       draggable: true,
       optimized: false,
       icon: new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|909090")
