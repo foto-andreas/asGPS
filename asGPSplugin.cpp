@@ -561,9 +561,7 @@ void asGPSplugin::hideUnhideMarker(QString merk_lat, QString merk_lng, QString m
     if (m_config->keepMapOnHotnessChange() && m_lat->text().isEmpty() && m_lng->text().isEmpty()) {
         qDebug() << "asGPS: hideMarker";
         m_internalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
-        if (m_xmap->isChecked()) {
-            m_externalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
-        }
+        m_externalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
         m_lat->setText(merk_lat);
         m_lng->setText(merk_lng);
         m_alt->setText(merk_alt);
@@ -795,10 +793,8 @@ void asGPSplugin::updateMap() {
         }
         m_internalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
             QString("%1").arg(gpsl.lat,0,'f',5) + "," + QString("%1").arg(gpsl.lng,0,'f',5) + ")");
-        if (m_xmap->isChecked()) {
-            m_externalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
-                QString("%1").arg(gpsl.lat,0,'f',5) + "," + QString("%1").arg(gpsl.lng,0,'f',5) + ")");
-        }
+        m_externalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+            QString("%1").arg(gpsl.lat,0,'f',5) + "," + QString("%1").arg(gpsl.lng,0,'f',5) + ")");
     }
 }
 
@@ -822,18 +818,14 @@ void asGPSplugin::geocode() {
         if (m_edit->text().length()==0) {
             m_edit->setText(getIPTCconcat());
         }
-        if (m_internalView) {
-            m_internalMapPage->mainFrame()->evaluateJavaScript(
-                        "codeCoordinatesFrom('" + m_edit->text() +
-                        "'," + (m_enable->isChecked() ? "true" : "false") +
-                        ", '" + m_config->mapRegion() + "')");
-        }
-        if (m_xmap->isChecked())  {
-            m_externalMapPage->mainFrame()->evaluateJavaScript(
-                        "codeCoordinatesFrom('" + m_edit->text() +
-                        "'," + (m_enable->isChecked() ? "true" : "false") +
-                        ", '" + m_config->mapRegion() + "')");
-        }
+        m_internalMapPage->mainFrame()->evaluateJavaScript(
+            "codeCoordinatesFrom('" + m_edit->text() +
+            "'," + (m_enable->isChecked() ? "true" : "false") +
+            ", '" + m_config->mapRegion() + "')");
+        m_externalMapPage->mainFrame()->evaluateJavaScript(
+            "codeCoordinatesFrom('" + m_edit->text() +
+            "'," + (m_enable->isChecked() ? "true" : "false") +
+            ", '" + m_config->mapRegion() + "')");
         updateMap();
     }
 }
@@ -872,12 +864,8 @@ void asGPSplugin::reversegeocode() {
         TrackPoint gpsl("", m_lat->text(), m_lng->text(), m_alt->text());
         resetIPTC();
         QStringList qsl = gpsl.formatAsGoogle(5);
-        if (m_internalMapPage) {
-            m_internalMapPage->mainFrame()->evaluateJavaScript("codeAddressFrom('" + qsl.at(0) + "," + qsl.at(1) + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
-        }
-        if (m_xmap->isChecked()) {
-            m_externalMapPage->mainFrame()->evaluateJavaScript("codeAddressFrom('" + qsl.at(0) + "," + qsl.at(1) + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
-        }
+        m_internalMapPage->mainFrame()->evaluateJavaScript("codeAddressFrom('" + qsl.at(0) + "," + qsl.at(1) + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
+        m_externalMapPage->mainFrame()->evaluateJavaScript("codeAddressFrom('" + qsl.at(0) + "," + qsl.at(1) + "'," + (m_enable->isChecked() ? "true" : "false") + ")");
         updateMap();
     }
 }
@@ -967,13 +955,11 @@ void asGPSplugin::handleCheckedChange(bool enabled) {
     if (enabled) {
         reload();
         m_internalView->show();
-        if (m_xmap->isChecked()) {
-            m_externalView->show();
-        }
+        m_externalView->show();
         updateMap();
     } else {
         m_internalView->hide();
-        if (m_xmap->isChecked()) m_externalView->hide();
+        m_externalView->hide();
         resetIPTC();
         resetGPS();
         resetGoogle();
@@ -985,7 +971,7 @@ void asGPSplugin::handleXmapChange(bool enabled) {
     if (enabled) {
         if (m_enable->isChecked()) {
             m_externalView->show();
-            m_externalView->page()->mainFrame()->evaluateJavaScript("trackView()");
+//TEST      m_externalView->page()->mainFrame()->evaluateJavaScript("trackView()");
             updateMap();
         }
     } else {
@@ -1078,19 +1064,15 @@ void asGPSplugin::trackLoad() {
     }
 
     m_internalView->page()->mainFrame()->evaluateJavaScript(QString("trackView()"));
-    if (m_xmap->isChecked()) {
-        m_externalView->page()->mainFrame()->evaluateJavaScript(QString("trackView()"));
-    }
+    m_externalView->page()->mainFrame()->evaluateJavaScript(QString("trackView()"));
 
     if (track != NULL && !track->isEmpty()) {
         qDebug() << "asGPS: centering map on track start";
         TrackPoint start = track->first();
         m_internalView->page()->mainFrame()->evaluateJavaScript(
             QString("centerMap(%1,%2)").arg(start.lat).arg(start.lng));
-        if (m_xmap->isChecked()) {
-            m_externalView->page()->mainFrame()->evaluateJavaScript(
-                QString("centerMap(%1,%2)").arg(start.lat).arg(start.lng));
-        }
+        m_externalView->page()->mainFrame()->evaluateJavaScript(
+            QString("centerMap(%1,%2)").arg(start.lat).arg(start.lng));
     }
 }
 
