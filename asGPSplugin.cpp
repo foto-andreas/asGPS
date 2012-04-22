@@ -488,13 +488,10 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 {
     Q_UNUSED(options);
 
-    m_pHub->blockSignals(true);
-
     qDebug() << "\n\nasGPSplugin: handleHotnessChanged";
 
     if (inSettingsChange) {
         qDebug() << "asGPSplugin: hotness ignored";
-        m_pHub->blockSignals(false);
         return;
     }
 
@@ -516,7 +513,6 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 		photoTime=options.options(0)->getString(iopt,0,ok);
 
         if (!m_enable->isChecked()) {
-            m_pHub->blockSignals(false);
             return;
         }
 
@@ -533,15 +529,11 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 
     }
 
-    m_pHub->blockSignals(false);
-
 }
 
 void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  const PluginImageSettings &changed, int layer )
 {
     Q_UNUSED(changed);
-
-    m_pHub->blockSignals(true);
 
     qDebug() << "\n\nasGPSplugin: handleSettingsChanged started on layer" << layer;
 
@@ -561,8 +553,6 @@ void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  co
     } else {
         if (m_enable->isChecked()) updateMap();
     }
-
-    m_pHub->blockSignals(false);
 
 }
 
@@ -769,7 +759,6 @@ void asGPSplugin::tagImage() {
         qDebug() << "asGPS: changed tag state" << (m_autotag);
     } else {
         qDebug() << "asGPS: beginSettingsChange()";
-        m_pHub->blockSignals(true);
         inSettingsChange = true;
         PluginOptionList* options = m_pHub->beginSettingsChange("asGPS: GPS & IPTC");
         qDebug() << "asGPS: options =" << options;
@@ -790,7 +779,6 @@ void asGPSplugin::tagImage() {
             inSettingsChange = false;
             qDebug() << "asGPS: endSettingsChange()";
         }
-        m_pHub->blockSignals(false);
     }
 }
 
