@@ -87,8 +87,7 @@ class InternalWebView : public QWebView
     protected:
         virtual void showEvent(QShowEvent *event) {
             qDebug() << "asGPS: show Event";
-//            plugin->updateMap();
-//TEST            this->plugin->reload();
+//TEST      plugin->updateMap();
             event->accept();
         }
 
@@ -223,6 +222,8 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 
     m_autolim = false;
     m_autofnl = false;
+    m_autotag = false;
+
     m_internalView = uiWidget->findChild<QWebView*>("asGPSWebView");
     m_externalView = new MyWebView(m_xmap);
     m_externalView->setWindowTitle(tr("AfterShot Pro - asGPS map window"));
@@ -287,6 +288,12 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_t_tracktime->setText("");
 	//GPS Track
 
+    m_cb_bicycle = uiWidget->findChild<QCheckBox*>("cbBicycle");
+    m_cb_traffic = uiWidget->findChild<QCheckBox*>("cbTraffic");
+    m_cb_weather = uiWidget->findChild<QCheckBox*>("cbWeather");
+    m_cb_clouds = uiWidget->findChild<QCheckBox*>("cbClouds");
+    m_cb_panoramio = uiWidget->findChild<QCheckBox*>("cbPanoramio");
+
     m_coordsCB = uiWidget->findChild<QCheckBox*>("coordsCB");
     m_iptcCB = uiWidget->findChild<QCheckBox*>("iptcCB");
 
@@ -333,6 +340,12 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
 	connect(m_t_filebutton, SIGNAL ( clicked() ), SLOT ( trackFileDialog() ));
 	connect(m_t_filename,SIGNAL( editingFinished() ), SLOT( trackUpdatePos() ) );
 	//GPS Track
+
+    connect(m_cb_bicycle, SIGNAL(clicked()), SLOT(mapLayers()));
+    connect(m_cb_traffic, SIGNAL(clicked()), SLOT(mapLayers()));
+    connect(m_cb_weather, SIGNAL(clicked()), SLOT(mapLayers()));
+    connect(m_cb_clouds, SIGNAL(clicked()), SLOT(mapLayers()));
+    connect(m_cb_panoramio, SIGNAL(clicked()), SLOT(mapLayers()));
 
     m_iptcCB->setCheckState(Qt::PartiallyChecked);
     m_coordsCB->setCheckState(Qt::PartiallyChecked);
@@ -475,10 +488,13 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 {
     Q_UNUSED(options);
 
+    m_pHub->blockSignals(true);
+
     qDebug() << "\n\nasGPSplugin: handleHotnessChanged";
 
     if (inSettingsChange) {
         qDebug() << "asGPSplugin: hotness ignored";
+        m_pHub->blockSignals(false);
         return;
     }
 
@@ -492,15 +508,17 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 
     if (options.options(0) != NULL) {
         bool ok=true;
-        qDebug() << "HHC: " << options.options(0)->getString(ID_Location, 0, ok) << ok;
+        qDebug() << "asGPS: HHC " << options.options(0)->getString(ID_Location, 0, ok) << ok;
 
         updateUi(options.options(0));
  
 		int iopt=m_pHub->optionIdForName("DigitizedDateTime",0);	//needed the photo time for every photo, even if it's not enabled
 		photoTime=options.options(0)->getString(iopt,0,ok);
 
-        if (!m_enable->isChecked()) return;
-
+        if (!m_enable->isChecked()) {
+            m_pHub->blockSignals(false);
+            return;
+        }
 
         hideUnhideMarker(merk_lat, merk_lng, merk_alt);
 
@@ -508,8 +526,14 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 
         if (m_autolim) geocode();
         if (m_autofnl) reversegeocode();
+        if (m_autotag) {
+            qDebug() << "asGPS: would like to autotag - 300ms - then emit the signal...";
+            QTimer::singleShot(300, m_tag, SLOT(click()));
+        }
 
     }
+
+    m_pHub->blockSignals(false);
 
 }
 
@@ -517,12 +541,14 @@ void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  co
 {
     Q_UNUSED(changed);
 
+    m_pHub->blockSignals(true);
+
     qDebug() << "\n\nasGPSplugin: handleSettingsChanged started on layer" << layer;
 
     // only run in main layer
     if (layer == 0 && options.options(0) != NULL) {
         bool ok;
-        qDebug() << "HSC: " << options.options(0)->getString(ID_Location, 0, ok) << ok;
+        qDebug() << "asGPS: HSC " << options.options(0)->getString(ID_Location, 0, ok) << ok;
 
         QString merk_lat = m_lat->text();
         QString merk_lng = m_lng->text();
@@ -535,6 +561,9 @@ void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  co
     } else {
         if (m_enable->isChecked()) updateMap();
     }
+
+    m_pHub->blockSignals(false);
+
 }
 
 void asGPSplugin::hideUnhideMarker(QString merk_lat, QString merk_lng, QString merk_alt) {
@@ -567,7 +596,7 @@ void asGPSplugin::setStringField(PluginOptionList *options, QLineEdit *field, in
 
 void asGPSplugin::tag(PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, int optionID) {
     if (!m_enable->isChecked()) return;
-    qDebug() << "asGPS: tag";
+//    qDebug() << "asGPS: tag";
     if ((cb == NULL) || (cb->checkState() == Qt::Checked) || ((cb->checkState() == Qt::PartiallyChecked) && (lab->text() == ""))) {
         qDebug() << QString("asGPS: setting option %1 to: '" + field->text() + "'").arg(optionID).toAscii();
         options->setString(optionID, 0, field->text());
@@ -728,26 +757,40 @@ void asGPSplugin::clearTags() {
 
 void asGPSplugin::tagImage() {
     if (!m_enable->isChecked()) return;
-    qDebug() << "asGPS: beginSettingsChange()";
-    inSettingsChange = true;
-    PluginOptionList* options = m_pHub->beginSettingsChange("asGPS: GPS & IPTC");
-    qDebug() << options;
-    if (options) {
-        tag(options, m_lat, m_latCB, m_l_lat, ID_GPSLatitude);
-        tag(options, m_lng, m_lngCB, m_l_lng, ID_GPSLongitude);
-        tag(options, m_alt, m_altCB, m_l_alt, ID_GPSAltitude);
-        tag(options, m_date, m_dateCB, m_l_date, ID_GPSDateStamp);
-        tag(options, m_time, m_timeCB, m_l_time, ID_GPSTimeStamp);
-        tag(options, m_status, m_statusCB, m_l_status, ID_GPSStatus);
-        tag(options, m_sats, m_satsCB, m_l_sats, ID_GPSSatellites);
-        tag(options, m_countryCode, m_countryCodeCB, m_l_countryCode, ID_CountryCode);
-        tag(options, m_country, m_countryCB, m_l_country, ID_Country);
-        tag(options, m_state, m_stateCB, m_l_state, ID_State);
-        tag(options, m_city, m_cityCB, m_l_city, ID_City);
-        tag(options, m_location, m_locationCB, m_l_location, ID_Location);
-        m_pHub->endSettingChange();
-        inSettingsChange = false;
-        qDebug() << "asGPS: endSettingsChange()";
+    Qt::KeyboardModifiers keyMod = QApplication::keyboardModifiers ();
+    bool isCTRL = keyMod.testFlag(Qt::ControlModifier);
+    if (isCTRL) {
+        m_autotag = !m_autotag;
+        if (m_autotag) {
+            m_tag->setStyleSheet("QPushButton {background-color: rgb(0, 100, 0); }");
+        } else {
+            m_tag->setStyleSheet(m_default_button_style);
+        }
+        qDebug() << "asGPS: changed tag state" << (m_autotag);
+    } else {
+        qDebug() << "asGPS: beginSettingsChange()";
+        m_pHub->blockSignals(true);
+        inSettingsChange = true;
+        PluginOptionList* options = m_pHub->beginSettingsChange("asGPS: GPS & IPTC");
+        qDebug() << "asGPS: options =" << options;
+        if (options) {
+            tag(options, m_lat, m_latCB, m_l_lat, ID_GPSLatitude);
+            tag(options, m_lng, m_lngCB, m_l_lng, ID_GPSLongitude);
+            tag(options, m_alt, m_altCB, m_l_alt, ID_GPSAltitude);
+            tag(options, m_date, m_dateCB, m_l_date, ID_GPSDateStamp);
+            tag(options, m_time, m_timeCB, m_l_time, ID_GPSTimeStamp);
+            tag(options, m_status, m_statusCB, m_l_status, ID_GPSStatus);
+            tag(options, m_sats, m_satsCB, m_l_sats, ID_GPSSatellites);
+            tag(options, m_countryCode, m_countryCodeCB, m_l_countryCode, ID_CountryCode);
+            tag(options, m_country, m_countryCB, m_l_country, ID_Country);
+            tag(options, m_state, m_stateCB, m_l_state, ID_State);
+            tag(options, m_city, m_cityCB, m_l_city, ID_City);
+            tag(options, m_location, m_locationCB, m_l_location, ID_Location);
+            m_pHub->endSettingChange();
+            inSettingsChange = false;
+            qDebug() << "asGPS: endSettingsChange()";
+        }
+        m_pHub->blockSignals(false);
     }
 }
 
@@ -773,6 +816,7 @@ void asGPSplugin::updateMap() {
 
 void asGPSplugin::geocode() {
     if (!m_enable->isChecked()) return;
+    qDebug() << "asGPS: geocode" << m_edit->text();
     Qt::KeyboardModifiers keyMod = QApplication::keyboardModifiers ();
     bool isCTRL = keyMod.testFlag(Qt::ControlModifier);
     if (isCTRL) {
@@ -786,7 +830,6 @@ void asGPSplugin::geocode() {
         }
         qDebug() << "asGPS: changed lim state" << (m_autolim);
     } else {
-        qDebug() << "asGPS: geocode" << m_edit->text();
         resetGPS();
         if (m_edit->text().length()==0) {
             m_edit->setText(getIPTCconcat());
@@ -824,6 +867,7 @@ QString asGPSplugin::getIPTCconcat() {
 
 void asGPSplugin::reversegeocode() {
     if (!m_enable->isChecked()) return;
+    qDebug() << "asGPS: reversegeocode" << m_lat->text() + "," + m_lng->text();
     Qt::KeyboardModifiers keyMod = QApplication::keyboardModifiers ();
     bool isCTRL = keyMod.testFlag(Qt::ControlModifier);
     if (isCTRL) {
@@ -837,7 +881,6 @@ void asGPSplugin::reversegeocode() {
         }
         qDebug() << "asGPS: changed fnl state" << (m_autofnl);
     } else {
-        qDebug() << "asGPS: reversegeocode" << m_lat->text() + "," + m_lng->text();
         TrackPoint gpsl("", m_lat->text(), m_lng->text(), m_alt->text());
         resetIPTC();
         QStringList qsl = gpsl.formatAsGoogle(5);
@@ -1051,7 +1094,7 @@ void asGPSplugin::trackLoad() {
         m_externalView->page()->mainFrame()->evaluateJavaScript(QString("trackView()"));
     }
 
-    if (!track->isEmpty()) {
+    if (track != NULL && !track->isEmpty()) {
         qDebug() << "asGPS: centering map on track start";
         TrackPoint start = track->first();
         m_internalView->page()->mainFrame()->evaluateJavaScript(
@@ -1072,7 +1115,7 @@ void asGPSplugin::trackGetPos(int dummy) {
     int offset = m_t_timeoffset->value();
     QDateTime time = QDateTime::fromString(photoTime, TimeDate_DEF);
     CGps::ParseResult res = track->searchElement(time, localTZ, tzData, offset);
-    if (res != CGps::OK) { //TEST
+    if (res != CGps::OK) {
         m_t_status->setText(
             QString("<B><font color=#FF0000>Error:</font></B> Timestamp %1 UTC not found in track file.").arg(
                 track->position.time.toString(TimeDate_DEF)));
@@ -1106,4 +1149,20 @@ QString asGPSplugin::getTrackPoint(int n) {
     QString ret = QString("%1:%2:%3:%4").arg(tp.lat, 0, 'f', 8).arg(tp.lng, 0, 'f', 8).arg((int) tp.type).arg(tp.name);
 //    qDebug() << "track: " << ret;
     return ret;
+}
+
+void asGPSplugin::mapLayers() {
+    QString command("mapLayers(");
+    command.append(m_cb_bicycle->isChecked() ? "true" : "false");
+    command.append(", ");
+    command.append(m_cb_traffic->isChecked() ? "true" : "false");
+    command.append(", ");
+    command.append(m_cb_weather->isChecked() ? "true" : "false");
+    command.append(", ");
+    command.append(m_cb_clouds->isChecked() ? "true" : "false");
+    command.append(", ");
+    command.append(m_cb_panoramio->isChecked() ? "true" : "false");
+    command.append(")");
+    m_internalView->page()->mainFrame()->evaluateJavaScript(command);
+    m_externalView->page()->mainFrame()->evaluateJavaScript(command);
 }
