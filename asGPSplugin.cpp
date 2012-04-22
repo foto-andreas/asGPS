@@ -955,7 +955,8 @@ void asGPSplugin::handleCheckedChange(bool enabled) {
     if (enabled) {
         reload();
         m_internalView->show();
-        m_externalView->show();
+        if (m_xmap->isChecked())
+            m_externalView->show();
         updateMap();
     } else {
         m_internalView->hide();
@@ -970,7 +971,8 @@ void asGPSplugin::handleXmapChange(bool enabled) {
     qDebug() << "asGPS: enabled xmap enabled =" << enabled;
     if (enabled) {
         if (m_enable->isChecked()) {
-            m_externalView->show();
+            if (m_xmap->isChecked())
+                m_externalView->show();
 //TEST      m_externalView->page()->mainFrame()->evaluateJavaScript("trackView()");
             updateMap();
         }
