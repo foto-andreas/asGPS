@@ -649,6 +649,10 @@ void asGPSplugin::reload() {
     m_sats->setText(m_l_sats->text());
     splitDate();
     m_edit->setText(getIPTCconcat());
+    QString merk_lat = m_lat->text();
+    QString merk_lng = m_lng->text();
+    QString merk_alt = m_alt->text();
+    hideUnhideMarker(merk_lat, merk_lng, merk_alt);
     updateMap();
 }
 
@@ -910,6 +914,12 @@ void asGPSplugin::marker_moved(double lat, double lng, bool toolsMap)
         ov->page()->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
             QString("%1").arg(lat,0,'f',5) + "," + QString("%1").arg(lng,0,'f',5) + ")");
     }
+    Qt::KeyboardModifiers keyMod = QApplication::keyboardModifiers ();
+    bool isSHIFT = keyMod.testFlag(Qt::ShiftModifier);
+    if (isSHIFT) {
+        QTimer::singleShot(100, m_tag, SLOT(click()));
+    }
+
 }
 
 void asGPSplugin::set_country(QString short_name, QString long_name) {
