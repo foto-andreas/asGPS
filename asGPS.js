@@ -12,6 +12,8 @@
 
     geocoder = new google.maps.Geocoder();
 
+    elevator = new google.maps.ElevationService();
+
     var latLng = new google.maps.LatLng(0, 0);
     var infowindow = new google.maps.InfoWindow();
 
@@ -80,6 +82,7 @@
 
     google.maps.event.addListener(map, 'click', function(e) {
       marker.setPosition(e.latLng);
+      startElevator(e.latLng);
       markerGray.setPosition(e.latLng);
       setMarkerTitle(e.latLng);
       api.marker_moved(e.latLng.lat(),e.latLng.lng(), toolsMap);
@@ -87,17 +90,38 @@
 
     google.maps.event.addListener(marker, 'dragend', function(e) {
       marker.setPosition(e.latLng);
+      startElevator(e.latLng);
       markerGray.setPosition(e.latLng);
       setMarkerTitle(e.latLng);
-      api.marker_moved(e.latLng.lat(),e.latLng.lng(), toolsMap);
     });
 
     google.maps.event.addListener(markerGray, 'dragend', function(e) {
       markerGray.setPosition(e.latLng);
+      startElevator(e.latLng);
       marker.setPosition(e.latLng);
       setMarkerTitle(e.latLng);
-      api.marker_moved(e.latLng.lat(),e.latLng.lng(), toolsMap);
     });
+  }
+
+  function startElevator(loc) {
+    locs = [];
+    locs.push(loc);
+    positionalRequest = {
+        'locations': locs
+    }
+    elevator.getElevationForLocations(positionalRequest, function(results, status) {
+        height = 0;
+        if (status == google.maps.ElevationStatus.OK) {
+          if (results[0]) {
+            height = results[0].elevation;
+          } else {
+            // api.alert("No results found");
+          }
+        } else {
+          // api.alert("Elevation service failed due to: " + status);
+        }
+        api.marker_moved(loc.lat(), loc.lng(), height, toolsMap);
+      });
   }
 
   function mapLayers(bike, traffic, weather, clouds, panoramio) {

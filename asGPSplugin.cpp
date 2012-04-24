@@ -896,14 +896,15 @@ void asGPSplugin::marker_click(bool toolsMap)
     qDebug() << "asGPS: marker clicked";
 }
 
-void asGPSplugin::marker_moved(double lat, double lng, bool toolsMap)
+void asGPSplugin::marker_moved(double lat, double lng, double height, bool toolsMap)
 {
     if (!m_enable->isChecked()) return;
     qDebug() << "asGPS: marker moved:" << lat << lng << toolsMap;
-    TrackPoint gpsl(QDateTime::currentDateTime(), lat, lng, 0);
+    TrackPoint gpsl(QDateTime::currentDateTime(), lat, lng, height);
     QStringList qsl = gpsl.formatAsOption(3);
     m_lat->setText(qsl.at(0));
     m_lng->setText(qsl.at(1));
+    m_alt->setText(QString("%1/1").arg(height,0,'f',0));
     m_status->setText("A");
     if (m_autofnl) reversegeocode();
     QWebView *wv = toolsMap ? m_externalView : m_internalView;

@@ -337,9 +337,10 @@ class asGPSplugin : public QObject, public B5Plugin {
          * correct GPS values.
          * @param lat latitude in degrees as a double value
          * @param lng longitude in degrees as a double value
+         * @param height the height at this location
          * @param toolsMap the info which map is used
          */
-        void marker_moved(double lat, double lng, bool toolsMap);
+        void marker_moved(double lat, double lng, double height, bool toolsMap);
 
         /** Slot for the JavaScript part to set the country code and country.
          * The Google Maps API provides us with these values.
