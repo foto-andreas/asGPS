@@ -10,8 +10,8 @@
     <qresource prefix="/img">
         <file>DE_btn_donateCC_LG.gif</file>
         <file>EN_btn_donateCC_LG.gif</file>
-        <file>checked.png</file>
         <file>unchecked.png</file>
+        <file>checked.png</file>
         <file>indeterminate.png</file>
     </qresource>
     <qresource prefix="/text">
