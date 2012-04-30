@@ -4,7 +4,7 @@
  *
  * @author    Andeas Schrell
  * @version   1.2.4
- * @date      2012-04-24
+ * @date      2012-04-30
  * @warning   Works only when QtWebKit-Libs are delivered with ASP (since v1.0.1 of ASP)
  *
  * \section intro_sec Introduction
