@@ -15,7 +15,9 @@ TrackPoint::TrackPoint(QString time, QString lats, QString lngs, QString alts) {
     }
     lats.resize(lats.size() - 1);
     QStringList latl = lats.split(",");
-    if (latl.size() == 2) {
+    if (latl.size() == 3) {
+        this->lat = latSign * (latl.at(0).toDouble() + latl.at(1).toDouble() / 60.0 + latl.at(2).toDouble() / 60.0 / 60.0);
+    } else if (latl.size() == 2) {
         this->lat = latSign * (latl.at(0).toDouble() + latl.at(1).toDouble() / 60.0);
     } else {
         this->lat = 0;
@@ -26,7 +28,9 @@ TrackPoint::TrackPoint(QString time, QString lats, QString lngs, QString alts) {
     }
     lngs.resize(lngs.size() - 1);
     QStringList lngl = lngs.split(",");
-    if (lngl.size() == 2) {
+    if (lngl.size() == 3) {
+        this->lng = lngSign * (lngl.at(0).toDouble() + lngl.at(1).toDouble() / 60.0 + lngl.at(2).toDouble() / 60.0 / 60.0);
+    } else if (lngl.size() == 2) {
         this->lng = lngSign * (lngl.at(0).toDouble() + lngl.at(1).toDouble() / 60.0);
     } else {
         this->lng = 0;
