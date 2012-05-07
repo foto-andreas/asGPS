@@ -48,6 +48,8 @@
  *
  * @bug    check situations with zero coordinates (windows: black map, linux: water)
  *
+ * @todo   quoting of quotes for LIM
+ * @todo   images and colors in settings for check boxes
  * @todo   timestamp from GPS to time date fields
  * @todo   user documentation
  * @todo   check date and time formats in the edit fields when editing
