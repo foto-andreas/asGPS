@@ -50,6 +50,7 @@
  *
  * @todo   quoting of quotes for LIM
  * @todo   images and colors in settings for check boxes
+ * @todo   start point for the map as option
  * @todo   timestamp from GPS to time date fields
  * @todo   user documentation
  * @todo   check date and time formats in the edit fields when editing
