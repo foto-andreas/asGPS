@@ -162,7 +162,7 @@ class asGPSplugin : public QObject, public B5Plugin {
          * The name must begin with the plugin name ("asGPS::....")
          * @returns a new plugin dependency.
          */
-        PluginDependency *createDependency(const QString &name);
+        PluginDependency * createDependency(const QString &);
 
         /** Gives a list of tool files.
          * @returns a QList of QString
@@ -204,6 +204,10 @@ class asGPSplugin : public QObject, public B5Plugin {
         void clearTags();
 
     private slots:
+
+        void handleDataComplete(const QString &dataName, const PluginData *data);
+        void handleDataInvalid(const QString &dataName);
+
 
         /** Slot which handles the change of the hotness (selected main image) in ASP.
          * When the user changes the hotness image in ASP, this slot is called.

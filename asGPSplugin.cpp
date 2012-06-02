@@ -35,6 +35,8 @@
 #include "WebInfos.h"
 #include "ConfigurationMapper.h"
 
+#include "ToolData.h"
+
 extern "C" BIBBLE_API BaseB5Plugin *b5plugin() { return new asGPSplugin; }
 
 /**
@@ -180,10 +182,25 @@ void asGPSplugin::webInfosReady() {
     m_webInfos = NULL;
 }
 
-PluginDependency *asGPSplugin::createDependency(const QString &name)
+PluginDependency *asGPSplugin::createDependency(const QString &depName)
 {
-    Q_UNUSED(name);
-    qDebug() << "asGPSplugin::createDependency";
+    qDebug() << "asGPS: createDependency";
+
+    if (depName == "ToolData") {
+        ToolData *toolData = new ToolData(m_pHub);
+        if (toolData) {
+            toolData->owner = name();
+            toolData->group = group();
+            toolData->ownerId = pluginId();
+            toolData->groupId = groupId();
+            toolData->addEnabledId(0);
+            qDebug() << "asGPS: createDependency ToolData" << toolData;
+            return toolData;
+        }
+    }
+
+    qDebug() << "asGPS: createDependency NULL for" << depName;
+
     return NULL;
 }
 
@@ -364,7 +381,10 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect(m_cityCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsCity(int) ) );
     connect(m_locationCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsLocation(int) ) );
 
+    connect(m_pHub, SIGNAL(pluginDataComplete(const QString &, const PluginData *)), SLOT(handleDataComplete(const QString &, const PluginData *)));
+    connect(m_pHub, SIGNAL(pluginDataInvalid(const QString &)), SLOT(handleDataInvalid(const QString &)));
 
+    m_pHub->startPluginData("asGPS:ToolData");
 }
 
 void asGPSplugin::fileSelectorUserCountries() {
@@ -1148,4 +1168,23 @@ void asGPSplugin::mapLayers() {
     command.append(")");
     m_internalView->page()->mainFrame()->evaluateJavaScript(command);
     m_externalView->page()->mainFrame()->evaluateJavaScript(command);
+}
+
+void asGPSplugin::handleDataComplete(const QString &dataName, const PluginData *data)
+{
+    if (dataName.endsWith(":ToolData")) {
+        const ToolData *toolData = dynamic_cast<const ToolData*>(data);
+        if (toolData) {
+            qDebug() << "asGPS: data complete" << dataName << "OwnerId =" << toolData->ownerId;
+        } else {
+            qDebug() << "asGPS: data complete" << dataName << "got NULL as data.";
+        }
+    }
+}
+
+void asGPSplugin::handleDataInvalid(const QString &dataName)
+{
+    if (dataName.endsWith(":ToolData")) {
+        qDebug() << "asGPS: data invalid" << dataName;
+    }
 }
