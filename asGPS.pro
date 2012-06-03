@@ -104,3 +104,5 @@ QMAKE_POST_LINK += "; ./afz '$$TARGET' '$$VERSION' 'asGPS GPS & IPTC tagging.xmp
 
 
 
+
+

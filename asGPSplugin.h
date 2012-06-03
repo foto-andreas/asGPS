@@ -207,10 +207,6 @@ class asGPSplugin : public QObject, public B5Plugin {
 
     private slots:
 
-        void handleDataComplete(const QString &dataName, const PluginData *data);
-        void handleDataInvalid(const QString &dataName);
-
-
         /** Slot which handles the change of the hotness (selected main image) in ASP.
          * When the user changes the hotness image in ASP, this slot is called.
          * @param options are the currently active options/settings of the image.
