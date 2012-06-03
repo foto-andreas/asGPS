@@ -170,7 +170,7 @@ bool asGPSplugin::finish()
 }
 
 void asGPSplugin::webInfosReady() {
-    qDebug() << "asGPS: web infos ready:" << m_webInfos->identifier() << m_webInfos->version();
+    qDebug() << "asGPSplugin::webInfosReady:" << m_webInfos->identifier() << m_webInfos->version();
     if (m_webInfos->isWebNewer()) {
         QString text = QString(tr("There is a newer version of %1 available. "
                                "It is version %2. You are running %3. "
@@ -346,17 +346,14 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect(m_coordsCB, SIGNAL( stateChanged(int) ), SLOT( handleCoordsCB(int) ));
     connect(m_iptcCB, SIGNAL( stateChanged(int) ), SLOT( handleIptcCB(int) ) );
     connect(m_xmap, SIGNAL( toggled(bool) ), SLOT( handleXmapChange(bool) ) );
+
     connect(m_t_filename, SIGNAL( editingFinished() ), SLOT( trackLoad() ) );
     connect(m_t_localTZ, SIGNAL( clicked() ), SLOT( trackGetPos() ) );
     connect(m_t_timezone, SIGNAL( editingFinished() ), SLOT( trackGetPos() ) );
     connect(m_t_timezone, SIGNAL( valueChanged(int) ), SLOT( trackGetPos(int) ) );
     connect(m_t_timeoffset, SIGNAL( editingFinished() ), SLOT( trackGetPos() ) );
     connect(m_t_timeoffset, SIGNAL( valueChanged(int) ), SLOT( trackGetPos(int) ) );
-
-	//GPS Track
-	connect(m_t_filebutton, SIGNAL ( clicked() ), SLOT ( trackFileDialog() ));
-	connect(m_t_filename,SIGNAL( editingFinished() ), SLOT( trackUpdatePos() ) );
-	//GPS Track
+    connect(m_t_filebutton, SIGNAL ( clicked() ), SLOT ( trackFileDialog() ));
 
     connect(m_cb_bicycle, SIGNAL(clicked()), SLOT(mapLayers()));
     connect(m_cb_traffic, SIGNAL(clicked()), SLOT(mapLayers()));
