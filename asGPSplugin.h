@@ -165,7 +165,7 @@ class asGPSplugin : public QObject, public B5Plugin {
          * The name must begin with the plugin name ("asGPS::....")
          * @returns a new plugin dependency.
          */
-        PluginDependency *createDependency(const QString &name);
+        PluginDependency * createDependency(const QString &);
 
         /** Gives a list of tool files.
          * @returns a QList of QString

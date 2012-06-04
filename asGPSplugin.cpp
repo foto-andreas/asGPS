@@ -35,6 +35,8 @@
 #include "WebInfos.h"
 #include "ConfigurationMapper.h"
 
+#include "ToolData.h"
+
 extern "C" BIBBLE_API BaseB5Plugin *b5plugin() { return new asGPSplugin; }
 
 /**
@@ -168,7 +170,7 @@ bool asGPSplugin::finish()
 }
 
 void asGPSplugin::webInfosReady() {
-    qDebug() << "asGPS: web infos ready:" << m_webInfos->identifier() << m_webInfos->version();
+    qDebug() << "asGPSplugin::webInfosReady:" << m_webInfos->identifier() << m_webInfos->version();
     if (m_webInfos->isWebNewer()) {
         QString text = QString(tr("There is a newer version of %1 available. "
                                "It is version %2. You are running %3. "
@@ -180,10 +182,24 @@ void asGPSplugin::webInfosReady() {
     m_webInfos = NULL;
 }
 
-PluginDependency *asGPSplugin::createDependency(const QString &name)
+PluginDependency *asGPSplugin::createDependency(const QString &depName)
 {
-    Q_UNUSED(name);
-    qDebug() << "asGPSplugin::createDependency";
+    qDebug() << "asGPS: createDependency";
+
+    if (depName == "ToolData") {
+        ToolData *toolData = new ToolData(m_pHub);
+        if (toolData) {
+            toolData->owner = name();
+            toolData->group = group();
+            toolData->ownerId = pluginId();
+            toolData->groupId = groupId();
+            qDebug() << "asGPS: createDependency ToolData" << toolData;
+            return toolData;
+        }
+    }
+
+    qDebug() << "asGPS: createDependency NULL for" << depName;
+
     return NULL;
 }
 
@@ -329,17 +345,14 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect(m_coordsCB, SIGNAL( stateChanged(int) ), SLOT( handleCoordsCB(int) ));
     connect(m_iptcCB, SIGNAL( stateChanged(int) ), SLOT( handleIptcCB(int) ) );
     connect(m_xmap, SIGNAL( toggled(bool) ), SLOT( handleXmapChange(bool) ) );
+
     connect(m_t_filename, SIGNAL( editingFinished() ), SLOT( trackLoad() ) );
     connect(m_t_localTZ, SIGNAL( clicked() ), SLOT( trackGetPos() ) );
     connect(m_t_timezone, SIGNAL( editingFinished() ), SLOT( trackGetPos() ) );
     connect(m_t_timezone, SIGNAL( valueChanged(int) ), SLOT( trackGetPos(int) ) );
     connect(m_t_timeoffset, SIGNAL( editingFinished() ), SLOT( trackGetPos() ) );
     connect(m_t_timeoffset, SIGNAL( valueChanged(int) ), SLOT( trackGetPos(int) ) );
-
-	//GPS Track
-	connect(m_t_filebutton, SIGNAL ( clicked() ), SLOT ( trackFileDialog() ));
-	connect(m_t_filename,SIGNAL( editingFinished() ), SLOT( trackUpdatePos() ) );
-	//GPS Track
+    connect(m_t_filebutton, SIGNAL ( clicked() ), SLOT ( trackFileDialog() ));
 
     connect(m_cb_bicycle, SIGNAL(clicked()), SLOT(mapLayers()));
     connect(m_cb_traffic, SIGNAL(clicked()), SLOT(mapLayers()));
@@ -363,7 +376,6 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect(m_stateCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsState(int) ) );
     connect(m_cityCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsCity(int) ) );
     connect(m_locationCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsLocation(int) ) );
-
 
 }
 

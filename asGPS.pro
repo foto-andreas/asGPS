@@ -5,7 +5,7 @@
 
 # what we build here (plugin name and version)
 TARGET = asGPS
-VERSION = 1.2.4
+VERSION = 1.3.0
 
 include ( ../PluginDefaults/PluginDefaults.pri )
 
@@ -26,13 +26,14 @@ HEADERS += \
     gpscsv.h \
     gpsgpx.h \
     asGPSplugin.h \
-    WebContents.h \
-    WebInfos.h \
     iso3166.h \
-    ConfigFile.h \
     ConfigurationMapper.h \
     trackpoint.h \
-    tracklist.h
+    tracklist.h \
+    ../PluginTools/WebInfos.h \
+    ../PluginTools/WebContents.h \
+    ../PluginTools/ToolData.h \
+    ../PluginTools/ConfigFile.h
 
 # our source files
 SOURCES += \
@@ -40,13 +41,14 @@ SOURCES += \
     gpscsv.cpp \
     gpsgpx.cpp \
     asGPSplugin.cpp \
-    WebContents.cpp \
-    WebInfos.cpp \
     iso3166.cpp \
-    ConfigFile.cpp \
     ConfigurationMapper.cpp \
     trackpoint.cpp \
-    tracklist.cpp
+    tracklist.cpp \
+    ../PluginTools/WebInfos.cpp \
+    ../PluginTools/WebContents.cpp \
+    ../PluginTools/ConfigFile.cpp \
+    ../PluginTools/ToolData.cpp
 
 # our resource file with html pages and images
 RESOURCES += asGPS.qrc
@@ -84,6 +86,12 @@ QMAKE_POST_LINK += "; strip 'lib$${TARGET}.so.$${VERSION}'"
 QMAKE_POST_LINK += "; ./afz '$$TARGET' '$$VERSION' 'asGPS GPS & IPTC tagging.xmp' 'asGPS IPTC tagging.xmp'"
 }
 }
+
+
+
+
+
+
 
 
 
