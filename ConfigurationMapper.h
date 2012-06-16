@@ -25,6 +25,7 @@ class ConfigurationMapper : public QObject {
         QString countryTable();
         QString mapLanguage();
         QString mapRegion();
+        QString mapStartPosition();
 
         int cbSettingsLat();
         int cbSettingsLng();
@@ -53,6 +54,7 @@ class ConfigurationMapper : public QObject {
         void countryTable(QString cT);
         void mapLanguage(QString language);
         void mapRegion(QString region);
+        void mapStartPosition(QString startPosition);
 
         void cbSettingsLat(int settings);
         void cbSettingsLng(int settings);

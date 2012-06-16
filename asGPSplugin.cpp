@@ -289,6 +289,9 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_l_state = uiWidget->findChild<QLabel*>("labState");
     m_l_city = uiWidget->findChild<QLabel*>("labCity");
     m_l_location = uiWidget->findChild<QLabel*>("labLoc");
+    m_moveMap = uiWidget->findChild<QAbstractButton*>("moveMap");
+    m_setAsStart = uiWidget->findChild<QAbstractButton*>("setAsStart");
+    m_home = uiWidget->findChild<QAbstractButton*>("homeButton");
 
     //GPS Track
     m_t_filename = uiWidget->findChild< QLineEdit * >( "trackFileEdit" );
@@ -377,6 +380,9 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect(m_cityCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsCity(int) ) );
     connect(m_locationCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsLocation(int) ) );
 
+    connect(m_moveMap, SIGNAL( clicked() ), SLOT( updateMap() ));
+    connect(m_setAsStart, SIGNAL( clicked() ), SLOT( setAsStartPos() ));
+    connect(m_home, SIGNAL( clicked() ), SLOT( home() ));
 }
 
 void asGPSplugin::fileSelectorUserCountries() {
@@ -664,6 +670,15 @@ void asGPSplugin::reload() {
     QString merk_lat = m_lat->text();
     QString merk_lng = m_lng->text();
     QString merk_alt = m_alt->text();
+    QStringList startPos = m_config->mapStartPosition().split(":");
+    if (startPos.length() >= 2) {
+        qDebug() << "asGPS: setting configured start position.";
+        if (m_lat->text().isEmpty()) merk_lat = startPos[0];
+        if (m_lng->text().isEmpty()) merk_lng = startPos[1];
+        if (startPos.length() >= 3) {
+            if (m_alt->text().isEmpty()) merk_alt = startPos[2];
+        }
+    }
     hideUnhideMarker(merk_lat, merk_lng, merk_alt);
     updateMap();
 }
@@ -807,9 +822,9 @@ void asGPSplugin::updateMap() {
                 return;
             }
         }
-        m_internalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+        m_internalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMapC(" +
             QString("%1").arg(gpsl.lat,0,'f',5) + "," + QString("%1").arg(gpsl.lng,0,'f',5) + ")");
-        m_externalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+        m_externalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMapC(" +
             QString("%1").arg(gpsl.lat,0,'f',5) + "," + QString("%1").arg(gpsl.lng,0,'f',5) + ")");
     }
 }
@@ -921,10 +936,10 @@ void asGPSplugin::marker_moved(double lat, double lng, double height, bool tools
     if (m_autofnl) reversegeocode();
     QWebView *wv = toolsMap ? m_externalView : m_internalView;
     QWebView *ov = toolsMap ? m_internalView : m_externalView;
-    wv->page()->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+    wv->page()->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMapC(" +
         QString("%1").arg(lat,0,'f',5) + "," + QString("%1").arg(lng,0,'f',5) + ")");
     if (m_center->isChecked()) {
-        ov->page()->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+        ov->page()->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMapC(" +
             QString("%1").arg(lat,0,'f',5) + "," + QString("%1").arg(lng,0,'f',5) + ")");
     }
     Qt::KeyboardModifiers keyMod = QApplication::keyboardModifiers ();
@@ -1088,8 +1103,8 @@ void asGPSplugin::trackLoad() {
         m_t_tracktime->setText("");
     }
 
-    m_internalView->page()->mainFrame()->evaluateJavaScript(QString("trackView()"));
-    m_externalView->page()->mainFrame()->evaluateJavaScript(QString("trackView()"));
+    m_internalView->page()->mainFrame()->evaluateJavaScript("trackView()");
+    m_externalView->page()->mainFrame()->evaluateJavaScript("trackView()");
 
     if (track != NULL && !track->isEmpty()) {
         qDebug() << "asGPS: centering map on track start";
@@ -1160,4 +1175,13 @@ void asGPSplugin::mapLayers() {
     command.append(")");
     m_internalView->page()->mainFrame()->evaluateJavaScript(command);
     m_externalView->page()->mainFrame()->evaluateJavaScript(command);
+}
+
+void asGPSplugin::setAsStartPos() {
+    m_config->mapStartPosition(m_lat->text() + ":" + m_lng->text() + ":" + m_alt->text());
+}
+
+void asGPSplugin::home() {
+    reset();
+    reload();
 }

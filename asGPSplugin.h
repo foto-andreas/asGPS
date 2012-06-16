@@ -3,8 +3,8 @@
 /** \mainpage asGPS - A geotagging plugin for AfterShot Pro
  *
  * @author    Andeas Schrell
- * @version   1.2.4
- * @date      2012-04-30
+ * @version   1.3.0
+ * @date      2012-06-16
  * @warning   Works only when QtWebKit-Libs are delivered with ASP (since v1.0.1 of ASP)
  *
  * \section intro_sec Introduction
@@ -49,13 +49,13 @@
  * @bug    check situations with zero coordinates (windows: black map, linux: water)
  *
  * @todo   quoting of quotes for LIM
- * @todo   images and colors in settings for check boxes
  * @todo   timestamp from GPS to time date fields
  * @todo   user documentation
  * @todo   check date and time formats in the edit fields when editing
  * @todo   more comments in the cpp files
  * @todo   check if WSG98 or other standards can be used for input
  * @todo   check possibilities of direction info
+ * @todo   configurable start point
  * 
  */
 
@@ -299,6 +299,21 @@ class asGPSplugin : public QObject, public B5Plugin {
          */
         void countryTableChanged(QString table);
 
+        /** Update the Google Map.
+         * This method updates the Google Map. It locates the map to the correct
+         * position according to the GPS location.
+         */
+        void updateMap();
+
+        /** Set current posotion to start position
+          */
+        void setAsStartPos();
+
+        /** Home Button
+          */
+        void home();
+
+
     public slots:
 
         /** Slot for connecting an external browser application.
@@ -392,12 +407,6 @@ class asGPSplugin : public QObject, public B5Plugin {
          * all asGPS fields from the GPS/IPTC tags and repositions the map.
          */
         void reload();
-
-        /** Update the Google Map.
-         * This method updates the Google Map. It locates the map to the correct
-         * position according to the GPS location.
-         */
-        void updateMap();
 
         /** Open file dialog to read GPS track.
          */
@@ -552,6 +561,9 @@ class asGPSplugin : public QObject, public B5Plugin {
         QAbstractButton *m_tag; /**< button to tag the image */
         QAbstractButton *m_lim; /**< button for "locate in map" */
         QAbstractButton *m_fnl; /**< button for "find nearest location" */
+        QAbstractButton *m_moveMap; /**< button to move map according coordinates */
+        QAbstractButton *m_setAsStart; /**< botton to set current pos as start position */
+        QAbstractButton *m_home; /**< button for home position */
 
         QCheckBox *m_coordsCB; /**< global checkbox for GPS coordinates */
         QCheckBox *m_iptcCB; /**< global checkbox for IPTC coordinates */

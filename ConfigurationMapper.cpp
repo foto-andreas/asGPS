@@ -17,6 +17,7 @@ static const char *KEEPMAPONHOTNESSCHANGE = "keepMapOnHotnessChange";
 static const char *COUNTRYTABLE = "userCountryTable";
 static const char *MAPLANGUAGE = "mapLanguage";
 static const char *MAPREGION = "mapRegion";
+static const char *MAPSTARTPOS = "mapStartPosition";
 
 static const char *CBLAT = "checkBoxLat";
 static const char *CBLNG = "checkBoxLng";
@@ -141,6 +142,14 @@ QString ConfigurationMapper::mapRegion() {
 
 void ConfigurationMapper::mapRegion(QString region) {
     m_cf->setValue(MAPREGION, region);
+}
+
+QString ConfigurationMapper::mapStartPosition() {
+    return getString(MAPSTARTPOS, "0:0:0");
+}
+
+void ConfigurationMapper::mapStartPosition(QString startPosition) {
+    m_cf->setValue(MAPSTARTPOS, startPosition);
 }
 
 int ConfigurationMapper::cbSettingsLat() {
