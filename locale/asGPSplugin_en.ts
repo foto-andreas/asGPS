@@ -426,6 +426,16 @@
         <translation>Panoramio</translation>
     </message>
     <message>
+        <location filename="../asGPS.ui" line="1773"/>
+        <source>&lt;html&gt;Check this flag to keep the last map position when switching to an untagged image.&lt;/html&gt;</source>
+        <translation>&lt;html&gt;Check this flag to keep the last map position when switching to an untagged image.&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../asGPS.ui" line="1776"/>
+        <source>keep map position for untagged images</source>
+        <translation>keep map position for untagged images</translation>
+    </message>
+    <message>
         <location filename="../asGPS.ui" line="790"/>
         <location filename="../asGPS.ui" line="1487"/>
         <source>...</source>
@@ -515,28 +525,28 @@
         <translation type="obsolete">Use hotnessChange workaround</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1785"/>
+        <location filename="../asGPS.ui" line="1798"/>
         <source>&lt;html&gt;Locate in Map from this edit field or if it is empty from&lt;br&gt;the values in the IPTC tab. Updates the GPS tab and map.&lt;/html&gt;</source>
         <translation>&lt;html&gt;Locate in Map from this edit field or if it is empty from&lt;br/&gt;the values in the IPTC tab. Updates the fields in the GPS tab and map.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1795"/>
+        <location filename="../asGPS.ui" line="1808"/>
         <source>LIM</source>
         <translatorcomment>Locate In Map</translatorcomment>
         <translation>LIM</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1808"/>
+        <location filename="../asGPS.ui" line="1821"/>
         <source>&lt;html&gt;Insert search String for Google Maps here. If this field is empty, it will be composed from IPTC tags when you press LIM&lt;/html&gt;</source>
         <translation>&lt;html&gt;Insert search String for Google Maps here. If this field is empty, it will be composed from IPTC tags when you press LIM.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1818"/>
+        <location filename="../asGPS.ui" line="1831"/>
         <source>&lt;html&gt;Find nearest Location from the position values in the GPS tab. This updates the IPTC tab.&lt;/html&gt;</source>
         <translation>&lt;html&gt;Find nearest Location from the position values in the GPS tab. This updates the fields in the IPTC tab.&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../asGPS.ui" line="1828"/>
+        <location filename="../asGPS.ui" line="1841"/>
         <source>FNL</source>
         <translatorcomment>Fine Nearest Location</translatorcomment>
         <translation>FNL</translation>
@@ -560,42 +570,42 @@
         <translation>AfterShot Pro - asGPS map window</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="390"/>
+        <location filename="../asGPSplugin.cpp" line="392"/>
         <source>Select your country table</source>
         <translation>Select your country table</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="497"/>
+        <location filename="../asGPSplugin.cpp" line="503"/>
         <source>Error creating QWebView</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="497"/>
+        <location filename="../asGPSplugin.cpp" line="503"/>
         <source>It was not possible to create a QWebView widget.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="1024"/>
+        <location filename="../asGPSplugin.cpp" line="1030"/>
         <source>asGPS - Information</source>
         <translation>AfterShot Pro - asGPS information window</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="1033"/>
+        <location filename="../asGPSplugin.cpp" line="1039"/>
         <source>AfterShot Pro - asGPS browser window</source>
         <translation>AfterShot Pro - asGPS browser window</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="1048"/>
+        <location filename="../asGPSplugin.cpp" line="1054"/>
         <source>qrc:///html/asGPSinfo_EN.html</source>
         <translation>qrc:///html/asGPSinfo_EN.html</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="1061"/>
+        <location filename="../asGPSplugin.cpp" line="1067"/>
         <source>Open GPS track</source>
         <translation>Open GPS track</translation>
     </message>
     <message>
-        <location filename="../asGPSplugin.cpp" line="1062"/>
+        <location filename="../asGPSplugin.cpp" line="1068"/>
         <source>Track files (*.gpx *.csv);;All files(*.*)</source>
         <translation>Track files (*.gpx *.csv);;All files(*.*)</translation>
     </message>

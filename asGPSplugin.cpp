@@ -313,6 +313,8 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_cb_clouds = uiWidget->findChild<QCheckBox*>("cbClouds");
     m_cb_panoramio = uiWidget->findChild<QCheckBox*>("cbPanoramio");
 
+    m_keepMapPos = uiWidget->findChild<QCheckBox*>("keepMapPos");
+
     m_coordsCB = uiWidget->findChild<QCheckBox*>("coordsCB");
     m_iptcCB = uiWidget->findChild<QCheckBox*>("iptcCB");
 
@@ -411,6 +413,8 @@ void asGPSplugin::readAndCreateConfigFile() {
     connect(m_checkUpdates, SIGNAL( toggled(bool) ), m_config, SLOT( checkForUpdates(bool) ) );
     connect(m_splitGpsTime, SIGNAL( toggled(bool) ), m_config, SLOT( splitGpsTimestamp(bool) ) );
 
+    connect(m_keepMapPos, SIGNAL( toggled(bool) ), m_config, SLOT( keepMapOnHotnessChange(bool) ) );
+
     connect(m_countryMap, SIGNAL ( textChanged(QString) ), SLOT ( countryTableChanged(QString) ) );
 
     connect(m_mapLanguage, SIGNAL ( textChanged(QString) ), m_config, SLOT ( mapLanguage(QString) ) );
@@ -445,6 +449,8 @@ void asGPSplugin::readAndCreateConfigFile() {
 
     m_mapLanguage->setText(m_config->mapLanguage());
     m_mapRegion->setText(m_config->mapRegion());
+
+    m_keepMapPos->setChecked(m_config->keepMapOnHotnessChange());
 
     m_countryCodeCB->setCheckState((Qt::CheckState)m_config->cbSettingsCountryCode());
     m_countryCB->setCheckState((Qt::CheckState)m_config->cbSettingsCountry());

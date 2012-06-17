@@ -580,6 +580,7 @@ class asGPSplugin : public QObject, public B5Plugin {
         QCheckBox *m_stateCB; /**< checkbox for the state edit field */
         QCheckBox *m_cityCB; /**< checkbox for the city edit field */
         QCheckBox *m_locationCB; /**< checkbox for the location edit field */
+        QCheckBox *m_keepMapPos; /**< keep map position for unchecked images */
 
         QLabel *m_l_lat; /**< info text for current GPS latitude value in image settings */
         QLabel *m_l_lng; /**< info text for current GPS longitude value in image settings */
