@@ -239,22 +239,6 @@
      height: 10px;
  }
 
- QCheckBox::indicator:unchecked {
-     image: url(&quot;:/img/unchecked.png&quot;);
-     background-color: rgb(170, 0, 0);
- }
-
-
- QCheckBox::indicator:checked {
-     image: url(&quot;:/img/checked.png&quot;);
-     background-color: rgb(0, 150, 0);
- }
-
- QCheckBox::indicator:indeterminate {
-     image: url(&quot;:/img/indeterminate.png&quot;);
-	 background-color: rgb(220, 220, 0);
- }
-
 QTextEdit {
 	background-color: rgb(30, 30, 30);
 }
@@ -298,6 +282,23 @@ QTextEdit {
         <width>0</width>
         <height>0</height>
        </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"> QCheckBox::indicator:unchecked {
+     image: url(&quot;:/img/unchecked.png&quot;);
+     background-color: rgb(170, 0, 0);
+ }
+
+ QCheckBox::indicator:checked {
+     image: url(&quot;:/img/checked.png&quot;);
+     background-color: rgb(0, 150, 0);
+ }
+
+ QCheckBox::indicator:indeterminate {
+     image: url(&quot;:/img/indeterminate.png&quot;);
+	 background-color: rgb(220, 220, 0);
+ }
+</string>
       </property>
       <attribute name="title">
        <string>Coordinates</string>
@@ -978,6 +979,23 @@ QTextEdit {
         <width>0</width>
         <height>0</height>
        </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"> QCheckBox::indicator:unchecked {
+     image: url(&quot;:/img/unchecked.png&quot;);
+     background-color: rgb(170, 0, 0);
+ }
+
+ QCheckBox::indicator:checked {
+     image: url(&quot;:/img/checked.png&quot;);
+     background-color: rgb(0, 150, 0);
+ }
+
+ QCheckBox::indicator:indeterminate {
+     image: url(&quot;:/img/indeterminate.png&quot;);
+	 background-color: rgb(220, 220, 0);
+ }
+</string>
       </property>
       <attribute name="title">
        <string>IPTC</string>
