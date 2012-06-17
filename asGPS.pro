@@ -5,7 +5,7 @@
 
 # what we build here (plugin name and version)
 TARGET = asGPS
-VERSION = 1.3.0
+VERSION = 1.3.1
 
 include ( ../PluginDefaults/PluginDefaults.pri )
 

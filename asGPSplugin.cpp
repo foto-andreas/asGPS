@@ -240,7 +240,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_autofnl = false;
     m_autotag = false;
 
-    m_internalView = uiWidget->findChild<QWebView*>("asGPSWebView");
+    m_internalView = new InternalWebView(NULL, this);
     m_externalView = new MyWebView(m_xmap);
     m_externalView->setWindowTitle(tr("AfterShot Pro - asGPS map window"));
     m_externalView->setWindowIcon(m_externalView->icon());
@@ -327,15 +327,11 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_internalMapPage = new MyWebPage();
     m_externalMapPage = new MyWebPage();
 
-    if (m_internalView == NULL) {
-        qDebug() << "asGPS: FormBuilder does not support QWebView - emulating with own web view - expect problems with the map view";
-        QGridLayout *layout = (QGridLayout*)(QWidget*)(uiWidget->findChild<QWidget*>("asGPSMapTab"))->layout();
-        m_internalView = new InternalWebView(NULL, this);
-        layout->addWidget(m_internalView, 0, 0);
-        m_internalView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        m_internalView->updateGeometry();
-        qDebug() << m_internalView;
-    }
+    QGridLayout *layout = (QGridLayout*)(QWidget*)(uiWidget->findChild<QWidget*>("asGPSMapTab"))->layout();
+    m_internalView = new InternalWebView(NULL, this);
+    layout->addWidget(m_internalView, 0, 0);
+    m_internalView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_internalView->updateGeometry();
 
     initMap(m_internalView, m_internalMapPage, true);
     initMap(m_externalView, m_externalMapPage, false);
