@@ -553,6 +553,19 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
 
     }
 
+    // if we have no GPS info
+    if (m_lat->text().isEmpty() && m_lng->text().isEmpty()) {
+        if (m_config->keepMapOnHotnessChange()) {
+            m_lat->setText(merk_lat);
+            m_lng->setText(merk_lng);
+            m_alt->setText(merk_alt);
+            updateMap();
+        } else {
+            qDebug() << "asGPS: no GPS go to home pos...";
+            home();
+        }
+    }
+
 }
 
 void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  const PluginImageSettings &changed, int layer )
@@ -676,14 +689,8 @@ void asGPSplugin::reload() {
     QString merk_lat = m_lat->text();
     QString merk_lng = m_lng->text();
     QString merk_alt = m_alt->text();
-    QStringList startPos = m_config->mapStartPosition().split(":");
-    if (startPos.length() >= 2) {
-        qDebug() << "asGPS: setting configured start position.";
-        if (m_lat->text().isEmpty()) merk_lat = startPos[0];
-        if (m_lng->text().isEmpty()) merk_lng = startPos[1];
-        if (startPos.length() >= 3) {
-            if (m_alt->text().isEmpty()) merk_alt = startPos[2];
-        }
+    if (merk_lat.isEmpty() && merk_lng.isEmpty()) {
+        setHomeCoordinates();
     }
     hideUnhideMarker(merk_lat, merk_lng, merk_alt);
     updateMap();
@@ -824,8 +831,11 @@ void asGPSplugin::updateMap() {
         TrackPoint gpsl("", m_lat->text(), m_lng->text(), m_alt->text());
         if (gpsl.lat == 0 && gpsl.lng == 0) {
             if (m_config->keepMapOnHotnessChange()) {
-                qDebug() << "asGPS: keeping Map on 0/0-Position";
+                qDebug() << "asGPS: keeping Map on last Position";
                 return;
+            } else {
+                setHomeCoordinates();
+                gpsl = TrackPoint("", m_lat->text(), m_lng->text(), m_alt->text());
             }
         }
         m_internalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMapC(" +
@@ -1188,6 +1198,19 @@ void asGPSplugin::setAsStartPos() {
 }
 
 void asGPSplugin::home() {
-    reset();
-    reload();
+    setHomeCoordinates();
+    updateMap();
+}
+
+void asGPSplugin::setHomeCoordinates() {
+    QStringList startPos = m_config->mapStartPosition().split(":");
+    if (startPos.length() >= 2) {
+        qDebug() << "asGPS: setting configured start position.";
+        m_lat->setText(startPos[0]);
+        m_lng->setText(startPos[1]);
+        if (startPos.length() >= 3) {
+            m_alt->setText(startPos[2]);
+        }
+    }
+
 }

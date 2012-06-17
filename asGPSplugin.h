@@ -519,6 +519,10 @@ class asGPSplugin : public QObject, public B5Plugin {
          */
         void hideUnhideMarker(QString merk_lat, QString merk_lng, QString merk_alt);
 
+        /** Set GPS fields to home coordinates
+         */
+        void setHomeCoordinates();
+
     private:
 
         PluginHub *m_pHub; /**< out plugin hub, which is our connection to ASP */
