@@ -35,8 +35,8 @@
       },
       panControl: false,
       streetViewControl: false,
-      navigationControl: false,
-      scaleControl: false,
+      navigationControl: true,
+      scaleControl: true,
     };
 
     map = new google.maps.Map(document.getElementById('map_canvas'),

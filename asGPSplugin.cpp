@@ -617,7 +617,6 @@ void asGPSplugin::setStringField(PluginOptionList *options, QLineEdit *field, in
 
 void asGPSplugin::tag(PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, int optionID) {
     if (!m_enable->isChecked()) return;
-//    qDebug() << "asGPS: tag";
     if ((cb == NULL) || (cb->checkState() == Qt::Checked) || ((cb->checkState() == Qt::PartiallyChecked) && (lab->text() == ""))) {
         qDebug() << QString("asGPS: setting option %1 to: '" + field->text() + "'").arg(optionID).toAscii();
         options->setString(optionID, 0, field->text());
