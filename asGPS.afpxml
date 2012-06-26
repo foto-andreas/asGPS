@@ -1,29 +1,29 @@
 <!DOCTYPE PropertyScribe>
 <PropertyScribe xmlns="http://www.bibblelabs.com//PropertyScribe/" version="1">
     <PluginFileData 
-        name="asGPS" 
-        identifier="de.schrell.asGPS" 
-        website="http://schrell.de" 
+        name="__name__"
+        identifier="__identifier__"
+        website="__site__"
         resourcesPath="resources" 
         windowsLibFile="__libwinpath__"
         macLibFile="__libmacpath__"
         linuxLibFile="__liblinpath__"
-        author="Andreas Schrell" 
+        author="__author__"
         majorVersion="__maj__"
         minorVersion="__min__"
         bugfixVersion="__fix__"
         sdkVersion="8" 
         dataVersion="1">
         <StringList name="uiFiles">
-            <li>ui/asGPS.ui</li>
+            <li>ui/__name__.ui</li>
         </StringList>
         <StringList name="localeFiles">
-            <li>locale/asGPSplugin_en.qm</li>
-            <li>locale/asGPSplugin_de.qm</li>
-            <li>locale/asGPSplugin_fr.qm</li>
-            <li>locale/asGPSplugin_nl.qm</li>
-            <li>locale/asGPSplugin_it.qm</li>
-            <li>locale/asGPSplugin_ja.qm</li>
+            <li>locale/__name___en.qm</li>
+            <li>locale/__name___de.qm</li>
+            <li>locale/__name___fr.qm</li>
+            <li>locale/__name___nl.qm</li>
+            <li>locale/__name___it.qm</li>
+            <li>locale/__name___ja.qm</li>
         </StringList>
     </PluginFileData>
 </PropertyScribe>
