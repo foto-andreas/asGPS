@@ -302,12 +302,6 @@ class asGPSplugin : public QObject, public B5Plugin {
          */
         void countryTableChanged(QString table);
 
-        /** Update the Google Map.
-         * This method updates the Google Map. It locates the map to the correct
-         * position according to the GPS location.
-         */
-        void updateMap();
-
         /** Set current posotion to start position
           */
         void setAsStartPos();
