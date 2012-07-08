@@ -2,12 +2,13 @@
 
 #include <QDebug>
 #include <QStringList>
+#include <QString>
 #include <QDateTime>
 
 #include <math.h>
 
 TrackPoint::TrackPoint(QString time, QString lats, QString lngs, QString alts) {
-    qDebug() << "asGPS:" << lats << "/" << lngs;
+    qDebug() << "asGPS: Trackpoint created:" << lats << "/" << lngs;
     this->time = QDateTime::fromString(time, TimeDate_DEF);
     int latSign = 1;
     if (lats.endsWith("S")) {
@@ -20,7 +21,7 @@ TrackPoint::TrackPoint(QString time, QString lats, QString lngs, QString alts) {
     } else if (latl.size() == 2) {
         this->lat = latSign * (latl.at(0).toDouble() + latl.at(1).toDouble() / 60.0);
     } else {
-        this->lat = 0;
+        this->lat = latl.at(0).toDouble();
     }
     int lngSign = 1;
     if (lngs.endsWith("W")) {
@@ -33,7 +34,7 @@ TrackPoint::TrackPoint(QString time, QString lats, QString lngs, QString alts) {
     } else if (lngl.size() == 2) {
         this->lng = lngSign * (lngl.at(0).toDouble() + lngl.at(1).toDouble() / 60.0);
     } else {
-        this->lng = 0;
+        this->lng = lngl.at(0).toDouble();
     }
     QStringList altl = alts.split("/");
     if (altl.size() == 2) {
@@ -42,7 +43,7 @@ TrackPoint::TrackPoint(QString time, QString lats, QString lngs, QString alts) {
         this->alt = altl.at(0).toDouble();
     }
 
-    qDebug() << "asGPS: lat =" << this->lat << "/" << "lng =" << this->lng;
+    qDebug() << "asGPS: lat =" << this->lat << "/" << "lng =" << this->lng << '/' << "alt =" << this->alt;
 }
 
 /**

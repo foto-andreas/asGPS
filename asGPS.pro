@@ -5,7 +5,7 @@
 
 # what we build here (plugin name and version)
 TARGET = asGPS
-VERSION = 1.3.0
+VERSION = 1.3.1
 
 include ( ../PluginDefaults/PluginDefaults.pri )
 
@@ -63,10 +63,19 @@ OTHER_FILES += \
     gup.js \
     asGPSmap.html \
     PluginDefaults.pri \
-    trackView.js
+    trackView.js \
+    locale/*.ts
 
 # the user interface file
 FORMS += asGPS.ui
+
+# translations
+TRANSLATIONS += locale/asGPSplugin_en.ts
+TRANSLATIONS += locale/asGPSplugin_de.ts
+TRANSLATIONS += locale/asGPSplugin_nl.ts
+TRANSLATIONS += locale/asGPSplugin_fr.ts
+TRANSLATIONS += locale/asGPSplugin_it.ts
+TRANSLATIONS += locale/asGPSplugin_ja.ts
 
 unix {
 !mac {
@@ -77,7 +86,7 @@ QMAKE_POST_LINK += "echo 'extras...'"
 QMAKE_POST_LINK += "; doxygen"
 
 # locale files
-QMAKE_POST_LINK += "; lrelease xlate.pro"
+QMAKE_POST_LINK += "; lrelease $${TARGET}.pro"
 
 # strip the lib
 QMAKE_POST_LINK += "; strip 'lib$${TARGET}.so.$${VERSION}'"

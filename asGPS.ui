@@ -239,22 +239,6 @@
      height: 10px;
  }
 
- QCheckBox::indicator:unchecked {
-     image: url(&quot;:/img/unchecked.png&quot;);
-     background-color: rgb(170, 0, 0);
- }
-
-
- QCheckBox::indicator:checked {
-     image: url(&quot;:/img/checked.png&quot;);
-     background-color: rgb(0, 150, 0);
- }
-
- QCheckBox::indicator:indeterminate {
-     image: url(&quot;:/img/indeterminate.png&quot;);
-	 background-color: rgb(220, 220, 0);
- }
-
 QTextEdit {
 	background-color: rgb(30, 30, 30);
 }
@@ -298,6 +282,23 @@ QTextEdit {
         <width>0</width>
         <height>0</height>
        </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"> QCheckBox::indicator:unchecked {
+     image: url(&quot;:/img/unchecked.png&quot;);
+     background-color: rgb(170, 0, 0);
+ }
+
+ QCheckBox::indicator:checked {
+     image: url(&quot;:/img/checked.png&quot;);
+     background-color: rgb(0, 150, 0);
+ }
+
+ QCheckBox::indicator:indeterminate {
+     image: url(&quot;:/img/indeterminate.png&quot;);
+	 background-color: rgb(220, 220, 0);
+ }
+</string>
       </property>
       <attribute name="title">
        <string>Coordinates</string>
@@ -403,7 +404,7 @@ QTextEdit {
          </property>
         </widget>
        </item>
-       <item row="15" column="1">
+       <item row="16" column="1">
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -714,6 +715,43 @@ QTextEdit {
          </property>
         </widget>
        </item>
+       <item row="15" column="0" colspan="3">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="moveMap">
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="text">
+            <string>Move map</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="homeButton">
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="text">
+            <string>Home</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="setAsStart">
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="text">
+            <string>Set as start</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="asGPSTrackTab">
@@ -941,6 +979,23 @@ QTextEdit {
         <width>0</width>
         <height>0</height>
        </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"> QCheckBox::indicator:unchecked {
+     image: url(&quot;:/img/unchecked.png&quot;);
+     background-color: rgb(170, 0, 0);
+ }
+
+ QCheckBox::indicator:checked {
+     image: url(&quot;:/img/checked.png&quot;);
+     background-color: rgb(0, 150, 0);
+ }
+
+ QCheckBox::indicator:indeterminate {
+     image: url(&quot;:/img/indeterminate.png&quot;);
+	 background-color: rgb(220, 220, 0);
+ }
+</string>
       </property>
       <attribute name="title">
        <string>IPTC</string>
@@ -1351,7 +1406,7 @@ QTextEdit {
          </property>
         </widget>
        </item>
-       <item row="21" column="0">
+       <item row="22" column="0">
         <spacer name="verticalSpacer_3">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -1383,7 +1438,7 @@ QTextEdit {
          </property>
         </widget>
        </item>
-       <item row="7" column="0">
+       <item row="8" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <property name="bottomMargin">
           <number>0</number>
@@ -1492,7 +1547,7 @@ QTextEdit {
          </property>
         </widget>
        </item>
-       <item row="10" column="0" rowspan="2">
+       <item row="11" column="0" rowspan="2">
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <property name="topMargin">
           <number>0</number>
@@ -1564,7 +1619,7 @@ QTextEdit {
          </item>
         </layout>
        </item>
-       <item row="22" column="0">
+       <item row="23" column="0">
         <widget class="QLabel" name="label_5">
          <property name="font">
           <font>
@@ -1576,7 +1631,7 @@ QTextEdit {
          </property>
         </widget>
        </item>
-       <item row="23" column="0">
+       <item row="24" column="0">
         <widget class="QLabel" name="configPath">
          <property name="font">
           <font>
@@ -1613,7 +1668,7 @@ QTextEdit {
          </property>
         </widget>
        </item>
-       <item row="12" column="0">
+       <item row="13" column="0">
         <widget class="QLabel" name="label_7">
          <property name="font">
           <font>
@@ -1625,7 +1680,7 @@ QTextEdit {
          </property>
         </widget>
        </item>
-       <item row="13" column="0">
+       <item row="14" column="0">
         <layout class="QGridLayout" name="gridLayout_7">
          <item row="0" column="0">
           <widget class="QCheckBox" name="cbTraffic">
@@ -1708,6 +1763,19 @@ QTextEdit {
           </widget>
          </item>
         </layout>
+       </item>
+       <item row="7" column="0">
+        <widget class="QCheckBox" name="keepMapPos">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;Check this flag to keep the last map position when switching to an untagged image.&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>keep map position for untagged images</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

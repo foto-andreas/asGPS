@@ -3,8 +3,8 @@
 /** \mainpage asGPS - A geotagging plugin for AfterShot Pro
  *
  * @author    Andeas Schrell
- * @version   1.2.4
- * @date      2012-04-30
+ * @version   1.3.1
+ * @date      2012-06-17
  * @warning   Works only when QtWebKit-Libs are delivered with ASP (since v1.0.1 of ASP)
  *
  * \section intro_sec Introduction
@@ -49,8 +49,6 @@
  * @bug    check situations with zero coordinates (windows: black map, linux: water)
  *
  * @todo   quoting of quotes for LIM
- * @todo   images and colors in settings for check boxes
- * @todo   start point for the map as option
  * @todo   timestamp from GPS to time date fields
  * @todo   user documentation
  * @todo   check date and time formats in the edit fields when editing
@@ -300,6 +298,21 @@ class asGPSplugin : public QObject, public B5Plugin {
          */
         void countryTableChanged(QString table);
 
+        /** Update the Google Map.
+         * This method updates the Google Map. It locates the map to the correct
+         * position according to the GPS location.
+         */
+        void updateMap();
+
+        /** Set current posotion to start position
+          */
+        void setAsStartPos();
+
+        /** Home Button
+          */
+        void home();
+
+
     public slots:
 
         /** Slot for connecting an external browser application.
@@ -511,6 +524,10 @@ class asGPSplugin : public QObject, public B5Plugin {
          */
         void hideUnhideMarker(QString merk_lat, QString merk_lng, QString merk_alt);
 
+        /** Set GPS fields to home coordinates
+         */
+        void setHomeCoordinates();
+
     private:
 
         PluginHub *m_pHub; /**< out plugin hub, which is our connection to ASP */
@@ -553,6 +570,9 @@ class asGPSplugin : public QObject, public B5Plugin {
         QAbstractButton *m_tag; /**< button to tag the image */
         QAbstractButton *m_lim; /**< button for "locate in map" */
         QAbstractButton *m_fnl; /**< button for "find nearest location" */
+        QAbstractButton *m_moveMap; /**< button to move map according coordinates */
+        QAbstractButton *m_setAsStart; /**< botton to set current pos as start position */
+        QAbstractButton *m_home; /**< button for home position */
 
         QCheckBox *m_coordsCB; /**< global checkbox for GPS coordinates */
         QCheckBox *m_iptcCB; /**< global checkbox for IPTC coordinates */
@@ -569,6 +589,7 @@ class asGPSplugin : public QObject, public B5Plugin {
         QCheckBox *m_stateCB; /**< checkbox for the state edit field */
         QCheckBox *m_cityCB; /**< checkbox for the city edit field */
         QCheckBox *m_locationCB; /**< checkbox for the location edit field */
+        QCheckBox *m_keepMapPos; /**< keep map position for unchecked images */
 
         QLabel *m_l_lat; /**< info text for current GPS latitude value in image settings */
         QLabel *m_l_lng; /**< info text for current GPS longitude value in image settings */

@@ -240,7 +240,7 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_autofnl = false;
     m_autotag = false;
 
-    m_internalView = uiWidget->findChild<QWebView*>("asGPSWebView");
+    m_internalView = new InternalWebView(NULL, this);
     m_externalView = new MyWebView(m_xmap);
     m_externalView->setWindowTitle(tr("AfterShot Pro - asGPS map window"));
     m_externalView->setWindowIcon(m_externalView->icon());
@@ -289,6 +289,9 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_l_state = uiWidget->findChild<QLabel*>("labState");
     m_l_city = uiWidget->findChild<QLabel*>("labCity");
     m_l_location = uiWidget->findChild<QLabel*>("labLoc");
+    m_moveMap = uiWidget->findChild<QAbstractButton*>("moveMap");
+    m_setAsStart = uiWidget->findChild<QAbstractButton*>("setAsStart");
+    m_home = uiWidget->findChild<QAbstractButton*>("homeButton");
 
     //GPS Track
     m_t_filename = uiWidget->findChild< QLineEdit * >( "trackFileEdit" );
@@ -310,6 +313,8 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_cb_clouds = uiWidget->findChild<QCheckBox*>("cbClouds");
     m_cb_panoramio = uiWidget->findChild<QCheckBox*>("cbPanoramio");
 
+    m_keepMapPos = uiWidget->findChild<QCheckBox*>("keepMapPos");
+
     m_coordsCB = uiWidget->findChild<QCheckBox*>("coordsCB");
     m_iptcCB = uiWidget->findChild<QCheckBox*>("iptcCB");
 
@@ -322,15 +327,11 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     m_internalMapPage = new MyWebPage();
     m_externalMapPage = new MyWebPage();
 
-    if (m_internalView == NULL) {
-        qDebug() << "asGPS: FormBuilder does not support QWebView - emulating with own web view - expect problems with the map view";
-        QGridLayout *layout = (QGridLayout*)(QWidget*)(uiWidget->findChild<QWidget*>("asGPSMapTab"))->layout();
-        m_internalView = new InternalWebView(NULL, this);
-        layout->addWidget(m_internalView, 0, 0);
-        m_internalView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        m_internalView->updateGeometry();
-        qDebug() << m_internalView;
-    }
+    QGridLayout *layout = (QGridLayout*)(QWidget*)(uiWidget->findChild<QWidget*>("asGPSMapTab"))->layout();
+    m_internalView = new InternalWebView(NULL, this);
+    layout->addWidget(m_internalView, 0, 0);
+    m_internalView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_internalView->updateGeometry();
 
     initMap(m_internalView, m_internalMapPage, true);
     initMap(m_externalView, m_externalMapPage, false);
@@ -377,6 +378,9 @@ void asGPSplugin::toolWidgetCreated(QWidget *uiWidget)
     connect(m_cityCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsCity(int) ) );
     connect(m_locationCB, SIGNAL( stateChanged(int) ), m_config, SLOT(cbSettingsLocation(int) ) );
 
+    connect(m_moveMap, SIGNAL( clicked() ), SLOT( updateMap() ));
+    connect(m_setAsStart, SIGNAL( clicked() ), SLOT( setAsStartPos() ));
+    connect(m_home, SIGNAL( clicked() ), SLOT( home() ));
 }
 
 void asGPSplugin::fileSelectorUserCountries() {
@@ -404,6 +408,8 @@ void asGPSplugin::readAndCreateConfigFile() {
     connect(m_allIptc, SIGNAL( toggled(bool) ), m_config, SLOT( searchAllIPTC(bool) ) );
     connect(m_checkUpdates, SIGNAL( toggled(bool) ), m_config, SLOT( checkForUpdates(bool) ) );
     connect(m_splitGpsTime, SIGNAL( toggled(bool) ), m_config, SLOT( splitGpsTimestamp(bool) ) );
+
+    connect(m_keepMapPos, SIGNAL( toggled(bool) ), m_config, SLOT( keepMapOnHotnessChange(bool) ) );
 
     connect(m_countryMap, SIGNAL ( textChanged(QString) ), SLOT ( countryTableChanged(QString) ) );
 
@@ -439,6 +445,8 @@ void asGPSplugin::readAndCreateConfigFile() {
 
     m_mapLanguage->setText(m_config->mapLanguage());
     m_mapRegion->setText(m_config->mapRegion());
+
+    m_keepMapPos->setChecked(m_config->keepMapOnHotnessChange());
 
     m_countryCodeCB->setCheckState((Qt::CheckState)m_config->cbSettingsCountryCode());
     m_countryCB->setCheckState((Qt::CheckState)m_config->cbSettingsCountry());
@@ -539,6 +547,19 @@ void asGPSplugin::handleHotnessChanged( const PluginImageSettings &options )
             QTimer::singleShot(300, m_tag, SLOT(click()));
         }
 
+    }
+
+    // if we have no GPS info
+    if (m_lat->text().isEmpty() && m_lng->text().isEmpty()) {
+        if (m_config->keepMapOnHotnessChange()) {
+            m_lat->setText(merk_lat);
+            m_lng->setText(merk_lng);
+            m_alt->setText(merk_alt);
+            updateMap();
+        } else {
+            qDebug() << "asGPS: no GPS go to home pos...";
+            home();
+        }
     }
 
 }
@@ -664,6 +685,9 @@ void asGPSplugin::reload() {
     QString merk_lat = m_lat->text();
     QString merk_lng = m_lng->text();
     QString merk_alt = m_alt->text();
+    if (merk_lat.isEmpty() && merk_lng.isEmpty()) {
+        setHomeCoordinates();
+    }
     hideUnhideMarker(merk_lat, merk_lng, merk_alt);
     updateMap();
 }
@@ -803,13 +827,16 @@ void asGPSplugin::updateMap() {
         TrackPoint gpsl("", m_lat->text(), m_lng->text(), m_alt->text());
         if (gpsl.lat == 0 && gpsl.lng == 0) {
             if (m_config->keepMapOnHotnessChange()) {
-                qDebug() << "asGPS: keeping Map on 0/0-Position";
+                qDebug() << "asGPS: keeping Map on last Position";
                 return;
+            } else {
+                setHomeCoordinates();
+                gpsl = TrackPoint("", m_lat->text(), m_lng->text(), m_alt->text());
             }
         }
-        m_internalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+        m_internalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMapC(" +
             QString("%1").arg(gpsl.lat,0,'f',5) + "," + QString("%1").arg(gpsl.lng,0,'f',5) + ")");
-        m_externalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+        m_externalMapPage->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMapC(" +
             QString("%1").arg(gpsl.lat,0,'f',5) + "," + QString("%1").arg(gpsl.lng,0,'f',5) + ")");
     }
 }
@@ -921,10 +948,10 @@ void asGPSplugin::marker_moved(double lat, double lng, double height, bool tools
     if (m_autofnl) reversegeocode();
     QWebView *wv = toolsMap ? m_externalView : m_internalView;
     QWebView *ov = toolsMap ? m_internalView : m_externalView;
-    wv->page()->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+    wv->page()->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMapC(" +
         QString("%1").arg(lat,0,'f',5) + "," + QString("%1").arg(lng,0,'f',5) + ")");
     if (m_center->isChecked()) {
-        ov->page()->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMap(" +
+        ov->page()->mainFrame()->evaluateJavaScript("centerAndMarkOnlyMapC(" +
             QString("%1").arg(lat,0,'f',5) + "," + QString("%1").arg(lng,0,'f',5) + ")");
     }
     Qt::KeyboardModifiers keyMod = QApplication::keyboardModifiers ();
@@ -1088,8 +1115,8 @@ void asGPSplugin::trackLoad() {
         m_t_tracktime->setText("");
     }
 
-    m_internalView->page()->mainFrame()->evaluateJavaScript(QString("trackView()"));
-    m_externalView->page()->mainFrame()->evaluateJavaScript(QString("trackView()"));
+    m_internalView->page()->mainFrame()->evaluateJavaScript("trackView()");
+    m_externalView->page()->mainFrame()->evaluateJavaScript("trackView()");
 
     if (track != NULL && !track->isEmpty()) {
         qDebug() << "asGPS: centering map on track start";
@@ -1160,4 +1187,26 @@ void asGPSplugin::mapLayers() {
     command.append(")");
     m_internalView->page()->mainFrame()->evaluateJavaScript(command);
     m_externalView->page()->mainFrame()->evaluateJavaScript(command);
+}
+
+void asGPSplugin::setAsStartPos() {
+    m_config->mapStartPosition(m_lat->text() + ":" + m_lng->text() + ":" + m_alt->text());
+}
+
+void asGPSplugin::home() {
+    setHomeCoordinates();
+    updateMap();
+}
+
+void asGPSplugin::setHomeCoordinates() {
+    QStringList startPos = m_config->mapStartPosition().split(":");
+    if (startPos.length() >= 2) {
+        qDebug() << "asGPS: setting configured start position.";
+        m_lat->setText(startPos[0]);
+        m_lng->setText(startPos[1]);
+        if (startPos.length() >= 3) {
+            m_alt->setText(startPos[2]);
+        }
+    }
+
 }

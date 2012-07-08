@@ -136,17 +136,21 @@
     marker.setTitle(loc.lat().toFixed(5) + "/" + loc.lng().toFixed(5));
   }
 
-  function centerAndMark(lat, lng) {
-    centerAndMarkOnlyMap(lat,lng);
-    api.marker_moved(lat, lng, toolsMap);
+  function centerAndMark(loc) {
+    centerAndMarkOnlyMap(loc);
+    startElevator(loc);
   }
 
-  function centerAndMarkOnlyMap(lat, lng) {
-    loc = new google.maps.LatLng(lat,lng);
+  function centerAndMarkOnlyMap(loc) {
     map.setCenter(loc);
     marker.setPosition(loc);
     markerGray.setPosition(loc);
     setMarkerTitle(loc);
+  }
+
+  function centerAndMarkOnlyMapC(lat, lng) {
+    loc = new google.maps.LatLng(lat,lng);
+    centerAndMarkOnlyMap(loc);
   }
 
   function centerMap(lat, lng) {
@@ -211,8 +215,9 @@
       if (status == google.maps.GeocoderStatus.OK) {
         loc = results[0].geometry.location;
         if (withMap) {
-            centerAndMark(loc.lat(), loc.lng());
+            centerAndMark(loc);
         }
+        startElevator(loc);
         api.fillGoogleRaw("");
         api.autoTag(toolsMap);
       } else {
