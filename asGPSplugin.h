@@ -3,8 +3,8 @@
 /** \mainpage asGPS - A geotagging plugin for AfterShot Pro
  *
  * @author    Andeas Schrell
- * @version   1.3.1
- * @date      2012-06-17
+ * @version   1.3.2
+ * @date      2012-07-08
  * @warning   Works only when QtWebKit-Libs are delivered with ASP (since v1.0.1 of ASP)
  *
  * \section intro_sec Introduction
@@ -19,17 +19,21 @@
  * \subsection binary The binary install process
  *
  * The normal user can download asGPS as a binary ASP plugin here:
- * http://schrell.de/asGPS/asGPS.afzplug 
- * From the AfterShot Pro file menu, he can select "install plugin" to install
+ * http://aftershotpro.com/plugins/?plug=asgps
+ * From the AfterShot Pro file menu, he/she can select "install plugin" to install
  * the plugin.
  *
  * A deinstallation can be done by deleting the asGPS.afplugin folder from the
- * plugins folder in the ASP user home.
+ * plugins folder in the ASP user home or using asPluginManager.
  *
  * \subsection source The source code 
  *  
  * The source code can be obtained with the git command
- * \verbatim git clone http://schrell.de/asGPS.git \endverbatim
+\verbatim
+git clone http://schrell.de/asGPS.git
+git clone http://schrell.de/PluginTools.git
+git clone http://schrell.de/PluginDefaults.git
+\endverbatim
  * or by browsing to the following web page
  * http://schrell.de/cgi-bin/gitweb.cgi?p=asGPS.git
  *

@@ -5,7 +5,10 @@
 
 # what we build here (plugin name and version)
 TARGET = asGPS
-VERSION = 1.3.1
+VERSION = 1.3.2
+IDENTIFIER = de.schrell.asGPS
+AUTHOR = Andreas Schrell
+SITE = http://fotos.schrell.de
 
 include ( ../PluginDefaults/PluginDefaults.pri )
 
@@ -33,7 +36,8 @@ HEADERS += \
     ../PluginTools/WebInfos.h \
     ../PluginTools/WebContents.h \
     ../PluginTools/ToolData.h \
-    ../PluginTools/ConfigFile.h
+    ../PluginTools/ConfigFile.h \
+    ../PluginTools/TargetVersion.h
 
 # our source files
 SOURCES += \
@@ -54,7 +58,7 @@ SOURCES += \
 RESOURCES += asGPS.qrc
 
 # the other files we pack in the resources
-OTHER_FILES += \
+OTHER_FILES += asGPS.pro \
     asGPSinfo_DE.html \
     asGPSinfo_EN.html \
     style.css \
@@ -64,18 +68,19 @@ OTHER_FILES += \
     asGPSmap.html \
     PluginDefaults.pri \
     trackView.js \
-    locale/*.ts
+    locale/*.ts \
+    asGPS.afpxml
 
 # the user interface file
 FORMS += asGPS.ui
 
 # translations
-TRANSLATIONS += locale/asGPSplugin_en.ts
-TRANSLATIONS += locale/asGPSplugin_de.ts
-TRANSLATIONS += locale/asGPSplugin_nl.ts
-TRANSLATIONS += locale/asGPSplugin_fr.ts
-TRANSLATIONS += locale/asGPSplugin_it.ts
-TRANSLATIONS += locale/asGPSplugin_ja.ts
+TRANSLATIONS += locale/asGPS_en.ts
+TRANSLATIONS += locale/asGPS_de.ts
+TRANSLATIONS += locale/asGPS_nl.ts
+TRANSLATIONS += locale/asGPS_fr.ts
+TRANSLATIONS += locale/asGPS_it.ts
+TRANSLATIONS += locale/asGPS_ja.ts
 
 unix {
 !mac {
@@ -92,9 +97,12 @@ QMAKE_POST_LINK += "; lrelease $${TARGET}.pro"
 QMAKE_POST_LINK += "; strip 'lib$${TARGET}.so.$${VERSION}'"
 
 # we pack our plugin - I hate PZ
-QMAKE_POST_LINK += "; ./afz '$$TARGET' '$$VERSION' 'asGPS GPS & IPTC tagging.xmp' 'asGPS IPTC tagging.xmp'"
+QMAKE_POST_LINK += "; ../PluginDefaults/afz '$$TARGET' '$$VERSION' '$$IDENTIFIER' '$$AUTHOR' '$$SITE' "
+QMAKE_POST_LINK += " 'asGPS GPS & IPTC tagging.xmp' 'asGPS IPTC tagging.xmp'"
 }
 }
+
+
 
 
 

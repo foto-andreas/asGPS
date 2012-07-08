@@ -156,7 +156,7 @@ bool asGPSplugin::finish()
     }
 
     if (m_config->checkForUpdates()) {
-        m_webInfos = new WebInfos("de.schrell.asGPS", "8");
+        m_webInfos = new WebInfos("de.schrell.asGPS", "8", TARGET_VERSION_STRING);
         connect(m_webInfos,
                 SIGNAL(ready()),
                 SLOT(webInfosReady()));
@@ -170,12 +170,12 @@ bool asGPSplugin::finish()
 }
 
 void asGPSplugin::webInfosReady() {
-    qDebug() << "asGPSplugin::webInfosReady:" << m_webInfos->identifier() << m_webInfos->version();
+    qDebug() << "asGPSplugin::webInfosReady:" << m_webInfos->identifier() << m_webInfos->webVersion();
     if (m_webInfos->isWebNewer()) {
         QString text = QString(tr("There is a newer version of %1 available. "
                                "It is version %2. You are running %3. "
                                "You can download it under the following url: <a href='%4'>%4</a>"))
-                        .arg(m_webInfos->name(), m_webInfos->version(), TARGET_VERSION_STRING, m_webInfos->link());
+                        .arg(m_webInfos->name(), m_webInfos->webVersion(), TARGET_VERSION_STRING, m_webInfos->link());
         QMessageBox::information(NULL, m_webInfos->name(), text);
     }
     delete m_webInfos;
@@ -617,7 +617,6 @@ void asGPSplugin::setStringField(PluginOptionList *options, QLineEdit *field, in
 
 void asGPSplugin::tag(PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, int optionID) {
     if (!m_enable->isChecked()) return;
-//    qDebug() << "asGPS: tag";
     if ((cb == NULL) || (cb->checkState() == Qt::Checked) || ((cb->checkState() == Qt::PartiallyChecked) && (lab->text() == ""))) {
         qDebug() << QString("asGPS: setting option %1 to: '" + field->text() + "'").arg(optionID).toAscii();
         options->setString(optionID, 0, field->text());
