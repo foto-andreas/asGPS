@@ -187,7 +187,7 @@ PluginDependency *asGPSplugin::createDependency(const QString &depName)
     qDebug() << "asGPS: createDependency";
 
     if (depName == "ToolData") {
-        ToolData *toolData = new ToolData(m_pHub);
+        ToolData *toolData = new ToolData();
         if (toolData) {
             toolData->owner = name();
             toolData->group = group();
