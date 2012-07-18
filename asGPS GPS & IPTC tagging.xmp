@@ -29,6 +29,7 @@
         bopt:Location=""
         bopt:GPSLatitude=""
         bopt:GPSLongitude=""
+        bopt:GPSAltitude=""
         bopt:GPSStatus="A"/>
        </rdf:Description>
       </rdf:li>
