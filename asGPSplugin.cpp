@@ -615,6 +615,16 @@ void asGPSplugin::setStringField(PluginOptionList *options, QLineEdit *field, in
     if (ok) field->setText(s);
 }
 
+void asGPSplugin::setStringField(PluginOptionList *options, QLineEdit *field, int optionID, int optionIDref) {
+    bool ok1, ok2 = true;
+    QString s;
+    if (optionIDref == ID_GPSAltitudeRef && options->getInt(optionIDref,0,ok2) == 1) {
+        s.append("-");
+    }
+    s.append(options->getString(optionID,0,ok1));
+    if (ok1 && ok2) field->setText(s);
+}
+
 void asGPSplugin::tag(PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, int optionID) {
     if (!m_enable->isChecked()) return;
     if ((cb == NULL) || (cb->checkState() == Qt::Checked) || ((cb->checkState() == Qt::PartiallyChecked) && (lab->text() == ""))) {
@@ -623,11 +633,36 @@ void asGPSplugin::tag(PluginOptionList *options, QLineEdit *field, QCheckBox *cb
     }
 }
 
+void asGPSplugin::tag(PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, int optionID, int optionIDref) {
+    if (!m_enable->isChecked()) return;
+    if ((cb == NULL) || (cb->checkState() == Qt::Checked) || ((cb->checkState() == Qt::PartiallyChecked) && (lab->text() == ""))) {
+        qDebug() << QString("asGPS: setting option %1 to: '" + field->text() + "'").arg(optionID).toAscii();
+        if (optionIDref == ID_GPSAltitudeRef) {
+            if (field->text().at(0) == QChar('-')) {
+                options->setInt(optionIDref, 0, 1);
+                options->setString(optionID, 0, field->text().mid(1));
+            } else {
+                options->setInt(optionIDref, 0, 0);
+                options->setString(optionID, 0, field->text());
+            }
+        }
+    }
+}
+
 void asGPSplugin::setStringField(PluginOptionList *options, QLabel *field, int optionID) {
     bool ok;
     QString s(options->getString(optionID,0,ok));
     if (ok)
         field->setText(s);
+}
+void asGPSplugin::setStringField(PluginOptionList *options, QLabel *field, int optionID, int optionIDref) {
+    bool ok1, ok2 = true;
+    QString s;
+    if (optionIDref == ID_GPSAltitudeRef && options->getInt(optionIDref,0,ok2) == 1) {
+        s.append("-");
+    }
+    s.append(options->getString(optionID,0,ok1));
+    if (ok1 && ok2) field->setText(s);
 }
 
 void asGPSplugin::resetIPTC() {
@@ -728,7 +763,7 @@ void asGPSplugin::updateUi(PluginOptionList *options) {
     qDebug() << "asGPS: updateUI";
     setStringField(options, m_l_lat, ID_GPSLatitude);
     setStringField(options, m_l_lng, ID_GPSLongitude);
-    setStringField(options, m_l_alt, ID_GPSAltitude);
+    setStringField(options, m_l_alt, ID_GPSAltitude, ID_GPSAltitudeRef);
     setStringField(options, m_l_date, ID_GPSDateStamp);
     setStringField(options, m_l_time, ID_GPSTimeStamp);
     setStringField(options, m_l_status, ID_GPSStatus);
@@ -742,7 +777,7 @@ void asGPSplugin::updateUi(PluginOptionList *options) {
     qDebug() << "asGPS: updateUI continued with asGPS enabled";
     setStringField(options, m_lat, ID_GPSLatitude);
     setStringField(options, m_lng, ID_GPSLongitude);
-    setStringField(options, m_alt, ID_GPSAltitude);
+    setStringField(options, m_alt, ID_GPSAltitude, ID_GPSAltitudeRef);
     setStringField(options, m_date, ID_GPSDateStamp);
     setStringField(options, m_time, ID_GPSTimeStamp);
     setStringField(options, m_status, ID_GPSStatus);
@@ -802,7 +837,7 @@ void asGPSplugin::tagImage() {
         if (options) {
             tag(options, m_lat, m_latCB, m_l_lat, ID_GPSLatitude);
             tag(options, m_lng, m_lngCB, m_l_lng, ID_GPSLongitude);
-            tag(options, m_alt, m_altCB, m_l_alt, ID_GPSAltitude);
+            tag(options, m_alt, m_altCB, m_l_alt, ID_GPSAltitude, ID_GPSAltitudeRef);
             tag(options, m_date, m_dateCB, m_l_date, ID_GPSDateStamp);
             tag(options, m_time, m_timeCB, m_l_time, ID_GPSTimeStamp);
             tag(options, m_status, m_statusCB, m_l_status, ID_GPSStatus);
@@ -916,6 +951,7 @@ void asGPSplugin::setOptionIDs() {
     ID_GPSLatitude = m_pHub->optionIdForName(ON_GPSLatitude,0);
     ID_GPSLongitude = m_pHub->optionIdForName(ON_GPSLongitude,0);
     ID_GPSAltitude = m_pHub->optionIdForName(ON_GPSAltitude,0);
+    ID_GPSAltitudeRef = m_pHub->optionIdForName(ON_GPSAltitudeRef,0);
     ID_GPSDateStamp = m_pHub->optionIdForName(ON_GPSDateStamp,0);
     ID_GPSTimeStamp = m_pHub->optionIdForName(ON_GPSTimeStamp,0);
     ID_GPSStatus = m_pHub->optionIdForName(ON_GPSStatus,0);
