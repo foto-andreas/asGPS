@@ -3,7 +3,7 @@
 /** \mainpage asGPS - A geotagging plugin for AfterShot Pro
  *
  * @author    Andeas Schrell
- * @version   1.3.3
+ * @version   1.3.4
  * @date      2012-10-04
  * @warning   Works only when QtWebKit-Libs are delivered with ASP (since v1.0.1 of ASP)
  *
@@ -473,16 +473,6 @@ class asGPSplugin : public QObject, public B5Plugin {
          */
         void setStringField(PluginOptionList *options, QLabel *field, int optionID);
 
-        /** Sets the field value with the correct values.
-         * We set the infos in the user interface. This variant is used to set the label fields,
-         * which display the current GPS/IPTC tags of the image.
-         * @param options the plugin option values.
-         * @param field the label to set.
-         * @param optionID the optionID of the option that should be used.
-         * @param optionIDref the optionID of the corresponding reference option
-         */
-        void setStringField(PluginOptionList *options, QLabel *field, int optionID, int optionIDref);
-
         /** Tags the image with one settings value.
          * According to the corresponding tristate box of the edit field the value in the edit field is read and
          * used to set the IPTC/GPS option of the hotness image.
@@ -493,18 +483,6 @@ class asGPSplugin : public QObject, public B5Plugin {
          * @param optionID the optionID of the option that should be used.
          */
         void tag(PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, int optionID);
-
-        /** Tags the image with one settings value.
-         * According to the corresponding tristate box of the edit field the value in the edit field is read and
-         * used to set the IPTC/GPS option of the hotness image.
-         * @param options the current option list.
-         * @param field the field in the user interface which holds the value.
-         * @param cb the checkbox in the user interface which gives infos whether the option should be set.
-         * @param lab the corresponding label with the IPTC/GPS setting of the image.
-         * @param optionID the optionID of the option that should be used.
-         * @param optionIDref the optionID of the corresponding reference option.
-         */
-        void tag(PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, int optionID, int optionIDref);
 
         /** Reset the GPS tab to default (empty) values.
          * This method resets the edit fields in the GPS tab of the plugin.
