@@ -74,6 +74,8 @@ git clone http://schrell.de/PluginDefaults.git
 #include <QSpinBox>
 #include <QDateTime>
 
+#include "MyWebPage.h"
+
 #include "B5Plugin.h"
 #include "PluginRevisions.h"
 #include "PluginData.h"
@@ -506,10 +508,10 @@ class asGPSplugin : public QObject, public B5Plugin {
 
         /** Map initializer.
          * @param view the QWebVie to initialize
-         * @param page the QWebPage to use
+         * @param page the MyWebPage to use
          * @param toolsMap the info which map is used
          */
-        void initMap(QWebView *view, QWebPage *page, bool toolsMap);
+        void initMap(QWebView *view, MyWebPage *page, bool toolsMap);
 
         /** IPTC-Daten zusammenstellen.
          */
@@ -656,8 +658,8 @@ class asGPSplugin : public QObject, public B5Plugin {
         QWebView *m_internalView; /**< map in the toolbar - used to dock */
         QWebView *m_externalView; /**< map in the extra window - used to dock */
 
-        QWebPage *m_internalMapPage; /**< the qweb page with rthe map */
-        QWebPage *m_externalMapPage; /**< the qweb page with rthe map */
+        MyWebPage *m_internalMapPage; /**< the qweb page with rthe map */
+        MyWebPage *m_externalMapPage; /**< the qweb page with rthe map */
 
         QCheckBox *m_xmap; /**< checkbox for external map */
 

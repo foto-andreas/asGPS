@@ -12,17 +12,17 @@
     <message>
         <location filename="../asGPS.ui" line="41"/>
         <source>asGPSplug</source>
-        <translation></translation>
+        <translation>asGPSplug</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="67"/>
         <source>&lt;html&gt;Check here to enable the Google Map view.&lt;/html&gt;</source>
-        <translation>&lt;html&gt;Cliquez ici pour activer la vue Google Map.&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;Cliquez ici pour activer la vue Google Maps.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="124"/>
         <source>&lt;html&gt;Tag the image according the values in the edit fields of the GPS and IPTC tab. Red checked fields are never written. Yellow fields are written if the original value is empty. Green checked fields are written always.&lt;/html&gt;</source>
-        <translation>&lt;html&gt;Enregistre les valeurs des onglets Coordonnées et IPTC. Les champs cochés en rouge sont en lecture seule. Les champs cochés en jaune sont accessibles en écriture si vides.Les champs cochés en vert sont toujours accessible en écriture.&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;Enregistre les valeurs des onglets Coordonnées et IPTC. Les champs cochés en rouge sont en lecture seule. Les champs cochés en jaune sont accessibles en écriture si vides. Les champs cochés en vert sont toujours accessibles en écriture.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="70"/>
@@ -94,7 +94,7 @@
     <message>
         <location filename="../asGPS.ui" line="326"/>
         <source>&lt;html&gt;Enter a latitude value in the form ddd,mm.mmmmmX. With d for degrees mm.mmmmm as minutes in decimal and X standing for N or S.&lt;/html&gt;</source>
-        <translation>&lt;html&gt;Saisissez la valeur de la latitude au format ddd,mm.mmmmmX. Avec : d pour degrés, mm.mmmmm pour les minutes d&apos;angle au format décimal et X pour N ou S.&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;Saisissez la valeur de la latitude au format ddd,mm.mmmmmX. Avec : &lt;br&gt;d pour degrés,&lt;br&gt; mm.mmmmm pour les minutes d&apos;angle au format décimal &lt;br&gt;et X pour N ou S.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="333"/>
@@ -131,7 +131,7 @@
     <message>
         <location filename="../asGPS.ui" line="375"/>
         <source>&lt;html&gt;GPS time stamp field.&lt;/html&gt;</source>
-        <translation>&lt;html&gt;Champ heure du GPS&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;Champ heure du GPS.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="382"/>
@@ -141,7 +141,7 @@
     <message>
         <location filename="../asGPS.ui" line="389"/>
         <source>&lt;html&gt;GPS status of the tool. Normal value is &apos;A&apos; for valid GPS data.&lt;/html&gt;</source>
-        <translation>&lt;html&gt;Etat du récepteur GPS. La valeur normale pour des données GPS valides est &apos;A&apos;.&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;Etat du récepteur GPS. La valeur normale pour des données GPS valides est « A ».&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="396"/>
@@ -167,12 +167,12 @@
         <location filename="../asGPS.ui" line="1136"/>
         <location filename="../asGPS.ui" line="1166"/>
         <source>&lt;html&gt;green: overwrite&lt;br/&gt;yellow: overwrite if empty&lt;br/&gt;red: do not write&lt;/html&gt;</source>
-        <translation>&lt;html&gt;vert : toujours accessible en écriture (écrasement)&lt;br/&gt;jaune : accessible en écriture si vide (pas d&apos;écrasement)&lt;br/&gt;rouge : accessible en lecture seule.&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;vert : toujours accessible en écriture (écrasement).&lt;br/&gt;jaune : accessible en écriture si vide (pas d&apos;écrasement).&lt;br/&gt;rouge : accessible en lecture seule.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="538"/>
         <source>&lt;html&gt;Enter a longitude value in the form ddd,mm.mmmmmX. With d for degrees mm.mmmmm as minutes in decimal and X standing for E or W.&lt;/html&gt;</source>
-        <translation>&lt;html&gt;Saisissez la valeur de la longitude au format ddd,mm.mmmmmX. Avec : d pour degrés, mm.mmmmm pour les minutes d&apos;angle au format décimal et X pour E ou W.&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;Saisissez la valeur de la longitude au format ddd,mm.mmmmmX. Avec : &lt;br&gt;d pour degrés, &lt;br&gt;mm.mmmmm pour les minutes d&apos;angle au format décimal &lt;br&gt;et X pour E ou W.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="548"/>
@@ -285,7 +285,7 @@
     <message>
         <location filename="../asGPS.ui" line="1023"/>
         <source>&lt;html&gt;The IPTC country code. It can be a 2- or 3-letter-code. See the settings tab.&lt;/html&gt;</source>
-        <translation>&lt;html&gt;Le code IPTC du pays. Ce code peut être sur 2 ou 3 lettres. Cf l&apos;onglet réglages.&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;Le code IPTC du pays. Ce code peut être sur 2 ou 3 lettres. Cf. l&apos;onglet Réglages.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1030"/>
@@ -369,22 +369,22 @@
     <message>
         <location filename="../asGPS.ui" line="1402"/>
         <source>&lt;html&gt;Enables the external map on AfterShot Pro startup.&lt;/html&gt;</source>
-        <translation>&lt;html&gt;Active la grande carte au démarrage d&apos;AfterShot Pro.&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;Active la grande carte au démarrage d&apos;asGPS.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1405"/>
         <source>open with map undocked</source>
-        <translation>Activer la grande carte au démarrage d&apos;ASP</translation>
+        <translation>Activer la grande carte au démarrage</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1434"/>
         <source>&lt;html&gt;Convert the Google/ISO two letter codes to ISO three letter codes for use in IPTC country code tag.&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;Converti le champ Code du pays dans l&apos;onglet IPTC, entre les codes Google/ISO à deux lettres et le code ISO à trois lettres.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1437"/>
         <source>use 3 letter country codes</source>
-        <translation type="unfinished">Utiliser des codes de pays à 3 lettres</translation>
+        <translation>Utiliser des codes de pays à 3 lettres</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1449"/>
@@ -394,63 +394,64 @@
     <message>
         <location filename="../asGPS.ui" line="1456"/>
         <source>&lt;html&gt;Filename for a user defined country table. Each line is &quot;XX YYY NNN Name...&quot;. With XX the two letter Google code, YYY the wanted 3-letter-code, NNN iso country number (not used). The implemented defaults are ISO3166 codes.&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;Chemin vers une table de codes du pays personnalisés. Chaque ligne doit contenir «XX YYY NNN Nom». Avec &lt;br&gt;XX les deux lettres du code google,&lt;br&gt;YYY le code à trois lettres personnalisé, &lt;br&gt; NNN le nombre code ISO du pays (inusité).&lt;br&gt;Par défaut les codes utilisés se réfèrent à la norme ISO3166.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1484"/>
         <source>&lt;html&gt;Open a file selector for the country map.&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;Sélectionner une table de Codes du pays personnalisés.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="790"/>
         <location filename="../asGPS.ui" line="1487"/>
         <source>...</source>
-        <translation></translation>
+        <translation>…</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1505"/>
         <source>&lt;html&gt;Imports all IPTC tags into the search field, not only the location tag.&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;Importe toutes les informations IPTC, et pas seulement l&apos;emplacement, dans le champ de recherche.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1508"/>
         <source>import all IPTC fields into search field</source>
-        <translation type="unfinished">Importe tous les champs ITPC dans le champ de recherche</translation>
+        <translation>Importer tous les champs ITPC dans le champ de recherche</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1524"/>
         <source>&lt;html&gt;Center the map on each mouse click.&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;Centre automatiquement la carte à chaque click de souris.&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;Centre automatiquement la carte à chaque clic de souris.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1527"/>
         <source>automatic centering on click in map</source>
-        <translation type="unfinished">Centre automatiquement la carte à chaque clic</translation>
+        <translation>Centrer automatiquement la carte à chaque clic</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1543"/>
         <source>&lt;html&gt;Check for asGPS updates on AfterShot Pro startup.&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>&lt;html&gt;Vérifie les mises à jour pour asGPS au démarrage d&apos;ASP.&lt;/html&gt;</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1546"/>
         <source>check for updates on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Vérifier les mises à jour au démarrage</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1558"/>
         <source>map language*:</source>
-        <translation type="unfinished">langue de la carte* :</translation>
+        <translation>langue de la carte* :</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1577"/>
         <source>&lt;html&gt;The language used for the map. This results in different language specific replys from google. Leave unset to use the default ASP language. May be used to select your language if this does not match your ASP language setting.&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;La langue à utiliser pour la carte. Laisser vide pour utiliser la langue par défaut d&apos;ASP. A utiliser si votre langue ne correpond pas au réglage d&apos;ASP.&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;La langue à utiliser pour la carte. Laisser vide pour utiliser la langue par défaut d&apos;ASP. A utiliser si votre langue ne correpond pas au réglage d&apos;ASP.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1597"/>
         <source>map region**:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pays par défaut** :</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1616"/>
@@ -460,7 +461,7 @@
     <message>
         <location filename="../asGPS.ui" line="1630"/>
         <source>Config path:</source>
-        <translation>Emplacement du fichier config :</translation>
+        <translation>Emplacement du fichier configuration :</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1642"/>
@@ -480,7 +481,7 @@
     <message>
         <location filename="../asGPS.ui" line="1679"/>
         <source>* active after reboot, ** active for following FNLs</source>
-        <translation type="unfinished">* Nécessite un redémarrage de l&apos;application, ** active for following FNLs</translation>
+        <translation>* Nécessite un redémarrage de l&apos;application, ** active for following FNLs</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1697"/>
@@ -510,7 +511,7 @@
     <message>
         <location filename="../asGPS.ui" line="1785"/>
         <source>&lt;html&gt;Locate in Map from this edit field or if it is empty from&lt;br&gt;the values in the IPTC tab. Updates the GPS tab and map.&lt;/html&gt;</source>
-        <translation>&lt;html&gt;Localise sur la carte, soit depuis les informations contenu dans ce champ, soit depuis les valeurs de l&apos;onglet IPTC si ce champ est vide. Met à jour la carte et l&apos;onglet GPS. &lt;/html&gt;</translation>
+        <translation>&lt;html&gt;Localise sur la carte, soit depuis les informations contenu dans ce champ, soit depuis les valeurs de l&apos;onglet IPTC si ce champ est vide. Met à jour la carte et l&apos;onglet Coordonnées. &lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1795"/>
@@ -525,7 +526,7 @@
     <message>
         <location filename="../asGPS.ui" line="1818"/>
         <source>&lt;html&gt;Find nearest Location from the position values in the GPS tab. This updates the IPTC tab.&lt;/html&gt;</source>
-        <translation>&lt;html&gt;Trouve la localité la plus proche de la position définie dans l&apos;onglet Coorodoonées. Ceci met à jour les champs de l&apos;onglet IPTC.&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;Trouve la localité la plus proche de la position définie dans l&apos;onglet Coordoonées. Ceci met à jour les champs de l&apos;onglet IPTC.&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../asGPS.ui" line="1828"/>
@@ -538,7 +539,7 @@
     <message>
         <location filename="../asGPSplugin.cpp" line="154"/>
         <source>asGPS: configuration file problem with file:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../asGPSplugin.cpp" line="175"/>
@@ -548,22 +549,22 @@
     <message>
         <location filename="../asGPSplugin.cpp" line="245"/>
         <source>AfterShot Pro - asGPS map window</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../asGPSplugin.cpp" line="390"/>
         <source>Select your country table</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../asGPSplugin.cpp" line="497"/>
         <source>Error creating QWebView</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../asGPSplugin.cpp" line="497"/>
         <source>It was not possible to create a QWebView widget.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../asGPSplugin.cpp" line="1024"/>
@@ -573,22 +574,22 @@
     <message>
         <location filename="../asGPSplugin.cpp" line="1033"/>
         <source>AfterShot Pro - asGPS browser window</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../asGPSplugin.cpp" line="1048"/>
         <source>qrc:///html/asGPSinfo_EN.html</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../asGPSplugin.cpp" line="1061"/>
         <source>Open GPS track</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../asGPSplugin.cpp" line="1062"/>
         <source>Track files (*.gpx *.csv);;All files(*.*)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 </TS>

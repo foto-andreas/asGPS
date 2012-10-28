@@ -2,8 +2,9 @@
 <html>
 <head>
 <title>asGPS - AfterShot Pro: map window</title>
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
 
 <style type="text/css">
 html { height: 100% }
@@ -16,22 +17,23 @@ body { height: 100%; margin: 0; padding: 0 }
 <script type="text/javascript">
   var lang = gup ("language");
   var region = gup ("region");
-  var js = "http://maps.google.com/maps/api/js?v=3.8&libraries=geometry,places,weather,panoramio&sensor=false";
+  var toolsMap = (gup('toolsMap') == "true") ? true : false;
+  var js = "http://maps.googleapis.com/maps/api/js?v=3&libraries=geometry,places,weather,panoramio&sensor=false";
   if (lang !== "")   js += "\&language=" + lang;
   if (region !== "") js += "\&region="   + region;
   document.write('<script txpe="text/javascript" src="' + js + '"><\/script>');
 </script>
 
-<script type="text/javascript" src="qrc:///html/jquery-1.7.2.min.js" />
+<script type="text/javascript" src="qrc:///OpenLayers/OpenLayers/OpenLayers.js" />
 
-<script type="text/javascript" src="qrc:///html/asGPS.js" />
+<script type="text/javascript" src="qrc:///html/asGPSol.js" />
 
-<script type="text/javascript" src="qrc:///html/trackView.js"/>
+<script type="text/javascript" src="qrc:///html/trackViewOl.js"/>
 
 </head>
 
-<body>
-<div id="map_canvas" style="width:100%; height:100%" />
+<body onload="initialize()">
+<div id="map_canvas" style="width:100%; height:100%;" />
 </body>
 
 </html>

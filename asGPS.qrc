@@ -2,10 +2,11 @@
     <qresource prefix="/html">
         <file>asGPSinfo_DE.html</file>
         <file>asGPSinfo_EN.html</file>
-        <file>asGPS.js</file>
         <file>gup.js</file>
         <file>asGPSmap.html</file>
         <file>trackView.js</file>
+        <file>asGPSol.js</file>
+        <file>trackViewOl.js</file>
     </qresource>
     <qresource prefix="/img">
         <file>DE_btn_donateCC_LG.gif</file>
@@ -21,5 +22,73 @@
     </qresource>
     <qresource prefix="/css">
         <file>style.css</file>
+    </qresource>
+    <qresource prefix="/OpenLayers">
+        <file>OpenLayers/OpenLayers.js</file>
+        <file>OpenLayers/img/blank.gif</file>
+        <file>OpenLayers/img/cloud-popup-relative.png</file>
+        <file>OpenLayers/img/drag-rectangle-off.png</file>
+        <file>OpenLayers/img/drag-rectangle-on.png</file>
+        <file>OpenLayers/img/east-mini.png</file>
+        <file>OpenLayers/img/layer-switcher-maximize.png</file>
+        <file>OpenLayers/img/layer-switcher-minimize.png</file>
+        <file>OpenLayers/img/marker-blue.png</file>
+        <file>OpenLayers/img/marker-gold.png</file>
+        <file>OpenLayers/img/marker-green.png</file>
+        <file>OpenLayers/img/marker.png</file>
+        <file>OpenLayers/img/measuring-stick-off.png</file>
+        <file>OpenLayers/img/measuring-stick-on.png</file>
+        <file>OpenLayers/img/north-mini.png</file>
+        <file>OpenLayers/img/panning-hand-off.png</file>
+        <file>OpenLayers/img/panning-hand-on.png</file>
+        <file>OpenLayers/img/slider.png</file>
+        <file>OpenLayers/img/south-mini.png</file>
+        <file>OpenLayers/img/west-mini.png</file>
+        <file>OpenLayers/img/zoom-minus-mini.png</file>
+        <file>OpenLayers/img/zoom-plus-mini.png</file>
+        <file>OpenLayers/img/zoom-world-mini.png</file>
+        <file>OpenLayers/img/zoombar.png</file>
+        <file>OpenLayers/theme/default/style.tidy.css</file>
+        <file>OpenLayers/theme/default/style.mobile.tidy.css</file>
+        <file>OpenLayers/theme/default/style.mobile.css</file>
+        <file>OpenLayers/theme/default/style.css</file>
+        <file>OpenLayers/theme/default/ie6-style.tidy.css</file>
+        <file>OpenLayers/theme/default/ie6-style.css</file>
+        <file>OpenLayers/theme/default/google.tidy.css</file>
+        <file>OpenLayers/theme/default/google.css</file>
+        <file>OpenLayers/theme/default/img/add_point_off.png</file>
+        <file>OpenLayers/theme/default/img/add_point_on.png</file>
+        <file>OpenLayers/theme/default/img/blank.gif</file>
+        <file>OpenLayers/theme/default/img/close.gif</file>
+        <file>OpenLayers/theme/default/img/drag-rectangle-off.png</file>
+        <file>OpenLayers/theme/default/img/drag-rectangle-on.png</file>
+        <file>OpenLayers/theme/default/img/draw_line_off.png</file>
+        <file>OpenLayers/theme/default/img/draw_line_on.png</file>
+        <file>OpenLayers/theme/default/img/draw_point_off.png</file>
+        <file>OpenLayers/theme/default/img/draw_point_on.png</file>
+        <file>OpenLayers/theme/default/img/draw_polygon_off.png</file>
+        <file>OpenLayers/theme/default/img/draw_polygon_on.png</file>
+        <file>OpenLayers/theme/default/img/editing_tool_bar.png</file>
+        <file>OpenLayers/theme/default/img/move_feature_off.png</file>
+        <file>OpenLayers/theme/default/img/move_feature_on.png</file>
+        <file>OpenLayers/theme/default/img/navigation_history.png</file>
+        <file>OpenLayers/theme/default/img/overview_replacement.gif</file>
+        <file>OpenLayers/theme/default/img/pan_off.png</file>
+        <file>OpenLayers/theme/default/img/pan_on.png</file>
+        <file>OpenLayers/theme/default/img/pan-panel-NOALPHA.png</file>
+        <file>OpenLayers/theme/default/img/pan-panel.png</file>
+        <file>OpenLayers/theme/default/img/panning-hand-off.png</file>
+        <file>OpenLayers/theme/default/img/panning-hand-on.png</file>
+        <file>OpenLayers/theme/default/img/remove_point_off.png</file>
+        <file>OpenLayers/theme/default/img/remove_point_on.png</file>
+        <file>OpenLayers/theme/default/img/ruler.png</file>
+        <file>OpenLayers/theme/default/img/save_features_off.png</file>
+        <file>OpenLayers/theme/default/img/save_features_on.png</file>
+        <file>OpenLayers/theme/default/img/view_next_off.png</file>
+        <file>OpenLayers/theme/default/img/view_next_on.png</file>
+        <file>OpenLayers/theme/default/img/view_previous_off.png</file>
+        <file>OpenLayers/theme/default/img/view_previous_on.png</file>
+        <file>OpenLayers/theme/default/img/zoom-panel-NOALPHA.png</file>
+        <file>OpenLayers/theme/default/img/zoom-panel.png</file>
     </qresource>
 </RCC>

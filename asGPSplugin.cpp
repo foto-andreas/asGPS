@@ -29,6 +29,8 @@
 #include <QShowEvent>
 #include <QGridLayout>
 
+#include "MyWebPage.h"
+
 #include "TargetVersion.h"
 #include "trackpoint.h"
 #include "tracklist.h"
@@ -39,20 +41,6 @@
 
 extern "C" BIBBLE_API BaseB5Plugin *b5plugin() { return new asGPSplugin; }
 
-/**
-  * @brief     Patched WebPage class
-  * @details   This class provides a patched version of QWebPage.
-  * @author    Andeas Schrell
-  */
-class MyWebPage : public QWebPage
-{
-    /** We are a Chrome. So we can do moves and clicks of markers. */
-    virtual QString userAgentForUrl(const QUrl& url) const {
-        Q_UNUSED(url);
-        return "Chrome/1.0";
-    }
-
-};
 
 class MyWebView : public QWebView
 {
@@ -463,7 +451,7 @@ void asGPSplugin::readAndCreateConfigFile() {
     m_satsCB->setCheckState((Qt::CheckState)m_config->cbSettingsSats());
 }
 
-void asGPSplugin::initMap(QWebView *view, QWebPage *page, bool toolsMap) {
+void asGPSplugin::initMap(QWebView *view, MyWebPage *page, bool toolsMap) {
     m_loaded--;
     view->hide();
     connect(view,
@@ -471,7 +459,7 @@ void asGPSplugin::initMap(QWebView *view, QWebPage *page, bool toolsMap) {
             this,
                 SLOT( handleLoadFinished ( bool ) ));
     view->setPage(page);
-    page->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
+    page->setLinkDelegationPolicy(MyWebPage::DelegateExternalLinks);
     updateMapUrl(view, toolsMap);
     connect(page,
             SIGNAL( linkClicked(QUrl) ),
@@ -481,6 +469,7 @@ void asGPSplugin::initMap(QWebView *view, QWebPage *page, bool toolsMap) {
             SIGNAL(javaScriptWindowObjectCleared()),
                this,
             SLOT(populateJavaScriptWindowObject()));
+
 }
 
 void asGPSplugin::updateMapUrl(QWebView *view, bool toolsMap) {
@@ -602,9 +591,9 @@ void asGPSplugin::hideUnhideMarker(QString merk_lat, QString merk_lng, QString m
     // if image is tagged with lat/lng
     if (m_config->keepMapOnHotnessChange() && !m_l_lat->text().isEmpty() && !m_l_lng->text().isEmpty()) {
         qDebug() << "asGPS: unhideMarker";
-        m_internalMapPage->mainFrame()->evaluateJavaScript("unhideMarker()");
+         m_internalMapPage->mainFrame()->evaluateJavaScript("unhideMarker()");
         if (m_xmap->isChecked()) {
-            m_externalMapPage->mainFrame()->evaluateJavaScript("unhideMarker()");
+             m_externalMapPage->mainFrame()->evaluateJavaScript("unhideMarker()");
         }
     }
 }
@@ -1067,7 +1056,7 @@ void asGPSplugin::displayHelp() {
     if (!view) return;
     view->setPage(new MyWebPage());
     view->setUrl(QUrl(tr("qrc:///html/asGPSinfo_EN.html")));
-    view->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
+    view->page()->setLinkDelegationPolicy(MyWebPage::DelegateAllLinks);
     connect( view->page(),
              SIGNAL( linkClicked(QUrl) ),
                 this,

@@ -37,7 +37,8 @@ HEADERS += \
     ../PluginTools/WebContents.h \
     ../PluginTools/ToolData.h \
     ../PluginTools/ConfigFile.h \
-    ../PluginTools/TargetVersion.h
+    ../PluginTools/TargetVersion.h \
+    MyWebPage.h
 
 # our source files
 SOURCES += \
@@ -69,7 +70,9 @@ OTHER_FILES += asGPS.pro \
     PluginDefaults.pri \
     trackView.js \
     locale/*.ts \
-    asGPS.afpxml
+    asGPS.afpxml \
+    asGPSol.js \
+    trackViewOl.js
 
 # the user interface file
 FORMS += asGPS.ui
@@ -101,6 +104,11 @@ QMAKE_POST_LINK += "; ../PluginDefaults/afz '$$TARGET' '$$VERSION' '$$IDENTIFIER
 QMAKE_POST_LINK += " 'asGPS GPS & IPTC tagging.xmp' 'asGPS IPTC tagging.xmp'"
 }
 }
+
+
+
+
+
 
 
 

@@ -37,6 +37,8 @@
       streetViewControl: false,
       navigationControl: true,
       scaleControl: true,
+      scrollwheel: true
+
     };
 
     map = new google.maps.Map(document.getElementById('map_canvas'),
