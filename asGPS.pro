@@ -5,7 +5,7 @@
 
 # what we build here (plugin name and version)
 TARGET = asGPS
-VERSION = 1.4.0
+VERSION = 1.4.1
 IDENTIFIER = de.schrell.asGPS
 AUTHOR = Andreas Schrell
 SITE = http://fotos.schrell.de
