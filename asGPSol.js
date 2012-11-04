@@ -22,24 +22,29 @@ var layer_style = OpenLayers.Util.extend({}, OpenLayers.Feature.Vector.style['de
 layer_style.fillOpacity = 0.2;
 layer_style.graphicOpacity = 1;
 
-/*
-  * Blue style
-  */
-var style_blue = OpenLayers.Util.extend({}, layer_style);
-style_blue.strokeColor = "#000090";
-style_blue.pointRadius = 7
-style_blue.strokeWidth = 1;
-style_blue.rotation = 45;
-style_blue.strokeLinecap = "butt";
-style_blue.graphicName = "cross";
+var style_orange = OpenLayers.Util.extend({}, layer_style);
+style_orange.strokeColor = "#FF4F28";
+style_orange.pointRadius = 10
+style_orange.strokeWidth = 4;
+style_orange.rotation = 45;
+style_orange.strokeLinecap = "butt";
+style_orange.graphicName = "cross";
 
-var style_red = style_blue.clone();
+var style_dark = OpenLayers.Util.extend({}, layer_style);
+style_dark.strokeColor = "#D36F59";
+style_dark.pointRadius = 10
+style_dark.strokeWidth = 4;
+style_dark.rotation = 45;
+style_dark.strokeLinecap = "butt";
+style_dark.graphicName = "cross";
+
+var style_red = style_orange.clone();
 style_red.strokeColor = "#900000";
 
 function setMarker(lonlat) {
     camPos.removeAllFeatures();
     point = new OpenLayers.Geometry.Point(lonlat.lon,lonlat.lat);
-    pointFeature = new OpenLayers.Feature.Vector(point, null, style_blue);
+    pointFeature = new OpenLayers.Feature.Vector(point, null, style_orange);
     camPos.addFeatures([pointFeature]);
 }
 
@@ -172,18 +177,6 @@ function initialize() {
 
     trackViewInit();
 
-    /*
-  OpenLayers.Handler.Click(marker, function() {
-    map.setCenter(marker.getPosition());
-    api.marker_click(toolsMap);
-  });
-
-  OpenLayers.Handler.Click(markerGray, function() {
-    map.setCenter(marker.getPosition());
-    api.marker_click(toolsMap);
-  });
-
-  */
 }
 
 function startElevator(loc) {
@@ -263,15 +256,13 @@ function moveMarker(lat, lng) {
 }
 
 function hideMarker() {
-    debug("hideMarker");
-    //  marker.setMap(null);
-    //  markerGray.setMap(map);
+    pointFeature.style = style_dark;
+    camPos.redraw();
 }
 
 function unhideMarker() {
-    debug("unhideMarker");
-    //  marker.setMap(map);
-    //  markerGray.setMap(null);
+    pointFeature.style = style_orange;
+    camPos.redraw();
 }
 
 

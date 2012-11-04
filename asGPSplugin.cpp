@@ -573,7 +573,9 @@ void asGPSplugin::handleSettingsChanged( const PluginImageSettings &options,  co
         hideUnhideMarker(merk_lat, merk_lng, merk_alt);
 
     } else {
-        if (m_enable->isChecked()) updateMap();
+        if (m_enable->isChecked()) {
+            updateMap();
+        }
     }
 
 }
@@ -823,6 +825,8 @@ void asGPSplugin::updateMap() {
         qDebug() << "asGPS: updateMap with map checked";
         TrackPoint gpsl("", m_lat->text(), m_lng->text(), m_alt->text());
         if (gpsl.lat == 0 && gpsl.lng == 0) {
+            m_internalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
+            m_externalMapPage->mainFrame()->evaluateJavaScript("hideMarker()");
             if (m_config->keepMapOnHotnessChange()) {
                 qDebug() << "asGPS: keeping Map on last Position";
                 return;
