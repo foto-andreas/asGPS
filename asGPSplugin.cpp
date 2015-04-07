@@ -102,6 +102,8 @@ bool asGPSplugin::init(PluginHub *hub, int id, int groupId, const QString &)
     track = NULL;
     inSettingsChange = false;
 
+    QWebSettings::globalSettings()->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
+
     return true;
 }
 
@@ -126,7 +128,7 @@ bool asGPSplugin::finish()
                   SIGNAL( hotnessChanged( const PluginImageSettings & ) ),
                   SLOT( handleHotnessChanged( const PluginImageSettings & ) ) );
 
-    b &= connect( m_pHub,
+    b = b && connect( m_pHub,
                   SIGNAL( settingsChanged( const PluginImageSettings &, const PluginImageSettings &, int ) ),
                   SLOT( handleSettingsChanged( const PluginImageSettings &, const PluginImageSettings &, int ) ) );
 
@@ -609,7 +611,7 @@ void asGPSplugin::setStringField(PluginOptionList *options, QLineEdit *field, in
 void asGPSplugin::tag(PluginOptionList *options, QLineEdit *field, QCheckBox *cb, QLabel *lab, int optionID) {
     if (!m_enable->isChecked()) return;
     if ((cb == NULL) || (cb->checkState() == Qt::Checked) || ((cb->checkState() == Qt::PartiallyChecked) && (lab->text() == ""))) {
-        qDebug() << QString("asGPS: setting option %1 to: '" + field->text() + "'").arg(optionID).toAscii();
+        qDebug() << QString("asGPS: setting option %1 to: '" + field->text() + "'").arg(optionID).toUtf8();
         options->setString(optionID, 0, field->text());
         // negative altitudes must be set as negative values, but also the ref has to be set.
         if (optionID == ID_GPSAltitude) {

@@ -50,6 +50,7 @@ function setMarker(lonlat) {
 
 function initialize() {
 
+
     map = new OpenLayers.Map('map_canvas',
                              {
                                  allOverlays: false,

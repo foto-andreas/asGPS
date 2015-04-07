@@ -19,7 +19,7 @@ include ( ../PluginDefaults/PluginDefaults.pri )
 #SOURCES += Tests.cpp
 
 # Include extra Qt libraries for the web views resp. map
-QT += webkit
+QT += webkitwidgets
 QT += network
 QT += xml
 
@@ -67,7 +67,7 @@ OTHER_FILES += asGPS.pro \
     iso3166.txt \
     gup.js \
     asGPSmap.html \
-    PluginDefaults.pri \
+    ../PluginDefaults/PluginDefaults.pri \
     trackView.js \
     locale/*.ts \
     asGPS.afpxml \
@@ -100,7 +100,7 @@ QMAKE_POST_LINK += "; lrelease $${TARGET}.pro"
 QMAKE_POST_LINK += "; strip 'lib$${TARGET}.so.$${VERSION}'"
 
 # we pack our plugin - I hate PZ
-QMAKE_POST_LINK += "; ../PluginDefaults/afz '$$TARGET' '$$VERSION' '$$IDENTIFIER' '$$AUTHOR' '$$SITE' "
+QMAKE_POST_LINK += "; ../PluginDefaults/afz '$$TARGET' '$$VERSION' '$$IDENTIFIER' '$$AUTHOR' '$$SITE' $$EX "
 QMAKE_POST_LINK += " 'asGPS GPS & IPTC tagging.xmp' 'asGPS IPTC tagging.xmp'"
 }
 }

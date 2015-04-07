@@ -7,6 +7,7 @@
         <file>trackView.js</file>
         <file>asGPSol.js</file>
         <file>trackViewOl.js</file>
+        <file>asGPS.js</file>
     </qresource>
     <qresource prefix="/img">
         <file>DE_btn_donateCC_LG.gif</file>
